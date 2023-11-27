@@ -1,12 +1,16 @@
 package com.ensak.connect;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
+import android.widget.Toast;
 
+import com.ensak.connect.view_model.NameViewModel;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -20,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
+
+    NameViewModel testViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +53,23 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        getTestData();
+    }
+
+    private void getTestData() {
+        testViewModel = ViewModelProviders.of(this).get(NameViewModel.class);
+
+        testViewModel.getTestResponseLiveData().observe(this, testResponse -> {
+            if (testResponse != null) {
+
+                String message = testResponse.getMessage();
+                Log.d("Main Log", message);
+
+                Toast.makeText(this, "API Response: " + message, Toast.LENGTH_SHORT).show();
+
+            }
+        });
     }
 
     @Override
