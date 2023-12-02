@@ -1,11 +1,11 @@
-package com.ensak.connect.reponse;
+package com.ensak.connect.repositories;
 
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.ensak.connect.repositories.NameResponse;
+import com.ensak.connect.reponse.NameResponse;
 import com.ensak.connect.retrofit.ApiRequest;
 import com.ensak.connect.retrofit.RetrofitRequest;
 
