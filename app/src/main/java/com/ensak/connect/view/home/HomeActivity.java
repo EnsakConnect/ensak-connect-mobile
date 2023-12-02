@@ -1,4 +1,4 @@
-package com.ensak.connect;
+package com.ensak.connect.view.home;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.Menu;
 import android.widget.Toast;
 
+import com.ensak.connect.R;
 import com.ensak.connect.view_model.NameViewModel;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
@@ -20,7 +21,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.ensak.connect.databinding.ActivityMainBinding;
 
-public class MainActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
