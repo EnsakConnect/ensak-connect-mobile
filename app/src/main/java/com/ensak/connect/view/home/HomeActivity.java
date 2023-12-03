@@ -1,13 +1,16 @@
-package com.ensak.connect;
+package com.ensak.connect.view.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.widget.Toast;
 
+import com.ensak.connect.R;
+import com.ensak.connect.core.SessionManager;
+import com.ensak.connect.view.login.LoginActivity;
 import com.ensak.connect.view_model.NameViewModel;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.lifecycle.ViewModelProviders;
@@ -20,10 +23,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.ensak.connect.databinding.ActivityMainBinding;
 
-public class MainActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
+    SessionManager sessionManager;
 
     NameViewModel testViewModel;
 
@@ -34,12 +38,19 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        sessionManager = new SessionManager(this);
+        if (!sessionManager.isLoggedIn()) {
+            Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
         setSupportActionBar(binding.appBarMain.toolbar);
         binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent intent = new Intent(view.getContext(), LoginActivity.class);
+                view.getContext().startActivity(intent);
             }
         });
         DrawerLayout drawer = binding.drawerLayout;
