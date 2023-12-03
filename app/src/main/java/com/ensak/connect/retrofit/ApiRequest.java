@@ -13,6 +13,6 @@ public interface ApiRequest {
     @GET("v1/ensak-connect")
     Call<NameResponse> getTestMessage();
 
-    @POST("v1/auth/register")
+    @POST("v1/auth/login")
     Call<LoginResponse> loginUser(@Body LoginRequest loginRequest);
 }
