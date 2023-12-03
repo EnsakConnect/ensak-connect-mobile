@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.widget.Toast;
 
 import com.ensak.connect.R;
+import com.ensak.connect.core.SessionManager;
 import com.ensak.connect.view.login.LoginActivity;
 import com.ensak.connect.view_model.NameViewModel;
 import com.google.android.material.navigation.NavigationView;
@@ -26,6 +27,7 @@ public class HomeActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
+    SessionManager sessionManager;
 
     NameViewModel testViewModel;
 
@@ -35,6 +37,13 @@ public class HomeActivity extends AppCompatActivity {
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        sessionManager = new SessionManager(this);
+        if (!sessionManager.isLoggedIn()) {
+            Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+        }
 
         setSupportActionBar(binding.appBarMain.toolbar);
         binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
