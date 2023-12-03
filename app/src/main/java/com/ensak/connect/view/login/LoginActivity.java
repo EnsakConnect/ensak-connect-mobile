@@ -1,6 +1,7 @@
-package com.ensak.connect.view;
+package com.ensak.connect.view.login;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -9,18 +10,22 @@ import android.text.Spanned;
 import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ensak.connect.R;
+import com.ensak.connect.view_model.LoginViewModel.LoginViewModel;
 
 public class LoginActivity extends AppCompatActivity {
 
     private EditText emailEditText;
     private EditText passwordEditText;
     private TextView textViewCreateAccount;
+    private LoginViewModel loginViewModel;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,16 +68,35 @@ public class LoginActivity extends AppCompatActivity {
             textViewCreateAccount.setText(text);
         }
 
+        initializeViewModel();
+
         findViewById(R.id.loginButton).setOnClickListener(view -> loginUser());
         findViewById(R.id.googleLoginButton).setOnClickListener(view -> signInWithGoogle());
         findViewById(R.id.forgotPasswordText).setOnClickListener(view -> resetPassword());
     }
 
+    private void initializeViewModel() {
+        loginViewModel = new ViewModelProvider(this, new ViewModelProvider.AndroidViewModelFactory(getApplication()))
+                .get(LoginViewModel.class);
+
+        loginViewModel.getLoginResponseLiveData().observe(this, loginResponse -> {
+
+            if (loginResponse != null && loginResponse.getToken() != null) {
+                // Handle successful login
+                String token = loginResponse.getToken();
+                Toast.makeText(LoginActivity.this, "Login Successful. Token: " + token, Toast.LENGTH_SHORT).show();
+                // Navigate to next activity or perform other actions
+            } else {
+                // Handle login failure
+                Toast.makeText(LoginActivity.this, "Login Failed", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
     private void loginUser() {
-        String email = emailEditText.getText().toString();
-        String password = passwordEditText.getText().toString();
-        // Add login logic here
-        Toast.makeText(this, "Login Clicked", Toast.LENGTH_SHORT).show();
+        String email = emailEditText.getText().toString().trim();
+        String password = passwordEditText.getText().toString().trim();
+        loginViewModel.login(email, password);
+
     }
 
     private void signInWithGoogle() {

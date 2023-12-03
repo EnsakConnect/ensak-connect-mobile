@@ -8,9 +8,8 @@ import android.view.Menu;
 import android.widget.Toast;
 
 import com.ensak.connect.R;
-import com.ensak.connect.view.LoginActivity;
+import com.ensak.connect.view.login.LoginActivity;
 import com.ensak.connect.view_model.NameViewModel;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.lifecycle.ViewModelProviders;
