@@ -1,4 +1,4 @@
-package com.ensak.connect.repositories;
+package com.ensak.connect.reponse;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

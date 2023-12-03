@@ -6,8 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.ensak.connect.reponse.NameRepository;
-import com.ensak.connect.repositories.NameResponse;
+import com.ensak.connect.repositories.NameRepository;
+import com.ensak.connect.reponse.NameResponse;
 
 public class NameViewModel extends AndroidViewModel {
 

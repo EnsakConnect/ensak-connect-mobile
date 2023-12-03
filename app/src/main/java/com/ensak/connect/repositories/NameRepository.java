@@ -1,11 +1,11 @@
-package com.ensak.connect.reponse;
+package com.ensak.connect.repositories;
 
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.ensak.connect.repositories.NameResponse;
+import com.ensak.connect.reponse.NameResponse;
 import com.ensak.connect.retrofit.ApiRequest;
 import com.ensak.connect.retrofit.RetrofitRequest;
 
@@ -14,11 +14,12 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class NameRepository {
-    private static final String TAG = NameRepository.class.getSimpleName();
+    private final String TAG = NameRepository.class.getSimpleName();
     private ApiRequest apiRequest;
 
     public NameRepository() {
-        apiRequest = RetrofitRequest.getRetrofitInstance().create(ApiRequest.class);
+        RetrofitRequest retrofitRequest = new RetrofitRequest();
+        apiRequest = retrofitRequest.getRetrofitInstance().create(ApiRequest.class);
     }
 
     public LiveData<NameResponse> getTestMessage() {
@@ -47,3 +48,4 @@ public class NameRepository {
         return data;
     }
 }
+
