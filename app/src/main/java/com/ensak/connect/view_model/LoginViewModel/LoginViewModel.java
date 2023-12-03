@@ -1,7 +1,6 @@
 package com.ensak.connect.view_model.LoginViewModel;
 
 import android.app.Application;
-
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
@@ -26,7 +25,7 @@ public class LoginViewModel extends AndroidViewModel {
 
     public LoginViewModel(@NonNull Application application) {
         super(application);
-        ApiRequest apiRequest = RetrofitRequest.getRetrofitInstance().create(ApiRequest.class);
+        ApiRequest apiRequest = RetrofitRequest.getRetrofitInstance(application).create(ApiRequest.class);
         loginRepository = new LoginRepository(apiRequest);
         loginResponseLiveData = new MutableLiveData<>();
         sessionManager = new SessionManager(application);

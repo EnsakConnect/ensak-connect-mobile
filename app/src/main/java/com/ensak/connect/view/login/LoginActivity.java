@@ -81,8 +81,8 @@ public class LoginActivity extends AppCompatActivity {
 
             if (loginResponse != null && loginResponse.getToken() != null) {
                 // Handle successful login
-                String token = loginResponse.getToken();
-                Toast.makeText(LoginActivity.this, "Login Successful. Token: " + token, Toast.LENGTH_SHORT).show();
+
+                Toast.makeText(LoginActivity.this, "Login Successful.", Toast.LENGTH_SHORT).show();
 
                 // Navigate to next activity or perform other actions
             } else {
@@ -91,6 +91,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+
     private void loginUser() {
         String email = emailEditText.getText().toString().trim();
         String password = passwordEditText.getText().toString().trim();
