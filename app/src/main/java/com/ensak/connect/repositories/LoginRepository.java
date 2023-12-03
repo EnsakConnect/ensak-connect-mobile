@@ -2,6 +2,7 @@ package com.ensak.connect.repositories;
 
 
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
@@ -9,26 +10,37 @@ import com.ensak.connect.models.LoginRequest;
 import com.ensak.connect.reponse.LoginResponse;
 import com.ensak.connect.retrofit.ApiRequest;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class LoginRepository {
-    private  ApiRequest apiRequest;
+
+    private final ApiRequest apiRequest;
 
     public LoginRepository(ApiRequest apiRequest) {
         this.apiRequest = apiRequest;
     }
 
-    public LiveData<LoginResponse> login(String email, String password) {
-
+    public LiveData<LoginResponse> loginUser(LoginRequest loginRequest) {
         MutableLiveData<LoginResponse> liveData = new MutableLiveData<>();
 
+        apiRequest.loginUser(loginRequest).enqueue(new Callback<LoginResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<LoginResponse> call, @NonNull Response<LoginResponse> response) {
+                if (response.isSuccessful()) {
+                    liveData.postValue(response.body());
+                } else {
+                    liveData.postValue(null); // Or some error object
+                }
+            }
 
-        LoginRequest loginRequest = new LoginRequest();
-        loginRequest.setEmail(email);
-        loginRequest.setPassword(password);
+            @Override
+            public void onFailure(@NonNull Call<LoginResponse> call, @NonNull Throwable t) {
+                liveData.postValue(null); // Or some error object
+            }
+        });
 
-
-
-        // Return the LiveData object
         return liveData;
     }
 }
