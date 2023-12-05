@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.ensak.connect.R;
 import com.ensak.connect.core.SessionManager;
 import com.ensak.connect.view.login.LoginActivity;
+import com.ensak.connect.view_model.HomeViewModel;
 import com.ensak.connect.view_model.NameViewModel;
 import com.google.android.material.navigation.NavigationView;
 
@@ -29,7 +30,6 @@ public class HomeActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     SessionManager sessionManager;
 
-    NameViewModel testViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,12 +40,14 @@ public class HomeActivity extends AppCompatActivity {
 
         sessionManager = new SessionManager(this);
         if (!sessionManager.isLoggedIn()) {
-            Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
-            startActivity(intent);
-            finish();
+//            Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
+//            startActivity(intent);
+//            finish();
         }
 
         setSupportActionBar(binding.appBarMain.toolbar);
+//        binding.appBarMain.toolbar.setBackgroundColor(getResources().getColor(R.color.white, null));
+//        binding.appBarMain.toolbar.setTitleTextColor(getResources().getColor(R.color.black, null));
         binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -65,23 +67,8 @@ public class HomeActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-        getTestData();
     }
 
-    private void getTestData() {
-        testViewModel = ViewModelProviders.of(this).get(NameViewModel.class);
-
-        testViewModel.getTestResponseLiveData().observe(this, testResponse -> {
-            if (testResponse != null) {
-
-                String message = testResponse.getMessage();
-                Log.d("Main Log", message);
-
-                Toast.makeText(this, "API Response: " + message, Toast.LENGTH_SHORT).show();
-
-            }
-        });
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
