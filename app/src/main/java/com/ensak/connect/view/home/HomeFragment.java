@@ -31,6 +31,7 @@ public class HomeFragment extends Fragment {
     private HomeViewModel homeViewModel;
     private ArrayList<PostResponse> posts;
     private HomeAdapter adapter;
+    private RecommandedOffersAdapter recommandedOffersAdapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -40,12 +41,12 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+        posts = new ArrayList<>();
+
         rvRecommendedOffers = binding.rvRecommendedOffers;
-        RecommandedOffersAdapter recommandedOffersAdapter = new RecommandedOffersAdapter();
+        recommandedOffersAdapter = new RecommandedOffersAdapter(posts);
         rvRecommendedOffers.setAdapter(recommandedOffersAdapter);
         rvRecommendedOffers.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-
-        posts = new ArrayList<>();
 
         rvAllOffers = binding.rvAllOffers;
         adapter = new HomeAdapter(posts);
@@ -53,13 +54,6 @@ public class HomeFragment extends Fragment {
         rvAllOffers.setLayoutManager(new LinearLayoutManager(getContext()));
 
         getPosts(getContext());
-
-//        new Timer().schedule(new TimerTask() {
-//            @Override
-//            public void run() {
-//                adapter.notifyDataSetChanged();
-//            }
-//        }, 3000);
 
 
 //        final TextView textView = binding.textHome;
@@ -79,6 +73,7 @@ public class HomeFragment extends Fragment {
                 posts.clear();
                 posts.addAll(responses);
                 adapter.notifyDataSetChanged();
+                recommandedOffersAdapter.notifyDataSetChanged();
 
 
                 Toast.makeText(context, "API Response: " + message, Toast.LENGTH_SHORT).show();
