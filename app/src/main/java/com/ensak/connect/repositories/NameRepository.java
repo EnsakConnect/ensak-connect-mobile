@@ -16,20 +16,14 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class NameRepository {
-<<<<<<< HEAD:app/src/main/java/com/ensak/connect/repositories/NameRepository.java
     private final String TAG = NameRepository.class.getSimpleName();
     private ApiRequest apiRequest;
 
-    public NameRepository() {
-        RetrofitRequest retrofitRequest = new RetrofitRequest();
-        apiRequest = retrofitRequest.getRetrofitInstance().create(ApiRequest.class);
-=======
-    private static final String TAG = NameRepository.class.getSimpleName();
-    private final ApiRequest apiRequest;
+
+
 
     public NameRepository(Context context){
         apiRequest = RetrofitRequest.getRetrofitInstance(context).create(ApiRequest.class);
->>>>>>> 8f2173b4abf46c8fe6fa4665dec145f3fac9d500:app/src/main/java/com/ensak/connect/reponse/NameRepository.java
     }
 
 

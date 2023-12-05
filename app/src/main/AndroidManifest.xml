@@ -16,12 +16,12 @@
         android:theme="@style/Theme.ENSAKConnect"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
-        <activity
+        <!--<activity
 
             android:name=".MainActivity"
-            android:exported="false" />
+            android:exported="false" />-->
         <activity
-            android:name=".view."
+            android:name=".view.home.HomeActivity"
             android:exported="true"
  />
         <activity

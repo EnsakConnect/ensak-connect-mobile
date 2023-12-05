@@ -11,18 +11,15 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitRequest {
-    private Retrofit retrofit;
+    public static Retrofit retrofit;
 
-    public RetrofitRequest(){
-        getRetrofitInstance();
+    public RetrofitRequest(Context context){
+        getRetrofitInstance(context);
     }
 
-<<<<<<< HEAD
 
-    public Retrofit getRetrofitInstance() {
-=======
+
     public static Retrofit getRetrofitInstance(Context context) {
->>>>>>> 8f2173b4abf46c8fe6fa4665dec145f3fac9d500
         if (retrofit == null) {
             // Create SessionManager instance with context
             SessionManager sessionManager = new SessionManager(context);

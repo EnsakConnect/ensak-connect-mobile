@@ -60,8 +60,8 @@ public class RegistrationScreen extends AppCompatActivity {
         EditText epassword=findViewById(R.id.editTextPassword);
         Button regiterbtn=findViewById(R.id.buttonRegister);
 
-        RetrofitRequest retrofitRequest=new RetrofitRequest();
-        ApiRequest apiRequest=retrofitRequest.getRetrofitInstance().create(ApiRequest.class);
+        RetrofitRequest retrofitRequest=new RetrofitRequest(getApplicationContext());
+        ApiRequest apiRequest=retrofitRequest.getRetrofitInstance(getApplicationContext()).create(ApiRequest.class);
 
 
         regiterbtn.setOnClickListener(view -> {
