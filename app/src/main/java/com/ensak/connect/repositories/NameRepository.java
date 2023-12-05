@@ -1,7 +1,9 @@
 package com.ensak.connect.repositories;
 
+import android.content.Context;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
@@ -14,13 +16,23 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class NameRepository {
+<<<<<<< HEAD:app/src/main/java/com/ensak/connect/repositories/NameRepository.java
     private final String TAG = NameRepository.class.getSimpleName();
     private ApiRequest apiRequest;
 
     public NameRepository() {
         RetrofitRequest retrofitRequest = new RetrofitRequest();
         apiRequest = retrofitRequest.getRetrofitInstance().create(ApiRequest.class);
+=======
+    private static final String TAG = NameRepository.class.getSimpleName();
+    private final ApiRequest apiRequest;
+
+    public NameRepository(Context context){
+        apiRequest = RetrofitRequest.getRetrofitInstance(context).create(ApiRequest.class);
+>>>>>>> 8f2173b4abf46c8fe6fa4665dec145f3fac9d500:app/src/main/java/com/ensak/connect/reponse/NameRepository.java
     }
+
+
 
     public LiveData<NameResponse> getTestMessage() {
         final MutableLiveData<NameResponse> data = new MutableLiveData<>();
@@ -29,7 +41,7 @@ public class NameRepository {
 
 
                     @Override
-                    public void onResponse(Call<NameResponse> call, Response<NameResponse> response) {
+                    public void onResponse(@NonNull Call<NameResponse> call, @NonNull Response<NameResponse> response) {
                         Log.d(TAG, "onResponse response:: " + response);
 
 
@@ -41,7 +53,7 @@ public class NameRepository {
                     }
 
                     @Override
-                    public void onFailure(Call<NameResponse> call, Throwable t) {
+                    public void onFailure(@NonNull Call<NameResponse> call, @NonNull Throwable t) {
                         data.setValue(null);
                     }
                 });
