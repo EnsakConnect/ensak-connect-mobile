@@ -16,8 +16,11 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class NameRepository {
-    private static final String TAG = NameRepository.class.getSimpleName();
-    private final ApiRequest apiRequest;
+    private final String TAG = NameRepository.class.getSimpleName();
+    private ApiRequest apiRequest;
+
+
+
 
     public NameRepository(Context context){
         apiRequest = RetrofitRequest.getRetrofitInstance(context).create(ApiRequest.class);
@@ -51,3 +54,4 @@ public class NameRepository {
         return data;
     }
 }
+

@@ -11,7 +11,13 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitRequest {
-    private static Retrofit retrofit;
+    public static Retrofit retrofit;
+
+    public RetrofitRequest(Context context){
+        getRetrofitInstance(context);
+    }
+
+
 
     public static Retrofit getRetrofitInstance(Context context) {
         if (retrofit == null) {
