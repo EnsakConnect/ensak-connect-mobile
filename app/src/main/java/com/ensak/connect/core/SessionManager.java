@@ -24,6 +24,12 @@ public class SessionManager {
         editor.apply();
     }
 
+    public void setUserToken(String token) {
+        editor.putBoolean(IS_LOGGED_IN, true);
+        editor.putString(KEY_USER_TOKEN, token);
+        editor.apply();
+    }
+
     public boolean isLoggedIn() {
         return preferences.getBoolean(IS_LOGGED_IN, false);
     }

@@ -39,9 +39,12 @@ public class HomeRepository {
 
 
                         if (response.body() != null) {
-                            data.setValue(response.body());
-
-                            Log.d(TAG, "API test result:: " + response.body().get(0).getDescription());
+                            try {
+                                data.setValue(response.body());
+                                Log.d(TAG, "API test result:: " + response.body().get(0).getDescription());
+                            } catch (Throwable ex) {
+                                Log.e(TAG, "Exception occured: " + ex.getMessage());
+                            }
                         }
                     }
 

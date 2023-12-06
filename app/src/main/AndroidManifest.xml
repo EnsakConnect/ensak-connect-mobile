@@ -16,25 +16,20 @@
         android:theme="@style/Theme.ENSAKConnect"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
-
+        <activity
+            android:name=".view.RegistrationScreen"
+            android:exported="false" />
         <activity
             android:name=".view.login.LoginActivity"
             android:exported="false" />
 
-        <!--<activity
-
-            android:name=".MainActivity"
-            android:exported="false" />-->
-
         <activity
             android:name=".view.home.HomeActivity"
-            android:exported="true"
- />
+            android:exported="true" />
         <activity
-
-            android:name=".view.RegistrationScreen"
-            android:label="@string/app_name"
+            android:name=".view.loading_screen.LoadingActivity"
             android:exported="true"
+            android:label="@string/app_name"
             android:theme="@style/Theme.ENSAKConnect.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
