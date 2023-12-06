@@ -9,4 +9,7 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="primary">#FF5552FE</color>
+
+    <!--  Feedback colors  -->
+    <color name="error">#ff3333</color>
 </resources>

@@ -23,7 +23,7 @@ public class LoadingActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         initViewModel();
-        initViewActions();
+        loadingViewModel.startChecks();
     }
 
     private void initViewModel() {
@@ -41,14 +41,29 @@ public class LoadingActivity extends AppCompatActivity {
                 Toast.makeText(this, "Loading stopped", Toast.LENGTH_SHORT).show();
             }
         });
-    }
 
-    private void initViewActions() {
-        binding.btnStopLoading.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                stopLoading();
+        // On Error change
+        loadingViewModel.getIsError().observe(this, isError -> {
+            Log.d(TAG, "initViewModel isError: " + isError);
+            if(isError){
+                binding.txtErrorMessage.setVisibility(View.VISIBLE);
+                binding.txtActionMessage.setVisibility(View.GONE);
+            } else {
+                binding.txtErrorMessage.setVisibility(View.GONE);
+                binding.txtActionMessage.setVisibility(View.VISIBLE);
             }
+        });
+
+        // On Error message change
+        loadingViewModel.getErrorMessage().observe(this, errorMessage -> {
+            Log.d(TAG, "initViewModel: errorMessage" + errorMessage);
+            binding.txtErrorMessage.setText(errorMessage);
+        });
+
+        // on Action message change
+        loadingViewModel.getCurrentAction().observe(this, currentMessage -> {
+            Log.d(TAG, "initViewModel: action message" + currentMessage);
+            binding.txtActionMessage.setText(currentMessage);
         });
     }
 
