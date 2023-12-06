@@ -8,5 +8,5 @@ import retrofit2.http.POST;
 
 public interface AuthApiLocal {
     @POST("/api/v1/auth/me")
-    Call<UserResponse> me(@Header("Authorization") String token);
+    Call<UserResponse> me();
 }

@@ -19,9 +19,8 @@ public class AuthRepository {
         api = RetrofitRequest.getRetrofitInstance(context).create(AuthApiLocal.class);
     }
 
-    public void checkToken(String token, RepositoryCallBack<UserResponse> callBack) {
-        String tokenHeader = "Bearer " + token;
-        api.me(tokenHeader).enqueue(new Callback<UserResponse>() {
+    public void checkToken(RepositoryCallBack<UserResponse> callBack) {
+        api.me().enqueue(new Callback<UserResponse>() {
             @Override
             public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
                 if(! response.isSuccessful() || response.body() == null){

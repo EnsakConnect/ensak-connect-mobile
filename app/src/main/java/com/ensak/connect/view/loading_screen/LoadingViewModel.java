@@ -8,6 +8,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.ensak.connect.core.SessionManager;
 import com.ensak.connect.repositories.RepositoryCallBack;
 import com.ensak.connect.repositories.auth.AuthRepository;
 import com.ensak.connect.repositories.auth.local.dto.UserResponse;
@@ -19,7 +20,8 @@ import org.jetbrains.annotations.NotNull;
 public class LoadingViewModel extends AndroidViewModel {
     private final String TAG = getClass().getSimpleName();
     private HealthRepository healthRepository;
-    protected AuthRepository authRepository;
+    private AuthRepository authRepository;
+    private SessionManager sessionManager;
     private final MutableLiveData<Boolean> isLoading = new MutableLiveData<>(true);
     private final MutableLiveData<Boolean> isError = new MutableLiveData<>(true);
     private final MutableLiveData<String> currentAction = new MutableLiveData<>("");
@@ -29,6 +31,7 @@ public class LoadingViewModel extends AndroidViewModel {
         super(application);
         healthRepository = new HealthRepository(application);
         authRepository = new AuthRepository(application);
+        sessionManager = new SessionManager(application);
     }
 
     public void startChecks() {
@@ -60,8 +63,11 @@ public class LoadingViewModel extends AndroidViewModel {
     }
 
     private void checkTokenIsValid() {
+        if(! sessionManager.isLoggedIn()){
+            redirectToLogin();
+        }
         currentAction.setValue("Verifying user token...");
-        authRepository.checkToken("Some invalid token", new RepositoryCallBack<UserResponse>() {
+        authRepository.checkToken(new RepositoryCallBack<UserResponse>() {
             @Override
             public void onSuccess(UserResponse data) {
                 isError.setValue(false);
