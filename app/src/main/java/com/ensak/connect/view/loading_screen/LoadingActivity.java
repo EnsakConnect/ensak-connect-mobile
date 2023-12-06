@@ -3,6 +3,7 @@ package com.ensak.connect.view.loading_screen;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -10,6 +11,8 @@ import android.widget.Toast;
 
 import com.ensak.connect.R;
 import com.ensak.connect.databinding.ActivityLoadingBinding;
+import com.ensak.connect.view.home.HomeActivity;
+import com.ensak.connect.view.login.LoginActivity;
 import com.ensak.connect.view_model.LoginViewModel.LoginViewModel;
 
 public class LoadingActivity extends AppCompatActivity {
@@ -64,6 +67,20 @@ public class LoadingActivity extends AppCompatActivity {
         loadingViewModel.getCurrentAction().observe(this, currentMessage -> {
             Log.d(TAG, "initViewModel: action message" + currentMessage);
             binding.txtActionMessage.setText(currentMessage);
+        });
+
+        // Redirect to
+        loadingViewModel.getRedirectionTo().observe(this, redirectTo -> {
+            if(redirectTo == null || redirectTo.equals(null)) return;
+            if(redirectTo.equals(LoadingViewModel.REDIRECT_TO.HOME)){
+                Intent homeIntent = new Intent(this, HomeActivity.class);
+                startActivity(homeIntent);
+                finish();
+            } else if(redirectTo.equals(LoadingViewModel.REDIRECT_TO.LOGIN)){
+                Intent loginIntent = new Intent(this, LoginActivity.class);
+                startActivity(loginIntent);
+                finish();
+            }
         });
     }
 

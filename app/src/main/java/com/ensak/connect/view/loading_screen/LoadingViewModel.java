@@ -1,6 +1,7 @@
 package com.ensak.connect.view.loading_screen;
 
 import android.app.Application;
+import android.content.Intent;
 import android.util.Log;
 
 import androidx.lifecycle.AndroidViewModel;
@@ -14,10 +15,15 @@ import com.ensak.connect.repositories.auth.AuthRepository;
 import com.ensak.connect.repositories.auth.local.dto.UserResponse;
 import com.ensak.connect.repositories.health.HealthRepository;
 import com.ensak.connect.repositories.health.local.dto.HealthResponse;
+import com.ensak.connect.view.login.LoginActivity;
 
 import org.jetbrains.annotations.NotNull;
 
 public class LoadingViewModel extends AndroidViewModel {
+    public enum REDIRECT_TO {
+        LOGIN,
+        HOME
+    }
     private final String TAG = getClass().getSimpleName();
     private HealthRepository healthRepository;
     private AuthRepository authRepository;
@@ -26,6 +32,7 @@ public class LoadingViewModel extends AndroidViewModel {
     private final MutableLiveData<Boolean> isError = new MutableLiveData<>(true);
     private final MutableLiveData<String> currentAction = new MutableLiveData<>("");
     private final MutableLiveData<String> errorMessage = new MutableLiveData<>("");
+    private final MutableLiveData<REDIRECT_TO> redirectTo = new MutableLiveData<>(null);
 
     public LoadingViewModel(@NotNull Application application) {
         super(application);
@@ -88,9 +95,11 @@ public class LoadingViewModel extends AndroidViewModel {
     }
 
     private void redirectToLogin() {
+        redirectTo.setValue(REDIRECT_TO.LOGIN);
     }
 
     private void redirectedToHome() {
+        redirectTo.setValue(REDIRECT_TO.HOME);
     }
 
     public void setIsLoading(Boolean loading) {
@@ -111,5 +120,9 @@ public class LoadingViewModel extends AndroidViewModel {
 
     public LiveData<String> getErrorMessage() {
         return errorMessage;
+    }
+
+    public LiveData<REDIRECT_TO> getRedirectionTo() {
+        return redirectTo;
     }
 }
