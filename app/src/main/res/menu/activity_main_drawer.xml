@@ -3,18 +3,70 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single">
+    <group
+        android:id="@+id/group_first"
+        android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="@string/menu_home" />
+            android:icon="@drawable/home"
+            android:title="Acceuil" />
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="@string/menu_gallery" />
+            android:id="@+id/nav_work_offers"
+            android:icon="@drawable/briefcase"
+            android:title="Offres d'emploi" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="@string/menu_slideshow" />
+            android:id="@+id/nav_inter_offers"
+            android:icon="@drawable/clipboard"
+            android:title="Offres de stages" />
+
+        <item
+            android:id="@+id/nav_doctorat_offers"
+            android:icon="@drawable/book"
+            android:title="Offres de doctorats" />
+        <item
+            android:id="@+id/nav_blog"
+            android:icon="@drawable/align_left"
+            android:title="Blog" />
+        <item
+            android:id="@+id/nav_qa"
+            android:icon="@drawable/help"
+            android:title="Q&amp;A" />
+    </group>
+
+    <group
+        android:id="@+id/group_second"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_profile"
+            android:icon="@drawable/user"
+            android:title="Mon profil" />
+        <item
+            android:id="@+id/nav_messages"
+            android:icon="@drawable/chat"
+            android:title="Messages" />
+        <item
+            android:id="@+id/nav_notifications"
+            android:icon="@drawable/notifications"
+            android:title="Notifications" />
+
+        <item
+            android:id="@+id/nav_settings"
+            android:icon="@drawable/settings"
+            android:title="Parametres" />
+        <item
+            android:id="@+id/nav_about"
+            android:icon="@drawable/info"
+            android:title="À propos" />
+
+    </group>
+
+    <group
+        android:id="@+id/group_third"
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/log_out"
+            android:title="Déconnexion" />
     </group>
 </menu>
