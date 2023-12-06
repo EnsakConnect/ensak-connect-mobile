@@ -78,10 +78,10 @@ public class LoginActivity extends AppCompatActivity {
                 .get(LoginViewModel.class);
 
         loginViewModel.getLoginResponseLiveData().observe(this, loginResponse -> {
-
-            if (loginResponse != null && loginResponse.getToken() != null) {
+            Log.d(TAG, "Received login response = " + loginResponse);
+            if (loginResponse != null) {
+                Log.d(TAG, "Received Token = " + loginResponse.getToken());
                 // Handle successful login
-
                 Toast.makeText(LoginActivity.this, "Login Successful.", Toast.LENGTH_SHORT).show();
 
                 // Navigate to next activity or perform other actions
@@ -90,6 +90,7 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(LoginActivity.this, "Login Failed", Toast.LENGTH_SHORT).show();
             }
         });
+
     }
 
     private void loginUser() {
