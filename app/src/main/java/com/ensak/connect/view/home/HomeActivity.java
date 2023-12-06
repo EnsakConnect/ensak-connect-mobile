@@ -29,7 +29,7 @@ public class HomeActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
-    SessionManager sessionManager;
+//    SessionManager sessionManager;
 
 
     @Override
@@ -39,16 +39,14 @@ public class HomeActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        sessionManager = new SessionManager(this);
-        if (!sessionManager.isLoggedIn()) {
-            Intent intent = new Intent(this, LoadingActivity.class);
-            startActivity(intent);
-            finish();
-        }
+//        sessionManager = new SessionManager(this);
+//        if (!sessionManager.isLoggedIn()) {
+//            Intent intent = new Intent(this, LoadingActivity.class);
+//            startActivity(intent);
+//            finish();
+//        }
 
-//        setSupportActionBar(binding.appBarMain.toolbar);
-//        binding.appBarMain.toolbar.setBackgroundColor(getResources().getColor(R.color.white, null));
-//        binding.appBarMain.toolbar.setTitleTextColor(getResources().getColor(R.color.black, null));
+        setSupportActionBar(binding.appBarMain.toolbar);
         binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
