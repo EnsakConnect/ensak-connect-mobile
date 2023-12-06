@@ -74,10 +74,6 @@ public class HomeFragment extends Fragment {
                     posts.addAll(responses);
                     adapter.notifyDataSetChanged();
                     recommandedOffersAdapter.notifyDataSetChanged();
-
-
-                    Toast.makeText(context, "API Response: " + message, Toast.LENGTH_SHORT).show();
-
                 }
             });
         } catch (Throwable ex) {
