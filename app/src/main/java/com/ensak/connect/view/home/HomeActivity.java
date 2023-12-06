@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import com.ensak.connect.R;
 import com.ensak.connect.core.SessionManager;
+import com.ensak.connect.view.loading_screen.LoadingActivity;
 import com.ensak.connect.view.login.LoginActivity;
 import com.ensak.connect.view_model.HomeViewModel;
 import com.ensak.connect.view_model.NameViewModel;
@@ -40,12 +41,12 @@ public class HomeActivity extends AppCompatActivity {
 
         sessionManager = new SessionManager(this);
         if (!sessionManager.isLoggedIn()) {
-//            Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
-//            startActivity(intent);
-//            finish();
+            Intent intent = new Intent(this, LoadingActivity.class);
+            startActivity(intent);
+            finish();
         }
 
-        setSupportActionBar(binding.appBarMain.toolbar);
+//        setSupportActionBar(binding.appBarMain.toolbar);
 //        binding.appBarMain.toolbar.setBackgroundColor(getResources().getColor(R.color.white, null));
 //        binding.appBarMain.toolbar.setTitleTextColor(getResources().getColor(R.color.black, null));
         binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
@@ -66,7 +67,6 @@ public class HomeActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
-
     }
 
 

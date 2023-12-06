@@ -12,16 +12,19 @@ import android.text.Spanned;
 import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ensak.connect.R;
+import com.ensak.connect.view.RegistrationScreen;
 import com.ensak.connect.view.home.HomeActivity;
 import com.ensak.connect.view_model.LoginViewModel.LoginViewModel;
 
 public class LoginActivity extends AppCompatActivity {
+    private final String TAG = getClass().getSimpleName();
 
     private EditText emailEditText;
     private EditText passwordEditText;
@@ -78,6 +81,8 @@ public class LoginActivity extends AppCompatActivity {
                 .get(LoginViewModel.class);
 
         loginViewModel.getLoginResponseLiveData().observe(this, loginResponse -> {
+            Log.d(TAG, "Received login response = " + loginResponse);
+            Log.d(TAG, "Received Token = " + loginResponse.getToken());
 
             if (loginResponse != null && loginResponse.getToken() != null) {
                 // Handle successful login
@@ -95,10 +100,11 @@ public class LoginActivity extends AppCompatActivity {
     private void loginUser() {
         String email = emailEditText.getText().toString().trim();
         String password = passwordEditText.getText().toString().trim();
+        Log.d(TAG, "email = " + email + ", password = " + password + ".");
         loginViewModel.login(email, password);
-
-        Intent intent = new Intent(this, HomeActivity.class);
-        startActivity(intent);
+//
+//        Intent intent = new Intent(this, HomeActivity.class);
+//        startActivity(intent);
 
         // Optionally, if you don't want the user to return to the login screen upon pressing back,
         // you can add the following line:
@@ -118,6 +124,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void createAccount() {
         // Add create account logic here
-        Toast.makeText(this, "Create Account Clicked", Toast.LENGTH_SHORT).show();
+        Intent registerIntent = new Intent(this, RegistrationScreen.class);
+        startActivity(registerIntent);
     }
 }

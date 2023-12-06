@@ -63,23 +63,27 @@ public class HomeFragment extends Fragment {
 
     private void getPosts(Context context) {
         homeViewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
+        try {
+            homeViewModel.getPosts().observe((LifecycleOwner) context, responses -> {
+                if (responses != null) {
 
-        homeViewModel.getPosts().observe((LifecycleOwner) context, responses -> {
-            if (responses != null) {
+                    String message = responses.get(0).getUser().getFirstname();
+                    Log.d("Main Log", message);
 
-                String message = responses.get(0).getUser().getFirstname();
-                Log.d("Main Log", message);
-
-                posts.clear();
-                posts.addAll(responses);
-                adapter.notifyDataSetChanged();
-                recommandedOffersAdapter.notifyDataSetChanged();
+                    posts.clear();
+                    posts.addAll(responses);
+                    adapter.notifyDataSetChanged();
+                    recommandedOffersAdapter.notifyDataSetChanged();
 
 
-                Toast.makeText(context, "API Response: " + message, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "API Response: " + message, Toast.LENGTH_SHORT).show();
 
-            }
-        });
+                }
+            });
+        } catch (Throwable ex) {
+            Toast.makeText(context, "Error getting posts.", Toast.LENGTH_LONG);
+        }
+
     }
 
     @Override
