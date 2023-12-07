@@ -35,8 +35,16 @@
         <activity
             android:name=".view.Registration.RegistrationScreen"
             android:exported="true" />
+        
         <activity
             android:name=".view.login.LoginActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".view.loading_screen.LoadingActivity"
+            android:exported="true" />
+        <activity
+            android:name=".view.home.HomeActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.ENSAKConnect.NoActionBar">

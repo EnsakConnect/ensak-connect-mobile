@@ -1,5 +1,7 @@
 package com.ensak.connect.core;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
 import java.io.IOException;
@@ -10,6 +12,7 @@ import okhttp3.Response;
 
 public class AuthInterceptor implements Interceptor {
 
+    private final String TAG = getClass().getSimpleName();
     private final SessionManager sessionManager;
 
     public AuthInterceptor(SessionManager sessionManager) {
@@ -19,6 +22,7 @@ public class AuthInterceptor implements Interceptor {
     @NonNull
     @Override
     public Response intercept(Chain chain) throws IOException {
+        Log.d(TAG, "intercept: Interceptor running");
         Request original = chain.request();
 
         // Check if it's a request that doesn't require a token
@@ -29,6 +33,7 @@ public class AuthInterceptor implements Interceptor {
 
         // For other requests, add the token
         String token = sessionManager.getUserToken();
+        Log.d(TAG, "intercept: Token = " + token);
         if (token != null && !token.isEmpty()) {
             Request.Builder builder = original.newBuilder()
                     .header("Authorization", "Bearer " + token);

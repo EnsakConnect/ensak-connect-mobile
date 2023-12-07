@@ -10,27 +10,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="25dp">
+        android:paddingHorizontal="32dp"
+        android:paddingVertical="64dp">
 
-        <TextView
+        <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="ENSAK"
-            android:layout_gravity="center_horizontal"
-            android:textSize="45sp"
-            android:textStyle="bold"
-            android:textColor="#5552fe"
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="CONNECT"
-            android:textStyle="bold"
-            android:textSize="35sp"
-            android:textColor="#5552fe"
-            android:layout_marginBottom="55dp"/>
+            android:layout_height="90dp"
+            android:src="@drawable/logo_ensak_connect"
+            android:layout_marginBottom="48dp"/>
 
         <!-- Email EditText -->
         <!-- Email Label -->

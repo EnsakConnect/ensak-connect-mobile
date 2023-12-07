@@ -12,6 +12,7 @@ import android.text.Spanned;
 import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -24,6 +25,7 @@ import com.ensak.connect.view.home.HomeActivity;
 import com.ensak.connect.view_model.LoginViewModel.LoginViewModel;
 
 public class LoginActivity extends AppCompatActivity {
+    private final String TAG = getClass().getSimpleName();
 
     private EditText emailEditText;
     private EditText passwordEditText;
@@ -86,10 +88,10 @@ public class LoginActivity extends AppCompatActivity {
                 .get(LoginViewModel.class);
 
         loginViewModel.getLoginResponseLiveData().observe(this, loginResponse -> {
-
-            if (loginResponse != null && loginResponse.getToken() != null) {
+            Log.d(TAG, "Received login response = " + loginResponse);
+            if (loginResponse != null) {
+                Log.d(TAG, "Received Token = " + loginResponse.getToken());
                 // Handle successful login
-
                 Toast.makeText(LoginActivity.this, "Login Successful.", Toast.LENGTH_SHORT).show();
 
                 // Navigate to next activity or perform other actions
@@ -98,15 +100,17 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(LoginActivity.this, "Login Failed", Toast.LENGTH_SHORT).show();
             }
         });
+
     }
 
     private void loginUser() {
         String email = emailEditText.getText().toString().trim();
         String password = passwordEditText.getText().toString().trim();
+        Log.d(TAG, "email = " + email + ", password = " + password + ".");
         loginViewModel.login(email, password);
-
-        Intent intent = new Intent(this, HomeActivity.class);
-        startActivity(intent);
+//
+//        Intent intent = new Intent(this, HomeActivity.class);
+//        startActivity(intent);
 
         // Optionally, if you don't want the user to return to the login screen upon pressing back,
         // you can add the following line:
@@ -127,6 +131,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void createAccount() {
         // Add create account logic here
-        Toast.makeText(this, "Create Account Clicked", Toast.LENGTH_SHORT).show();
+        Intent registerIntent = new Intent(this, RegistrationScreen.class);
+        startActivity(registerIntent);
     }
 }
