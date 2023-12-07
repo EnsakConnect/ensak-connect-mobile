@@ -18,6 +18,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ensak.connect.R;
+import com.ensak.connect.view.Registration.RegistrationScreen;
+import com.ensak.connect.view.ResetPassword.EmailRecuperation;
 import com.ensak.connect.view.home.HomeActivity;
 import com.ensak.connect.view_model.LoginViewModel.LoginViewModel;
 
@@ -44,11 +46,14 @@ public class LoginActivity extends AppCompatActivity {
         String text = "Vous n'avez pas encore de compte ? Créez-en un ici.";
         SpannableString ss = new SpannableString(text);
 
+
         ClickableSpan clickableSpan = new ClickableSpan() {
             @Override
             public void onClick(@NonNull View widget) {
                 // Perform your click action here
-                createAccount();
+                //createAccount();
+                Intent intent = new Intent(LoginActivity.this, RegistrationScreen.class);
+                startActivity(intent);
             }
 
             @Override
@@ -70,7 +75,10 @@ public class LoginActivity extends AppCompatActivity {
 
         findViewById(R.id.loginButton).setOnClickListener(view -> loginUser());
         findViewById(R.id.googleLoginButton).setOnClickListener(view -> signInWithGoogle());
-        findViewById(R.id.forgotPasswordText).setOnClickListener(view -> resetPassword());
+        findViewById(R.id.forgotPasswordText).setOnClickListener(view -> {
+
+            //Intent intent = new Intent(LoginActivity.this, EmailRecuperation.class);
+        });
     }
 
     private void initializeViewModel() {
@@ -113,7 +121,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private void resetPassword() {
         // Add password reset logic here
-        Toast.makeText(this, "Forgot Password Clicked", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(LoginActivity.this, EmailRecuperation.class);
+
     }
 
     private void createAccount() {
