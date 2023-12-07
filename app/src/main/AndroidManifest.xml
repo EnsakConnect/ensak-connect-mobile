@@ -17,8 +17,25 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".view.RegistrationScreen"
+            android:name=".view.ResetPassword.CodeValidationScreen"
             android:exported="false" />
+        <activity
+            android:name=".view.ResetPassword.EmailRecuperation"
+            android:exported="false" />
+        <activity
+            android:name=".view.ResetPassword.ResetPasswordScreen"
+            android:exported="false" />
+
+        <!--
+        <activity
+
+            android:name=".MainActivity"
+            android:exported="false" />
+        -->
+        <activity
+            android:name=".view.Registration.RegistrationScreen"
+            android:exported="true" />
+        
         <activity
             android:name=".view.login.LoginActivity"
             android:exported="false" />
