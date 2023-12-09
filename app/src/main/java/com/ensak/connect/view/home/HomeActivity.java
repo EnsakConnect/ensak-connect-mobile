@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.ensak.connect.R;
 import com.ensak.connect.core.SessionManager;
+import com.ensak.connect.view.Profile.ProfileActivity;
 import com.ensak.connect.view.loading_screen.LoadingActivity;
 import com.ensak.connect.view.login.LoginActivity;
 import com.ensak.connect.view_model.HomeViewModel;
@@ -63,7 +64,7 @@ public class HomeActivity extends AppCompatActivity {
         binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), LoginActivity.class);
+                Intent intent = new Intent(view.getContext(), ProfileActivity.class);
                 view.getContext().startActivity(intent);
             }
         });
