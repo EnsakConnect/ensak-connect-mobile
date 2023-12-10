@@ -7,6 +7,6 @@ import retrofit2.http.Header;
 import retrofit2.http.POST;
 
 public interface AuthApiLocal {
-    @POST("/api/v1/auth/me")
+    @POST("auth/me")
     Call<UserResponse> me();
 }

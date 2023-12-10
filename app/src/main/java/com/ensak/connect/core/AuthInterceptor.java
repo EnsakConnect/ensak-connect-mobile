@@ -47,6 +47,6 @@ public class AuthInterceptor implements Interceptor {
     private boolean isTokenExemptedRequest(Request request) {
         // Check the request URL and return true if it's for login or register
         String path = request.url().encodedPath();
-        return path.equals("/api/v1/auth/login") || path.equals("/api/v1/auth/register");
+        return path.equals("/api/v1/auth/login") || path.equals("/api/v1/auth/register") || path.equals("/api/v1/health");
     }
 }
