@@ -10,11 +10,11 @@ public class UserResponse {
 
     @SerializedName("firstname")
     @Expose
-    private String firstname;
+    private String firstname = "Firstname";
 
     @SerializedName("lastname")
     @Expose
-    private String lastname;
+    private String lastname = "Lastname";
 
     public int getId() {
         return id;

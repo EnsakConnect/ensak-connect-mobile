@@ -43,7 +43,7 @@ public class CommentsAdapter extends
         CommentResponse comment = comments.get(position);
         Context context = holder.itemView.getContext();
 
-//        binding.tvUserName.setText(comment.getUser().getFirstname() + " " + comment.getUser().getLastname());
+        binding.tvUserName.setText(comment.getUser().getFirstname() + " " + comment.getUser().getLastname());
         binding.tvUserTitle.setText("Full Stack Developer - SQLI");
         binding.tvCommentDate.setText(Utils.calculateTimeAgo(comment.getDate()));
         binding.tvComment.setText(comment.getComment());

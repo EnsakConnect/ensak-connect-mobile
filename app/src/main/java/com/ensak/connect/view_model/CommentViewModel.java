@@ -21,7 +21,7 @@ public class CommentViewModel extends AndroidViewModel {
         repository = new CommentRepository(application);
     }
 
-    public LiveData<ArrayList<CommentResponse>> getPosts(String postId) {
+    public LiveData<ArrayList<CommentResponse>> getComments(String postId) {
         comments = repository.getComments(postId);
         return comments;
     }

@@ -12,9 +12,9 @@ public class CommentResponse {
     @Expose
     private int id;
 
-//    @SerializedName("author")
-//    @Expose
-//    private UserResponse user;
+    @SerializedName("author")
+    @Expose
+    private UserResponse user;
 
     @SerializedName("content")
     @Expose
@@ -28,9 +28,9 @@ public class CommentResponse {
         return id;
     }
 
-//    public UserResponse getUser() {
-//        return user;
-//    }
+    public UserResponse getUser() {
+        return user;
+    }
 
     public Date getDate() {
         return date;

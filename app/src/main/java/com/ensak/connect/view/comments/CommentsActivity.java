@@ -60,11 +60,11 @@ public class CommentsActivity extends AppCompatActivity {
     private void loadComments(Context context, String postId) {
         commentViewModel = ViewModelProviders.of(this).get(CommentViewModel.class);
         try {
-            commentViewModel.getPosts(postId).observe((LifecycleOwner) context, responses -> {
+            commentViewModel.getComments(postId).observe((LifecycleOwner) context, responses -> {
                 if (responses != null) {
 
-//                    String message = responses.get(0).getUser().getFirstname();
-//                    Log.d("Main Log", message);
+                    String message = responses.get(0).getUser().getFirstname();
+                    Log.d("Main Log", message);
 
                     comments.clear();
                     comments.addAll(responses);
