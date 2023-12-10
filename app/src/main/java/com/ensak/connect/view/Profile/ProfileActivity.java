@@ -3,11 +3,17 @@ package com.ensak.connect.view.Profile;
 
 
 import android.app.Activity;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+
+import androidx.core.content.ContextCompat;
 
 import com.bumptech.glide.Glide;
 import com.ensak.connect.R;
@@ -23,6 +29,7 @@ public class ProfileActivity extends Activity {
     private TextView userDetails;
     private Button btnModifyProfile;
     private Button resumebtn;
+    private Button myButton;
 
 
     @Override
@@ -40,6 +47,12 @@ public class ProfileActivity extends Activity {
         btnModifyProfile = findViewById(R.id.btnModifyProfile);
         TextView descriptionTextView = findViewById(R.id.userDescription);
         resumebtn = findViewById(R.id.resumebtn);
+        myButton = findViewById(R.id.myButton);
+        Drawable greyRoundedDrawable = ContextCompat.getDrawable(this, R.drawable.button_style);
+        myButton.setBackground(greyRoundedDrawable);
+        Button myButton = findViewById(R.id.myButton);
+        myButton.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.grey));
+        myButton.setText(R.string.button_text);
 
 
 
