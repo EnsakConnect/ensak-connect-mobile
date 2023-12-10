@@ -16,7 +16,7 @@
             android:title="Offres d'emploi" />
         <item
             android:id="@+id/nav_inter_offers"
-            android:icon="@drawable/clipboard"
+            android:icon="@drawable/ic_clipboard"
             android:title="Offres de stages" />
 
         <item
@@ -25,11 +25,11 @@
             android:title="Offres de doctorats" />
         <item
             android:id="@+id/nav_blog"
-            android:icon="@drawable/align_left"
+            android:icon="@drawable/ic_blog"
             android:title="Blog" />
         <item
             android:id="@+id/nav_qa"
-            android:icon="@drawable/help"
+            android:icon="@drawable/ic_question"
             android:title="Q&amp;A" />
     </group>
 
@@ -38,7 +38,7 @@
         android:checkableBehavior="single">
         <item
             android:id="@+id/nav_profile"
-            android:icon="@drawable/user"
+            android:icon="@drawable/ic_user"
             android:title="Mon profil" />
         <item
             android:id="@+id/nav_messages"
@@ -46,16 +46,16 @@
             android:title="Messages" />
         <item
             android:id="@+id/nav_notifications"
-            android:icon="@drawable/notifications"
+            android:icon="@drawable/ic_notifications"
             android:title="Notifications" />
 
         <item
             android:id="@+id/nav_settings"
-            android:icon="@drawable/settings"
+            android:icon="@drawable/ic_settings"
             android:title="Parametres" />
         <item
             android:id="@+id/nav_about"
-            android:icon="@drawable/info"
+            android:icon="@drawable/ic_info"
             android:title="À propos" />
 
     </group>
@@ -66,7 +66,7 @@
 
         <item
             android:id="@+id/nav_logout"
-            android:icon="@drawable/log_out"
+            android:icon="@drawable/ic_logout"
             android:title="Déconnexion" />
     </group>
 </menu>
