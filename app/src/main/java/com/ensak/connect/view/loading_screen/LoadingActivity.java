@@ -9,11 +9,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import com.ensak.connect.R;
 import com.ensak.connect.databinding.ActivityLoadingBinding;
 import com.ensak.connect.view.home.HomeActivity;
 import com.ensak.connect.view.login.LoginActivity;
-import com.ensak.connect.view_model.LoginViewModel.LoginViewModel;
 
 public class LoadingActivity extends AppCompatActivity {
     private final String TAG = getClass().getSimpleName();
