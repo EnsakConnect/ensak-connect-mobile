@@ -159,6 +159,80 @@
         <!-- Include as many as needed, or add them dynamically in code -->
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/parcoursContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/experiencesContainer"
+        android:orientation="vertical"
+        android:padding="16dp"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:id="@+id/parcoursEducatif"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/parcours_educatif"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/modify_experience_button"
+                style="@style/CustomizableButton"
+                android:text="@string/button_text" />
+
+
+        </LinearLayout>
+
+
+        <include layout="@layout/expereince_fragment" />
+        <!-- Include as many as needed, or add them dynamically in code -->
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/parcoursContainer"
+        android:orientation="vertical"
+        android:padding="16dp"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:id="@+id/skills"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/skills"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/modify_skills_button"
+                style="@style/CustomizableButton"
+                android:text="@string/button_text" />
+
+
+        </LinearLayout>
+
+        <include layout="@layout/skills_fragment" />
+    </LinearLayout>
 
 </RelativeLayout>
 </ScrollView>

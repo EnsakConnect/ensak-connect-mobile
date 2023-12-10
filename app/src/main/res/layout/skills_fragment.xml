@@ -1,0 +1,33 @@
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:columnCount="3"
+    android:rowCount="3"
+    android:alignmentMode="alignMargins">
+
+
+    <TextView
+        android:layout_width="180dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:layout_margin="8dp"
+        android:padding="16dp"
+        android:background="@drawable/skill_background"
+        android:text="VueJS"
+        android:textColor="@color/black"
+        android:gravity="center" />
+
+    <TextView
+        android:layout_width="160dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:layout_margin="8dp"
+        android:padding="16dp"
+        android:background="@drawable/skill_background"
+        android:text="VueJS"
+        android:textColor="@color/black"
+        android:gravity="center" />
+
+    <!-- Repeat the above TextView block for each skill, adjusting the text as needed. -->
+
+</GridLayout>

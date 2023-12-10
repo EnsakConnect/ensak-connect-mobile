@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- res/drawable/skill_background.xml -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Shadow Layer -->
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="4dp" /> <!-- Shadow radius -->
+        </shape>
+    </item>
+    <item android:bottom="2dp" android:end="2dp" android:start="2dp" android:top="2dp">
+        <shape android:shape="rectangle">
+            <solid android:color="@android:color/white" /> <!-- Background color -->
+            <corners android:radius="4dp" /> <!-- Background radius -->
+        </shape>
+    </item>
+</layer-list>
