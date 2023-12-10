@@ -22,8 +22,10 @@
     <string name="static_description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed odio tortor, tincidunt in magna at, ultrices semper est. Mauris sem nulla, placerat nec pellentesque vitae, malesuada eget dolor. Donec pellentesque nulla ut quam maximus porttitor. Vestibulum pellentesque convallis facilisis.</string>
     <string name="se_connecter">se connecter\n</string>
     <string name="exp_rience_professionnelles">Expérience professionnelles</string>
+    <string name="parcours_educatif">Parcours éducatif</string>
     <string name="experience_title">Développeur Fullstack</string>
     <string name="experience_date">Sept 2022 - Present</string>
     <string name="button_text">Modifer</string>
     <string name="company_location">"Entreprise - Morocco, Kenitra "</string>
+    <string name="skills">Compétences\n</string>
 </resources>

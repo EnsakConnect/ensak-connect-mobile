@@ -1,7 +1,5 @@
 
 package com.ensak.connect.view.Profile;
-
-
 import android.app.Activity;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -17,8 +15,6 @@ import androidx.core.content.ContextCompat;
 
 import com.bumptech.glide.Glide;
 import com.ensak.connect.R;
-
-
 public class ProfileActivity extends Activity {
 
 
@@ -30,6 +26,8 @@ public class ProfileActivity extends Activity {
     private Button btnModifyProfile;
     private Button resumebtn;
     private Button myButton;
+    private Button modify_experience_btn;
+    private Button modify_skills_button;
 
 
     @Override
@@ -47,12 +45,15 @@ public class ProfileActivity extends Activity {
         btnModifyProfile = findViewById(R.id.btnModifyProfile);
         TextView descriptionTextView = findViewById(R.id.userDescription);
         resumebtn = findViewById(R.id.resumebtn);
+
+        //experience professionels
         myButton = findViewById(R.id.myButton);
-        Drawable greyRoundedDrawable = ContextCompat.getDrawable(this, R.drawable.button_style);
-        myButton.setBackground(greyRoundedDrawable);
-        Button myButton = findViewById(R.id.myButton);
-        myButton.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.grey));
         myButton.setText(R.string.button_text);
+
+        //parcours educatif
+        modify_experience_btn = findViewById(R.id.modify_experience_button);
+        modify_experience_btn.setText(R.string.button_text);
+
 
 
 
@@ -75,19 +76,8 @@ public class ProfileActivity extends Activity {
 
         // Set up the modify profile button click listener
         btnModifyProfile.setOnClickListener(view -> {
-            // Handle modify profile action
-            // Intent to navigate to the profile modification screen could go here
         });
 
 
-        // Set up user details text views (assuming these details are passed to this activity,
-        // for example through intent extras or from a ViewModel/Singleton data source)
-        // userName.setText(getIntent().getStringExtra("USER_NAME"));
-        // userDetails.setText(getIntent().getStringExtra("USER_DETAILS"));
-
-
-        // Or if you have static text, you can set it directly or via string resources
-        // userName.setText(getResources().getString(R.string.nom_utilisateur));
-        // userDetails.setText(getResources().getString(R.string.user_details));
     }
 }

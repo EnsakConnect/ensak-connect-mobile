@@ -59,7 +59,7 @@
     <style name="CustomizableButton" parent="Widget.AppCompat.Button">
         <item name="android:layout_width">65dp</item>
         <item name="android:layout_height">25dp</item>
-        <item name="android:background">@drawable/button_style</item>
+        <item name="android:background">@drawable/customizable_button</item>
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">10sp</item>
         <item name="android:gravity">center</item>
