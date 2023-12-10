@@ -114,7 +114,6 @@ public class HomeActivity extends AppCompatActivity {
 
     private void openFABMenu() {
         isFABMenuOpen = true;
-        btnAdd.setL
         btnNewQuestion.setElevation(6);
         btnNewQuestion.animate().translationY(-getResources().getDimension(R.dimen.fab_menu_item1_margin));
         btnNewJobOffer.setElevation(6);
