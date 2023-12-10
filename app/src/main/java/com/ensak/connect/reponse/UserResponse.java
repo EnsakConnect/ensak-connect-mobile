@@ -16,6 +16,10 @@ public class UserResponse {
     @Expose
     private String lastname = "Lastname";
 
+    public UserResponse() {
+
+    }
+
     public int getId() {
         return id;
     }

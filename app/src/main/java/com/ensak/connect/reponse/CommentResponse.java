@@ -24,6 +24,12 @@ public class CommentResponse {
     @Expose
     private Date date;
 
+    public CommentResponse(UserResponse user, String comment, Date date) {
+        this.user = user;
+        this.comment = comment;
+        this.date = date;
+    }
+
     public int getId() {
         return id;
     }
