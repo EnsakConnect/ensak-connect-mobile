@@ -12,28 +12,50 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.ensak.connect.R;
-import com.ensak.connect.databinding.ChatMessageItemBinding;
+import com.ensak.connect.databinding.ChatReceiverMessageBinding;
+import com.ensak.connect.databinding.ChatSenderMessageBinding;
 import com.ensak.connect.reponse.ChatMessageResponse;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
-public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class ChatAdapter extends RecyclerView.Adapter {
 
-    ChatMessageItemBinding binding;
+    private Context context;
+    ChatSenderMessageBinding senderBinding;
+    ChatReceiverMessageBinding receiverBinding;
     private ArrayList<ChatMessageResponse> messages;
 
-    public ChatAdapter(ArrayList<ChatMessageResponse> messages) {
+    final int SENDER_VIEW_HOLDER = 0;
+    final int RECEIVER_VIEW_HOLDER = 1;
+    final int MY_ID = 1;
+
+    public ChatAdapter(Context context, ArrayList<ChatMessageResponse> messages) {
+        this.context = context;
         this.messages = messages;
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        Context context = parent.getContext();
+    public int getItemViewType(int position) {
+        if (messages.get(position).getSenderId() == MY_ID)
+            return SENDER_VIEW_HOLDER;
+        else
+            return RECEIVER_VIEW_HOLDER;
+    }
+
+    @NonNull
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
 
-        binding = binding.inflate(inflater, parent, false);
-        ChatAdapter.ViewHolder viewHolder = new ChatAdapter.ViewHolder(binding.getRoot());
-        return viewHolder;
+        if (viewType == SENDER_VIEW_HOLDER) {
+            senderBinding = senderBinding.inflate(inflater, parent, false);
+            return new ChatAdapter.OutgoingViewHolder(senderBinding.getRoot());
+        } else {
+            receiverBinding = receiverBinding.inflate(inflater, parent, false);
+            return new ChatAdapter.IncomingViewHolder(receiverBinding.getRoot());
+        }
     }
 
     @Override
@@ -41,17 +63,19 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         ChatMessageResponse message = messages.get(position);
         Context context = holder.itemView.getContext();
 
-//        binding.tvUserName.setText(conversation.getUser().getFirstname() + " " + conversation.getUser().getLastname());
-//        binding.tvLastDiscussionDate.setText(Utils.calculateTimeAgo(conversation.getDate()));
+        if (holder.getClass() == OutgoingViewHolder.class) {
+            senderBinding.tvMessage.setText("Sent Msg");
+            senderBinding.tvTime.setText("02:12 pm");
 
-//        Glide.with(context)
-//                .load("https://www.w3schools.com/w3images/avatar2.png")
-//                .apply(new RequestOptions()
-//                        .placeholder(R.drawable.ic_launcher_background) // Placeholder image
-//                        .error(R.drawable.ic_launcher_background) // Error image in case of loading failure
-//                )
-//                .into(binding.ivUserImage);
-
+//            long time = msgData.get(position).getMsgTime();
+//            final Calendar cal = Calendar.getInstance();
+//            cal.setTimeInMillis(time);
+//            final String timeString =
+//                    new SimpleDateFormat("HH:mm").format(cal.getTime());
+        } else {
+            receiverBinding.tvMessage.setText("Received Msg");
+            receiverBinding.tvTime.setText("02:12 pm");
+        }
     }
 
     @Override
@@ -60,8 +84,16 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        public ViewHolder(View itemView) {
+    public class OutgoingViewHolder extends RecyclerView.ViewHolder {
+
+        public OutgoingViewHolder(@NonNull View itemView) {
+            super(itemView);
+        }
+    }
+
+    public class IncomingViewHolder extends RecyclerView.ViewHolder {
+
+        public IncomingViewHolder(@NonNull View itemView) {
             super(itemView);
         }
     }
