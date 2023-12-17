@@ -10,16 +10,11 @@ import android.widget.Toast;
 
 import com.ensak.connect.R;
 import com.ensak.connect.core.SessionManager;
-import com.ensak.connect.view.loading_screen.LoadingActivity;
+import com.ensak.connect.view.LoadingScreen.LoadingActivity;
 import com.ensak.connect.view.login.LoginActivity;
-import com.ensak.connect.view_model.HomeViewModel;
-import com.ensak.connect.view_model.NameViewModel;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;

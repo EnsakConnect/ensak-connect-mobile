@@ -16,7 +16,9 @@
         android:theme="@style/Theme.ENSAKConnect"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
-
+        <activity
+            android:name=".view.conversations.ConversationsActivity"
+            android:exported="false" />
         <activity
             android:name=".view.ResetPassword.CodeValidationScreen"
             android:exported="false" />
@@ -40,9 +42,8 @@
             android:name=".view.home.HomeActivity"
             android:exported="true"
             android:theme="@style/Theme.ENSAKConnect.NoActionBar" />
-
         <activity
-            android:name=".view.loading_screen.LoadingActivity"
+            android:name=".view.LoadingScreen.LoadingActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.ENSAKConnect.NoActionBar">
