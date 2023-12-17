@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.ensak.connect.R;
 import com.ensak.connect.core.SessionManager;
+import com.ensak.connect.view.Profile.ProfileActivity;
 import com.ensak.connect.view.loading_screen.LoadingActivity;
 import com.ensak.connect.view.login.LoginActivity;
 import com.ensak.connect.view_model.HomeViewModel;
@@ -63,8 +64,7 @@ public class HomeActivity extends AppCompatActivity {
         binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), LoginActivity.class);
-                view.getContext().startActivity(intent);
+
             }
         });
          drawer = binding.drawerLayout;
@@ -132,7 +132,8 @@ public class HomeActivity extends AppCompatActivity {
             } else if (itemId == R.id.nav_qa) {
                 Toast.makeText(this, "nav_qa", Toast.LENGTH_SHORT).show();
             } else if (itemId == R.id.nav_profile) {
-                Toast.makeText(this, "nav_profile", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this, ProfileActivity.class);
+                startActivity(intent);
             } else if (itemId == R.id.nav_messages) {
                 Toast.makeText(this, "nav_messages", Toast.LENGTH_SHORT).show();
             } else if (itemId == R.id.nav_notifications) {
