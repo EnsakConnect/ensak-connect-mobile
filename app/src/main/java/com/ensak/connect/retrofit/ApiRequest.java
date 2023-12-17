@@ -4,7 +4,9 @@ import com.ensak.connect.models.ChangePassword;
 import com.ensak.connect.models.CodeVerification;
 import com.ensak.connect.models.EmailResetPassword;
 import com.ensak.connect.models.RegisterRequest;
+import com.ensak.connect.models.UserProfile;
 import com.ensak.connect.reponse.NameResponse;
+import com.ensak.connect.reponse.ProfileResponse;
 import com.ensak.connect.reponse.RegistrationResponse;
 import com.ensak.connect.models.LoginRequest;
 import com.ensak.connect.reponse.LoginResponse;
@@ -39,5 +41,13 @@ public interface ApiRequest {
 
     @POST("v1/auth/change-password")
     Call<ChangePassword> changepasswd(@Body ChangePassword changePassword);
+
+    @GET("v1/profile/detailed")
+    Call<ProfileResponse> getUserProfile();
+
+
+
+
+
 
 }

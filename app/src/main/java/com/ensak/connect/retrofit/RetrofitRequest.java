@@ -21,7 +21,7 @@ public class RetrofitRequest {
 
     public static Retrofit getRetrofitInstance(Context context) {
         if (retrofit == null) {
-            // Create SessionManager instance with context
+
             SessionManager sessionManager = new SessionManager(context);
 
             // Create OkHttpClient instance with AuthInterceptor

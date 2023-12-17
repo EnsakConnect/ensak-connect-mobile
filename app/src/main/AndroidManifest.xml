@@ -39,7 +39,12 @@
             android:exported="true" />
         <activity
             android:name=".view.login.LoginActivity"
-            android:exported="false" />
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".view.loading_screen.LoadingActivity"
             android:exported="true" />
@@ -47,13 +52,7 @@
             android:name=".view.home.HomeActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.ENSAKConnect.NoActionBar" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:theme="@style/Theme.ENSAKConnect.NoActionBar" />
     </application>
 
 </manifest>

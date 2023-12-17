@@ -25,15 +25,14 @@ public class AuthInterceptor implements Interceptor {
         Log.d(TAG, "intercept: Interceptor running");
         Request original = chain.request();
 
-        // Check if it's a request that doesn't require a token
         if (isTokenExemptedRequest(original)) {
-            // For requests that don't require a token, proceed without adding the token
+
             return chain.proceed(original);
         }
 
         // For other requests, add the token
         String token = sessionManager.getUserToken();
-        Log.d(TAG, "intercept: Token = " + token);
+        Log.d(TAG, "intercept: Token = " + token );
         if (token != null && !token.isEmpty()) {
             Request.Builder builder = original.newBuilder()
                     .header("Authorization", "Bearer " + token);

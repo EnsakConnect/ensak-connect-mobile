@@ -1,21 +1,21 @@
 
 package com.ensak.connect.view.Profile;
-import android.app.Activity;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
-import androidx.core.content.ContextCompat;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
 import com.ensak.connect.R;
-public class ProfileActivity extends Activity {
+import com.ensak.connect.view_model.ProfileViewModel.ProfileViewModel;
+
+public class ProfileActivity extends AppCompatActivity {
 
 
     private ImageView backButton;
@@ -28,6 +28,7 @@ public class ProfileActivity extends Activity {
     private Button myButton;
     private Button modify_experience_btn;
     private Button modify_skills_button;
+    private ProfileViewModel profileViewModel;
 
 
     @Override
@@ -73,10 +74,25 @@ public class ProfileActivity extends Activity {
         // Set up the back button click listener
         backButton.setOnClickListener(view -> finish());
 
+        profileViewModel = new ViewModelProvider(this, new ViewModelProvider.Factory() {
+            @NonNull
+            @Override
+            public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
+                return (T) new ProfileViewModel(getApplicationContext());
+            }
+        }).get(ProfileViewModel.class);
 
-        // Set up the modify profile button click listener
-        btnModifyProfile.setOnClickListener(view -> {
+        // Observe LiveData
+        profileViewModel.getProfileLiveData().observe(this, profileResponse -> {
+            if (profileResponse != null) {
+                String fullName = profileResponse.getFullName();
+                userName.setText(fullName);
+            } else {
+
+            }
         });
+
+        btnModifyProfile.setOnClickListener(v -> profileViewModel.fetchProfileData());
 
 
     }
