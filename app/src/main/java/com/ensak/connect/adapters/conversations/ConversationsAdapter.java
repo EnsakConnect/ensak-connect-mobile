@@ -65,7 +65,9 @@ public class ConversationsAdapter extends RecyclerView.Adapter<RecyclerView.View
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, ChatActivity.class);
-                intent.putExtra("conversation_id", "");
+                intent.putExtra("conversation_id", "1");
+                intent.putExtra("receiver_name", "Mohamed Amine");
+                intent.putExtra("receiver_image", "https://www.w3schools.com/w3images/avatar2.png");
                 context.startActivity(intent);
             }
         });

@@ -5,6 +5,7 @@ import com.ensak.connect.models.CodeVerification;
 import com.ensak.connect.models.EmailResetPassword;
 import com.ensak.connect.models.RegisterRequest;
 import com.ensak.connect.models.UserProfile;
+import com.ensak.connect.reponse.ChatMessageResponse;
 import com.ensak.connect.reponse.CommentResponse;
 import com.ensak.connect.reponse.ConversationResponse;
 import com.ensak.connect.reponse.NameResponse;
@@ -41,6 +42,12 @@ public interface ApiRequest {
 
     @POST("conversations")
     Call<ConversationResponse> addConversation();
+
+    @GET("chat/{conversation_id}")
+    Call<ArrayList<ChatMessageResponse>> getChatMessages(@Path("conversation_id") String conversationId);
+
+    @POST("chat/{conversation_id}")
+    Call<ChatMessageResponse> sendChatMessage(@Path("conversation_id") String conversationId, @Body String message);
 
     @POST("auth/register")
     Call<RegisterRequest> register(@Body RegisterRequest request);

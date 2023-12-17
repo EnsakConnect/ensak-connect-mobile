@@ -38,7 +38,7 @@
                 app:cardCornerRadius="50dp">
 
                 <ImageView
-                    android:id="@+id/profile_pic_imageview"
+                    android:id="@+id/iv_receiver_image"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
@@ -50,7 +50,7 @@
                 android:layout_height="wrap_content" />
 
             <TextView
-                android:id="@+id/receiver_name"
+                android:id="@+id/tv_receiver_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
