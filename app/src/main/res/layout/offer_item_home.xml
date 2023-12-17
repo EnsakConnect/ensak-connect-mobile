@@ -135,6 +135,7 @@
             android:orientation="horizontal">
 
             <LinearLayout
+                android:id="@+id/ll_like"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -159,6 +160,7 @@
                 android:layout_weight="1" />
 
             <LinearLayout
+                android:id="@+id/ll_comment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -184,6 +186,7 @@
 
 
             <LinearLayout
+                android:id="@+id/ll_share"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"

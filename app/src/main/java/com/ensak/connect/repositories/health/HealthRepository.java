@@ -24,8 +24,10 @@ public class HealthRepository {
         api.healthCheck().enqueue(new Callback<HealthResponse>() {
             @Override
             public void onResponse(Call<HealthResponse> call, Response<HealthResponse> response) {
-                if(response.body() == null){
+                Log.d(TAG, "Res: " + response.errorBody());
+                if(! response.isSuccessful()){
                     callBack.onFailure(new Exception("Body was not found"));
+                    return;
                 }
                 callBack.onSuccess(response.body());
             }

@@ -30,12 +30,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.ensak.connect.databinding.ActivityMainBinding;
 
 public class HomeActivity extends AppCompatActivity {
-
+    private final String TAG = getClass().getSimpleName();
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
     private NavigationView navigationView;
     private DrawerLayout drawer;
-//    SessionManager sessionManager;
+    SessionManager sessionManager;
 
 
     @Override
@@ -45,14 +45,19 @@ public class HomeActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-//        sessionManager = new SessionManager(this);
-//        if (!sessionManager.isLoggedIn()) {
-//            Intent intent = new Intent(this, LoadingActivity.class);
-//            startActivity(intent);
-//            finish();
-//        }
+        sessionManager = new SessionManager(this);
+        if (!sessionManager.isLoggedIn()) {
+            Intent intent = new Intent(this, LoadingActivity.class);
+            startActivity(intent);
+            finish();
+        }
 
-        setSupportActionBar(binding.appBarMain.toolbar);
+        try {
+            setSupportActionBar(binding.appBarMain.toolbar);
+        } catch (Throwable ex) {
+            ex.printStackTrace();
+            Log.e(TAG, "Error: " + ex.getMessage());
+        }
 //        ActionBar actionBar = getSupportActionBar();
 //        actionBar.setDisplayShowTitleEnabled(false);
         binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {

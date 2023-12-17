@@ -108,9 +108,9 @@ public class LoginActivity extends AppCompatActivity {
         String password = passwordEditText.getText().toString().trim();
         Log.d(TAG, "email = " + email + ", password = " + password + ".");
         loginViewModel.login(email, password);
-//
-//        Intent intent = new Intent(this, HomeActivity.class);
-//        startActivity(intent);
+
+        Intent intent = new Intent(this, HomeActivity.class);
+        startActivity(intent);
 
         // Optionally, if you don't want the user to return to the login screen upon pressing back,
         // you can add the following line:
