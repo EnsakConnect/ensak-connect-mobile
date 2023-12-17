@@ -6,6 +6,7 @@ import com.ensak.connect.models.EmailResetPassword;
 import com.ensak.connect.models.RegisterRequest;
 import com.ensak.connect.models.UserProfile;
 import com.ensak.connect.reponse.CommentResponse;
+import com.ensak.connect.reponse.ConversationResponse;
 import com.ensak.connect.reponse.NameResponse;
 import com.ensak.connect.reponse.ProfileResponse;
 import com.ensak.connect.reponse.RegistrationResponse;
@@ -35,6 +36,12 @@ public interface ApiRequest {
     @POST("job-posts/{job_post_id}/comments")
     Call<CommentResponse> sendComment(@Path("job_post_id") String postId, @Body String content);
 
+    @GET("conversations")
+    Call<ArrayList<ConversationResponse>> getConversations();
+
+    @POST("conversations")
+    Call<ConversationResponse> addConversation();
+
     @POST("auth/register")
     Call<RegisterRequest> register(@Body RegisterRequest request);
 
@@ -52,10 +59,6 @@ public interface ApiRequest {
 
     @GET("profile/detailed")
     Call<ProfileResponse> getUserProfile();
-
-
-
-
 
 
 }

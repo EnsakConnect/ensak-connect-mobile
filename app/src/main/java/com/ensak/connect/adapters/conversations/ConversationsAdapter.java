@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -56,6 +57,15 @@ public class ConversationsAdapter extends RecyclerView.Adapter<RecyclerView.View
                         .error(R.drawable.ic_launcher_background) // Error image in case of loading failure
                 )
                 .into(binding.ivUserImage);
+
+        binding.llConversationItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(context, "Conversation clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
     }
 
     @Override

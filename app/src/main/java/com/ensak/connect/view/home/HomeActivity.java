@@ -12,6 +12,7 @@ import com.ensak.connect.R;
 import com.ensak.connect.core.SessionManager;
 import com.ensak.connect.view.LoadingScreen.LoadingActivity;
 import com.ensak.connect.view.Profile.ProfileActivity;
+import com.ensak.connect.view.conversations.ConversationsActivity;
 import com.ensak.connect.view.login.LoginActivity;
 import com.google.android.material.navigation.NavigationView;
 
@@ -98,7 +99,7 @@ public class HomeActivity extends AppCompatActivity {
             Toast.makeText(this, "action_notifications", Toast.LENGTH_SHORT).show();
             return true;
         } else if (itemId == R.id.action_chat) {
-            Toast.makeText(this, "action_chat", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(this, ConversationsActivity.class));
             return true;
         }
 
