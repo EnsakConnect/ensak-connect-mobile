@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.ensak.connect.R;
 import com.ensak.connect.core.SessionManager;
 import com.ensak.connect.view.LoadingScreen.LoadingActivity;
+import com.ensak.connect.view.Profile.ProfileActivity;
 import com.ensak.connect.view.login.LoginActivity;
 import com.google.android.material.navigation.NavigationView;
 
