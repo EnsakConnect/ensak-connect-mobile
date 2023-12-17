@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ensak.connect.R;
+import com.ensak.connect.core.SessionManager;
 import com.ensak.connect.view.Registration.RegistrationScreen;
 import com.ensak.connect.view.ResetPassword.EmailRecuperation;
 import com.ensak.connect.view.home.HomeActivity;
@@ -30,11 +31,18 @@ public class LoginActivity extends AppCompatActivity {
     private EditText emailEditText;
     private EditText passwordEditText;
     private LoginViewModel loginViewModel;
+    private SessionManager sessionManager;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        sessionManager = new SessionManager(this);
+        if (sessionManager.isLoggedIn()) {
+            navigateToHome();
+            return; // Skip the rest of the onCreate process
+        }
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
@@ -79,7 +87,7 @@ public class LoginActivity extends AppCompatActivity {
         findViewById(R.id.googleLoginButton).setOnClickListener(view -> signInWithGoogle());
         findViewById(R.id.forgotPasswordText).setOnClickListener(view -> {
 
-            //Intent intent = new Intent(LoginActivity.this, EmailRecuperation.class);
+
         });
     }
 
@@ -94,13 +102,18 @@ public class LoginActivity extends AppCompatActivity {
                 // Handle successful login
                 Toast.makeText(LoginActivity.this, "Login Successful.", Toast.LENGTH_SHORT).show();
 
-                // Navigate to next activity or perform other actions
+
             } else {
-                // Handle login failure
+
                 Toast.makeText(LoginActivity.this, "Login Failed", Toast.LENGTH_SHORT).show();
             }
         });
 
+    }
+    private void navigateToHome() {
+        Intent intent = new Intent(this, HomeActivity.class);
+        startActivity(intent);
+        finish(); // Finish LoginActivity so the user can't navigate back to it
     }
 
     private void loginUser() {
@@ -111,9 +124,6 @@ public class LoginActivity extends AppCompatActivity {
 
         Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
-
-        // Optionally, if you don't want the user to return to the login screen upon pressing back,
-        // you can add the following line:
         finish();
 
     }
