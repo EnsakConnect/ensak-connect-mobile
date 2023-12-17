@@ -121,12 +121,6 @@ public class LoginActivity extends AppCompatActivity {
         String password = passwordEditText.getText().toString().trim();
         Log.d(TAG, "email = " + email + ", password = " + password + ".");
         loginViewModel.login(email, password);
-<<<<<<< HEAD
-
-        Intent intent = new Intent(this, HomeActivity.class);
-        startActivity(intent);
-=======
->>>>>>> fcb1259 (Connected succesfuly profile api with UI)
 
         Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
