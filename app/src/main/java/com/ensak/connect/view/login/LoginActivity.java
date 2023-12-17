@@ -36,6 +36,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
         }
@@ -79,7 +80,7 @@ public class LoginActivity extends AppCompatActivity {
         findViewById(R.id.googleLoginButton).setOnClickListener(view -> signInWithGoogle());
         findViewById(R.id.forgotPasswordText).setOnClickListener(view -> {
 
-            //Intent intent = new Intent(LoginActivity.this, EmailRecuperation.class);
+
         });
     }
 
@@ -94,9 +95,9 @@ public class LoginActivity extends AppCompatActivity {
                 // Handle successful login
                 Toast.makeText(LoginActivity.this, "Login Successful.", Toast.LENGTH_SHORT).show();
 
-                // Navigate to next activity or perform other actions
+
             } else {
-                // Handle login failure
+
                 Toast.makeText(LoginActivity.this, "Login Failed", Toast.LENGTH_SHORT).show();
             }
         });
@@ -108,12 +109,15 @@ public class LoginActivity extends AppCompatActivity {
         String password = passwordEditText.getText().toString().trim();
         Log.d(TAG, "email = " + email + ", password = " + password + ".");
         loginViewModel.login(email, password);
+<<<<<<< HEAD
 
         Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
+=======
+>>>>>>> fcb1259 (Connected succesfuly profile api with UI)
 
-        // Optionally, if you don't want the user to return to the login screen upon pressing back,
-        // you can add the following line:
+        Intent intent = new Intent(this, HomeActivity.class);
+        startActivity(intent);
         finish();
 
     }
