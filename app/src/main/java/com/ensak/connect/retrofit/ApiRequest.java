@@ -5,6 +5,7 @@ import com.ensak.connect.models.CodeVerification;
 import com.ensak.connect.models.EmailResetPassword;
 import com.ensak.connect.models.RegisterRequest;
 import com.ensak.connect.models.UserProfile;
+import com.ensak.connect.reponse.CommentResponse;
 import com.ensak.connect.reponse.NameResponse;
 import com.ensak.connect.reponse.ProfileResponse;
 import com.ensak.connect.reponse.RegistrationResponse;
@@ -49,7 +50,7 @@ public interface ApiRequest {
     @POST("auth/change-password")
     Call<ChangePassword> changepasswd(@Body ChangePassword changePassword);
 
-    @GET("v1/profile/detailed")
+    @GET("profile/detailed")
     Call<ProfileResponse> getUserProfile();
 
 

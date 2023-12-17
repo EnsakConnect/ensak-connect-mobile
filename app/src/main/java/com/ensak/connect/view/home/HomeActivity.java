@@ -64,8 +64,7 @@ public class HomeActivity extends AppCompatActivity {
         binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), ProfileActivity.class);
-                view.getContext().startActivity(intent);
+
             }
         });
          drawer = binding.drawerLayout;
@@ -133,7 +132,8 @@ public class HomeActivity extends AppCompatActivity {
             } else if (itemId == R.id.nav_qa) {
                 Toast.makeText(this, "nav_qa", Toast.LENGTH_SHORT).show();
             } else if (itemId == R.id.nav_profile) {
-                Toast.makeText(this, "nav_profile", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this, ProfileActivity.class);
+                startActivity(intent);
             } else if (itemId == R.id.nav_messages) {
                 Toast.makeText(this, "nav_messages", Toast.LENGTH_SHORT).show();
             } else if (itemId == R.id.nav_notifications) {
