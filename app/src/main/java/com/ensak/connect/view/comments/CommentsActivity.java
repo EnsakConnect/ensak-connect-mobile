@@ -36,6 +36,7 @@ public class CommentsActivity extends AppCompatActivity {
     private RecyclerView rvComments;
     private CardView cardSendComment;
     private EditText etComment;
+    private String postId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,9 +49,9 @@ public class CommentsActivity extends AppCompatActivity {
         actionBar.setDisplayShowTitleEnabled(false);
 
         Bundle extras = getIntent().getExtras();
-        String postId = "1";
+        postId = "1";
         if (extras != null) {
-            postId = extras.getString("postId");
+            postId = String.valueOf(extras.getInt("postId"));
         }
 
         initRecyclerView();
@@ -70,11 +71,9 @@ public class CommentsActivity extends AppCompatActivity {
                     Toast.makeText(CommentsActivity.this, "Please enter a comment.", Toast.LENGTH_LONG).show();
                 } else {
                     // send comment to API
-                    comments.add(0, new CommentResponse(new UserResponse(), etComment.getText().toString(), new Date()));
-                    adapter.notifyDataSetChanged();
+                    sendNewComment(postId, etComment.getText().toString().trim());
 
                     // Clear input
-                    Toast.makeText(CommentsActivity.this, "Comment sent.", Toast.LENGTH_LONG).show();
                     etComment.setText("");
                     etComment.clearFocus();
 
@@ -84,6 +83,23 @@ public class CommentsActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void sendNewComment(String postId, String comment) {
+        try {
+            commentViewModel.sendComment(postId, comment).observe((LifecycleOwner) this, response -> {
+                if (response != null) {
+
+                    String message = response.getComment();
+                    Log.d("Main Log", message);
+
+                    comments.add(0, response);
+                    adapter.notifyItemInserted(0);
+                }
+            });
+        } catch (Throwable ex) {
+            Toast.makeText(this, "Error sending comment.", Toast.LENGTH_LONG);
+        }
     }
 
     private void initRecyclerView() {
@@ -106,7 +122,6 @@ public class CommentsActivity extends AppCompatActivity {
 
                     comments.clear();
                     comments.addAll(responses);
-                    adapter.notifyDataSetChanged();
                     adapter.notifyDataSetChanged();
                 }
             });

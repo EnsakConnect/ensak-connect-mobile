@@ -31,9 +31,9 @@ public class RetrofitRequest {
 
             // Build Retrofit instance
             retrofit = new retrofit2.Retrofit.Builder()
+                    .client(okHttpClient)
                     .baseUrl(AppConstants.BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
-                    .client(okHttpClient)
                     .build();
         }
         return retrofit;

@@ -21,11 +21,14 @@ public interface ApiRequest {
     @GET("v1/ensak-connect")
     Call<NameResponse> getTestMessage();
 
-    @GET("v1/job-post/all")
+    @GET("v1/job-posts")
     Call<ArrayList<PostResponse>> getPosts();
 
     @GET("v1/job-posts/{job_post_id}/comments")
     Call<ArrayList<CommentResponse>> getComments(@Path("job_post_id") String postId);
+
+    @POST("v1/job-posts/{job_post_id}/comments")
+    Call<CommentResponse> sendComment(@Path("job_post_id") String postId, @Body String content);
 
     @POST("/api/v1/auth/register")
     Call<RegisterRequest> register(@Body RegisterRequest request);

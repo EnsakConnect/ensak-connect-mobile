@@ -54,4 +54,33 @@ public class CommentRepository {
                 });
         return data;
     }
+
+    public LiveData<CommentResponse> sendComment(String postId, String comment) {
+        final MutableLiveData<CommentResponse> data = new MutableLiveData<>();
+        apiRequest.sendComment(postId, comment)
+                .enqueue(new Callback<CommentResponse>() {
+
+
+                    @Override
+                    public void onResponse(@NonNull Call<CommentResponse> call, @NonNull Response<CommentResponse> response) {
+                        Log.d(TAG, "onResponse response:: " + response);
+
+
+                        if (response.body() != null) {
+                            try {
+                                data.setValue(response.body());
+                                Log.d(TAG, "API test result:: " + response.body().getComment());
+                            } catch (Throwable ex) {
+                                Log.e(TAG, "Exception occured: " + ex.getMessage());
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(@NonNull Call<CommentResponse> call, @NonNull Throwable t) {
+                        data.setValue(null);
+                    }
+                });
+        return data;
+    }
 }

@@ -17,8 +17,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".view.home.HomeActivity"
-            android:exported="false" />
+            android:name=".view.comments.CommentsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.ENSAKConnect.NoActionBar" />
         <activity
             android:name=".view.RegistrationScreen"
             android:exported="false" />
@@ -29,7 +30,7 @@
             android:name=".view.loading_screen.LoadingActivity"
             android:exported="true" />
         <activity
-            android:name=".view.comments.CommentsActivity"
+            android:name=".view.home.HomeActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.ENSAKConnect.NoActionBar">

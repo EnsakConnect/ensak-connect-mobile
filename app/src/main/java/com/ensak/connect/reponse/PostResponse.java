@@ -12,7 +12,7 @@ public class PostResponse {
     @Expose
     private int id;
 
-    @SerializedName("user")
+    @SerializedName("author")
     @Expose
     private UserResponse user;
 
@@ -20,7 +20,7 @@ public class PostResponse {
     @Expose
     private String description;
 
-    @SerializedName("type")
+    @SerializedName("category")
     @Expose
     private String type;
 
@@ -28,7 +28,7 @@ public class PostResponse {
     @Expose
     private ArrayList<String> tags;
 
-    @SerializedName("createDate")
+    @SerializedName("createdAt")
     @Expose
     private Date date;
 
