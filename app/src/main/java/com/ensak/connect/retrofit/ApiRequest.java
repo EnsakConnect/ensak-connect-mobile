@@ -4,6 +4,7 @@ import com.ensak.connect.models.ChangePassword;
 import com.ensak.connect.models.CodeVerification;
 import com.ensak.connect.models.EmailResetPassword;
 import com.ensak.connect.models.RegisterRequest;
+import com.ensak.connect.reponse.CommentResponse;
 import com.ensak.connect.reponse.NameResponse;
 import com.ensak.connect.reponse.RegistrationResponse;
 import com.ensak.connect.models.LoginRequest;
@@ -17,13 +18,20 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 public interface ApiRequest {
     @GET("ensak-connect")
     Call<NameResponse> getTestMessage();
 
-    @GET("job-post/all")
+    @GET("job-posts")
     Call<ArrayList<PostResponse>> getPosts();
+
+    @GET("job-posts/{job_post_id}/comments")
+    Call<ArrayList<CommentResponse>> getComments(@Path("job_post_id") String postId);
+
+    @POST("job-posts/{job_post_id}/comments")
+    Call<CommentResponse> sendComment(@Path("job_post_id") String postId, @Body String content);
 
     @POST("auth/register")
     Call<RegisterRequest> register(@Body RegisterRequest request);
