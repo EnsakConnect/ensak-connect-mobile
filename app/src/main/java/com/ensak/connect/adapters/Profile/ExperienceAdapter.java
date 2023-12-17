@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.ensak.connect.R;
 import com.ensak.connect.models.Experience;
+import com.ensak.connect.utils.Utils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -60,27 +61,10 @@ public class ExperienceAdapter extends RecyclerView.Adapter<ExperienceAdapter.Ex
             titleTextView.setText(experience.getPositionTitle());
 //            companyTextView.setText(experience.getCompanyName());
             locationTextView.setText(experience.getLocation());
-            periodTextView.setText(formatPeriod(experience.getStartDate(), experience.getEndDate()));
+            periodTextView.setText(Utils.formatPeriod(experience.getStartDate(), experience.getEndDate()));
             descriptionTextView.setText(experience.getDescription());
         }
 
-        private String formatPeriod(String startDateStr, String endDateStr) {
-            SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX", Locale.getDefault());
-            SimpleDateFormat outputFormat = new SimpleDateFormat("MMM yyyy", Locale.getDefault());
-
-            try {
-                Date startDate = inputFormat.parse(startDateStr);
-                Date endDate = inputFormat.parse(endDateStr);
-
-                String formattedStartDate = outputFormat.format(startDate);
-                String formattedEndDate = outputFormat.format(endDate);
-
-                return formattedStartDate + " - " + formattedEndDate;
-            } catch (ParseException e) {
-                e.printStackTrace();
-                return "Invalid dates";
-            }
-        }
     }
 }
 
