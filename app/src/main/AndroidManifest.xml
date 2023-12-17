@@ -31,7 +31,7 @@
             android:exported="false"
             android:theme="@style/Theme.ENSAKConnect.NoActionBar" />
         <activity
-            android:name=".view.RegistrationScreen"
+            android:name=".view.Registration.RegistrationScreen"
             android:exported="false" />
         <activity
             android:name=".view.login.LoginActivity"

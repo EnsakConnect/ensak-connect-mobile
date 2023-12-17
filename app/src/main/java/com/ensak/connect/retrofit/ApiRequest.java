@@ -27,10 +27,10 @@ public interface ApiRequest {
     @GET("job-posts")
     Call<ArrayList<PostResponse>> getPosts();
 
-    @GET("v1/job-posts/{job_post_id}/comments")
+    @GET("job-posts/{job_post_id}/comments")
     Call<ArrayList<CommentResponse>> getComments(@Path("job_post_id") String postId);
 
-    @POST("v1/job-posts/{job_post_id}/comments")
+    @POST("job-posts/{job_post_id}/comments")
     Call<CommentResponse> sendComment(@Path("job_post_id") String postId, @Body String content);
 
     @POST("auth/register")
