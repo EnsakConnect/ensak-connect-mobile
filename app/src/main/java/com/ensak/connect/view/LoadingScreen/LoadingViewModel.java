@@ -1,13 +1,11 @@
-package com.ensak.connect.view.loading_screen;
+package com.ensak.connect.view.LoadingScreen;
 
 import android.app.Application;
-import android.content.Intent;
 import android.util.Log;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
 import com.ensak.connect.core.SessionManager;
 import com.ensak.connect.repositories.RepositoryCallBack;
@@ -15,7 +13,6 @@ import com.ensak.connect.repositories.auth.AuthRepository;
 import com.ensak.connect.repositories.auth.local.dto.UserResponse;
 import com.ensak.connect.repositories.health.HealthRepository;
 import com.ensak.connect.repositories.health.local.dto.HealthResponse;
-import com.ensak.connect.view.login.LoginActivity;
 
 import org.jetbrains.annotations.NotNull;
 
