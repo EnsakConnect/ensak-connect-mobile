@@ -1,5 +1,8 @@
 package com.ensak.connect.retrofit;
 
+import com.ensak.connect.models.ChangePassword;
+import com.ensak.connect.models.CodeVerification;
+import com.ensak.connect.models.EmailResetPassword;
 import com.ensak.connect.models.RegisterRequest;
 import com.ensak.connect.reponse.CommentResponse;
 import com.ensak.connect.reponse.NameResponse;
@@ -18,10 +21,10 @@ import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public interface ApiRequest {
-    @GET("v1/ensak-connect")
+    @GET("ensak-connect")
     Call<NameResponse> getTestMessage();
 
-    @GET("v1/job-posts")
+    @GET("job-posts")
     Call<ArrayList<PostResponse>> getPosts();
 
     @GET("v1/job-posts/{job_post_id}/comments")
@@ -30,9 +33,19 @@ public interface ApiRequest {
     @POST("v1/job-posts/{job_post_id}/comments")
     Call<CommentResponse> sendComment(@Path("job_post_id") String postId, @Body String content);
 
-    @POST("/api/v1/auth/register")
+    @POST("auth/register")
     Call<RegisterRequest> register(@Body RegisterRequest request);
 
-    @POST("v1/auth/login")
+    @POST("auth/login")
     Call<LoginResponse> loginUser(@Body LoginRequest loginRequest);
+
+    @POST("auth/password-reset")
+    Call<EmailResetPassword> sendmail(@Body EmailResetPassword emailrequest);
+
+    @POST("auth/password-reset/verify")
+    Call<CodeVerification> sendcode(@Body CodeVerification codeVerification);
+
+    @POST("auth/change-password")
+    Call<ChangePassword> changepasswd(@Body ChangePassword changePassword);
+
 }

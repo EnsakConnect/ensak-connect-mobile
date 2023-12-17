@@ -7,13 +7,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
-import com.ensak.connect.R;
 import com.ensak.connect.databinding.ActivityLoadingBinding;
 import com.ensak.connect.view.home.HomeActivity;
 import com.ensak.connect.view.login.LoginActivity;
-import com.ensak.connect.view_model.LoginViewModel.LoginViewModel;
 
 public class LoadingActivity extends AppCompatActivity {
     private final String TAG = getClass().getSimpleName();
@@ -38,10 +35,8 @@ public class LoadingActivity extends AppCompatActivity {
             Log.d(TAG, "initViewModel isLoading: " + isLoading);
             if(isLoading) {
                 binding.progressLoading.setVisibility(View.VISIBLE);
-                Toast.makeText(this, "Loading started", Toast.LENGTH_SHORT).show();
             } else {
                 binding.progressLoading.setVisibility(View.INVISIBLE);
-                Toast.makeText(this, "Loading stopped", Toast.LENGTH_SHORT).show();
             }
         });
 

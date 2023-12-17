@@ -7,6 +7,7 @@ import com.ensak.connect.core.AuthInterceptor;
 import com.ensak.connect.core.SessionManager;
 
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -24,9 +25,14 @@ public class RetrofitRequest {
             // Create SessionManager instance with context
             SessionManager sessionManager = new SessionManager(context);
 
+            // Debug interceptor
+            HttpLoggingInterceptor debug_interceptor = new HttpLoggingInterceptor();
+            debug_interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+
             // Create OkHttpClient instance with AuthInterceptor
             OkHttpClient okHttpClient = new OkHttpClient.Builder()
                     .addInterceptor(new AuthInterceptor(sessionManager))
+                    .addInterceptor(debug_interceptor)
                     .build();
 
             // Build Retrofit instance

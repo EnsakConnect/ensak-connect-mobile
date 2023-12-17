@@ -30,7 +30,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.ensak.connect.databinding.ActivityMainBinding;
 
 public class HomeActivity extends AppCompatActivity {
-
+    private final String TAG = getClass().getSimpleName();
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
     private NavigationView navigationView;
@@ -52,7 +52,12 @@ public class HomeActivity extends AppCompatActivity {
             finish();
         }
 
-        setSupportActionBar(binding.appBarMain.toolbar);
+        try {
+            setSupportActionBar(binding.appBarMain.toolbar);
+        } catch (Throwable ex) {
+            ex.printStackTrace();
+            Log.e(TAG, "Error: " + ex.getMessage());
+        }
 //        ActionBar actionBar = getSupportActionBar();
 //        actionBar.setDisplayShowTitleEnabled(false);
         binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {

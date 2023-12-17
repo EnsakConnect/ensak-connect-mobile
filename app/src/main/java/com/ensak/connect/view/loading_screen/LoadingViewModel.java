@@ -51,6 +51,7 @@ public class LoadingViewModel extends AndroidViewModel {
         healthRepository.healthCheck(new RepositoryCallBack<HealthResponse>() {
             @Override
             public void onSuccess(HealthResponse data) {
+                Log.d(TAG, "Res: " + data);
                 if(!data.getSuccess()) {
                     isError.setValue(true);
                     errorMessage.setValue("Server error, returned success = false");

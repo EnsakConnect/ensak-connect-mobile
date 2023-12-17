@@ -1,24 +1,19 @@
-package com.ensak.connect.view;
+package com.ensak.connect.view.Registration;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.DiffUtil;
 
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.widget.Button;
 import android.widget.EditText;
-import com.ensak.connect.reponse.NameResponse;
 import android.widget.Spinner;
 import java.util.Map;
-import java.util.HashMap;
+
 import android.widget.ArrayAdapter;
 
 
 import com.ensak.connect.models.RegisterRequest;
 import com.ensak.connect.retrofit.ApiRequest;
 import com.ensak.connect.retrofit.RetrofitRequest;
-import com.ensak.connect.view_model.RegistrationViewModel;
 import com.ensak.connect.R;
 import android.widget.Toast;
 
@@ -54,8 +49,8 @@ public class RegistrationScreen extends AppCompatActivity {
     }
 
     private void sendRequestRegister(){
-        EditText efirstname=findViewById(R.id.editTextFirstName);
-        EditText elastname=findViewById(R.id.editTextLastName);
+        EditText efullname=findViewById(R.id.editTextFullName);
+        //EditText elastname=findViewById(R.id.editTextLastName);
         EditText eemail=findViewById(R.id.editTextEmail);
         EditText epassword=findViewById(R.id.editTextPassword);
         Button regiterbtn=findViewById(R.id.buttonRegister);
@@ -65,8 +60,8 @@ public class RegistrationScreen extends AppCompatActivity {
 
 
         regiterbtn.setOnClickListener(view -> {
-            String firstname=String.valueOf(efirstname.getText());
-            String lastname=String.valueOf(elastname.getText());
+            String fullname=String.valueOf(efullname.getText());
+            //String lastname=String.valueOf(elastname.getText());
             String email=String.valueOf(eemail.getText());
             String password=String.valueOf(epassword.getText());
 
@@ -74,8 +69,8 @@ public class RegistrationScreen extends AppCompatActivity {
             //String selectedRole = roleMapping.get(selectedProfession);
 
             RegisterRequest registerRequest = new RegisterRequest();
-            registerRequest.setFirstname(firstname);
-            registerRequest.setLastname(lastname);
+            registerRequest.setFullname(fullname);
+            //registerRequest.setLastname(lastname);
             registerRequest.setEmail(email);
             registerRequest.setPassword(password);
             //registerRequest.setRole(selectedProfession);

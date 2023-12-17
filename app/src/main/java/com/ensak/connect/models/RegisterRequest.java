@@ -1,29 +1,18 @@
 package com.ensak.connect.models;
 
 public class RegisterRequest {
-    String firstname;
-    String lastname;
+    String fullname;
     String email;
     String password;
     //String role;
 
 
-
-
-    public String getFirstname() {
-        return firstname;
+    public String getFullname() {
+        return fullname;
     }
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-
-    public String getLastname() {
-        return lastname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
     }
 
     public String getEmail() {
@@ -50,11 +39,11 @@ public class RegisterRequest {
         this.role = role;
     }
 */
+
     @Override
     public String toString() {
         return "RegisterRequest{" +
-                "firstname='" + firstname + '\'' +
-                ", lastname='" + lastname + '\'' +
+                "fullname='" + fullname + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 '}';
