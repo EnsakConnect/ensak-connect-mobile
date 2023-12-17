@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ensak.connect.R;
+import com.ensak.connect.core.SessionManager;
 import com.ensak.connect.view.Registration.RegistrationScreen;
 import com.ensak.connect.view.ResetPassword.EmailRecuperation;
 import com.ensak.connect.view.home.HomeActivity;
@@ -30,12 +31,18 @@ public class LoginActivity extends AppCompatActivity {
     private EditText emailEditText;
     private EditText passwordEditText;
     private LoginViewModel loginViewModel;
+    private SessionManager sessionManager;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        sessionManager = new SessionManager(this);
+        if (sessionManager.isLoggedIn()) {
+            navigateToHome();
+            return; // Skip the rest of the onCreate process
+        }
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
@@ -102,6 +109,11 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+    }
+    private void navigateToHome() {
+        Intent intent = new Intent(this, HomeActivity.class);
+        startActivity(intent);
+        finish(); // Finish LoginActivity so the user can't navigate back to it
     }
 
     private void loginUser() {
