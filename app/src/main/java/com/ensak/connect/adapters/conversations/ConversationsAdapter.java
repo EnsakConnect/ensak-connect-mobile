@@ -1,6 +1,7 @@
 package com.ensak.connect.adapters.conversations;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,8 @@ import com.ensak.connect.databinding.ConversationItemBinding;
 import com.ensak.connect.reponse.CommentResponse;
 import com.ensak.connect.reponse.ConversationResponse;
 import com.ensak.connect.utils.Utils;
+import com.ensak.connect.view.chat.ChatActivity;
+import com.ensak.connect.view.comments.CommentsActivity;
 
 import java.util.ArrayList;
 
@@ -61,7 +64,9 @@ public class ConversationsAdapter extends RecyclerView.Adapter<RecyclerView.View
         binding.llConversationItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, "Conversation clicked", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(context, ChatActivity.class);
+                intent.putExtra("conversation_id", "");
+                context.startActivity(intent);
             }
         });
 
