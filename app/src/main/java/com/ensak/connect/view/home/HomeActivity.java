@@ -140,7 +140,10 @@ public class HomeActivity extends AppCompatActivity {
             } else if (itemId == R.id.nav_about) {
                 Toast.makeText(this, "nav_about", Toast.LENGTH_SHORT).show();
             } else if (itemId == R.id.nav_logout) {
-                Toast.makeText(this, "nav_logout", Toast.LENGTH_SHORT).show();
+                sessionManager.logoutUser();
+                Intent loadingScreenIntent = new Intent(this, LoadingActivity.class);
+                startActivity(loadingScreenIntent);
+                finish();
             }
             drawer.closeDrawers();
             return true;
