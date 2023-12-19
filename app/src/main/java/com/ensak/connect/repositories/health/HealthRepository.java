@@ -4,8 +4,8 @@ import android.content.Context;
 import android.util.Log;
 
 import com.ensak.connect.repositories.RepositoryCallBack;
-import com.ensak.connect.repositories.health.local.HealthApiLocal;
-import com.ensak.connect.repositories.health.local.dto.HealthResponse;
+import com.ensak.connect.repositories.health.remote.HealthApi;
+import com.ensak.connect.repositories.health.remote.dto.HealthResponse;
 import com.ensak.connect.retrofit.RetrofitRequest;
 
 import retrofit2.Call;
@@ -15,9 +15,9 @@ import retrofit2.Response;
 public class HealthRepository {
 
     private final String TAG = getClass().getSimpleName();
-    private HealthApiLocal api;
+    private HealthApi api;
     public HealthRepository(Context context) {
-        api = RetrofitRequest.getRetrofitInstance(context).create(HealthApiLocal.class);
+        api = RetrofitRequest.getRetrofitInstance(context).create(HealthApi.class);
     }
 
     public void healthCheck(RepositoryCallBack<HealthResponse> callBack) {

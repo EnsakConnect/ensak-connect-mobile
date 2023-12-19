@@ -1,4 +1,4 @@
-package com.ensak.connect.repositories.auth.local.dto;
+package com.ensak.connect.repositories.auth.remote.dto;
 
 public class UserResponse {
     private Integer id;

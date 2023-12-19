@@ -4,8 +4,8 @@ import android.content.Context;
 import android.util.Log;
 
 import com.ensak.connect.repositories.RepositoryCallBack;
-import com.ensak.connect.repositories.auth.local.AuthApiLocal;
-import com.ensak.connect.repositories.auth.local.dto.UserResponse;
+import com.ensak.connect.repositories.auth.remote.AuthApi;
+import com.ensak.connect.repositories.auth.remote.dto.UserResponse;
 import com.ensak.connect.retrofit.RetrofitRequest;
 
 import retrofit2.Call;
@@ -14,9 +14,9 @@ import retrofit2.Response;
 
 public class AuthRepository {
     private final String TAG = getClass().getSimpleName();
-    private AuthApiLocal api;
+    private AuthApi api;
     public AuthRepository(Context context) {
-        api = RetrofitRequest.getRetrofitInstance(context).create(AuthApiLocal.class);
+        api = RetrofitRequest.getRetrofitInstance(context).create(AuthApi.class);
     }
 
     public void checkToken(RepositoryCallBack<UserResponse> callBack) {
