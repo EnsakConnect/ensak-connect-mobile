@@ -14,6 +14,7 @@ import com.ensak.connect.view.LoadingScreen.LoadingActivity;
 import com.ensak.connect.view.Profile.ProfileActivity;
 import com.ensak.connect.view.conversations.ConversationsActivity;
 import com.ensak.connect.view.login.LoginActivity;
+import com.ensak.connect.view.notifications.NotificationActivity;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
@@ -96,7 +97,8 @@ public class HomeActivity extends AppCompatActivity {
             Toast.makeText(this, "action_search", Toast.LENGTH_SHORT).show();
             return true;
         } else if (itemId == R.id.action_notifications) {
-            Toast.makeText(this, "action_notifications", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, NotificationActivity.class);
+            startActivity(intent);
             return true;
         } else if (itemId == R.id.action_chat) {
             startActivity(new Intent(this, ConversationsActivity.class));

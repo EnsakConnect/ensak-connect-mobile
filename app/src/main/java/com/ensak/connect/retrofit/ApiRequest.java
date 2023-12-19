@@ -3,12 +3,14 @@ package com.ensak.connect.retrofit;
 import com.ensak.connect.models.ChangePassword;
 import com.ensak.connect.models.CodeVerification;
 import com.ensak.connect.models.EmailResetPassword;
+import com.ensak.connect.models.Notification;
 import com.ensak.connect.models.RegisterRequest;
 import com.ensak.connect.models.UserProfile;
 import com.ensak.connect.reponse.ChatMessageResponse;
 import com.ensak.connect.reponse.CommentResponse;
 import com.ensak.connect.reponse.ConversationResponse;
 import com.ensak.connect.reponse.NameResponse;
+import com.ensak.connect.reponse.NotificationResponse;
 import com.ensak.connect.reponse.ProfileResponse;
 import com.ensak.connect.reponse.RegistrationResponse;
 import com.ensak.connect.models.LoginRequest;
@@ -17,6 +19,7 @@ import com.ensak.connect.reponse.NameResponse;
 import com.ensak.connect.reponse.PostResponse;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -67,5 +70,7 @@ public interface ApiRequest {
     @GET("profile/detailed")
     Call<ProfileResponse> getUserProfile();
 
+    @GET("notifications")
+    Call<List<NotificationResponse>> getAllNotifications();
 
 }

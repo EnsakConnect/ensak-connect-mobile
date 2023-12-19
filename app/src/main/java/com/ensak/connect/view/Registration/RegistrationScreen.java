@@ -33,13 +33,13 @@ public class RegistrationScreen extends AppCompatActivity {
         setContentView(R.layout.activity_registration_screen);
         //viewModel = new ViewModelProvider(this).get(RegistrationViewModel.class);
         spinnerProfession = findViewById(R.id.spinnerProfession);
-        String[] professions = {"ROLE_STUDENT", "ROLE_PROFESSOR", "ROLE_LAUREATE"};
+        String[] professions = {"STUDENT", "PROFESSOR", "LAUREATE"};
 
-// Mapping des professions avec les rôles
-       /* roleMapping = new HashMap<>();
+        //Mapping des professions avec les rôles
+        /*roleMapping = new HashMap<>();
         roleMapping.put("Etudiant", "ROLE_STUDENT");
         roleMapping.put("Professeur", "ROLE_PROFESSOR");
-        roleMapping.put("Laureat", "ROLE_LAUREATE");*/
+        roleMapping.put("Laureat", "ROLE_LAUREATE")*/
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, professions);
         spinnerProfession.setAdapter(adapter);
@@ -73,7 +73,7 @@ public class RegistrationScreen extends AppCompatActivity {
             //registerRequest.setLastname(lastname);
             registerRequest.setEmail(email);
             registerRequest.setPassword(password);
-            //registerRequest.setRole(selectedProfession);
+            registerRequest.setRole(selectedProfession);
 
             apiRequest.register(registerRequest).enqueue(new Callback<RegisterRequest>() {
                 @Override

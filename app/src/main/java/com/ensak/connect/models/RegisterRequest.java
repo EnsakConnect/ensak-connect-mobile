@@ -4,7 +4,7 @@ public class RegisterRequest {
     String fullname;
     String email;
     String password;
-    //String role;
+    String role;
 
 
     public String getFullname() {
@@ -31,14 +31,14 @@ public class RegisterRequest {
         this.password = password;
     }
 
-   /*public String getRole() {
+   public String getRole() {
         return role;
     }
 
     public void setRole(String role) {
         this.role = role;
     }
-*/
+
 
     @Override
     public String toString() {
@@ -46,6 +46,7 @@ public class RegisterRequest {
                 "fullname='" + fullname + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
+                ", role='" + role + '\'' +
                 '}';
     }
 }
