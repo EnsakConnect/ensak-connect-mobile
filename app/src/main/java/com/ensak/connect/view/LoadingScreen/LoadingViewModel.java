@@ -87,6 +87,7 @@ public class LoadingViewModel extends AndroidViewModel {
                 isError.setValue(false);
                 isLoading.setValue(false);
                 currentAction.setValue("Invalid user token, redirecting to login");
+                sessionManager.logoutUser();
                 redirectToLogin();
             }
         });
