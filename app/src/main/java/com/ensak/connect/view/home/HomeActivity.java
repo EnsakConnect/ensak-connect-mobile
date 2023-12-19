@@ -12,7 +12,9 @@ import com.ensak.connect.R;
 import com.ensak.connect.core.SessionManager;
 import com.ensak.connect.view.LoadingScreen.LoadingActivity;
 import com.ensak.connect.view.Profile.ProfileActivity;
+import com.ensak.connect.view.Registration.RegistrationScreen;
 import com.ensak.connect.view.conversations.ConversationsActivity;
+import com.ensak.connect.view.create_question_screen.CreateQuestionActivity;
 import com.ensak.connect.view.login.LoginActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
@@ -101,13 +103,17 @@ public class HomeActivity extends AppCompatActivity {
             Log.d(TAG, "Is menu open (After): " + isFABMenuOpen);
         });
         btnNewQuestion.setOnClickListener(view -> {
-            Toast.makeText(this, "Btn question", Toast.LENGTH_SHORT).show();
+            Intent createQuestionIntent = new Intent(this, CreateQuestionActivity.class);
+            startActivity(createQuestionIntent);
+            closeFABMenu();
         });
         btnNewJobOffer.setOnClickListener(view -> {
             Toast.makeText(this, "Btn job offer", Toast.LENGTH_SHORT).show();
+            closeFABMenu();
         });
         btnNewBlogPost.setOnClickListener(view -> {
             Toast.makeText(this, "Btn blog post", Toast.LENGTH_SHORT).show();
+            closeFABMenu();
         });
     }
     private void openFABMenu() {

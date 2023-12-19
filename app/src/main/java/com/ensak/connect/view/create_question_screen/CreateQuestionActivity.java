@@ -17,5 +17,9 @@ public class CreateQuestionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityCreateQuestionBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        binding.btnCancel.setOnClickListener(v -> {
+            finish();
+        });
     }
 }
