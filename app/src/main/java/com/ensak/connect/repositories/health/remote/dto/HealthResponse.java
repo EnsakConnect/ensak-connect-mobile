@@ -1,4 +1,4 @@
-package com.ensak.connect.repositories.health.local.dto;
+package com.ensak.connect.repositories.health.remote.dto;
 
 public class HealthResponse {
     private Boolean success;
