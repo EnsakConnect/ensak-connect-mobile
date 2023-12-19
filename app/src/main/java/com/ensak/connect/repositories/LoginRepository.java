@@ -2,6 +2,8 @@ package com.ensak.connect.repositories;
 
 
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -29,8 +31,8 @@ public class LoginRepository {
             public void onResponse(@NonNull Call<LoginResponse> call, @NonNull Response<LoginResponse> response) {
                 if (response.isSuccessful()) {
                     liveData.postValue(response.body());
-
-
+                    Log.d("ProfileRepository", "Profile data fetched successfully");
+                    Log.d("ProfileRepository", "Response: " + response.body());
                 } else {
                     liveData.postValue(null);
                 }

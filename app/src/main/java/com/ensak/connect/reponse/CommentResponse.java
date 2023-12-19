@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class PostResponse {
+public class CommentResponse {
 
     @SerializedName("id")
     @Expose
@@ -16,21 +16,19 @@ public class PostResponse {
     @Expose
     private UserResponse user;
 
-    @SerializedName("description")
+    @SerializedName("content")
     @Expose
-    private String description;
-
-    @SerializedName("category")
-    @Expose
-    private String type;
-
-    @SerializedName("tags")
-    @Expose
-    private ArrayList<String> tags;
+    private String comment;
 
     @SerializedName("createdAt")
     @Expose
     private Date date;
+
+    public CommentResponse(UserResponse user, String comment, Date date) {
+        this.user = user;
+        this.comment = comment;
+        this.date = date;
+    }
 
     public int getId() {
         return id;
@@ -40,19 +38,11 @@ public class PostResponse {
         return user;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public ArrayList<String> getTags() {
-        return tags;
-    }
-
     public Date getDate() {
         return date;
+    }
+
+    public String getComment() {
+        return comment;
     }
 }

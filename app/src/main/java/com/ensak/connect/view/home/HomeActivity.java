@@ -10,17 +10,13 @@ import android.widget.Toast;
 
 import com.ensak.connect.R;
 import com.ensak.connect.core.SessionManager;
-import com.ensak.connect.view.loading_screen.LoadingActivity;
+import com.ensak.connect.view.LoadingScreen.LoadingActivity;
+import com.ensak.connect.view.Profile.ProfileActivity;
+import com.ensak.connect.view.conversations.ConversationsActivity;
 import com.ensak.connect.view.login.LoginActivity;
-import com.ensak.connect.view_model.HomeViewModel;
-import com.ensak.connect.view_model.NameViewModel;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -36,13 +32,7 @@ public class HomeActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private NavigationView navigationView;
     private DrawerLayout drawer;
-//    SessionManager sessionManager;
-
-    private FloatingActionButton btnAdd;
-    private FloatingActionButton btnNewQuestion;
-    private FloatingActionButton btnNewJobOffer;
-    private FloatingActionButton btnNewBlogPost;
-    private Boolean isFABMenuOpen = false;
+    SessionManager sessionManager;
 
 
     @Override
@@ -52,18 +42,13 @@ public class HomeActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        btnAdd = findViewById(R.id.btnAdd);
-        btnNewQuestion = findViewById(R.id.btnNewQuestion);
-        btnNewBlogPost = findViewById(R.id.btnNewBlogPost);
-        btnNewJobOffer = findViewById(R.id.btnNewJobOffer);
-        setupFABActions();
+        sessionManager = new SessionManager(this);
+        if (!sessionManager.isLoggedIn()) {
+            Intent intent = new Intent(this, LoadingActivity.class);
+            startActivity(intent);
+            finish();
+        }
 
-//        sessionManager = new SessionManager(this);
-//        if (!sessionManager.isLoggedIn()) {
-//            Intent intent = new Intent(this, LoadingActivity.class);
-//            startActivity(intent);
-//            finish();
-//        }
         try {
             setSupportActionBar(binding.appBarMain.toolbar);
         } catch (Throwable ex) {
@@ -72,7 +57,14 @@ public class HomeActivity extends AppCompatActivity {
         }
 //        ActionBar actionBar = getSupportActionBar();
 //        actionBar.setDisplayShowTitleEnabled(false);
-        drawer = binding.drawerLayout;
+        binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), LoginActivity.class);
+                view.getContext().startActivity(intent);
+            }
+        });
+         drawer = binding.drawerLayout;
         navigationView = binding.navView;
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -87,50 +79,6 @@ public class HomeActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navigationView, navController);
 
         listenForDrawerItemSelection();
-    }
-
-    private void setupFABActions() {
-        btnAdd.setOnClickListener(view -> {
-            Log.d(TAG, "Is menu open: " + isFABMenuOpen);
-            if(isFABMenuOpen){
-                this.isFABMenuOpen = false;
-                this.closeFABMenu();
-            } else {
-                this.isFABMenuOpen = true;
-                this.openFABMenu();
-            }
-            Log.d(TAG, "Is menu open (After): " + isFABMenuOpen);
-        });
-        btnNewQuestion.setOnClickListener(view -> {
-            Toast.makeText(this, "Btn question", Toast.LENGTH_SHORT).show();
-        });
-        btnNewJobOffer.setOnClickListener(view -> {
-            Toast.makeText(this, "Btn job offer", Toast.LENGTH_SHORT).show();
-        });
-        btnNewBlogPost.setOnClickListener(view -> {
-            Toast.makeText(this, "Btn blog post", Toast.LENGTH_SHORT).show();
-        });
-    }
-
-    private void openFABMenu() {
-        isFABMenuOpen = true;
-        btnNewQuestion.setElevation(6);
-        btnNewQuestion.animate().translationY(-getResources().getDimension(R.dimen.fab_menu_item1_margin));
-        btnNewJobOffer.setElevation(6);
-        btnNewJobOffer.animate().translationY(-getResources().getDimension(R.dimen.fab_menu_item2_margin));
-        btnNewBlogPost.setElevation(6);
-        btnNewBlogPost.animate().translationY(-getResources().getDimension(R.dimen.fab_menu_item3_margin));
-    }
-
-    private void closeFABMenu() {
-        isFABMenuOpen = false;
-        btnNewQuestion.setElevation(0);
-        btnNewQuestion.animate().translationY(0);
-        btnNewJobOffer.setElevation(0);
-        btnNewJobOffer.animate().translationY(0);
-        btnNewBlogPost.setElevation(0);
-        btnNewBlogPost.animate().translationY(0);
-
     }
 
 
@@ -151,7 +99,7 @@ public class HomeActivity extends AppCompatActivity {
             Toast.makeText(this, "action_notifications", Toast.LENGTH_SHORT).show();
             return true;
         } else if (itemId == R.id.action_chat) {
-            Toast.makeText(this, "action_chat", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(this, ConversationsActivity.class));
             return true;
         }
 
@@ -181,7 +129,8 @@ public class HomeActivity extends AppCompatActivity {
             } else if (itemId == R.id.nav_qa) {
                 Toast.makeText(this, "nav_qa", Toast.LENGTH_SHORT).show();
             } else if (itemId == R.id.nav_profile) {
-                Toast.makeText(this, "nav_profile", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this, ProfileActivity.class);
+                startActivity(intent);
             } else if (itemId == R.id.nav_messages) {
                 Toast.makeText(this, "nav_messages", Toast.LENGTH_SHORT).show();
             } else if (itemId == R.id.nav_notifications) {
@@ -191,7 +140,10 @@ public class HomeActivity extends AppCompatActivity {
             } else if (itemId == R.id.nav_about) {
                 Toast.makeText(this, "nav_about", Toast.LENGTH_SHORT).show();
             } else if (itemId == R.id.nav_logout) {
-                Toast.makeText(this, "nav_logout", Toast.LENGTH_SHORT).show();
+                sessionManager.logoutUser();
+                Intent loadingScreenIntent = new Intent(this, LoadingActivity.class);
+                startActivity(loadingScreenIntent);
+                finish();
             }
             drawer.closeDrawers();
             return true;

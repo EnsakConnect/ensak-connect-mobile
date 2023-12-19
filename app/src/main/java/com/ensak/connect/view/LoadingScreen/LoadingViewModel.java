@@ -1,4 +1,4 @@
-package com.ensak.connect.view.loading_screen;
+package com.ensak.connect.view.LoadingScreen;
 
 import android.app.Application;
 import android.util.Log;
@@ -10,9 +10,9 @@ import androidx.lifecycle.MutableLiveData;
 import com.ensak.connect.core.SessionManager;
 import com.ensak.connect.repositories.RepositoryCallBack;
 import com.ensak.connect.repositories.auth.AuthRepository;
-import com.ensak.connect.repositories.auth.remote.dto.UserResponse;
+import com.ensak.connect.repositories.auth.local.dto.UserResponse;
 import com.ensak.connect.repositories.health.HealthRepository;
-import com.ensak.connect.repositories.health.remote.dto.HealthResponse;
+import com.ensak.connect.repositories.health.local.dto.HealthResponse;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -87,6 +87,7 @@ public class LoadingViewModel extends AndroidViewModel {
                 isError.setValue(false);
                 isLoading.setValue(false);
                 currentAction.setValue("Invalid user token, redirecting to login");
+                sessionManager.logoutUser();
                 redirectToLogin();
             }
         });

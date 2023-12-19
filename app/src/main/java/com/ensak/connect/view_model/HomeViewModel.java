@@ -16,15 +16,17 @@ import java.util.ArrayList;
 
 public class HomeViewModel extends AndroidViewModel {
 
-    private final LiveData<ArrayList<PostResponse>> posts;
+    private LiveData<ArrayList<PostResponse>> posts;
+    private HomeRepository repository;
 
     public HomeViewModel(@NonNull Application application) {
         super(application);
-        HomeRepository repository = new HomeRepository(application);
-        this.posts = repository.getPosts();
+        repository = new HomeRepository(application);
+
     }
 
     public LiveData<ArrayList<PostResponse>> getPosts() {
+        posts = repository.getPosts();
         return posts;
     }
 }

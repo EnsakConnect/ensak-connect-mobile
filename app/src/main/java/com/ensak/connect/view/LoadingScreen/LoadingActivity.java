@@ -1,4 +1,4 @@
-package com.ensak.connect.view.loading_screen;
+package com.ensak.connect.view.LoadingScreen;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
