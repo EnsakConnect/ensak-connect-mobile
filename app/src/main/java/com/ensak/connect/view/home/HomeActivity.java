@@ -14,6 +14,7 @@ import com.ensak.connect.view.LoadingScreen.LoadingActivity;
 import com.ensak.connect.view.Profile.ProfileActivity;
 import com.ensak.connect.view.conversations.ConversationsActivity;
 import com.ensak.connect.view.login.LoginActivity;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
@@ -34,6 +35,12 @@ public class HomeActivity extends AppCompatActivity {
     private DrawerLayout drawer;
     SessionManager sessionManager;
 
+    private FloatingActionButton btnAdd;
+    private FloatingActionButton btnNewQuestion;
+    private FloatingActionButton btnNewJobOffer;
+    private FloatingActionButton btnNewBlogPost;
+    private Boolean isFABMenuOpen = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +48,12 @@ public class HomeActivity extends AppCompatActivity {
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        btnAdd = findViewById(R.id.btnAdd);
+        btnNewQuestion = findViewById(R.id.btnNewQuestion);
+        btnNewBlogPost = findViewById(R.id.btnNewBlogPost);
+        btnNewJobOffer = findViewById(R.id.btnNewJobOffer);
+        setupFABActions();
 
         sessionManager = new SessionManager(this);
         if (!sessionManager.isLoggedIn()) {
@@ -57,14 +70,8 @@ public class HomeActivity extends AppCompatActivity {
         }
 //        ActionBar actionBar = getSupportActionBar();
 //        actionBar.setDisplayShowTitleEnabled(false);
-        binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), LoginActivity.class);
-                view.getContext().startActivity(intent);
-            }
-        });
-         drawer = binding.drawerLayout;
+
+        drawer = binding.drawerLayout;
         navigationView = binding.navView;
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -81,6 +88,48 @@ public class HomeActivity extends AppCompatActivity {
         listenForDrawerItemSelection();
     }
 
+    private void setupFABActions() {
+        btnAdd.setOnClickListener(view -> {
+            Log.d(TAG, "Is menu open: " + isFABMenuOpen);
+            if(isFABMenuOpen){
+                this.isFABMenuOpen = false;
+                this.closeFABMenu();
+            } else {
+                this.isFABMenuOpen = true;
+                this.openFABMenu();
+            }
+            Log.d(TAG, "Is menu open (After): " + isFABMenuOpen);
+        });
+        btnNewQuestion.setOnClickListener(view -> {
+            Toast.makeText(this, "Btn question", Toast.LENGTH_SHORT).show();
+        });
+        btnNewJobOffer.setOnClickListener(view -> {
+            Toast.makeText(this, "Btn job offer", Toast.LENGTH_SHORT).show();
+        });
+        btnNewBlogPost.setOnClickListener(view -> {
+            Toast.makeText(this, "Btn blog post", Toast.LENGTH_SHORT).show();
+        });
+    }
+    private void openFABMenu() {
+        isFABMenuOpen = true;
+        btnNewQuestion.setElevation(6);
+        btnNewQuestion.animate().translationY(-getResources().getDimension(R.dimen.fab_menu_item1_margin));
+        btnNewJobOffer.setElevation(6);
+        btnNewJobOffer.animate().translationY(-getResources().getDimension(R.dimen.fab_menu_item2_margin));
+        btnNewBlogPost.setElevation(6);
+        btnNewBlogPost.animate().translationY(-getResources().getDimension(R.dimen.fab_menu_item3_margin));
+    }
+
+    private void closeFABMenu() {
+        isFABMenuOpen = false;
+        btnNewQuestion.setElevation(0);
+        btnNewQuestion.animate().translationY(0);
+        btnNewJobOffer.setElevation(0);
+        btnNewJobOffer.animate().translationY(0);
+        btnNewBlogPost.setElevation(0);
+        btnNewBlogPost.animate().translationY(0);
+
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
