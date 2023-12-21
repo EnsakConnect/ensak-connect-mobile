@@ -199,11 +199,8 @@
         </LinearLayout>
 
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/educationRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"/>
+        <include layout="@layout/expereince_fragment" />
+        <!-- Include as many as needed, or add them dynamically in code -->
     </LinearLayout>
 
     <LinearLayout

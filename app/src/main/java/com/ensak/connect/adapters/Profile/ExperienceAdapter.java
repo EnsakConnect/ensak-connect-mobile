@@ -62,16 +62,26 @@ public class ExperienceAdapter extends RecyclerView.Adapter<ExperienceAdapter.Ex
 //            companyTextView.setText(experience.getCompanyName());
             locationTextView.setText(experience.getLocation());
             periodTextView.setText(Utils.formatPeriod(experience.getStartDate(), experience.getEndDate()));
-<<<<<<< HEAD
             descriptionTextView.setText(experience.getDescription());
         }
 
-            periodTextView.setText(formatPeriod(experience.getStartDate(), experience.getEndDate()));
-=======
->>>>>>> 67b5a5b (Education Adapter)
-            descriptionTextView.setText(experience.getDescription());
-        }
+        private String formatPeriod(String startDateStr, String endDateStr) {
+            SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX", Locale.getDefault());
+            SimpleDateFormat outputFormat = new SimpleDateFormat("MMM yyyy", Locale.getDefault());
 
+            try {
+                Date startDate = inputFormat.parse(startDateStr);
+                Date endDate = inputFormat.parse(endDateStr);
+
+                String formattedStartDate = outputFormat.format(startDate);
+                String formattedEndDate = outputFormat.format(endDate);
+
+                return formattedStartDate + " - " + formattedEndDate;
+            } catch (ParseException e) {
+                e.printStackTrace();
+                return "Invalid dates";
+            }
+        }
     }
 }
 
