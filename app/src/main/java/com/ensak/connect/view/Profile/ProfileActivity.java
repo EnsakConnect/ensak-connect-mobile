@@ -1,5 +1,6 @@
 
 package com.ensak.connect.view.Profile;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.ensak.connect.ModifyProfile;
 import com.ensak.connect.R;
 import com.ensak.connect.adapters.Profile.EducationAdapter;
 import com.ensak.connect.adapters.Profile.ExperienceAdapter;
@@ -76,6 +78,7 @@ public class ProfileActivity extends AppCompatActivity {
         userDetails = findViewById(R.id.userDetails);
         btnModifyProfile = findViewById(R.id.btnModifyProfile);
         TextView descriptionTextView = findViewById(R.id.userDescription);
+
         resumebtn = findViewById(R.id.resumebtn);
 
         //experience professionels
@@ -131,6 +134,12 @@ public class ProfileActivity extends AppCompatActivity {
 
                 skillsAdapter = new SkillsAdapter(profileResponse.getSkillList());
                 skillsRecyclerView.setAdapter(skillsAdapter);
+
+                if(profileResponse.getResume() != null){
+                    resumebtn.setText("Voir le CV");
+                } else {
+                    resumebtn.setText("Ajouter un CV");
+                }
             } else {
 
             }
@@ -138,6 +147,9 @@ public class ProfileActivity extends AppCompatActivity {
 
         btnModifyProfile.setOnClickListener(v -> profileViewModel.fetchProfileData());
 
-
+        modify_experience_btn.setOnClickListener(v -> {
+            Intent intent = new Intent(ProfileActivity.this, ModifyProfile.class);
+            startActivity(intent);
+        });
     }
 }
