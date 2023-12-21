@@ -1,6 +1,7 @@
 
 package com.ensak.connect.view.Profile;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -10,13 +11,25 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.ensak.connect.R;
+import com.ensak.connect.adapters.Profile.EducationAdapter;
+import com.ensak.connect.adapters.Profile.ExperienceAdapter;
+import com.ensak.connect.models.Experience;
 import com.ensak.connect.view_model.ProfileViewModel.ProfileViewModel;
+
+import java.util.List;
 
 public class ProfileActivity extends AppCompatActivity {
 
+    private RecyclerView experienceRecyclerView;
+    private ExperienceAdapter experienceAdapter;
+
+    private RecyclerView educationRecyclerView;
+    private EducationAdapter educationAdapter;
 
     private ImageView backButton;
     private ImageView bannerImage;
@@ -35,6 +48,15 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
+        experienceRecyclerView = findViewById(R.id.experienceRecyclerView);
+        experienceRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        educationRecyclerView = findViewById(R.id.educationRecyclerView); // Assuming this is the ID of your RecyclerView
+        educationRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+
+
+
 
 
         // Initialize views
@@ -87,6 +109,16 @@ public class ProfileActivity extends AppCompatActivity {
             if (profileResponse != null) {
                 String fullName = profileResponse.getFullName();
                 userName.setText(fullName);
+                String userTitle = profileResponse.getTitle();
+                String userDetailsText = userTitle;
+                Log.d("TAG", "onCreate: " + userDetailsText);
+                userDetails.setText(userDetailsText);
+
+                experienceAdapter = new ExperienceAdapter(profileResponse.getExperienceList());
+                experienceRecyclerView.setAdapter(experienceAdapter);
+
+                educationAdapter = new EducationAdapter(profileResponse.getEducationList());
+                educationRecyclerView.setAdapter(educationAdapter);
             } else {
 
             }
