@@ -65,6 +65,10 @@ public class ExperienceAdapter extends RecyclerView.Adapter<ExperienceAdapter.Ex
             descriptionTextView.setText(experience.getDescription());
         }
 
+            periodTextView.setText(formatPeriod(experience.getStartDate(), experience.getEndDate()));
+            descriptionTextView.setText(experience.getDescription());
+        }
+
         private String formatPeriod(String startDateStr, String endDateStr) {
             SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX", Locale.getDefault());
             SimpleDateFormat outputFormat = new SimpleDateFormat("MMM yyyy", Locale.getDefault());
