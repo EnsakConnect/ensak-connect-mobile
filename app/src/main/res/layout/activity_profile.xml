@@ -4,240 +4,243 @@
     android:background="@color/background">
 
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
-
-    <ImageView
-        android:id="@+id/bannerImage"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:scaleType="centerCrop"
-        android:contentDescription="@string/banner_content_description"
-        android:layout_alignParentTop="true"
-        android:adjustViewBounds="true" />
-
-    <ImageView
-        android:id="@+id/userProfileImage"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="110dp"
-        android:background="@drawable/circle_background"
-        android:padding="16dp"
-        android:scaleType="centerCrop"
-        android:contentDescription="@string/user_profile_image" />
-
-
-    <ImageView
-        android:id="@+id/backButton"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:contentDescription="@string/back_button" />
-
-
-
-    <LinearLayout
-        android:id="@+id/linear_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/userProfileImage"
-        android:orientation="vertical"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:paddingTop="5dp">
-
-        <TextView
-            android:id="@+id/userName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/nom_utilisateur"
-            android:textSize="20sp"
-            android:textColor="@color/black"
-            android:textStyle="bold" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
-
-            <TextView
-                android:id="@+id/userDetails"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/user_details"
-                android:textSize="12sp" />
-
-            <Button
-                android:id="@+id/share"
-                style="@style/CustomButton"
-                android:layout_width="100dp"
-                android:layout_height="40dp"
-                android:padding="10dp"
-                android:text="@string/share"
-                />
-        </LinearLayout>
-    </LinearLayout>
-
-
-    <Button
-        android:id="@+id/btnModifyProfile"
-        style="@style/CustomButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/bannerImage"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_alignEnd="@id/bannerImage"
-        android:text="@string/modify_my_profile" />
-
-    <TextView
-        android:id="@+id/userDescription"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/linear_layout"
-        android:padding="16dp"
-        android:textSize="14sp"
-        android:text="@string/static_description"
-        android:layout_marginTop="8dp"
-         />
-
-
-
-    <Button
-        android:id="@+id/resumebtn"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_below="@+id/userDescription"
-        android:text="@string/voir_le_cv"
-        android:background="@drawable/button_style"
-        android:textColor="@color/white"
-        android:layout_marginBottom="16dp"
-        android:layout_marginHorizontal="16dp"/>
-
-    <LinearLayout
-        android:id="@+id/experiencesContainer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/resumebtn"
-        android:orientation="vertical"
-        android:padding="16dp"
-        >
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
-        <TextView
-            android:id="@+id/experienceProfessionel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/exp_rience_professionnelles"
-            android:textSize="16sp"
-            android:textColor="@color/black"
-            android:textStyle="bold" />
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
-        <Button
-            android:id="@+id/myButton"
-            style="@style/CustomizableButton"
-            android:text="@string/button_text" />
-
-
-    </LinearLayout>
-
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/experienceRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"/>
-
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/parcoursContainer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/experiencesContainer"
-        android:orientation="vertical"
-        android:padding="16dp"
-        >
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            >
-            <TextView
-                android:id="@+id/parcoursEducatif"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/parcours_educatif"
-                android:textSize="16sp"
-                android:textColor="@color/black"
-                android:textStyle="bold" />
-            <Space
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-
-            <Button
-                android:id="@+id/modify_experience_button"
-                style="@style/CustomizableButton"
-                android:text="@string/button_text" />
-
-
-        </LinearLayout>
-
-
-        <include layout="@layout/expereince_fragment" />
-        <!-- Include as many as needed, or add them dynamically in code -->
-    </LinearLayout>
-
-    <LinearLayout
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/parcoursContainer"
-        android:orientation="vertical"
-        android:padding="16dp"
         >
+
+        <ImageView
+            android:id="@+id/bannerImage"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:scaleType="centerCrop"
+            android:contentDescription="@string/banner_content_description"
+            android:layout_alignParentTop="true"
+            android:adjustViewBounds="true" />
+
+        <ImageView
+            android:id="@+id/userProfileImage"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="110dp"
+            android:background="@drawable/circle_background"
+            android:padding="16dp"
+            android:scaleType="centerCrop"
+            android:contentDescription="@string/user_profile_image" />
+
+
+        <ImageView
+            android:id="@+id/backButton"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:contentDescription="@string/back_button" />
+
+
+
         <LinearLayout
+            android:id="@+id/linear_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            >
+            android:layout_below="@id/userProfileImage"
+            android:orientation="vertical"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingTop="5dp">
+
             <TextView
-                android:id="@+id/skills"
+                android:id="@+id/userName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/skills"
-                android:textSize="16sp"
+                android:text="@string/nom_utilisateur"
+                android:textSize="20sp"
                 android:textColor="@color/black"
                 android:textStyle="bold" />
-            <Space
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
 
-            <Button
-                android:id="@+id/modify_skills_button"
-                style="@style/CustomizableButton"
-                android:text="@string/button_text" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/userDetails"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/user_details"
+                    android:textSize="12sp" />
+
+                <Button
+                    android:id="@+id/share"
+                    style="@style/CustomButton"
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:padding="10dp"
+                    android:text="@string/share"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <Button
+            android:id="@+id/btnModifyProfile"
+            style="@style/CustomButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/bannerImage"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_alignEnd="@id/bannerImage"
+            android:text="@string/modify_my_profile" />
+
+        <TextView
+            android:id="@+id/userDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/linear_layout"
+            android:padding="16dp"
+            android:textSize="14sp"
+            android:text="@string/static_description"
+            android:layout_marginTop="8dp"
+            />
+
+
+
+        <Button
+            android:id="@+id/resumebtn"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_below="@+id/userDescription"
+            android:text="@string/voir_le_cv"
+            android:background="@drawable/button_style"
+            android:textColor="@color/white"
+            android:layout_marginBottom="16dp"
+            android:layout_marginHorizontal="16dp"/>
+
+        <LinearLayout
+            android:id="@+id/experiencesContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/resumebtn"
+            android:orientation="vertical"
+            android:padding="16dp"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+                <TextView
+                    android:id="@+id/experienceProfessionel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/exp_rience_professionnelles"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <Button
+                    android:id="@+id/myButton"
+                    style="@style/CustomizableButton"
+                    android:text="@string/button_text" />
+
+
+            </LinearLayout>
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/experienceRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"/>
 
 
         </LinearLayout>
 
-        <include layout="@layout/skills_fragment" />
-    </LinearLayout>
+        <LinearLayout
+            android:id="@+id/parcoursContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/experiencesContainer"
+            android:orientation="vertical"
+            android:padding="16dp"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+                <TextView
+                    android:id="@+id/parcoursEducatif"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/parcours_educatif"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
 
-</RelativeLayout>
+                <Button
+                    android:id="@+id/modify_experience_button"
+                    style="@style/CustomizableButton"
+                    android:text="@string/button_text" />
+
+
+            </LinearLayout>
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/educationRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/parcoursContainer"
+            android:orientation="vertical"
+            android:padding="16dp"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+                <TextView
+                    android:id="@+id/skills"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/skills"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <Button
+                    android:id="@+id/modify_skills_button"
+                    style="@style/CustomizableButton"
+                    android:text="@string/button_text" />
+
+
+            </LinearLayout>
+
+            <include layout="@layout/skills_fragment" />
+        </LinearLayout>
+
+    </RelativeLayout>
 </ScrollView>
