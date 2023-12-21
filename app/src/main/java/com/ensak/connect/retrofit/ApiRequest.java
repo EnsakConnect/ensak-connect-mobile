@@ -5,6 +5,7 @@ import com.ensak.connect.models.CodeVerification;
 import com.ensak.connect.models.EmailResetPassword;
 import com.ensak.connect.models.Notification;
 import com.ensak.connect.models.RegisterRequest;
+import com.ensak.connect.models.ResumeRequest;
 import com.ensak.connect.models.UserProfile;
 import com.ensak.connect.reponse.ChatMessageResponse;
 import com.ensak.connect.reponse.CommentResponse;
@@ -69,6 +70,9 @@ public interface ApiRequest {
 
     @GET("profile/2/detailed")
     Call<ProfileResponse> getUserProfile();
+
+    @POST("profile/resume")
+    Call<ResumeRequest> UploadResume(@Body ResumeRequest resumeRequest);
 
     @GET("notifications")
     Call<List<NotificationResponse>> getAllNotifications();

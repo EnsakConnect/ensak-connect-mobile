@@ -17,18 +17,21 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".ModifyProfile"
+            android:windowSoftInputMode="adjustPan"
+            android:exported="false" />
+        <activity
             android:name=".view.notifications.NotificationActivity"
             android:exported="false"
-            android:theme="@style/Theme.ENSAKConnect.NoActionBar"
-            />
+            android:theme="@style/Theme.ENSAKConnect.NoActionBar" />
         <activity
             android:name=".view.chat.ChatActivity"
             android:exported="false"
             android:theme="@style/Theme.ENSAKConnect.NoActionBar" />
         <activity
             android:name=".view.Profile.ProfileActivity"
-            android:theme="@style/ProfileActivityTheme"
-        android:exported="false" />
+            android:exported="false"
+            android:theme="@style/ProfileActivityTheme" />
         <activity
             android:name=".view.conversations.ConversationsActivity"
             android:exported="false"
