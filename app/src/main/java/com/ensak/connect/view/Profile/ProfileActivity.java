@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,6 +19,7 @@ import com.bumptech.glide.Glide;
 import com.ensak.connect.R;
 import com.ensak.connect.adapters.Profile.EducationAdapter;
 import com.ensak.connect.adapters.Profile.ExperienceAdapter;
+import com.ensak.connect.adapters.Profile.SkillsAdapter;
 import com.ensak.connect.models.Experience;
 import com.ensak.connect.view_model.ProfileViewModel.ProfileViewModel;
 
@@ -30,6 +32,9 @@ public class ProfileActivity extends AppCompatActivity {
 
     private RecyclerView educationRecyclerView;
     private EducationAdapter educationAdapter;
+
+    private RecyclerView skillsRecyclerView;
+    private SkillsAdapter skillsAdapter;
 
     private ImageView backButton;
     private ImageView bannerImage;
@@ -51,8 +56,12 @@ public class ProfileActivity extends AppCompatActivity {
 
         experienceRecyclerView = findViewById(R.id.experienceRecyclerView);
         experienceRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        educationRecyclerView = findViewById(R.id.educationRecyclerView); // Assuming this is the ID of your RecyclerView
+
+        educationRecyclerView = findViewById(R.id.educationRecyclerView);
         educationRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        skillsRecyclerView = findViewById(R.id.skillsRecyclerView);
+        skillsRecyclerView.setLayoutManager(new GridLayoutManager(this, 2)); // For a grid with 3 columns
 
 
 
@@ -119,6 +128,9 @@ public class ProfileActivity extends AppCompatActivity {
 
                 educationAdapter = new EducationAdapter(profileResponse.getEducationList());
                 educationRecyclerView.setAdapter(educationAdapter);
+
+                skillsAdapter = new SkillsAdapter(profileResponse.getSkillList());
+                skillsRecyclerView.setAdapter(skillsAdapter);
             } else {
 
             }

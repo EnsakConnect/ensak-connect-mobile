@@ -48,6 +48,9 @@
 
     </style>
 
+    <style name="ProfileActivityTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
+    </style>
+
     <style name="PurpleButton" parent="Widget.AppCompat.Button">
         <item name="android:layout_width">120dp</item>
         <item name="android:layout_height">48dp</item>
