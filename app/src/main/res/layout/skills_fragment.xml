@@ -7,6 +7,7 @@
 
 
     <TextView
+        android:id="@+id/skillTextView"
         android:layout_width="180dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
@@ -28,6 +29,5 @@
         android:textColor="@color/black"
         android:gravity="center" />
 
-    <!-- Repeat the above TextView block for each skill, adjusting the text as needed. -->
 
 </GridLayout>

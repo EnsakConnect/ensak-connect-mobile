@@ -239,7 +239,12 @@
 
             </LinearLayout>
 
-            <include layout="@layout/skills_fragment" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/skillsRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+            android:scrollbars="vertical" />
         </LinearLayout>
 
     </RelativeLayout>

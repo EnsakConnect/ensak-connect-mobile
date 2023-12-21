@@ -67,7 +67,7 @@ public interface ApiRequest {
     @POST("auth/change-password")
     Call<ChangePassword> changepasswd(@Body ChangePassword changePassword);
 
-    @GET("profile/detailed")
+    @GET("profile/2/detailed")
     Call<ProfileResponse> getUserProfile();
 
     @GET("notifications")
