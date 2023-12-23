@@ -9,6 +9,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.ensak.connect.models.ExperienceRequest;
 import com.ensak.connect.reponse.ExperienceResponse;
+import com.ensak.connect.repositories.ExperienceRepository;
 import com.ensak.connect.repositories.ProfileRepository;
 import com.ensak.connect.repositories.RepositoryCallBack;
 import com.ensak.connect.repositories.question_post.QuestionRepository;
@@ -25,11 +26,11 @@ public class ExperienceViewModel extends AndroidViewModel {
     private MutableLiveData<Boolean> isSuccess = new MutableLiveData(false);
     private MutableLiveData<String> errorMessage = new MutableLiveData<>("");
     private MutableLiveData<String> successMessage = new MutableLiveData<>("");
-    private ProfileRepository profileRepository;
+    private ExperienceRepository experienceRepository;
 
     public ExperienceViewModel(@NonNull Application application) {
         super(application);
-        profileRepository = new ProfileRepository(application);
+        experienceRepository = new ExperienceRepository(application);
     }
 
     public void createExperience(String title, String company, String contractType,String location, String from, String to, String description) {
@@ -58,7 +59,7 @@ public class ExperienceViewModel extends AndroidViewModel {
         request.setEndDate(to);
         request.setDescription(description);
         request.setContractType(contractType);
-        profileRepository.uploadExperience(request);
+        experienceRepository.uploadExperience(request);
     }
     public LiveData<Boolean> getIsLoading() {
         return isLoading;
