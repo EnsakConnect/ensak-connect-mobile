@@ -17,15 +17,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.ensak.connect.ModifyProfile;
 import com.ensak.connect.R;
 import com.ensak.connect.adapters.Profile.EducationAdapter;
 import com.ensak.connect.adapters.Profile.ExperienceAdapter;
 import com.ensak.connect.adapters.Profile.SkillsAdapter;
-import com.ensak.connect.models.Experience;
 import com.ensak.connect.view_model.ProfileViewModel.ProfileViewModel;
-
-import java.util.List;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -47,6 +43,7 @@ public class ProfileActivity extends AppCompatActivity {
     private Button resumebtn;
     private Button myButton;
     private Button modify_experience_btn;
+    private Button modify_education_btn;
     private Button modify_skills_button;
     private ProfileViewModel profileViewModel;
 
@@ -82,8 +79,8 @@ public class ProfileActivity extends AppCompatActivity {
         resumebtn = findViewById(R.id.resumebtn);
 
         //experience professionels
-        myButton = findViewById(R.id.myButton);
-        myButton.setText(R.string.button_text);
+        modify_education_btn = findViewById(R.id.modify_education_button);
+        modify_education_btn.setText(R.string.button_text);
 
         //parcours educatif
         modify_experience_btn = findViewById(R.id.modify_experience_button);
@@ -141,14 +138,20 @@ public class ProfileActivity extends AppCompatActivity {
                     resumebtn.setText("Ajouter un CV");
                 }
             } else {
+                Log.d("TAG", "onCreate: Profile response is null");
 
             }
         });
 
         btnModifyProfile.setOnClickListener(v -> profileViewModel.fetchProfileData());
 
+        modify_education_btn.setOnClickListener(v -> {
+            Intent intent = new Intent(ProfileActivity.this, ModifyProfileEducation.class);
+            startActivity(intent);
+        });
+
         modify_experience_btn.setOnClickListener(v -> {
-            Intent intent = new Intent(ProfileActivity.this, ModifyProfile.class);
+            Intent intent = new Intent(ProfileActivity.this, ModifyProfileExperience.class);
             startActivity(intent);
         });
     }

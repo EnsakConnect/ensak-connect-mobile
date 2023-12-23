@@ -147,7 +147,7 @@
                     android:layout_weight="1" />
 
                 <Button
-                    android:id="@+id/myButton"
+                    android:id="@+id/modify_experience_button"
                     style="@style/CustomizableButton"
                     android:text="@string/button_text" />
 
@@ -191,7 +191,7 @@
                     android:layout_weight="1" />
 
                 <Button
-                    android:id="@+id/modify_experience_button"
+                    android:id="@+id/modify_education_button"
                     style="@style/CustomizableButton"
                     android:text="@string/button_text" />
 

@@ -17,9 +17,14 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".ModifyProfile"
+            android:name=".view.Profile.ModifyProfileExperience"
+            android:exported="false"
             android:windowSoftInputMode="adjustPan"
-            android:exported="false" />
+            />
+        <activity
+            android:name=".view.Profile.ModifyProfileEducation"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".view.notifications.NotificationActivity"
             android:exported="false"
