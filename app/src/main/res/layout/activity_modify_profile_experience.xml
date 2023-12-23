@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.create_question_screen.CreateQuestionActivity"
+    tools:context=".view.Profile.ModifyProfileExperience"
     android:background="@color/background_light">
 
     <LinearLayout
@@ -21,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/heading2_bottom_margin"
-            android:text="Parcours éducatif"
+            android:text="Expérience professionnelles"
             android:textColor="#000"
             android:textSize="28sp"
             android:textStyle="bold" />
@@ -29,26 +29,26 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Field :"
+            android:text="Poste occupé :"
             style="@style/Label"/>
 
         <EditText
-            android:id="@+id/txtField"
+            android:id="@+id/txtPosition"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/EditTextBase"
             android:inputType="text"
             android:layout_marginBottom="16dp"
-             />
+            />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="School :"
+            android:text="Entreprise :"
             style="@style/Label"/>
 
         <EditText
-            android:id="@+id/txtSchool"
+            android:id="@+id/txtCompany"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/EditTextBase"
@@ -56,11 +56,11 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Start Date :"
+            android:text="Date de début:"
             style="@style/Label"/>
 
         <EditText
-            android:id="@+id/txtStartDate"
+            android:id="@+id/txtStartDateExperience"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/EditTextBase"
@@ -69,11 +69,11 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="End Date :"
+            android:text="Date de fin:"
             style="@style/Label"/>
 
         <EditText
-            android:id="@+id/txtEndDate"
+            android:id="@+id/txtEndDateExperience"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/EditTextBase"
@@ -86,7 +86,7 @@
             style="@style/Label"/>
 
         <EditText
-            android:id="@+id/txtDescription"
+            android:id="@+id/txtDescriptionExperience"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minLines="5"
@@ -94,7 +94,7 @@
             android:inputType="textMultiLine"
             android:scrollbars="vertical"
             style="@style/EditTextBase"
-        />
+            />
 
 
 
