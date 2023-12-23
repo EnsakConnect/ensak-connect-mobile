@@ -8,6 +8,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.ensak.connect.models.EducationRequest;
+import com.ensak.connect.repositories.EducationRepository;
 import com.ensak.connect.repositories.ProfileRepository;
 
 public class EducationViewModel extends AndroidViewModel {
@@ -15,11 +16,11 @@ public class EducationViewModel extends AndroidViewModel {
     private MutableLiveData<Boolean> isSuccess = new MutableLiveData(false);
     private MutableLiveData<String> errorMessage = new MutableLiveData<>("");
     private MutableLiveData<String> successMessage = new MutableLiveData<>("");
-    private ProfileRepository profileRepository;
+    private EducationRepository educationRepository;
 
     public EducationViewModel(@NonNull Application application) {
         super(application);
-        profileRepository = new ProfileRepository(application);
+        educationRepository = new EducationRepository(application);
     }
 
     public void createEducation(String field, String degree, String school, String from, String to, String description) {
@@ -47,7 +48,7 @@ public class EducationViewModel extends AndroidViewModel {
         request.setStartDate(from);
         request.setEndDate(to);
         request.setDescription(description);
-        profileRepository.uploadEducation(request);
+        educationRepository.uploadEducation(request);
     }
     public LiveData<Boolean> getIsLoading() {
         return isLoading;

@@ -62,54 +62,8 @@ public class ProfileRepository {
         return profileData;
     }
 
-    public LiveData<ExperienceResponse> uploadExperience(ExperienceRequest experienceRequest) {
-        MutableLiveData<ExperienceResponse> liveData = new MutableLiveData<>();
-
-        apiRequest.UploadExperience(experienceRequest).enqueue(new Callback<ExperienceResponse>() {
-            @Override
-            public void onResponse(@NonNull Call<ExperienceResponse> call, @NonNull Response<ExperienceResponse> response) {
-                if (response.isSuccessful()) {
-                    liveData.postValue(response.body());
-                    Log.d("ProfileRepositoryExperience", "Experience data fetched successfully");
-                    Log.d("ProfileRepository", "Response: " + response.body());
-                } else {
-                    liveData.postValue(null);
-                }
-
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<ExperienceResponse> call, @NonNull Throwable t) {
-                liveData.postValue(null); // Or some error object
-            }
-        });
-
-        return liveData;
-    }
 
 
-    public LiveData<EducationResponse> uploadEducation(EducationRequest educationRequest) {
-        MutableLiveData<EducationResponse> liveData = new MutableLiveData<>();
 
-        apiRequest.UploadEducation(educationRequest).enqueue(new Callback<EducationResponse>() {
-            @Override
-            public void onResponse(@NonNull Call<EducationResponse> call, @NonNull Response<EducationResponse> response) {
-                if (response.isSuccessful()) {
-                    liveData.postValue(response.body());
-                    Log.d("ProfileRepositoryExperience", "Experience data fetched successfully");
-                    Log.d("ProfileRepository", "Response: " + response.body());
-                } else {
-                    liveData.postValue(null);
-                }
 
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<EducationResponse> call, @NonNull Throwable t) {
-                liveData.postValue(null); // Or some error object
-            }
-        });
-
-        return liveData;
-    }
 }
