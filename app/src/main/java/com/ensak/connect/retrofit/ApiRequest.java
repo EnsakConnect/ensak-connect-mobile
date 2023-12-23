@@ -31,6 +31,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface ApiRequest {
@@ -87,5 +88,8 @@ public interface ApiRequest {
 
     @POST("profile/educations")
     Call<EducationResponse> UploadEducation(@Body EducationRequest educationRequest);
+
+    @PUT("profile/experiences/{experience_id}")
+    Call<ExperienceResponse> UpdateExperience(@Path("experience_id") String experienceId, @Body ExperienceRequest experienceRequest);
 
 }
