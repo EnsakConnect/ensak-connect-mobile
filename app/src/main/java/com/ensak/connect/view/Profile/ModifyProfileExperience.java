@@ -26,6 +26,7 @@ public class ModifyProfileExperience extends AppCompatActivity {
     private ActivityModifyProfileExperienceBinding binding;
     private ExperienceViewModel experienceViewModel;
     private Boolean isUpdate = false;
+    private String id = "";
 
 
 
@@ -42,6 +43,7 @@ public class ModifyProfileExperience extends AppCompatActivity {
         initViewModel();
 
         if (getIntent() != null && getIntent().getExtras() != null) {
+            id = getIntent().getStringExtra("id");
             String title = getIntent().getStringExtra("title");
             String company = getIntent().getStringExtra("company");
             String startDate = getIntent().getStringExtra("startDate");
@@ -118,6 +120,7 @@ public class ModifyProfileExperience extends AppCompatActivity {
 
     private void createExperience() {
         Log.d("ProfileRepositoryExperience", "create called succefully");
+        Log.d("ProfileRepositoryExperience", isUpdate.toString());
         String title = binding.txtPosition.getText().toString().trim();
         String company = binding.txtCompany.getText().toString().trim();
         String location = "location";
@@ -125,8 +128,15 @@ public class ModifyProfileExperience extends AppCompatActivity {
         String startDate = binding.txtStartDateExperience.getText().toString().trim();
         String endDate = binding.txtEndDateExperience.getText().toString().trim();
         String description = binding.txtDescriptionExperience.getText().toString().trim();
-        experienceViewModel.createExperience(title, company, contractType, location, startDate, endDate, description);
+        if (isUpdate) {
+
+            experienceViewModel.updateExperience(id, title, company, contractType, location, startDate, endDate, description);
+        } else {
+            experienceViewModel.createExperience(title, company, contractType, location, startDate, endDate, description);
+        }
     }
+
+
 
     private void showDatePickerDialog() {
         final Calendar c = Calendar.getInstance();

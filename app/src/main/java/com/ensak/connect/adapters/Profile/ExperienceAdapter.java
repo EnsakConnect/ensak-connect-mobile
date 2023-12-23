@@ -79,6 +79,7 @@ public class ExperienceAdapter extends RecyclerView.Adapter<ExperienceAdapter.Ex
             if (iconEdit != null) {
                 iconEdit.setOnClickListener(v -> {
                     Intent intent = new Intent(context, ModifyProfileExperience.class);
+                    intent.putExtra("id", String.valueOf(experience.getId()));
                     intent.putExtra("title", titleTextView.getText().toString());
                     intent.putExtra("company", companyTextView.getText().toString());
                     intent.putExtra("startDate", experience.getStartDate().toString());

@@ -8,6 +8,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.ensak.connect.models.ExperienceRequest;
+import com.ensak.connect.reponse.ChatMessageResponse;
 import com.ensak.connect.reponse.ExperienceResponse;
 import com.ensak.connect.retrofit.ApiRequest;
 import com.ensak.connect.retrofit.RetrofitRequest;
@@ -54,5 +55,34 @@ public class ExperienceRepository {
         });
 
         return liveData;
+    }
+
+    public LiveData<ExperienceResponse> updateExperience(String id, ExperienceRequest experienceRequest) {
+        final MutableLiveData<ExperienceResponse> data = new MutableLiveData<>();
+        apiRequest.UpdateExperience(id, experienceRequest)
+                .enqueue(new Callback<ExperienceResponse>() {
+
+
+                    @Override
+                    public void onResponse(@NonNull Call<ExperienceResponse> call, @NonNull Response<ExperienceResponse> response) {
+
+
+
+                        if (response.body() != null) {
+                            try {
+                                data.setValue(response.body());
+                                Log.d("TAG", "API test result:: " + response.body().getCompanyName());
+                            } catch (Throwable ex) {
+                                Log.e("TAG", "Exception occured: " + ex.getMessage());
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(@NonNull Call<ExperienceResponse> call, @NonNull Throwable t) {
+                        data.setValue(null);
+                    }
+                });
+        return data;
     }
 }

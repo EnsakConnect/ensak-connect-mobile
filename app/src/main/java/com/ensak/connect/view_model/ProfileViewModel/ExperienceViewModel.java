@@ -61,6 +61,35 @@ public class ExperienceViewModel extends AndroidViewModel {
         request.setContractType(contractType);
         experienceRepository.uploadExperience(request);
     }
+
+    public void updateExperience(String id,String title, String company, String contractType,String location, String from, String to, String description) {
+        if(title.length() == 0) {
+            errorMessage.setValue("Title is required.");
+            return;
+        }
+        if(company.length() == 0) {
+            errorMessage.setValue("Company is required.");
+            return;
+        }
+        if(location.length() == 0) {
+            errorMessage.setValue("Location is required.");
+            return;
+        }
+        if(description.length() == 0) {
+            errorMessage.setValue("Description is required.");
+            return;
+        }
+        isLoading.setValue(true);
+        ExperienceRequest request = new ExperienceRequest();
+        request.setPositionTitle(title);
+        request.setCompanyName(company);
+        request.setLocation(location);
+        request.setStartDate(from);
+        request.setEndDate(to);
+        request.setDescription(description);
+        request.setContractType(contractType);
+        experienceRepository.updateExperience(id,request);
+    }
     public LiveData<Boolean> getIsLoading() {
         return isLoading;
     }
