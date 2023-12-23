@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -24,6 +25,9 @@ public class ModifyProfileExperience extends AppCompatActivity {
 
     private ActivityModifyProfileExperienceBinding binding;
     private ExperienceViewModel experienceViewModel;
+    private Boolean isUpdate = false;
+
+
 
     private enum ActiveDateField {
         START_DATE, END_DATE
@@ -36,6 +40,29 @@ public class ModifyProfileExperience extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         initViewModel();
+
+        if (getIntent() != null && getIntent().getExtras() != null) {
+            String title = getIntent().getStringExtra("title");
+            String company = getIntent().getStringExtra("company");
+            String startDate = getIntent().getStringExtra("startDate");
+            String endDate = getIntent().getStringExtra("endDate");
+            String description = getIntent().getStringExtra("description");
+            isUpdate = getIntent().getBooleanExtra("isUpdate", false);
+
+            binding.txtStartDateExperience.setText(startDate);
+            binding.txtEndDateExperience.setText(endDate);
+            binding.txtPosition.setText(title);
+            binding.txtCompany.setText(company);
+            binding.txtDescriptionExperience.setText(description);
+
+            if(isUpdate) {
+                binding.btnCreate.setText("Update");
+            }
+
+
+        }
+
+
 
         binding.txtStartDateExperience.setFocusable(false);
         binding.txtStartDateExperience.setOnClickListener(new View.OnClickListener() {

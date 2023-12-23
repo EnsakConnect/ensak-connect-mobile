@@ -3,6 +3,7 @@ package com.ensak.connect.view.Profile;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -34,6 +35,9 @@ public class ProfileActivity extends AppCompatActivity {
     private RecyclerView skillsRecyclerView;
     private SkillsAdapter skillsAdapter;
 
+    private ImageView iconEdit;
+    private ImageView iconDelete;
+
     private ImageView backButton;
     private ImageView bannerImage;
     private ImageView userProfileImage;
@@ -46,6 +50,7 @@ public class ProfileActivity extends AppCompatActivity {
     private Button modify_education_btn;
     private Button modify_skills_button;
     private ProfileViewModel profileViewModel;
+
 
 
     @Override
@@ -82,6 +87,7 @@ public class ProfileActivity extends AppCompatActivity {
         modify_education_btn = findViewById(R.id.modify_education_button);
         modify_education_btn.setText(R.string.button_text);
 
+
         //parcours educatif
         modify_experience_btn = findViewById(R.id.modify_experience_button);
         modify_experience_btn.setText(R.string.button_text);
@@ -91,8 +97,8 @@ public class ProfileActivity extends AppCompatActivity {
 
 
         // URLs for the images
-        String bannerImageUrl = "https://www.schudio.com/wp-content/uploads/2017/05/banner-user-journey.png"; // Replace with your actual URL
-        String backIconUrl = "https://example.com/path/to/back/icon.png"; // Replace with your actual URL
+        String bannerImageUrl = "https://www.schudio.com/wp-content/uploads/2017/05/banner-user-journey.png";
+        String backIconUrl = "https://example.com/path/to/back/icon.png";
         String profileImageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStsRVE2OpWFMYeY5S1bXG5J4UXp-FkBHGpUM5YDpIsXVWPw2ZdmLUzIitofNwhB_7cahk&usqp=CAU"; // Replace with your actual URL
 
 
@@ -123,7 +129,7 @@ public class ProfileActivity extends AppCompatActivity {
                 Log.d("TAG", "onCreate: " + userDetailsText);
                 userDetails.setText(userDetailsText);
 
-                experienceAdapter = new ExperienceAdapter(profileResponse.getExperienceList());
+                experienceAdapter = new ExperienceAdapter(this, profileResponse.getExperienceList());
                 experienceRecyclerView.setAdapter(experienceAdapter);
 
                 educationAdapter = new EducationAdapter(profileResponse.getEducationList());
@@ -154,5 +160,8 @@ public class ProfileActivity extends AppCompatActivity {
             Intent intent = new Intent(ProfileActivity.this, ModifyProfileExperience.class);
             startActivity(intent);
         });
+
     }
+
+
 }
