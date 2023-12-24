@@ -78,23 +78,29 @@ public class LoginActivity extends AppCompatActivity {
         loginViewModel = new ViewModelProvider(this, new ViewModelProvider.AndroidViewModelFactory(getApplication()))
                 .get(LoginViewModel.class);
 
-        loginViewModel.getLoginResponseLiveData().observe(this, loginResponse -> {
-            Log.d(TAG, "Received login response = " + loginResponse);
-            if (loginResponse != null) {
-                Log.d(TAG, "Received Token = " + loginResponse.getToken());
-                // Handle successful login
-                Toast.makeText(LoginActivity.this, "Login Successful.", Toast.LENGTH_SHORT).show();
-
-                Intent intent = new Intent(this, HomeActivity.class);
-                startActivity(intent);
-                finish();
-
+        loginViewModel.getIsLoading().observe(this, isLoading -> {
+            if(isLoading){
+                // Disable login button
             } else {
-
-                Toast.makeText(LoginActivity.this, "Login Failed", Toast.LENGTH_SHORT).show();
+                // Enable login button
             }
         });
 
+        loginViewModel.getHasLoggedIn().observe(this, hasLoggedIn -> {
+            if(hasLoggedIn) {
+                // Handle successful login
+                Toast.makeText(LoginActivity.this, "Login Successful.", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this, HomeActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        loginViewModel.getErrorMsg().observe(this, errorMsg -> {
+            if(!errorMsg.isEmpty()){
+                Toast.makeText(LoginActivity.this, errorMsg, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
     private void navigateToHome() {
         Intent intent = new Intent(this, HomeActivity.class);

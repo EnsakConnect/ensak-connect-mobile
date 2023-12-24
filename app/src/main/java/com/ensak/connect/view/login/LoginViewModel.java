@@ -54,15 +54,15 @@ public class LoginViewModel extends AndroidViewModel {
         });
     }
 
-    public LiveData getIsLoading() {
+    public LiveData<Boolean> getIsLoading() {
         return isLoading;
     }
 
-    public LiveData getHasLoggedIn() {
+    public LiveData<Boolean> getHasLoggedIn() {
         return hasLoggedIn;
     }
 
-    public LiveData getErrorMsg() {
+    public LiveData<String> getErrorMsg() {
         return errorMsg;
     }
 
