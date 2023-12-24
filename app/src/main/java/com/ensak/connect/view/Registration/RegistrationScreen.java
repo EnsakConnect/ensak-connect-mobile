@@ -33,7 +33,7 @@ public class RegistrationScreen extends AppCompatActivity {
         setContentView(R.layout.activity_registration_screen);
         //viewModel = new ViewModelProvider(this).get(RegistrationViewModel.class);
         spinnerProfession = findViewById(R.id.spinnerProfession);
-        String[] professions = {"STUDENT", "PROFESSOR", "LAUREATE"};
+        String[] professions = {"Student", "Professor", "Laureate"};
 
         //Mapping des professions avec les rôles
         /*roleMapping = new HashMap<>();
