@@ -19,7 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.ensak.connect.adapters.home.HomeAdapter;
 import com.ensak.connect.adapters.home.RecommandedOffersAdapter;
 import com.ensak.connect.databinding.FragmentHomeBinding;
-import com.ensak.connect.reponse.PostResponse;
+import com.ensak.connect.reponse.feed.FeedResponse;
 import com.ensak.connect.view_model.HomeViewModel;
 
 import java.util.ArrayList;
@@ -29,7 +29,7 @@ public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;
     private RecyclerView rvAllOffers, rvRecommendedOffers;
     private HomeViewModel homeViewModel;
-    private ArrayList<PostResponse> posts;
+    private FeedResponse feed;
     private HomeAdapter adapter;
     private RecommandedOffersAdapter recommandedOffersAdapter;
 
@@ -41,15 +41,15 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        posts = new ArrayList<>();
+        feed = new FeedResponse();
 
         rvRecommendedOffers = binding.rvRecommendedOffers;
-        recommandedOffersAdapter = new RecommandedOffersAdapter(posts);
+        recommandedOffersAdapter = new RecommandedOffersAdapter(feed);
         rvRecommendedOffers.setAdapter(recommandedOffersAdapter);
         rvRecommendedOffers.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
         rvAllOffers = binding.rvAllOffers;
-        adapter = new HomeAdapter(posts);
+        adapter = new HomeAdapter(feed);
         rvAllOffers.setAdapter(adapter);
         rvAllOffers.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -64,14 +64,15 @@ public class HomeFragment extends Fragment {
     private void getPosts(Context context) {
         homeViewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
         try {
-            homeViewModel.getPosts().observe((LifecycleOwner) context, responses -> {
-                if (responses != null) {
+            homeViewModel.getFeed(0, "", "").observe((LifecycleOwner) context, response -> {
+                if (response != null) {
 
-                    String message = responses.get(0).getUser().getFirstname();
+                    String message = String.valueOf(response.getPageNumber()) ;
                     Log.d("Main Log", message);
 
-                    posts.clear();
-                    posts.addAll(responses);
+                    feed.setContent(response.getContent());
+                    feed.setPageNumber(response.getPageNumber());
+                    feed.setTotalPages(response.getTotalPages());
                     adapter.notifyDataSetChanged();
                     recommandedOffersAdapter.notifyDataSetChanged();
                 }

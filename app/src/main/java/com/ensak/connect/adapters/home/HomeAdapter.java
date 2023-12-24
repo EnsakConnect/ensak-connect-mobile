@@ -14,7 +14,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.ensak.connect.R;
 import com.ensak.connect.databinding.OfferItemHomeBinding;
-import com.ensak.connect.reponse.PostResponse;
+import com.ensak.connect.reponse.feed.FeedContentResponse;
+import com.ensak.connect.reponse.feed.FeedResponse;
 import com.ensak.connect.utils.Utils;
 import com.ensak.connect.view.comments.CommentsActivity;
 
@@ -26,10 +27,10 @@ public class HomeAdapter extends
 
     OfferItemHomeBinding offerItemHomeBinding;
 
-    private ArrayList<PostResponse> posts;
+    private FeedResponse feed;
 
-    public HomeAdapter(ArrayList<PostResponse> posts) {
-        this.posts = posts;
+    public HomeAdapter(FeedResponse feed) {
+        this.feed = feed;
     }
 
     @Override
@@ -44,14 +45,15 @@ public class HomeAdapter extends
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        PostResponse post = posts.get(position);
+        FeedContentResponse post = feed.getContent().get(position);
         Context context = holder.itemView.getContext();
 
-        offerItemHomeBinding.tvUserName.setText(post.getUser().getFirstname() + " " + post.getUser().getLastname());
+        offerItemHomeBinding.tvUserName.setText(post.getAuthor().getFullName());
         offerItemHomeBinding.tvBody.setText(post.getDescription());
         offerItemHomeBinding.tvTags.setText(String.join(", ", post.getTags()));
-        offerItemHomeBinding.chipTag.setText(post.getType());
-        offerItemHomeBinding.tvTimeAgo.setText(Utils.calculateTimeAgo(post.getDate()));
+        offerItemHomeBinding.chipTag.setText(post.getPostType());
+        offerItemHomeBinding.tvTimeAgo.setText(post.getTimePassed());
+        //offerItemHomeBinding.tvTimeAgo.setText(Utils.calculateTimeAgo(post.getDate()));
 
         offerItemHomeBinding.llComment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,7 +78,7 @@ public class HomeAdapter extends
 
     @Override
     public int getItemCount() {
-        return posts.size();
+        return feed.getContent().size();
     }
 
 
