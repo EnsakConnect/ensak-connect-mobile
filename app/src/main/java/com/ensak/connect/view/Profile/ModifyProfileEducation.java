@@ -23,6 +23,8 @@ public class ModifyProfileEducation extends AppCompatActivity {
 
     private ActivityModifyProfileEducationBinding binding;
     private EducationViewModel educationViewModel;
+    private Boolean isUpdate = false;
+    private String id = "";
 
     private enum ActiveDateField {
         START_DATE, END_DATE
@@ -35,7 +37,26 @@ public class ModifyProfileEducation extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         initViewModel();
+        if (getIntent() != null && getIntent().getExtras() != null) {
+            id = getIntent().getStringExtra("id");
+            String field = getIntent().getStringExtra("field");
+            String school = getIntent().getStringExtra("school");
+//            String degree = getIntent().getStringExtra("degree");
+            String startDate = getIntent().getStringExtra("startDate");
+            String endDate = getIntent().getStringExtra("endDate");
+            String description = getIntent().getStringExtra("description");
+            isUpdate = getIntent().getBooleanExtra("isUpdate", false);
 
+            binding.txtStartDate.setText(startDate);
+            binding.txtEndDate.setText(endDate);
+            binding.txtField.setText(field);
+            binding.txtSchool.setText(school);
+            binding.txtDescription.setText(description);
+
+            if(isUpdate) {
+                binding.btnCreate.setText("Update");
+            }
+        }
         binding.txtStartDate.setFocusable(false);
         binding.txtStartDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,7 +116,13 @@ public class ModifyProfileEducation extends AppCompatActivity {
         String startDate = binding.txtStartDate.getText().toString().trim();
         String endDate = binding.txtEndDate.getText().toString().trim();
         String description = binding.txtDescription.getText().toString().trim();
-        educationViewModel.createEducation(field, school, degree, startDate, endDate, description);
+
+        if (isUpdate) {
+
+            educationViewModel.updateExperience(id, field, degree, school, startDate, endDate, description);
+        } else {
+            educationViewModel.createEducation(field, degree, school, startDate, endDate, description);
+        }
     }
 
     private void showDatePickerDialog() {

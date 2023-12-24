@@ -50,6 +50,35 @@ public class EducationViewModel extends AndroidViewModel {
         request.setDescription(description);
         educationRepository.uploadEducation(request);
     }
+
+    public void updateExperience(String id, String field, String degree, String school, String from, String to, String description) {
+        if(field.length() == 0) {
+            errorMessage.setValue("Field is required.");
+            return;
+        }
+        if(degree.length() == 0) {
+            errorMessage.setValue("Degree is required.");
+            return;
+        }
+        if(school.length() == 0) {
+            errorMessage.setValue("School is required.");
+            return;
+        }
+        if(description.length() == 0) {
+            errorMessage.setValue("Description is required.");
+            return;
+        }
+        isLoading.setValue(true);
+        EducationRequest request = new EducationRequest();
+        request.setField(field);
+        request.setDegree(degree);
+        request.setSchool(school);
+        request.setStartDate(from);
+        request.setEndDate(to);
+        request.setDescription(description);
+        educationRepository.updateEducation(id,request);
+    }
+
     public LiveData<Boolean> getIsLoading() {
         return isLoading;
     }

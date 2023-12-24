@@ -57,4 +57,33 @@ public class EducationRepository {
 
         return liveData;
     }
+
+    public LiveData<EducationResponse> updateEducation(String id, EducationRequest educationRequest) {
+        final MutableLiveData<EducationResponse> data = new MutableLiveData<>();
+        apiRequest.UpdateEducation(id, educationRequest)
+                .enqueue(new Callback<EducationResponse>() {
+
+
+                    @Override
+                    public void onResponse(@NonNull Call<EducationResponse> call, @NonNull Response<EducationResponse> response) {
+
+
+
+                        if (response.body() != null) {
+                            try {
+                                data.setValue(response.body());
+                                Log.d("TAG", "API test result:: " + response.body().getSchool());
+                            } catch (Throwable ex) {
+                                Log.e("TAG", "Exception occured: " + ex.getMessage());
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(@NonNull Call<EducationResponse> call, @NonNull Throwable t) {
+                        data.setValue(null);
+                    }
+                });
+        return data;
+    }
 }

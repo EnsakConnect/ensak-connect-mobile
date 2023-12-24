@@ -132,7 +132,7 @@ public class ProfileActivity extends AppCompatActivity {
                 experienceAdapter = new ExperienceAdapter(this, profileResponse.getExperienceList());
                 experienceRecyclerView.setAdapter(experienceAdapter);
 
-                educationAdapter = new EducationAdapter(profileResponse.getEducationList());
+                educationAdapter = new EducationAdapter(this, profileResponse.getEducationList());
                 educationRecyclerView.setAdapter(educationAdapter);
 
                 skillsAdapter = new SkillsAdapter(profileResponse.getSkillList());
