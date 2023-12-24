@@ -102,6 +102,9 @@ public class LoginActivity extends AppCompatActivity {
                 // Handle successful login
                 Toast.makeText(LoginActivity.this, "Login Successful.", Toast.LENGTH_SHORT).show();
 
+                Intent intent = new Intent(this, HomeActivity.class);
+                startActivity(intent);
+                finish();
 
             } else {
 
@@ -122,9 +125,6 @@ public class LoginActivity extends AppCompatActivity {
         Log.d(TAG, "email = " + email + ", password = " + password + ".");
         loginViewModel.login(email, password);
 
-        Intent intent = new Intent(this, HomeActivity.class);
-        startActivity(intent);
-        finish();
 
     }
 

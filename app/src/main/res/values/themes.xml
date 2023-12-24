@@ -59,6 +59,7 @@
         <item name="android:layout_marginBottom">16dp</item>
     </style>
 
+    <!--  Buttons  -->
     <style name="ButtonBase" parent="Widget.AppCompat.Button">
         <item name="android:paddingStart">16dp</item>
         <item name="android:paddingEnd">16dp</item>
@@ -69,11 +70,14 @@
         <item name="android:minWidth">0dp</item>
     </style>
 
-
-    <!--  Buttons  -->
     <style name="ButtonPrimary" parent="ButtonBase">
         <item name="android:background">@drawable/button_style</item>
         <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="ButtonPrimarySecondary" parent="ButtonBase">
+        <item name="android:background">@drawable/button_primary_secondary_background</item>
+        <item name="android:textColor">@color/primary</item>
     </style>
 
     <style name="ButtonDanger" parent="ButtonBase">

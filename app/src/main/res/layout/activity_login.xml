@@ -19,27 +19,19 @@
             android:src="@drawable/logo_ensak_connect"
             android:layout_marginBottom="48dp"/>
 
-        <!-- Email EditText -->
-        <!-- Email Label -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Email"
-            android:textSize="16sp"
-            android:layout_marginBottom="8dp"
-            android:textColor="#000" />
+            style="@style/Label" />
 
         <EditText
             android:id="@+id/emailEditText"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="wrap_content"
             android:hint="email@uit.ac.ma"
             android:inputType="textEmailAddress"
-            android:background="@drawable/edit_text_style"
-            android:paddingLeft="16dp"
-            android:paddingTop="12dp"
-            android:paddingRight="16dp"
-            android:paddingBottom="12dp"
+            style="@style/EditTextBase"
             android:layout_marginBottom="16dp" />
 
         <!-- Password Label -->
@@ -47,42 +39,33 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Mot de passe"
-            android:textSize="16sp"
-            android:layout_marginBottom="8dp"
-            android:textColor="#000" />
+            style="@style/Label" />
 
         <EditText
             android:id="@+id/passwordEditText"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:hint="************"
+            android:layout_height="wrap_content"
+            android:hint="Password"
             android:inputType="textPassword"
-            android:paddingLeft="12dp"
-            android:paddingTop="12dp"
-            android:paddingRight="12dp"
-            android:paddingBottom="12dp"
-            android:background="@drawable/edit_text_style"
-            android:layout_marginBottom="15dp" />
+            style="@style/EditTextBase"
+            android:layout_marginBottom="16dp" />
         <!-- Forgot Password Text -->
         <TextView
             android:id="@+id/forgotPasswordText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Mot de passe oublié ?"
-            android:textColor="#949eae"
-            android:textStyle="bold"
+            style="@style/Label"
             android:layout_gravity="end"
-            android:layout_marginBottom="16dp"/>
+            android:layout_marginBottom="24dp"/>
         <!-- Login Button -->
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/loginButton"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="wrap_content"
             android:text="Se connecter"
-            android:background="@drawable/button_style"
-            android:textColor="#FFFFFF"
+            style="@style/ButtonPrimary"
             android:layout_marginBottom="16dp" />
-
 
 
         <LinearLayout
@@ -90,7 +73,6 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center"
-            android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp">
 
             <View
@@ -114,13 +96,12 @@
                 android:background="@android:color/darker_gray" />
         </LinearLayout>
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/googleLoginButton"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:text="GOOGLE"
-            android:background="@drawable/google_button"
-            android:textColor="#FFFFFF"
+            android:layout_height="wrap_content"
+            android:text="Google"
+            style="@style/ButtonPrimarySecondary"
             android:layout_marginBottom="16dp" />
 
         <!-- Create Account Text -->
