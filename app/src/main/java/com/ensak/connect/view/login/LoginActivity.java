@@ -80,9 +80,11 @@ public class LoginActivity extends AppCompatActivity {
 
         loginViewModel.getIsLoading().observe(this, isLoading -> {
             if(isLoading){
-                // Disable login button
+                binding.loginButton.setEnabled(false);
+                binding.prgLoading.setVisibility(View.VISIBLE);
             } else {
-                // Enable login button
+                binding.loginButton.setEnabled(true);
+                binding.prgLoading.setVisibility(View.INVISIBLE);
             }
         });
 

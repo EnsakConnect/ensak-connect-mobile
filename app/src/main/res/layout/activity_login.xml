@@ -59,13 +59,29 @@
             android:layout_gravity="end"
             android:layout_marginBottom="24dp"/>
         <!-- Login Button -->
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/loginButton"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Se connecter"
-            style="@style/ButtonPrimary"
-            android:layout_marginBottom="16dp" />
+            android:layout_marginBottom="16dp">
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/loginButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Login"
+                style="@style/ButtonPrimary"/>
+
+            <ProgressBar
+                android:id="@+id/prgLoading"
+                android:visibility="invisible"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="16dp"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:backgroundTint="@color/white"
+                style="@style/LoadingWhite"
+                />
+        </RelativeLayout>
 
 
         <LinearLayout
