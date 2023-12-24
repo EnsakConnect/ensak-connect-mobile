@@ -14,8 +14,12 @@
     <color name="grey_700">#FF666666</color>
 
     <color name="primary">#FF5552FE</color>
+    <color name="primary_35">#235552FE</color>
     <color name="background_light">#F2F2F2</color>
     <color name="lbl_gray">#718096</color>
+
+    <color name="gray_900">#1A202C</color>
+    <color name="gray_600">#718096</color>
 
     <!--  Feedback colors  -->
     <color name="error">#ff3333</color>

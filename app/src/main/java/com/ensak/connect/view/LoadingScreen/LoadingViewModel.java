@@ -70,6 +70,7 @@ public class LoadingViewModel extends AndroidViewModel {
     private void checkTokenIsValid() {
         if(! sessionManager.isLoggedIn()){
             redirectToLogin();
+            return;
         }
         currentAction.setValue("Verifying user token...");
         authRepository.checkToken(new RepositoryCallBack<UserResponse>() {

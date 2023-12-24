@@ -8,6 +8,6 @@
     <dimen name="fab_menu_item1_margin">90dp</dimen>
     <dimen name="fab_menu_item2_margin">164dp</dimen>
     <dimen name="fab_menu_item3_margin">238dp</dimen>
-
+    <dimen name="preference_title_size">50sp</dimen>
     <dimen name="heading2_bottom_margin">32dp</dimen>
 </resources>

@@ -6,8 +6,8 @@
         <item name="colorPrimaryVariant">@color/purple_700</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_700</item>
+        <item name="colorSecondary">@color/primary</item>
+        <item name="colorSecondaryVariant">@color/primary</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
@@ -42,12 +42,11 @@
         <item name="android:minHeight">0dp</item>
         <item name="android:minWidth">0dp</item>
         <item name="android:padding">10sp</item>
-
-
-
-
     </style>
 
+    <style name="PreferenceCategoryTitle">
+        <item name="android:textSize">20sp</item> <!-- Taille du texte en sp (pixels indépendants de l'échelle) -->
+    </style>
     <style name="ProfileActivityTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
     </style>
 
@@ -59,6 +58,7 @@
         <item name="android:layout_marginBottom">16dp</item>
     </style>
 
+    <!--  Buttons  -->
     <style name="ButtonBase" parent="Widget.AppCompat.Button">
         <item name="android:paddingStart">16dp</item>
         <item name="android:paddingEnd">16dp</item>
@@ -69,11 +69,14 @@
         <item name="android:minWidth">0dp</item>
     </style>
 
-
-    <!--  Buttons  -->
     <style name="ButtonPrimary" parent="ButtonBase">
         <item name="android:background">@drawable/button_style</item>
         <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="ButtonPrimarySecondary" parent="ButtonBase">
+        <item name="android:background">@drawable/button_primary_secondary_background</item>
+        <item name="android:textColor">@color/primary</item>
     </style>
 
     <style name="ButtonDanger" parent="ButtonBase">
@@ -107,11 +110,34 @@
     </style>
 
     <!--  Typography   -->
+    <style name="Heading3">
+        <item name="android:textColor">@color/gray_900</item>
+        <item name="android:textSize">28sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:lineSpacingExtra">5sp</item>
+    </style>
+    <style name="Heading5">
+        <item name="android:textColor">@color/gray_600</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:lineSpacingExtra">4sp</item>
+    </style>
     <style name="Label">
         <item name="android:textColor">@color/lbl_gray</item>
         <item name="android:textSize">15sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:layout_marginBottom">8dp</item>
+    </style>
+
+    <!--  Progress  -->
+    <style name="LoadingWhite">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:gravity">center</item>
+        <item name="android:elevation">32dp</item>
+        <item name="android:indeterminate">true</item>
+        <item name="android:indeterminateTintMode">src_atop</item>
+        <item name="android:indeterminateTint">@color/white</item>
     </style>
 
 </resources>
