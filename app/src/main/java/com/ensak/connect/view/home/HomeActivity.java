@@ -13,6 +13,7 @@ import com.ensak.connect.core.SessionManager;
 import com.ensak.connect.view.LoadingScreen.LoadingActivity;
 import com.ensak.connect.view.Profile.ProfileActivity;
 import com.ensak.connect.view.Registration.RegistrationScreen;
+import com.ensak.connect.view.Settigns.SettingsActivity;
 import com.ensak.connect.view.conversations.ConversationsActivity;
 import com.ensak.connect.view.create_question_screen.CreateQuestionActivity;
 import com.ensak.connect.view.login.LoginActivity;
@@ -194,7 +195,8 @@ public class HomeActivity extends AppCompatActivity {
             } else if (itemId == R.id.nav_notifications) {
                 Toast.makeText(this, "nav_notifications", Toast.LENGTH_SHORT).show();
             } else if (itemId == R.id.nav_settings) {
-                Toast.makeText(this, "nav_settings", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this, SettingsActivity.class);
+                startActivity(intent);
             } else if (itemId == R.id.nav_about) {
                 Toast.makeText(this, "nav_about", Toast.LENGTH_SHORT).show();
             } else if (itemId == R.id.nav_logout) {

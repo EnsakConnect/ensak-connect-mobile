@@ -15,9 +15,6 @@
         android:layout_height="wrap_content"
         android:padding="10dp">
 
-        <!-- ImageView pour l'icône (à gauche) -->
-
-        <!-- Guideline pour séparer l'icône des autres éléments -->
         <ImageView
             android:id="@+id/author_icon"
             android:layout_width="40dp"
