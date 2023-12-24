@@ -134,6 +134,7 @@ public class ModifyProfileExperience extends AppCompatActivity {
         } else {
             experienceViewModel.createExperience(title, company, contractType, location, startDate, endDate, description);
         }
+        finish();
     }
 
 
