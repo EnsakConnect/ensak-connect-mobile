@@ -51,7 +51,8 @@
             android:exported="false" />
         <activity
             android:name=".view.login.LoginActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.ENSAKConnect.NoActionBar"/>
         <activity
             android:name=".view.create_question_screen.CreateQuestionActivity"
             android:exported="false"

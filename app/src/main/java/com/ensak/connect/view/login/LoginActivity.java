@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.ensak.connect.R;
 import com.ensak.connect.core.SessionManager;
+import com.ensak.connect.databinding.ActivityLoginBinding;
 import com.ensak.connect.view.Registration.RegistrationScreen;
 import com.ensak.connect.view.ResetPassword.EmailRecuperation;
 import com.ensak.connect.view.home.HomeActivity;
@@ -27,6 +28,7 @@ import com.ensak.connect.view_model.LoginViewModel.LoginViewModel;
 
 public class LoginActivity extends AppCompatActivity {
     private final String TAG = getClass().getSimpleName();
+    private ActivityLoginBinding binding;
 
     private EditText emailEditText;
     private EditText passwordEditText;
@@ -37,17 +39,9 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        binding = ActivityLoginBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        sessionManager = new SessionManager(this);
-        if (sessionManager.isLoggedIn()) {
-            navigateToHome();
-            return; // Skip the rest of the onCreate process
-        }
-
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().hide();
-        }
-        setContentView(R.layout.activity_login);
 
         emailEditText = findViewById(R.id.emailEditText);
         passwordEditText = findViewById(R.id.passwordEditText);
