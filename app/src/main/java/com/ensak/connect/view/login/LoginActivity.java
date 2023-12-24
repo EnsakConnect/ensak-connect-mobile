@@ -21,13 +21,13 @@ import com.ensak.connect.R;
 import com.ensak.connect.core.SessionManager;
 import com.ensak.connect.databinding.ActivityLoginBinding;
 import com.ensak.connect.view.Registration.RegistrationScreen;
+import com.ensak.connect.view.ResetPassword.ResetPasswordScreen;
 import com.ensak.connect.view.home.HomeActivity;
 
 public class LoginActivity extends AppCompatActivity {
     private final String TAG = getClass().getSimpleName();
     private ActivityLoginBinding binding;
     private LoginViewModel loginViewModel;
-    private SessionManager sessionManager;
 
 
     @Override
@@ -104,11 +104,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-    private void navigateToHome() {
-        Intent intent = new Intent(this, HomeActivity.class);
-        startActivity(intent);
-        finish(); // Finish LoginActivity so the user can't navigate back to it
-    }
 
     private void loginUser() {
         String email = binding.emailEditText.getText().toString().trim();
@@ -119,9 +114,11 @@ public class LoginActivity extends AppCompatActivity {
 
     private void signInWithGoogle() {
         // Add Google sign-in logic here
-        Toast.makeText(this, "Google Sign-In Clicked", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Google Sign-In Clicked [Not implemented]", Toast.LENGTH_SHORT).show();
     }
 
     private void forgotPassword() {
+        Intent intent = new Intent(this, ResetPasswordScreen.class);
+        startActivity(intent);
     }
 }

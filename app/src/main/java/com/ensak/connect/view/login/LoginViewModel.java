@@ -40,7 +40,6 @@ public class LoginViewModel extends AndroidViewModel {
         authRepository.login(request, new RepositoryCallBack<LoginResponse>() {
             @Override
             public void onSuccess(LoginResponse data) {
-                isLoading.setValue(false);
                 sessionManager.setUserToken(data.getToken());
                 hasLoggedIn.setValue(true);
             }

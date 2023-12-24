@@ -54,7 +54,7 @@
             android:id="@+id/forgotPasswordText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Mot de passe oublié ?"
+            android:text="Forgotten password?"
             style="@style/Label"
             android:layout_gravity="end"
             android:layout_marginBottom="24dp"/>
@@ -69,7 +69,7 @@
                 android:layout_height="wrap_content"
                 android:text="Login"
                 style="@style/ButtonPrimary"/>
-
+.
             <ProgressBar
                 android:id="@+id/prgLoading"
                 android:visibility="invisible"
