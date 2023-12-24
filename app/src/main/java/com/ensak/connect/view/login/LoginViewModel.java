@@ -8,10 +8,11 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 
 import com.ensak.connect.core.SessionManager;
-import com.ensak.connect.models.LoginRequest;
-import com.ensak.connect.reponse.LoginResponse;
 import com.ensak.connect.repositories.LoginRepository;
+import com.ensak.connect.repositories.RepositoryCallBack;
 import com.ensak.connect.repositories.auth.AuthRepository;
+import com.ensak.connect.repositories.auth.remote.dto.LoginRequest;
+import com.ensak.connect.repositories.auth.remote.dto.LoginResponse;
 import com.ensak.connect.retrofit.ApiRequest;
 import com.ensak.connect.retrofit.RetrofitRequest;
 
@@ -19,9 +20,10 @@ import com.ensak.connect.retrofit.RetrofitRequest;
 public class LoginViewModel extends AndroidViewModel {
 
     private AuthRepository authRepository;
+    private SessionManager sessionManager;
     private MutableLiveData<Boolean> isLoading = new MutableLiveData<>(false);
     private MutableLiveData<Boolean> hasLoggedIn = new MutableLiveData<>(false);
-    private SessionManager sessionManager;
+    private MutableLiveData<String> errorMsg = new MutableLiveData<>("");
 
 
     public LoginViewModel(@NonNull Application application) {
@@ -32,7 +34,36 @@ public class LoginViewModel extends AndroidViewModel {
 
     public void login(String email, String password) {
         isLoading.setValue(true);
-        // Send login request using auth repository
+        LoginRequest request = new LoginRequest();
+        request.setEmail(email);
+        request.setPassword(password);
+        authRepository.login(request, new RepositoryCallBack<LoginResponse>() {
+            @Override
+            public void onSuccess(LoginResponse data) {
+                isLoading.setValue(false);
+                sessionManager.setUserToken(data.getToken());
+                hasLoggedIn.setValue(true);
+            }
+
+            @Override
+            public void onFailure(Throwable throwable) {
+                isLoading.setValue(false);
+                hasLoggedIn.setValue(false);
+                errorMsg.setValue("An error occurred, please try again.");
+            }
+        });
+    }
+
+    public LiveData getIsLoading() {
+        return isLoading;
+    }
+
+    public LiveData getHasLoggedIn() {
+        return hasLoggedIn;
+    }
+
+    public LiveData getErrorMsg() {
+        return errorMsg;
     }
 
 }
