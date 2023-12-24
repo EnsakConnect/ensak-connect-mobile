@@ -4,10 +4,17 @@ package com.ensak.connect.repositories;
 import android.content.Context;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.ensak.connect.models.EducationRequest;
+import com.ensak.connect.models.ExperienceRequest;
+import com.ensak.connect.models.LoginRequest;
 import com.ensak.connect.models.UserProfile;
+import com.ensak.connect.reponse.EducationResponse;
+import com.ensak.connect.reponse.ExperienceResponse;
+import com.ensak.connect.reponse.LoginResponse;
 import com.ensak.connect.reponse.ProfileResponse;
 import com.ensak.connect.retrofit.ApiRequest;
 import com.ensak.connect.retrofit.RetrofitRequest;
@@ -20,8 +27,8 @@ public class ProfileRepository {
     private ApiRequest apiRequest;
     private static ProfileRepository profileRepository;
 
-    // Constructor now takes Context
-    private ProfileRepository(Context context) {
+
+    public ProfileRepository(Context context) {
         this.apiRequest = RetrofitRequest.getRetrofitInstance(context).create(ApiRequest.class);
     }
     public static ProfileRepository getInstance(Context context) {
@@ -54,5 +61,9 @@ public class ProfileRepository {
         });
         return profileData;
     }
+
+
+
+
 
 }

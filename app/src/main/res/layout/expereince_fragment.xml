@@ -1,17 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="10dp"
     android:layout_marginTop="10dp"
-    android:background="@android:color/white"
->
+    android:background="@android:color/white">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+        android:gravity="right"
+    android:orientation="horizontal">
+
+
+    <ImageView
+        android:id="@+id/iconEdit"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/edit_icon"
+        android:layout_marginRight="8dp"
+        android:tint="@color/purple_500"
+        android:contentDescription="Edit" />
+
+    <ImageView
+        android:id="@+id/iconDelete"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/delete_icon"
+        android:tint="@color/error"
+        android:contentDescription="Delete" />
+    </LinearLayout>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
+
+
+
 
         <TextView
             android:id="@+id/experienceTitle"
