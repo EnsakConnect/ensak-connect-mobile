@@ -1,7 +1,8 @@
 package com.ensak.connect.repositories.auth.remote;
 
 import com.ensak.connect.repositories.auth.remote.dto.LoginRequest;
-import com.ensak.connect.repositories.auth.remote.dto.LoginResponse;
+import com.ensak.connect.repositories.auth.remote.dto.AuthenticationResponse;
+import com.ensak.connect.repositories.auth.remote.dto.RegisterRequest;
 import com.ensak.connect.repositories.auth.remote.dto.UserResponse;
 
 import retrofit2.Call;
@@ -13,5 +14,9 @@ public interface AuthApi {
     Call<UserResponse> me();
 
     @POST("auth/login")
-    Call<LoginResponse> login(@Body LoginRequest request);
+    Call<AuthenticationResponse> login(@Body LoginRequest request);
+
+
+    @POST("auth/register")
+    Call<AuthenticationResponse> register(@Body RegisterRequest request);
 }

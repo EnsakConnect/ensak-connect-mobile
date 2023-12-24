@@ -142,13 +142,32 @@
             android:hint="Confirm password" />
     </LinearLayout>
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnRegister"
+    <!-- Login Button -->
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Create my account"
-        android:layout_marginBottom="16dp"
-        style="@style/ButtonPrimary"/>
+        android:layout_marginBottom="16dp">
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnRegister"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Create my account"
+            style="@style/ButtonPrimary"/>
+
+        <ProgressBar
+            android:id="@+id/prgLoading"
+            android:visibility="invisible"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="16dp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:backgroundTint="@color/white"
+            style="@style/LoadingWhite"
+            />
+    </RelativeLayout>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnCancel"

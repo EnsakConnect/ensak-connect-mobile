@@ -8,7 +8,10 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.ensak.connect.core.SessionManager;
+import com.ensak.connect.repositories.RepositoryCallBack;
 import com.ensak.connect.repositories.auth.AuthRepository;
+import com.ensak.connect.repositories.auth.remote.dto.AuthenticationResponse;
+import com.ensak.connect.repositories.auth.remote.dto.RegisterRequest;
 
 public class RegistrationViewModel extends AndroidViewModel {
     private AuthRepository authRepository;
@@ -28,7 +31,29 @@ public class RegistrationViewModel extends AndroidViewModel {
             errorMsg.setValue("Password confirmation does not match.");
             return;
         }
-        // Call auth repository
+        if(password.length() < 8){
+            errorMsg.setValue("Password too short, must have at least 8 characters.");
+            return;
+        }
+        isLoading.setValue(true);
+        RegisterRequest request = new RegisterRequest();
+        request.setFullname(fullName);
+        request.setEmail(email);
+        request.setRole(accountType);
+        request.setPassword(password);
+        authRepository.register(request, new RepositoryCallBack<AuthenticationResponse>() {
+            @Override
+            public void onSuccess(AuthenticationResponse data) {
+                sessionManager.setUserToken(data.getToken());
+                hasRegistered.setValue(true);
+            }
+
+            @Override
+            public void onFailure(Throwable throwable) {
+                isLoading.setValue(false);
+                errorMsg.setValue("An error occurred, please try again.");
+            }
+        });
     }
 
     public LiveData<Boolean> getIsLoading() {

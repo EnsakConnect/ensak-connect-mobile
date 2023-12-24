@@ -2,11 +2,15 @@ package com.ensak.connect.view.Registration;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
+
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import com.ensak.connect.databinding.ActivityRegistrationScreenBinding;
+import com.ensak.connect.view.home.HomeActivity;
 
 
 public class RegistrationScreen extends AppCompatActivity {
@@ -22,6 +26,9 @@ public class RegistrationScreen extends AppCompatActivity {
 
         initializeViewModel();
         binding.btnRegister.setOnClickListener(view -> register());
+        binding.btnCancel.setOnClickListener(view -> {
+            finish();
+        });
     }
 
     private void setupAccountTypeSelect() {
@@ -42,16 +49,19 @@ public class RegistrationScreen extends AppCompatActivity {
 
         registrationViewModel.getHasRegistered().observe(this, hasRegister -> {
             if(hasRegister) {
-                // redirect
-                // close
+                Intent intent = new Intent(this, HomeActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
 
         registrationViewModel.getIsLoading().observe(this, isLoading -> {
             if(isLoading) {
-                // disable btn
+                binding.btnRegister.setEnabled(false);
+                binding.prgLoading.setVisibility(View.VISIBLE);
             } else {
-                // enable btn
+                binding.btnRegister.setEnabled(true);
+                binding.prgLoading.setVisibility(View.INVISIBLE);
             }
         });
     }
@@ -63,35 +73,6 @@ public class RegistrationScreen extends AppCompatActivity {
         String passwordConfirmation = binding.txtPasswordConfirmation.getText().toString();
         String accountType = binding.slctAccountType.getSelectedItem().toString();
 
-
-//        regiterbtn.setOnClickListener(view -> {
-//            String fullname=String.valueOf(efullname.getText());
-//            //String lastname=String.valueOf(elastname.getText());
-//            String email=String.valueOf(eemail.getText());
-//            String password=String.valueOf(epassword.getText());
-//
-//            String selectedProfession = spinnerProfession.getSelectedItem().toString();
-//            //String selectedRole = roleMapping.get(selectedProfession);
-//
-//            RegisterRequest registerRequest = new RegisterRequest();
-//            registerRequest.setFullname(fullname);
-//            //registerRequest.setLastname(lastname);
-//            registerRequest.setEmail(email);
-//            registerRequest.setPassword(password);
-//            registerRequest.setRole(selectedProfession);
-//
-//            apiRequest.register(registerRequest).enqueue(new Callback<RegisterRequest>() {
-//                @Override
-//                public void onResponse(Call<RegisterRequest> call, Response<RegisterRequest> response) {
-//                    Toast.makeText(RegistrationScreen.this, "Save successful!", Toast.LENGTH_SHORT).show();
-//                }
-//
-//                @Override
-//                public void onFailure(Call<RegisterRequest> call, Throwable t) {
-//                    Toast.makeText(RegistrationScreen.this, "Save failed!!!", Toast.LENGTH_SHORT).show();
-//                    //Logger.getLogger(RegistrationScreen.class.getName()).log(Level.SEVERE, "Error occurred", t);
-//                }
-//            });
-//        });
+        registrationViewModel.register(fullName, email, accountType, password, passwordConfirmation);
     }
 }
