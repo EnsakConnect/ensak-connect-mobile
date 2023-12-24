@@ -1,6 +1,6 @@
 package com.ensak.connect.repositories.auth.remote.dto;
 
-public class LoginResponse {
+public class AuthenticationResponse {
     private String token;
     private String refreshToken;
 

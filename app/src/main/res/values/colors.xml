@@ -18,6 +18,9 @@
     <color name="background_light">#F2F2F2</color>
     <color name="lbl_gray">#718096</color>
 
+    <color name="gray_900">#1A202C</color>
+    <color name="gray_600">#718096</color>
+
     <!--  Feedback colors  -->
     <color name="error">#ff3333</color>
     <color name="error_30">#23ff3333</color>

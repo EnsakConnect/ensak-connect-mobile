@@ -1,9 +1,14 @@
 package com.ensak.connect.view.login;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -28,6 +33,7 @@ public class LoginActivity extends AppCompatActivity {
     private final String TAG = getClass().getSimpleName();
     private ActivityLoginBinding binding;
     private LoginViewModel loginViewModel;
+    private ActivityResultLauncher<Intent> registerActivityResultLauncher;
 
 
     @Override
@@ -36,6 +42,19 @@ public class LoginActivity extends AppCompatActivity {
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         setupCreateAccountTextView();
+
+        registerActivityResultLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    Log.d(TAG, "registerActivityResultLauncher: retruned");
+                    Log.d(TAG, "registerActivityResultLauncher: code: " + result.getResultCode());
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        Intent data = result.getData();
+                        startActivity(data);
+                        finish();
+                    }
+                }
+        );
 
         initializeViewModel();
         binding.loginButton.setOnClickListener(view -> loginUser());
@@ -51,7 +70,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(@NonNull View widget) {
                 Intent intent = new Intent(LoginActivity.this, RegistrationScreen.class);
-                startActivity(intent);
+                registerActivityResultLauncher.launch(intent);
             }
 
             @Override
