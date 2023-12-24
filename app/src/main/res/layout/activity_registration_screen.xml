@@ -45,38 +45,13 @@
             android:layout_marginBottom="4dp"/>
 
         <EditText
-            android:id="@+id/editTextFullName"
+            android:id="@+id/txtFullName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/EditTextBase"
             android:hint="Enter your full name" />
     </LinearLayout>
 
-    <!-- Edit Text avec titre "Last Name" -->
-    <!--<LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="16dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Last Name"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="4dp"/>
-
-        <EditText
-            android:id="@+id/editTextLastName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/edittext_bg"
-            android:padding="8dp"
-            android:hint="Enter your last name" />
-    </LinearLayout>-->
-
-    <!-- Edit Text avec titre "Email" -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -91,7 +66,7 @@
             android:layout_marginBottom="4dp"/>
 
         <EditText
-            android:id="@+id/editTextEmail"
+            android:id="@+id/txtEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/EditTextBase"
@@ -113,7 +88,7 @@
             android:layout_marginBottom="4dp"/>
 
         <Spinner
-            android:id="@+id/spinnerProfession"
+            android:id="@+id/slctAccountType"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             style="@style/EditTextBase"
@@ -137,7 +112,7 @@
             android:layout_marginBottom="4dp"/>
 
         <EditText
-            android:id="@+id/editTextPassword"
+            android:id="@+id/txtPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/EditTextBase"
@@ -159,7 +134,7 @@
             android:layout_marginBottom="4dp"/>
 
         <EditText
-            android:id="@+id/ConfirmPassword"
+            android:id="@+id/txtPasswordConfirmation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/EditTextBase"
@@ -168,10 +143,10 @@
     </LinearLayout>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/buttonRegister"
+        android:id="@+id/btnRegister"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Register"
+        android:text="Create my account"
         android:layout_marginBottom="16dp"
         style="@style/ButtonPrimary"/>
 
