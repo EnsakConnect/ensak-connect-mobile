@@ -92,4 +92,6 @@ public interface ApiRequest {
     @PUT("profile/experiences/{experience_id}")
     Call<ExperienceResponse> UpdateExperience(@Path("experience_id") String experienceId, @Body ExperienceRequest experienceRequest);
 
+    @PUT("profile/educations/{educations_id}")
+    Call<EducationResponse> UpdateEducation(@Path("education_id") String educationIf, @Body EducationRequest educationRequest);
 }
