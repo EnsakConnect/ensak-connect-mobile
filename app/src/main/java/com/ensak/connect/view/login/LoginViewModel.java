@@ -1,4 +1,4 @@
-package com.ensak.connect.view_model.LoginViewModel;
+package com.ensak.connect.view.login;
 
 import android.app.Application;
 import androidx.annotation.NonNull;
@@ -16,7 +16,6 @@ import com.ensak.connect.retrofit.RetrofitRequest;
 
 
 public class LoginViewModel extends AndroidViewModel {
-
 
     private final LoginRepository loginRepository;
     private final MutableLiveData<LoginResponse> loginResponseLiveData;

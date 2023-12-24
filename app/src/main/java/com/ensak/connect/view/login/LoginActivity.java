@@ -14,7 +14,6 @@ import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,16 +21,11 @@ import com.ensak.connect.R;
 import com.ensak.connect.core.SessionManager;
 import com.ensak.connect.databinding.ActivityLoginBinding;
 import com.ensak.connect.view.Registration.RegistrationScreen;
-import com.ensak.connect.view.ResetPassword.EmailRecuperation;
 import com.ensak.connect.view.home.HomeActivity;
-import com.ensak.connect.view_model.LoginViewModel.LoginViewModel;
 
 public class LoginActivity extends AppCompatActivity {
     private final String TAG = getClass().getSimpleName();
     private ActivityLoginBinding binding;
-
-    private EditText emailEditText;
-    private EditText passwordEditText;
     private LoginViewModel loginViewModel;
     private SessionManager sessionManager;
 
@@ -41,15 +35,19 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        setupCreateAccountTextView();
 
+        initializeViewModel();
+        binding.loginButton.setOnClickListener(view -> loginUser());
+        binding.googleLoginButton.setOnClickListener(view -> signInWithGoogle());
+        binding.forgotPasswordText.setOnClickListener(view -> forgotPassword());
+    }
 
-        emailEditText = findViewById(R.id.emailEditText);
-        passwordEditText = findViewById(R.id.passwordEditText);
+    private void setupCreateAccountTextView() {
         TextView textViewCreateAccount = findViewById(R.id.tvCreateAccount);
 
         String text = "Vous n'avez pas encore de compte ? Créez-en un ici.";
         SpannableString ss = new SpannableString(text);
-
 
         ClickableSpan clickableSpan = new ClickableSpan() {
             @Override
@@ -72,17 +70,8 @@ public class LoginActivity extends AppCompatActivity {
         int end = start + "Créez-en un ici.".length();
         // This is to check if the substring exists
         ss.setSpan(clickableSpan, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        textViewCreateAccount.setText(ss);
-        textViewCreateAccount.setMovementMethod(LinkMovementMethod.getInstance());
-
-        initializeViewModel();
-
-        findViewById(R.id.loginButton).setOnClickListener(view -> loginUser());
-        findViewById(R.id.googleLoginButton).setOnClickListener(view -> signInWithGoogle());
-        findViewById(R.id.forgotPasswordText).setOnClickListener(view -> {
-
-
-        });
+        binding.tvCreateAccount.setText(ss);
+        binding.tvCreateAccount.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
     private void initializeViewModel() {
@@ -114,12 +103,10 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void loginUser() {
-        String email = emailEditText.getText().toString().trim();
-        String password = passwordEditText.getText().toString().trim();
+        String email = binding.emailEditText.getText().toString().trim();
+        String password = binding.passwordEditText.getText().toString().trim();
         Log.d(TAG, "email = " + email + ", password = " + password + ".");
         loginViewModel.login(email, password);
-
-
     }
 
     private void signInWithGoogle() {
@@ -127,15 +114,6 @@ public class LoginActivity extends AppCompatActivity {
         Toast.makeText(this, "Google Sign-In Clicked", Toast.LENGTH_SHORT).show();
     }
 
-    private void resetPassword() {
-        // Add password reset logic here
-        Intent intent = new Intent(LoginActivity.this, EmailRecuperation.class);
-
-    }
-
-    private void createAccount() {
-        // Add create account logic here
-        Intent registerIntent = new Intent(this, RegistrationScreen.class);
-        startActivity(registerIntent);
+    private void forgotPassword() {
     }
 }
