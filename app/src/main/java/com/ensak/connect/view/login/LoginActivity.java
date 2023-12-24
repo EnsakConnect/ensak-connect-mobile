@@ -44,16 +44,12 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void setupCreateAccountTextView() {
-        TextView textViewCreateAccount = findViewById(R.id.tvCreateAccount);
-
         String text = "Vous n'avez pas encore de compte ? Créez-en un ici.";
         SpannableString ss = new SpannableString(text);
 
         ClickableSpan clickableSpan = new ClickableSpan() {
             @Override
             public void onClick(@NonNull View widget) {
-                // Perform your click action here
-                //createAccount();
                 Intent intent = new Intent(LoginActivity.this, RegistrationScreen.class);
                 startActivity(intent);
             }
