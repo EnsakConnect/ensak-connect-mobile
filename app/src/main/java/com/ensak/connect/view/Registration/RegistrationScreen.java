@@ -1,33 +1,18 @@
 package com.ensak.connect.view.Registration;
 
 import androidx.appcompat.app.AppCompatActivity;
-
+import androidx.lifecycle.ViewModelProvider;
 import android.os.Bundle;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Spinner;
-import java.util.Map;
-
 import android.widget.ArrayAdapter;
-
-
-import com.ensak.connect.databinding.ActivityRegistrationScreenBinding;
-import com.ensak.connect.models.RegisterRequest;
-import com.ensak.connect.retrofit.ApiRequest;
-import com.ensak.connect.retrofit.RetrofitRequest;
-import com.ensak.connect.R;
 import android.widget.Toast;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import com.ensak.connect.databinding.ActivityRegistrationScreenBinding;
 
 
 public class RegistrationScreen extends AppCompatActivity {
 
     private ActivityRegistrationScreenBinding binding;
-    private Spinner spinnerProfession;
-    private Map<String, String> roleMapping;
+    private RegistrationViewModel registrationViewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +20,7 @@ public class RegistrationScreen extends AppCompatActivity {
         setContentView(binding.getRoot());
         setupAccountTypeSelect();
 
+        initializeViewModel();
         binding.btnRegister.setOnClickListener(view -> register());
     }
 
@@ -42,6 +28,32 @@ public class RegistrationScreen extends AppCompatActivity {
         String[] types = {"Student", "Professor", "Laureate"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, types);
         binding.slctAccountType.setAdapter(adapter);
+    }
+
+    private void initializeViewModel() {
+        registrationViewModel = new ViewModelProvider(this, new ViewModelProvider.AndroidViewModelFactory(getApplication()))
+                .get(RegistrationViewModel.class);
+
+        registrationViewModel.getErrorMsg().observe(this, errorMsg -> {
+            if(!errorMsg.isEmpty()){
+                Toast.makeText(this, errorMsg, Toast.LENGTH_LONG).show();
+            }
+        });
+
+        registrationViewModel.getHasRegistered().observe(this, hasRegister -> {
+            if(hasRegister) {
+                // redirect
+                // close
+            }
+        });
+
+        registrationViewModel.getIsLoading().observe(this, isLoading -> {
+            if(isLoading) {
+                // disable btn
+            } else {
+                // enable btn
+            }
+        });
     }
 
     private void register(){
