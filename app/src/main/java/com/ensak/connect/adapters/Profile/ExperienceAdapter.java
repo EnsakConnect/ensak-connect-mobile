@@ -92,7 +92,7 @@ public class ExperienceAdapter extends RecyclerView.Adapter<ExperienceAdapter.Ex
 
             if (iconDelete != null) {
                 iconDelete.setOnClickListener(v -> {
-                    // handle delete
+
                 });
             }
         }

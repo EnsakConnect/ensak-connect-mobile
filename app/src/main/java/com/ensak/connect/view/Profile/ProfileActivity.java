@@ -22,6 +22,7 @@ import com.ensak.connect.R;
 import com.ensak.connect.adapters.Profile.EducationAdapter;
 import com.ensak.connect.adapters.Profile.ExperienceAdapter;
 import com.ensak.connect.adapters.Profile.SkillsAdapter;
+import com.ensak.connect.reponse.ProfileResponse;
 import com.ensak.connect.view_model.ProfileViewModel.ProfileViewModel;
 
 public class ProfileActivity extends AppCompatActivity {
@@ -57,7 +58,6 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-
         experienceRecyclerView = findViewById(R.id.experienceRecyclerView);
         experienceRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -65,11 +65,7 @@ public class ProfileActivity extends AppCompatActivity {
         educationRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         skillsRecyclerView = findViewById(R.id.skillsRecyclerView);
-        skillsRecyclerView.setLayoutManager(new GridLayoutManager(this, 2)); // For a grid with 3 columns
-
-
-
-
+        skillsRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
 
         // Initialize views
@@ -108,7 +104,7 @@ public class ProfileActivity extends AppCompatActivity {
         Glide.with(this).load(profileImageUrl).into(userProfileImage);
 
 
-        // Set up the back button click listener
+
         backButton.setOnClickListener(view -> finish());
 
         profileViewModel = new ViewModelProvider(this, new ViewModelProvider.Factory() {
@@ -120,6 +116,24 @@ public class ProfileActivity extends AppCompatActivity {
         }).get(ProfileViewModel.class);
 
         // Observe LiveData
+        loadData();
+
+        btnModifyProfile.setOnClickListener(v -> profileViewModel.fetchProfileData());
+
+        modify_education_btn.setOnClickListener(v -> {
+            Intent intent = new Intent(ProfileActivity.this, ModifyProfileEducation.class);
+            startActivity(intent);
+        });
+
+        modify_experience_btn.setOnClickListener(v -> {
+            Intent intent = new Intent(ProfileActivity.this, ModifyProfileExperience.class);
+            startActivity(intent);
+        });
+
+    }
+
+    private void loadData(){
+        profileViewModel.fetchProfileData();
         profileViewModel.getProfileLiveData().observe(this, profileResponse -> {
             if (profileResponse != null) {
                 String fullName = profileResponse.getFullName();
@@ -148,20 +162,12 @@ public class ProfileActivity extends AppCompatActivity {
 
             }
         });
-
-        btnModifyProfile.setOnClickListener(v -> profileViewModel.fetchProfileData());
-
-        modify_education_btn.setOnClickListener(v -> {
-            Intent intent = new Intent(ProfileActivity.this, ModifyProfileEducation.class);
-            startActivity(intent);
-        });
-
-        modify_experience_btn.setOnClickListener(v -> {
-            Intent intent = new Intent(ProfileActivity.this, ModifyProfileExperience.class);
-            startActivity(intent);
-        });
-
     }
 
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadData();
+    }
 }

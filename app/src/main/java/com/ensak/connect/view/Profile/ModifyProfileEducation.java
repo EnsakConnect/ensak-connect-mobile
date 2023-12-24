@@ -123,6 +123,7 @@ public class ModifyProfileEducation extends AppCompatActivity {
         } else {
             educationViewModel.createEducation(field, degree, school, startDate, endDate, description);
         }
+        finish();
     }
 
     private void showDatePickerDialog() {
