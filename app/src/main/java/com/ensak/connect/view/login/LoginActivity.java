@@ -14,54 +14,42 @@ import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ensak.connect.R;
 import com.ensak.connect.core.SessionManager;
+import com.ensak.connect.databinding.ActivityLoginBinding;
 import com.ensak.connect.view.Registration.RegistrationScreen;
-import com.ensak.connect.view.ResetPassword.EmailRecuperation;
+import com.ensak.connect.view.ResetPassword.ResetPasswordScreen;
 import com.ensak.connect.view.home.HomeActivity;
-import com.ensak.connect.view_model.LoginViewModel.LoginViewModel;
 
 public class LoginActivity extends AppCompatActivity {
     private final String TAG = getClass().getSimpleName();
-
-    private EditText emailEditText;
-    private EditText passwordEditText;
+    private ActivityLoginBinding binding;
     private LoginViewModel loginViewModel;
-    private SessionManager sessionManager;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        binding = ActivityLoginBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+        setupCreateAccountTextView();
 
-        sessionManager = new SessionManager(this);
-        if (sessionManager.isLoggedIn()) {
-            navigateToHome();
-            return; // Skip the rest of the onCreate process
-        }
+        initializeViewModel();
+        binding.loginButton.setOnClickListener(view -> loginUser());
+        binding.googleLoginButton.setOnClickListener(view -> signInWithGoogle());
+        binding.forgotPasswordText.setOnClickListener(view -> forgotPassword());
+    }
 
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().hide();
-        }
-        setContentView(R.layout.activity_login);
-
-        emailEditText = findViewById(R.id.emailEditText);
-        passwordEditText = findViewById(R.id.passwordEditText);
-        TextView textViewCreateAccount = findViewById(R.id.tvCreateAccount);
-
+    private void setupCreateAccountTextView() {
         String text = "Vous n'avez pas encore de compte ? Créez-en un ici.";
         SpannableString ss = new SpannableString(text);
-
 
         ClickableSpan clickableSpan = new ClickableSpan() {
             @Override
             public void onClick(@NonNull View widget) {
-                // Perform your click action here
-                //createAccount();
                 Intent intent = new Intent(LoginActivity.this, RegistrationScreen.class);
                 startActivity(intent);
             }
@@ -78,70 +66,55 @@ public class LoginActivity extends AppCompatActivity {
         int end = start + "Créez-en un ici.".length();
         // This is to check if the substring exists
         ss.setSpan(clickableSpan, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        textViewCreateAccount.setText(ss);
-        textViewCreateAccount.setMovementMethod(LinkMovementMethod.getInstance());
-
-        initializeViewModel();
-
-        findViewById(R.id.loginButton).setOnClickListener(view -> loginUser());
-        findViewById(R.id.googleLoginButton).setOnClickListener(view -> signInWithGoogle());
-        findViewById(R.id.forgotPasswordText).setOnClickListener(view -> {
-
-
-        });
+        binding.tvCreateAccount.setText(ss);
+        binding.tvCreateAccount.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
     private void initializeViewModel() {
         loginViewModel = new ViewModelProvider(this, new ViewModelProvider.AndroidViewModelFactory(getApplication()))
                 .get(LoginViewModel.class);
 
-        loginViewModel.getLoginResponseLiveData().observe(this, loginResponse -> {
-            Log.d(TAG, "Received login response = " + loginResponse);
-            if (loginResponse != null) {
-                Log.d(TAG, "Received Token = " + loginResponse.getToken());
-                // Handle successful login
-                Toast.makeText(LoginActivity.this, "Login Successful.", Toast.LENGTH_SHORT).show();
-
-
+        loginViewModel.getIsLoading().observe(this, isLoading -> {
+            if(isLoading){
+                binding.loginButton.setEnabled(false);
+                binding.prgLoading.setVisibility(View.VISIBLE);
             } else {
-
-                Toast.makeText(LoginActivity.this, "Login Failed", Toast.LENGTH_SHORT).show();
+                binding.loginButton.setEnabled(true);
+                binding.prgLoading.setVisibility(View.INVISIBLE);
             }
         });
 
-    }
-    private void navigateToHome() {
-        Intent intent = new Intent(this, HomeActivity.class);
-        startActivity(intent);
-        finish(); // Finish LoginActivity so the user can't navigate back to it
+        loginViewModel.getHasLoggedIn().observe(this, hasLoggedIn -> {
+            if(hasLoggedIn) {
+                // Handle successful login
+                Toast.makeText(LoginActivity.this, "Login Successful.", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this, HomeActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        loginViewModel.getErrorMsg().observe(this, errorMsg -> {
+            if(!errorMsg.isEmpty()){
+                Toast.makeText(LoginActivity.this, errorMsg, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void loginUser() {
-        String email = emailEditText.getText().toString().trim();
-        String password = passwordEditText.getText().toString().trim();
+        String email = binding.emailEditText.getText().toString().trim();
+        String password = binding.passwordEditText.getText().toString().trim();
         Log.d(TAG, "email = " + email + ", password = " + password + ".");
         loginViewModel.login(email, password);
-
-        Intent intent = new Intent(this, HomeActivity.class);
-        startActivity(intent);
-        finish();
-
     }
 
     private void signInWithGoogle() {
         // Add Google sign-in logic here
-        Toast.makeText(this, "Google Sign-In Clicked", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Google Sign-In Clicked [Not implemented]", Toast.LENGTH_SHORT).show();
     }
 
-    private void resetPassword() {
-        // Add password reset logic here
-        Intent intent = new Intent(LoginActivity.this, EmailRecuperation.class);
-
-    }
-
-    private void createAccount() {
-        // Add create account logic here
-        Intent registerIntent = new Intent(this, RegistrationScreen.class);
-        startActivity(registerIntent);
+    private void forgotPassword() {
+        Intent intent = new Intent(this, ResetPasswordScreen.class);
+        startActivity(intent);
     }
 }

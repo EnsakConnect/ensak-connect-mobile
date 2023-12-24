@@ -58,6 +58,7 @@
         <item name="android:layout_marginBottom">16dp</item>
     </style>
 
+    <!--  Buttons  -->
     <style name="ButtonBase" parent="Widget.AppCompat.Button">
         <item name="android:paddingStart">16dp</item>
         <item name="android:paddingEnd">16dp</item>
@@ -68,11 +69,14 @@
         <item name="android:minWidth">0dp</item>
     </style>
 
-
-    <!--  Buttons  -->
     <style name="ButtonPrimary" parent="ButtonBase">
         <item name="android:background">@drawable/button_style</item>
         <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="ButtonPrimarySecondary" parent="ButtonBase">
+        <item name="android:background">@drawable/button_primary_secondary_background</item>
+        <item name="android:textColor">@color/primary</item>
     </style>
 
     <style name="ButtonDanger" parent="ButtonBase">
@@ -111,6 +115,17 @@
         <item name="android:textSize">15sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:layout_marginBottom">8dp</item>
+    </style>
+
+    <!--  Progress  -->
+    <style name="LoadingWhite">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:gravity">center</item>
+        <item name="android:elevation">32dp</item>
+        <item name="android:indeterminate">true</item>
+        <item name="android:indeterminateTintMode">src_atop</item>
+        <item name="android:indeterminateTint">@color/white</item>
     </style>
 
 </resources>
