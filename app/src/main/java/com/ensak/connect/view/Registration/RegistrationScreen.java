@@ -3,6 +3,7 @@ package com.ensak.connect.view.Registration;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -50,7 +51,7 @@ public class RegistrationScreen extends AppCompatActivity {
         registrationViewModel.getHasRegistered().observe(this, hasRegister -> {
             if(hasRegister) {
                 Intent intent = new Intent(this, HomeActivity.class);
-                startActivity(intent);
+                setResult(Activity.RESULT_OK, intent);
                 finish();
             }
         });
