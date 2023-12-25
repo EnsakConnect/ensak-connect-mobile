@@ -5,28 +5,23 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
-import com.ensak.connect.reponse.PostResponse;
-import com.ensak.connect.repositories.HomeRepository;
-import com.ensak.connect.repositories.NameRepository;
-
-import java.util.ArrayList;
+import com.ensak.connect.reponse.feed.FeedResponse;
+import com.ensak.connect.repositories.feed.FeedRepository;
 
 public class HomeViewModel extends AndroidViewModel {
 
-    private LiveData<ArrayList<PostResponse>> posts;
-    private HomeRepository repository;
+    private LiveData<FeedResponse> feed;
+    private FeedRepository repository;
 
     public HomeViewModel(@NonNull Application application) {
         super(application);
-        repository = new HomeRepository(application);
+        repository = new FeedRepository(application);
 
     }
 
-    public LiveData<ArrayList<PostResponse>> getPosts() {
-        posts = repository.getPosts();
-        return posts;
+    public LiveData<FeedResponse> getFeed(int page, String search, String filter) {
+        feed = repository.getFeed(page, search, filter);
+        return feed;
     }
 }

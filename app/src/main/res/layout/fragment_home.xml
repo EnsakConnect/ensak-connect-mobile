@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="#F2F2F2"
+    android:orientation="vertical"
     tools:context=".view.home.HomeFragment">
 
     <androidx.core.widget.NestedScrollView
@@ -44,9 +44,9 @@
                 android:id="@+id/rv_recommended_offers"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
                 android:orientation="horizontal"
                 android:paddingHorizontal="16dp"
-                android:nestedScrollingEnabled="false"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
             <LinearLayout
@@ -54,7 +54,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:paddingHorizontal="16dp"
-                android:paddingVertical="16dp">
+                android:paddingVertical="10dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -62,6 +62,13 @@
                     android:layout_weight="1"
                     android:text="Touts"
                     android:textColor="@color/black" />
+
+                <ImageView
+                    android:id="@+id/iv_filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_filter"
+                    android:backgroundTint="@color/black"/>
 
             </LinearLayout>
 

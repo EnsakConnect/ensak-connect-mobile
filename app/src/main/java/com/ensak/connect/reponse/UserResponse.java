@@ -16,6 +16,22 @@ public class UserResponse {
     @Expose
     private String lastname = "Lastname";
 
+    @SerializedName("fullName")
+    @Expose
+    private String fullName = "Full name";
+
+    @SerializedName("title")
+    @Expose
+    private String title = "";
+
+    @SerializedName("profilePicture")
+    @Expose
+    private String profilePicture;
+
+    @SerializedName("profileType")
+    @Expose
+    private String profileType = "STUDENT";
+
     public UserResponse() {
 
     }
@@ -30,5 +46,21 @@ public class UserResponse {
 
     public String getLastname() {
         return lastname;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getProfilePicture() {
+        return profilePicture;
+    }
+
+    public String getProfileType() {
+        return profileType;
     }
 }

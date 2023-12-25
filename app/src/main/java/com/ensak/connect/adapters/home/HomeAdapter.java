@@ -14,7 +14,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.ensak.connect.R;
 import com.ensak.connect.databinding.OfferItemHomeBinding;
-import com.ensak.connect.reponse.PostResponse;
+import com.ensak.connect.reponse.feed.FeedContentResponse;
+import com.ensak.connect.reponse.feed.FeedResponse;
 import com.ensak.connect.utils.Utils;
 import com.ensak.connect.view.comments.CommentsActivity;
 
@@ -26,10 +27,10 @@ public class HomeAdapter extends
 
     OfferItemHomeBinding offerItemHomeBinding;
 
-    private ArrayList<PostResponse> posts;
+    private FeedResponse feed;
 
-    public HomeAdapter(ArrayList<PostResponse> posts) {
-        this.posts = posts;
+    public HomeAdapter(FeedResponse feed) {
+        this.feed = feed;
     }
 
     @Override
@@ -44,14 +45,53 @@ public class HomeAdapter extends
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        PostResponse post = posts.get(position);
+        FeedContentResponse post = feed.getContent().get(position);
         Context context = holder.itemView.getContext();
 
-        offerItemHomeBinding.tvUserName.setText(post.getUser().getFirstname() + " " + post.getUser().getLastname());
+        offerItemHomeBinding.tvUserName.setText(post.getAuthor().getFullName());
         offerItemHomeBinding.tvBody.setText(post.getDescription());
-        offerItemHomeBinding.tvTags.setText(String.join(", ", post.getTags()));
-        offerItemHomeBinding.chipTag.setText(post.getType());
-        offerItemHomeBinding.tvTimeAgo.setText(Utils.calculateTimeAgo(post.getDate()));
+        offerItemHomeBinding.tvTags.setText("#" + String.join(", #", post.getTags()));
+        offerItemHomeBinding.chipTag.setText(post.getPostType());
+        offerItemHomeBinding.tvTimeAgo.setText(post.getTimePassed().replace(" minutes ago", "m").replace(" hours ago", "h").replace(" days ago", "d").replace(" months ago", "mon").replace(" years ago", "y"));
+        //offerItemHomeBinding.tvTimeAgo.setText(Utils.calculateTimeAgo(post.getDate()));
+
+        if (post.getPostType().equals("Q&A")) {
+            offerItemHomeBinding.chipTag.setChipBackgroundColorResource(R.color.tag_qa);
+            offerItemHomeBinding.tvBody.setText(post.getTitle());
+        } else if (post.getPostType().equals("DOCTORATE")) {
+            offerItemHomeBinding.chipTag.setChipBackgroundColorResource(R.color.tag_doctorate);
+            offerItemHomeBinding.llPositionDetails.setVisibility(View.VISIBLE);
+            offerItemHomeBinding.tvPositionTitle.setText(post.getTitle());
+        } else if (post.getPostType().equals("BLOG")) {
+            offerItemHomeBinding.chipTag.setChipBackgroundColorResource(R.color.tag_blog);
+            offerItemHomeBinding.ivBlogImage.setVisibility(View.VISIBLE);
+            Glide.with(offerItemHomeBinding.getRoot().getContext())
+                    .load("https://www.w3schools.com/w3images/avatar2.png")
+                    .apply(new RequestOptions()
+                            .placeholder(R.drawable.ic_launcher_background) // Placeholder image
+                            .error(R.drawable.ic_launcher_background) // Error image in case of loading failure
+                    )
+                    .into(offerItemHomeBinding.ivBlogImage);
+        } else if (post.getPostType().equals("CDI") || post.getPostType().equals("PFE")) {
+            offerItemHomeBinding.llPositionDetails.setVisibility(View.VISIBLE);
+            offerItemHomeBinding.llCompanyDetails.setVisibility(View.VISIBLE);
+            offerItemHomeBinding.tvPositionTitle.setText(post.getTitle());
+            offerItemHomeBinding.tvCompanyName.setText("Alten");
+            offerItemHomeBinding.tvCompanyLocation.setText("Rabat, Rabat-Salé-Kenitra, Morocco (Hybrid)");
+            Glide.with(offerItemHomeBinding.getRoot().getContext())
+                    .load("https://pbs.twimg.com/profile_images/794195648178487296/mBLvqqXu_400x400.jpg")
+                    .apply(new RequestOptions()
+                            .placeholder(R.drawable.ic_launcher_background) // Placeholder image
+                            .error(R.drawable.ic_launcher_background) // Error image in case of loading failure
+                    )
+                    .into(offerItemHomeBinding.ivCompanyLogo);
+
+            if (post.getPostType().equals("PFE")) {
+                offerItemHomeBinding.chipTag.setChipBackgroundColorResource(R.color.tag_pfe);
+            } else {
+                offerItemHomeBinding.chipTag.setChipBackgroundColorResource(R.color.tag_cdi);
+            }
+        }
 
         offerItemHomeBinding.llComment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,7 +116,7 @@ public class HomeAdapter extends
 
     @Override
     public int getItemCount() {
-        return posts.size();
+        return feed.getContent().size();
     }
 
 
