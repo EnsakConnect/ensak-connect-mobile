@@ -24,4 +24,11 @@
     <!--  Feedback colors  -->
     <color name="error">#ff3333</color>
     <color name="error_30">#23ff3333</color>
+
+    <!-- Tags color   -->
+    <color name="tag_pfe">#F44336</color>
+    <color name="tag_cdi">#9C27B0</color>
+    <color name="tag_qa">#8BC34A</color>
+    <color name="tag_blog">#009688</color>
+    <color name="tag_doctorate">#00BCD4</color>
 </resources>
