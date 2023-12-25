@@ -58,6 +58,11 @@
         <item name="android:layout_marginBottom">16dp</item>
     </style>
 
+    <style name="circleImageView" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
     <!--  Buttons  -->
     <style name="ButtonBase" parent="Widget.AppCompat.Button">
         <item name="android:paddingStart">16dp</item>
@@ -77,6 +82,14 @@
     <style name="ButtonPrimarySecondary" parent="ButtonBase">
         <item name="android:background">@drawable/button_primary_secondary_background</item>
         <item name="android:textColor">@color/primary</item>
+    </style>
+
+    <style name="ButtonPrimarySecondarySmall" parent="ButtonPrimarySecondary">
+        <item name="android:paddingTop">6dp</item>
+        <item name="android:paddingBottom">6dp</item>
+        <item name="android:paddingStart">12dp</item>
+        <item name="android:paddingEnd">12dp</item>
+        <item name="android:textSize">12sp</item>
     </style>
 
     <style name="ButtonDanger" parent="ButtonBase">
