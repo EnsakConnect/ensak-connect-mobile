@@ -43,7 +43,7 @@
         <activity
             android:name=".view.Profile.ProfileActivity"
             android:exported="false"
-            android:theme="@style/ProfileActivityTheme" />
+            android:theme="@style/Theme.ENSAKConnect.NoActionBar" />
         <activity
             android:name=".view.conversations.ConversationsActivity"
             android:exported="false"

@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
@@ -22,10 +23,13 @@ import com.ensak.connect.R;
 import com.ensak.connect.adapters.Profile.EducationAdapter;
 import com.ensak.connect.adapters.Profile.ExperienceAdapter;
 import com.ensak.connect.adapters.Profile.SkillsAdapter;
+import com.ensak.connect.databinding.ActivityProfileBinding;
 import com.ensak.connect.reponse.ProfileResponse;
 import com.ensak.connect.view_model.ProfileViewModel.ProfileViewModel;
 
 public class ProfileActivity extends AppCompatActivity {
+
+    private ActivityProfileBinding binding;
 
     private RecyclerView experienceRecyclerView;
     private ExperienceAdapter experienceAdapter;
@@ -57,7 +61,20 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
+        binding = ActivityProfileBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
+        setSupportActionBar(binding.toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        binding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         experienceRecyclerView = findViewById(R.id.experienceRecyclerView);
         experienceRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
