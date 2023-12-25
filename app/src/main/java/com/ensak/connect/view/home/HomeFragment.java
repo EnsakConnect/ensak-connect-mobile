@@ -29,7 +29,7 @@ public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;
     private RecyclerView rvAllOffers, rvRecommendedOffers;
     private HomeViewModel homeViewModel;
-    private FeedResponse feed;
+    private FeedResponse feed, recommendedOffersFeed;
     private HomeAdapter adapter;
     private RecommandedOffersAdapter recommandedOffersAdapter;
 
@@ -42,9 +42,10 @@ public class HomeFragment extends Fragment {
         View root = binding.getRoot();
 
         feed = new FeedResponse();
+        recommendedOffersFeed = new FeedResponse();
 
         rvRecommendedOffers = binding.rvRecommendedOffers;
-        recommandedOffersAdapter = new RecommandedOffersAdapter(feed);
+        recommandedOffersAdapter = new RecommandedOffersAdapter(recommendedOffersFeed);
         rvRecommendedOffers.setAdapter(recommandedOffersAdapter);
         rvRecommendedOffers.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
@@ -53,7 +54,8 @@ public class HomeFragment extends Fragment {
         rvAllOffers.setAdapter(adapter);
         rvAllOffers.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        getPosts(getContext());
+        getPosts(getContext(), "");
+        getRecommendedOffersFeed(getContext());
 
 
 //        final TextView textView = binding.textHome;
@@ -61,20 +63,32 @@ public class HomeFragment extends Fragment {
         return root;
     }
 
-    private void getPosts(Context context) {
+    private void getRecommendedOffersFeed(Context context) {
+        getPosts(context, "CDI,PFE");
+    }
+
+    private void getPosts(Context context, String filter) {
         homeViewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
         try {
-            homeViewModel.getFeed(0, "", "").observe((LifecycleOwner) context, response -> {
+            homeViewModel.getFeed(0, "", filter).observe((LifecycleOwner) context, response -> {
                 if (response != null) {
 
-                    String message = String.valueOf(response.getPageNumber()) ;
+                    String message = String.valueOf(response.getPageNumber());
                     Log.d("Main Log", message);
 
-                    feed.setContent(response.getContent());
-                    feed.setPageNumber(response.getPageNumber());
-                    feed.setTotalPages(response.getTotalPages());
-                    adapter.notifyDataSetChanged();
-                    recommandedOffersAdapter.notifyDataSetChanged();
+                    if (filter.isEmpty()) {
+                        feed.setContent(response.getContent());
+                        feed.setPageNumber(response.getPageNumber());
+                        feed.setTotalPages(response.getTotalPages());
+                        adapter.notifyDataSetChanged();
+                    } else {
+                        recommendedOffersFeed.setContent(response.getContent());
+                        recommendedOffersFeed.setPageNumber(response.getPageNumber());
+                        recommendedOffersFeed.setTotalPages(response.getTotalPages());
+                        recommandedOffersAdapter.notifyDataSetChanged();
+                    }
+
+
                 }
             });
         } catch (Throwable ex) {

@@ -45,11 +45,10 @@ public class RecommandedOffersAdapter extends
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         FeedContentResponse post = feed.getContent().get(position);
 
-        binding.tvCompanyName.setText(post.getAuthor().getTitle());
-        binding.tvTitle.setText(post.getAuthor().getFullName());
+        binding.tvCompanyName.setText("Alten");
+        binding.tvTitle.setText("Software Engineer");
         binding.chipTag.setText(post.getPostType());
-        //binding.tvTags.setText(Utils.calculateTimeAgo(post.getDate()));
-        binding.tvTags.setText(String.join(", ", post.getTags()));
+        binding.tvTags.setText("#" + String.join(", #", post.getTags()));
     }
 
     @Override
