@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.create_question_screen.CreateQuestionActivity"
+    tools:context=".view.Profile.ModifyProfileExperience"
     android:background="@color/background_light">
 
     <LinearLayout
@@ -21,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/heading2_bottom_margin"
-            android:text="New question"
+            android:text="Expérience professionnelles"
             android:textColor="#000"
             android:textSize="28sp"
             android:textStyle="bold" />
@@ -29,30 +29,74 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Question :"
+            android:text="Poste occupé :"
             style="@style/Label"/>
 
         <EditText
-            android:id="@+id/txtQuestion"
+            android:id="@+id/txtPosition"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/EditTextBase"
             android:inputType="text"
             android:layout_marginBottom="16dp"
-            android:hint="How to create an android studio project?" />
+            />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Tags :"
+            android:text="Entreprise :"
             style="@style/Label"/>
 
         <EditText
-            android:id="@+id/txtTags"
+            android:id="@+id/txtCompany"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/EditTextBase"
-            android:hint="android, java, coding, ..." />
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Date de début:"
+            style="@style/Label"/>
+
+        <EditText
+            android:id="@+id/txtStartDateExperience"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/EditTextBase"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Date de fin:"
+            style="@style/Label"/>
+
+        <EditText
+            android:id="@+id/txtEndDateExperience"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/EditTextBase"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Description :"
+            style="@style/Label"/>
+
+        <EditText
+            android:id="@+id/txtDescriptionExperience"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minLines="5"
+            android:gravity="top|start"
+            android:inputType="textMultiLine"
+            android:scrollbars="vertical"
+            style="@style/EditTextBase"
+            />
+
+
 
     </LinearLayout>
 
@@ -77,7 +121,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/ButtonPrimary"
-            android:text="Add" />
+            android:text="Create" />
     </LinearLayout>
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -110,6 +110,18 @@
     </style>
 
     <!--  Typography   -->
+    <style name="Heading3">
+        <item name="android:textColor">@color/gray_900</item>
+        <item name="android:textSize">28sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:lineSpacingExtra">5sp</item>
+    </style>
+    <style name="Heading5">
+        <item name="android:textColor">@color/gray_600</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:lineSpacingExtra">4sp</item>
+    </style>
     <style name="Label">
         <item name="android:textColor">@color/lbl_gray</item>
         <item name="android:textSize">15sp</item>
