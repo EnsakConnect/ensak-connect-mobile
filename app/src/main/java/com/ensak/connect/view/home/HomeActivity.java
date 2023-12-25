@@ -23,6 +23,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -45,6 +48,8 @@ public class HomeActivity extends AppCompatActivity {
     private FloatingActionButton btnNewJobOffer;
     private FloatingActionButton btnNewBlogPost;
     private Boolean isFABMenuOpen = false;
+
+    NavController navController;
 
 
     @Override
@@ -96,7 +101,7 @@ public class HomeActivity extends AppCompatActivity {
     private void setupFABActions() {
         btnAdd.setOnClickListener(view -> {
             Log.d(TAG, "Is menu open: " + isFABMenuOpen);
-            if(isFABMenuOpen){
+            if (isFABMenuOpen) {
                 this.isFABMenuOpen = false;
                 this.closeFABMenu();
             } else {
@@ -119,6 +124,7 @@ public class HomeActivity extends AppCompatActivity {
             closeFABMenu();
         });
     }
+
     private void openFABMenu() {
         isFABMenuOpen = true;
         btnNewQuestion.setElevation(6);
@@ -167,7 +173,7 @@ public class HomeActivity extends AppCompatActivity {
 
     @Override
     public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
+        navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
@@ -176,17 +182,31 @@ public class HomeActivity extends AppCompatActivity {
         navigationView.setNavigationItemSelectedListener(item -> {
             int itemId = item.getItemId();
             if (itemId == R.id.nav_home) {
-                Toast.makeText(this, "nav_home", Toast.LENGTH_SHORT).show();
             } else if (itemId == R.id.nav_work_offers) {
-                Toast.makeText(this, "nav_work_offers", Toast.LENGTH_SHORT).show();
+                Bundle bundle = new Bundle();
+                bundle.putString("filter", "CDI");
+                navController.navigate(R.id.nav_post_category, bundle);
+                binding.appBarMain.toolbar.setTitle("Offre d'emploi");
             } else if (itemId == R.id.nav_inter_offers) {
-                Toast.makeText(this, "nav_inter_offers", Toast.LENGTH_SHORT).show();
+                Bundle bundle = new Bundle();
+                bundle.putString("filter", "PFE");
+                navController.navigate(R.id.nav_post_category, bundle);
+                binding.appBarMain.toolbar.setTitle("Stages");
             } else if (itemId == R.id.nav_doctorat_offers) {
-                Toast.makeText(this, "nav_doctorat_offers", Toast.LENGTH_SHORT).show();
+                Bundle bundle = new Bundle();
+                bundle.putString("filter", "DOCTORATE");
+                navController.navigate(R.id.nav_post_category, bundle);
+                binding.appBarMain.toolbar.setTitle("Doctorats");
             } else if (itemId == R.id.nav_blog) {
-                Toast.makeText(this, "nav_blog", Toast.LENGTH_SHORT).show();
+                Bundle bundle = new Bundle();
+                bundle.putString("filter", "BLOG");
+                navController.navigate(R.id.nav_post_category, bundle);
+                binding.appBarMain.toolbar.setTitle("Blogs");
             } else if (itemId == R.id.nav_qa) {
-                Toast.makeText(this, "nav_qa", Toast.LENGTH_SHORT).show();
+                Bundle bundle = new Bundle();
+                bundle.putString("filter", "Q&A");
+                navController.navigate(R.id.nav_post_category, bundle);
+                binding.appBarMain.toolbar.setTitle("Q&A");
             } else if (itemId == R.id.nav_profile) {
                 Intent intent = new Intent(this, ProfileActivity.class);
                 startActivity(intent);
