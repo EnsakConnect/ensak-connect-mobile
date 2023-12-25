@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class FeedResponse {
     @SerializedName("content")
     @Expose
-    private ArrayList<FeedContentResponse> content;
+    public ArrayList<FeedContentResponse> content;
 
     @SerializedName("totalPages")
     @Expose
