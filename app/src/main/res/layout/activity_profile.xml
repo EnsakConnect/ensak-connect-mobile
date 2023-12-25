@@ -63,16 +63,6 @@
                 android:scaleType="centerCrop" />
 
 
-            <ImageView
-                android:id="@+id/backButton"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_alignParentTop="true"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:contentDescription="@string/back_button" />
-
-
             <LinearLayout
                 android:id="@+id/linear_layout"
                 android:layout_width="match_parent"
@@ -106,22 +96,22 @@
                         android:text="@string/user_details"
                         android:textSize="12sp" />
 
-                    <Button
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/share"
-                        style="@style/CustomButton"
-                        android:layout_width="100dp"
-                        android:layout_height="40dp"
+                        style="@style/ButtonPrimarySecondary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:padding="10dp"
                         android:text="@string/share" />
                 </LinearLayout>
             </LinearLayout>
 
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnModifyProfile"
-                style="@style/CustomButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                style="@style/ButtonPrimarySecondary"
                 android:layout_below="@id/bannerImage"
                 android:layout_alignEnd="@id/bannerImage"
                 android:layout_marginTop="10dp"
@@ -139,16 +129,15 @@
                 android:textSize="14sp" />
 
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/resumebtn"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
+                style="@style/ButtonPrimary"
                 android:layout_below="@+id/userDescription"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginBottom="16dp"
-                android:background="@drawable/button_style"
-                android:text="@string/voir_le_cv"
-                android:textColor="@color/white" />
+                android:text="@string/voir_le_cv" />
 
             <LinearLayout
                 android:id="@+id/experiencesContainer"
@@ -177,9 +166,12 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1" />
 
-                    <Button
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/modify_experience_button"
-                        style="@style/CustomizableButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/ButtonPrimarySecondary"
+                        android:textSize="12sp"
                         android:text="@string/button_text" />
 
 
@@ -222,9 +214,12 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1" />
 
-                    <Button
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/modify_education_button"
-                        style="@style/CustomizableButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/ButtonPrimarySecondary"
+                        android:textSize="12sp"
                         android:text="@string/button_text" />
 
 
@@ -264,9 +259,12 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1" />
 
-                    <Button
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/modify_skills_button"
-                        style="@style/CustomizableButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/ButtonPrimarySecondary"
+                        android:textSize="12sp"
                         android:text="@string/button_text" />
 
 
