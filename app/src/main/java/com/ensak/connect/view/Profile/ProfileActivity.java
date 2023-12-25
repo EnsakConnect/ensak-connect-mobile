@@ -30,30 +30,9 @@ import com.ensak.connect.view_model.ProfileViewModel.ProfileViewModel;
 public class ProfileActivity extends AppCompatActivity {
 
     private ActivityProfileBinding binding;
-
-    private RecyclerView experienceRecyclerView;
     private ExperienceAdapter experienceAdapter;
-
-    private RecyclerView educationRecyclerView;
     private EducationAdapter educationAdapter;
-
-    private RecyclerView skillsRecyclerView;
     private SkillsAdapter skillsAdapter;
-
-    private ImageView iconEdit;
-    private ImageView iconDelete;
-
-    private ImageView backButton;
-    private ImageView bannerImage;
-    private ImageView userProfileImage;
-    private TextView userName;
-    private TextView userDetails;
-    private Button btnModifyProfile;
-    private Button resumebtn;
-    private Button myButton;
-    private Button modify_experience_btn;
-    private Button modify_education_btn;
-    private Button modify_skills_button;
     private ProfileViewModel profileViewModel;
 
 
@@ -75,54 +54,19 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-        experienceRecyclerView = findViewById(R.id.experienceRecyclerView);
-        experienceRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        educationRecyclerView = findViewById(R.id.educationRecyclerView);
-        educationRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        skillsRecyclerView = findViewById(R.id.skillsRecyclerView);
-        skillsRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-
-
-        // Initialize views
-        backButton = findViewById(R.id.backButton);
-        bannerImage = findViewById(R.id.bannerImage);
-        userProfileImage = findViewById(R.id.userProfileImage);
-        userName = findViewById(R.id.userName);
-        userDetails = findViewById(R.id.userDetails);
-        btnModifyProfile = findViewById(R.id.btnModifyProfile);
-        TextView descriptionTextView = findViewById(R.id.userDescription);
-
-        resumebtn = findViewById(R.id.resumebtn);
-
-        //experience professionels
-        modify_education_btn = findViewById(R.id.modify_education_button);
-        modify_education_btn.setText(R.string.button_text);
-
-
-        //parcours educatif
-        modify_experience_btn = findViewById(R.id.modify_experience_button);
-        modify_experience_btn.setText(R.string.button_text);
-
-
-
-
+        binding.experienceRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        binding.educationRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        binding.skillsRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
         // URLs for the images
         String bannerImageUrl = "https://www.schudio.com/wp-content/uploads/2017/05/banner-user-journey.png";
         String backIconUrl = "https://example.com/path/to/back/icon.png";
         String profileImageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStsRVE2OpWFMYeY5S1bXG5J4UXp-FkBHGpUM5YDpIsXVWPw2ZdmLUzIitofNwhB_7cahk&usqp=CAU"; // Replace with your actual URL
 
-
         // Load images from URLs using Glide
-        Glide.with(this).load(bannerImageUrl).into(bannerImage);
-        Glide.with(this).load(backIconUrl).into(backButton);
-        Glide.with(this).load(profileImageUrl).into(userProfileImage);
+        Glide.with(this).load(bannerImageUrl).into(binding.bannerImage);
+        Glide.with(this).load(profileImageUrl).into(binding.userProfileImage);
 
-
-
-        backButton.setOnClickListener(view -> finish());
 
         profileViewModel = new ViewModelProvider(this, new ViewModelProvider.Factory() {
             @NonNull
@@ -131,22 +75,20 @@ public class ProfileActivity extends AppCompatActivity {
                 return (T) new ProfileViewModel(getApplicationContext());
             }
         }).get(ProfileViewModel.class);
-
         // Observe LiveData
         loadData();
 
-        btnModifyProfile.setOnClickListener(v -> profileViewModel.fetchProfileData());
+        binding.btnModifyProfile.setOnClickListener(v -> profileViewModel.fetchProfileData());
 
-        modify_education_btn.setOnClickListener(v -> {
+        binding.modifyEducationButton.setOnClickListener(v -> {
             Intent intent = new Intent(ProfileActivity.this, ModifyProfileEducation.class);
             startActivity(intent);
         });
 
-        modify_experience_btn.setOnClickListener(v -> {
+        binding.modifyExperienceButton.setOnClickListener(v -> {
             Intent intent = new Intent(ProfileActivity.this, ModifyProfileExperience.class);
             startActivity(intent);
         });
-
     }
 
     private void loadData(){
@@ -154,29 +96,28 @@ public class ProfileActivity extends AppCompatActivity {
         profileViewModel.getProfileLiveData().observe(this, profileResponse -> {
             if (profileResponse != null) {
                 String fullName = profileResponse.getFullName();
-                userName.setText(fullName);
+                binding.userName.setText(fullName);
                 String userTitle = profileResponse.getTitle();
                 String userDetailsText = userTitle;
                 Log.d("TAG", "onCreate: " + userDetailsText);
-                userDetails.setText(userDetailsText);
+                binding.userDetails.setText(userDetailsText);
 
                 experienceAdapter = new ExperienceAdapter(this, profileResponse.getExperienceList());
-                experienceRecyclerView.setAdapter(experienceAdapter);
+                binding.experienceRecyclerView.setAdapter(experienceAdapter);
 
                 educationAdapter = new EducationAdapter(this, profileResponse.getEducationList());
-                educationRecyclerView.setAdapter(educationAdapter);
+                binding.educationRecyclerView.setAdapter(educationAdapter);
 
                 skillsAdapter = new SkillsAdapter(profileResponse.getSkillList());
-                skillsRecyclerView.setAdapter(skillsAdapter);
+                binding.skillsRecyclerView.setAdapter(skillsAdapter);
 
                 if(profileResponse.getResume() != null){
-                    resumebtn.setText("Voir le CV");
+                    binding.resumebtn.setText("Voir le CV");
                 } else {
-                    resumebtn.setText("Ajouter un CV");
+                    binding.resumebtn.setText("Ajouter un CV");
                 }
             } else {
                 Log.d("TAG", "onCreate: Profile response is null");
-
             }
         });
     }
