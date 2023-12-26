@@ -1,5 +1,6 @@
 package com.ensak.connect.view.Profile;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -12,10 +13,13 @@ import android.widget.Toast;
 import com.ensak.connect.R;
 import com.ensak.connect.databinding.ActivityModifyProfileEducationBinding;
 import com.ensak.connect.databinding.ActivityModifyProfileExperienceBinding;
+import com.ensak.connect.utils.Utils;
 import com.ensak.connect.view_model.ProfileViewModel.EducationViewModel;
 import com.ensak.connect.view_model.ProfileViewModel.ExperienceViewModel;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 public class ModifyProfileEducation extends AppCompatActivity {
@@ -36,16 +40,30 @@ public class ModifyProfileEducation extends AppCompatActivity {
         binding = ActivityModifyProfileEducationBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        setSupportActionBar(binding.toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        binding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         initViewModel();
         if (getIntent() != null && getIntent().getExtras() != null) {
             id = getIntent().getStringExtra("id");
             String field = getIntent().getStringExtra("field");
             String school = getIntent().getStringExtra("school");
 //            String degree = getIntent().getStringExtra("degree");
-            String startDate = getIntent().getStringExtra("startDate");
-            String endDate = getIntent().getStringExtra("endDate");
+            String startDateIso = getIntent().getStringExtra("startDate");
+            String endDateISO = getIntent().getStringExtra("endDate");
             String description = getIntent().getStringExtra("description");
             isUpdate = getIntent().getBooleanExtra("isUpdate", false);
+
+            String startDate = Utils.convertIsoToReadableFormat(startDateIso);
+            String endDate = Utils.convertIsoToReadableFormat(endDateISO);
 
             binding.txtStartDate.setText(startDate);
             binding.txtEndDate.setText(endDate);

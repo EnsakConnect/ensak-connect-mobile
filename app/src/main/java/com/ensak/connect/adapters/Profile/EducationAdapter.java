@@ -77,6 +77,7 @@ public class EducationAdapter extends RecyclerView.Adapter<EducationAdapter.Educ
                     intent.putExtra("startDate", education.getStartDate().toString());
                     intent.putExtra("endDate", education.getEndDate().toString());
                     intent.putExtra("description", descriptionTextView.getText().toString());
+                    intent.putExtra("isUpdate", true);
                     context.startActivity(intent);
                 });
             }

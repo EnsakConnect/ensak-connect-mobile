@@ -25,7 +25,7 @@
     <string name="parcours_educatif">Parcours éducatif</string>
     <string name="experience_title">Développeur Fullstack</string>
     <string name="experience_date">Sept 2022 - Present</string>
-    <string name="button_text">Modifer</string>
+    <string name="button_text">Ajouter</string>
     <string name="company_location">"Entreprise - Morocco, Kenitra "</string>
     <string name="skills">Compétences\n</string>
     <string name="title_activity_settings">SettingsActivity</string>
