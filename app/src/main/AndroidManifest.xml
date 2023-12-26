@@ -20,11 +20,13 @@
             android:name=".view.Profile.ModifyProfileExperience"
             android:exported="false"
             android:windowSoftInputMode="adjustPan"
+            android:theme="@style/Theme.ENSAKConnect.NoActionBar"
             />
         <activity
             android:name=".view.Profile.ModifyProfileEducation"
             android:exported="false"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"
+            android:theme="@style/Theme.ENSAKConnect.NoActionBar"/>
         <activity
 
             android:name=".view.Settigns.SettingsActivity"

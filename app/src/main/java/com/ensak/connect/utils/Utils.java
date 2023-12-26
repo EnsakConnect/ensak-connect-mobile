@@ -45,6 +45,24 @@ public class Utils {
             return "Invalid dates";
         }
     }
+
+    public static String convertIsoToReadableFormat(String isoDateString) {
+
+        SimpleDateFormat isoFormatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX", Locale.getDefault());
+
+        SimpleDateFormat readableFormatter = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+
+        try {
+
+            Date date = isoFormatter.parse(isoDateString);
+
+            return readableFormatter.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+
+            return "";
+        }
+    }
 }
 
 
