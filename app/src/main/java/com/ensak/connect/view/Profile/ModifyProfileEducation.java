@@ -57,13 +57,13 @@ public class ModifyProfileEducation extends AppCompatActivity {
             String field = getIntent().getStringExtra("field");
             String school = getIntent().getStringExtra("school");
 //            String degree = getIntent().getStringExtra("degree");
-            String startDateIso = getIntent().getStringExtra("startDate");
-            String endDateISO = getIntent().getStringExtra("endDate");
+            String startDate = getIntent().getStringExtra("startDate");
+            String endDate = getIntent().getStringExtra("endDate");
             String description = getIntent().getStringExtra("description");
             isUpdate = getIntent().getBooleanExtra("isUpdate", false);
 
-            String startDate = Utils.convertIsoToReadableFormat(startDateIso);
-            String endDate = Utils.convertIsoToReadableFormat(endDateISO);
+//            String startDate = Utils.convertIsoToReadableFormat(startDateIso);
+//            String endDate = Utils.convertIsoToReadableFormat(endDateISO);
 
             binding.txtStartDate.setText(startDate);
             binding.txtEndDate.setText(endDate);
