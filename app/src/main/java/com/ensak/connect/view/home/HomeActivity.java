@@ -211,9 +211,9 @@ public class HomeActivity extends AppCompatActivity {
                 Intent intent = new Intent(this, ProfileActivity.class);
                 startActivity(intent);
             } else if (itemId == R.id.nav_messages) {
-                Toast.makeText(this, "nav_messages", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(this, ConversationsActivity.class));
             } else if (itemId == R.id.nav_notifications) {
-                Toast.makeText(this, "nav_notifications", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(this, NotificationActivity.class));
             } else if (itemId == R.id.nav_settings) {
                 Intent intent = new Intent(this, SettingsActivity.class);
                 startActivity(intent);
