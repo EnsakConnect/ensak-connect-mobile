@@ -6,7 +6,9 @@
         <SwitchPreferenceCompat
             app:key="Darkmode"
             app:title="Dark Mode" />
-
+        <SwitchPreferenceCompat
+            app:key="ActivateAccount"
+            app:title="Acctivate Account" />
         <SwitchPreferenceCompat
             app:key="2FA"
             app:title="2FA" />

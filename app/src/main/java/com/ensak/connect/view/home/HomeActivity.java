@@ -15,6 +15,7 @@ import com.ensak.connect.view.Profile.ProfileActivity;
 import com.ensak.connect.view.Registration.RegistrationScreen;
 import com.ensak.connect.view.Settigns.SettingsActivity;
 import com.ensak.connect.view.conversations.ConversationsActivity;
+import com.ensak.connect.view.create_jobpost_screen.CreateJobPostActivity;
 import com.ensak.connect.view.create_question_screen.CreateQuestionActivity;
 import com.ensak.connect.view.login.LoginActivity;
 import com.ensak.connect.view.notifications.NotificationActivity;
@@ -116,7 +117,8 @@ public class HomeActivity extends AppCompatActivity {
             closeFABMenu();
         });
         btnNewJobOffer.setOnClickListener(view -> {
-            Toast.makeText(this, "Btn job offer", Toast.LENGTH_SHORT).show();
+            Intent createJobPostIntent = new Intent(this, CreateJobPostActivity.class);
+            startActivity(createJobPostIntent);
             closeFABMenu();
         });
         btnNewBlogPost.setOnClickListener(view -> {

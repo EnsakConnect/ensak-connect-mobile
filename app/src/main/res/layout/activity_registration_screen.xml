@@ -1,179 +1,185 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingHorizontal="32dp"
-    android:paddingVertical="64dp"
-    android:background="@color/background">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Welcome to Register"
-        style="@style/Heading3"
-        android:layout_marginBottom="12dp"/>
-
-    <LinearLayout
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="32dp">
-        <TextView
-            android:layout_width="0dp"
-            android:layout_weight="3"
-            android:layout_height="wrap_content"
-            style="@style/Heading5"
-            android:text="discover what our community can offer you"/>
-        <View
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="1dp">
-        </View>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_marginBottom="16dp">
+        android:paddingHorizontal="32dp"
+        android:paddingVertical="64dp"
+        android:background="@color/background">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Full Name"
-            style="@style/Label"
-            android:layout_marginBottom="4dp"/>
+            android:text="Welcome to Register"
+            style="@style/Heading3"
+            android:layout_marginBottom="12dp"/>
 
-        <EditText
-            android:id="@+id/txtFullName"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/EditTextBase"
-            android:hint="Enter your full name" />
-    </LinearLayout>
+            android:orientation="horizontal"
+            android:layout_marginBottom="32dp">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="3"
+                android:layout_height="wrap_content"
+                style="@style/Heading5"
+                android:text="discover what our community can offer you"/>
+            <View
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="1dp">
+            </View>
+        </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginBottom="16dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Email"
-            style="@style/Label"
-            android:layout_marginBottom="4dp"/>
-
-        <EditText
-            android:id="@+id/txtEmail"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/EditTextBase"
-            android:inputType="textEmailAddress"
-            android:hint="Enter your email" />
-    </LinearLayout>
+            android:orientation="vertical"
+            android:layout_marginBottom="16dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginBottom="16dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Full Name"
+                style="@style/Label"
+                android:layout_marginBottom="4dp"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Account type"
-            style="@style/Label"
-            android:layout_marginBottom="4dp"/>
+            <EditText
+                android:id="@+id/txtFullName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/EditTextBase"
+                android:hint="Enter your full name" />
+        </LinearLayout>
 
-        <Spinner
-            android:id="@+id/slctAccountType"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            style="@style/EditTextBase"
-            android:popupBackground="@drawable/bg_edittext"
-            android:padding="8dp" />
-
-    </LinearLayout>
-
-    <!-- Edit Text avec titre "Password" -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginBottom="16dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Password"
-            style="@style/Label"
-            android:layout_marginBottom="4dp"/>
-
-        <EditText
-            android:id="@+id/txtPassword"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/EditTextBase"
-            android:inputType="textPassword"
-            android:hint="Enter your password" />
-    </LinearLayout>
+            android:orientation="vertical"
+            android:layout_marginBottom="16dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginBottom="32dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Email"
+                style="@style/Label"
+                android:layout_marginBottom="4dp"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Confirm Password"
-            style="@style/Label"
-            android:layout_marginBottom="4dp"/>
+            <EditText
+                android:id="@+id/txtEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/EditTextBase"
+                android:inputType="textEmailAddress"
+                android:hint="Enter your email" />
+        </LinearLayout>
 
-        <EditText
-            android:id="@+id/txtPasswordConfirmation"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/EditTextBase"
-            android:inputType="textPassword"
-            android:hint="Confirm password" />
-    </LinearLayout>
+            android:orientation="vertical"
+            android:layout_marginBottom="16dp">
 
-    <!-- Login Button -->
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Account type"
+                style="@style/Label"
+                android:layout_marginBottom="4dp"/>
 
+            <Spinner
+                android:id="@+id/slctAccountType"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                style="@style/EditTextBase"
+                android:popupBackground="@drawable/bg_edittext"
+                android:padding="8dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Password"
+                style="@style/Label"
+                android:layout_marginBottom="4dp"/>
+
+            <EditText
+                android:id="@+id/txtPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/EditTextBase"
+                android:inputType="textPassword"
+                android:hint="Enter your password" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="32dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Confirm Password"
+                style="@style/Label"
+                android:layout_marginBottom="4dp"/>
+
+            <EditText
+                android:id="@+id/txtPasswordConfirmation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/EditTextBase"
+                android:inputType="textPassword"
+                android:hint="Confirm password" />
+        </LinearLayout>
+
+        <!-- Login Button -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp">
+
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnRegister"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Create my account"
+                style="@style/ButtonPrimary"/>
+
+            <ProgressBar
+                android:id="@+id/prgLoading"
+                android:visibility="invisible"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="16dp"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:backgroundTint="@color/white"
+                style="@style/LoadingWhite"
+                />
+        </RelativeLayout>
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnRegister"
+            android:id="@+id/btnCancel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Create my account"
-            style="@style/ButtonPrimary"/>
+            android:text="Cancel"
+            style="@style/ButtonPrimarySecondary"/>
 
-        <ProgressBar
-            android:id="@+id/prgLoading"
-            android:visibility="invisible"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="16dp"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:backgroundTint="@color/white"
-            style="@style/LoadingWhite"
-            />
-    </RelativeLayout>
+    </LinearLayout>
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnCancel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Cancel"
-        style="@style/ButtonPrimarySecondary"/>
-
-</LinearLayout>
+</ScrollView>
