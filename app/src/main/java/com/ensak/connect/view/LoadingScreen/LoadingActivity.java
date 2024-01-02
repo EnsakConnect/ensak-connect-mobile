@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.ensak.connect.databinding.ActivityLoadingBinding;
+import com.ensak.connect.view.Testing.TestingActivity;
 import com.ensak.connect.view.home.HomeActivity;
 import com.ensak.connect.view.login.LoginActivity;
 
@@ -68,7 +69,8 @@ public class LoadingActivity extends AppCompatActivity {
         loadingViewModel.getRedirectionTo().observe(this, redirectTo -> {
             if(redirectTo == null || redirectTo.equals(null)) return;
             if(redirectTo.equals(LoadingViewModel.REDIRECT_TO.HOME)){
-                Intent homeIntent = new Intent(this, HomeActivity.class);
+                Intent homeIntent = new Intent(this, TestingActivity.class);
+//                Intent homeIntent = new Intent(this, HomeActivity.class);
                 startActivity(homeIntent);
                 finish();
             } else if(redirectTo.equals(LoadingViewModel.REDIRECT_TO.LOGIN)){
