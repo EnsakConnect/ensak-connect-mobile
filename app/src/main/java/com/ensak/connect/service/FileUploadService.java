@@ -1,17 +1,12 @@
 package com.ensak.connect.service;
 
-import android.app.Application;
 import android.content.Context;
-import android.widget.Toast;
-
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.ActivityResultRegistry;
 import androidx.activity.result.contract.ActivityResultContracts;
-
 import com.ensak.connect.repositories.RepositoryCallBack;
 import com.ensak.connect.repositories.resource.ResourceRepository;
 import com.ensak.connect.repositories.resource.remote.dto.ResourceResponse;
-import com.ensak.connect.view.Testing.TestingActivity;
 
 public class FileUploadService {
     ActivityResultLauncher<String> fileSelectedActivityLauncher;
