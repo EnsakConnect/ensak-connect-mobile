@@ -17,10 +17,13 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".view.Testing.TestingActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.create_jobpost_screen.CreateJobPostActivity"
             android:exported="false"
             android:theme="@style/Theme.ENSAKConnect.NoActionBar"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".view.Profile.ModifyProfileExperience"
             android:exported="false"

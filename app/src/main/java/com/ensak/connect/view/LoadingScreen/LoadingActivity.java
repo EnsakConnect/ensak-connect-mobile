@@ -2,12 +2,10 @@ package com.ensak.connect.view.LoadingScreen;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-
 import com.ensak.connect.databinding.ActivityLoadingBinding;
 import com.ensak.connect.view.home.HomeActivity;
 import com.ensak.connect.view.login.LoginActivity;
