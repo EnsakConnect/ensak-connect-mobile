@@ -123,6 +123,10 @@
     </style>
 
     <!--  Typography   -->
+    <style name="Paragraph">
+        <item name="android:textColor">@color/gray_700</item>
+        <item name="android:textSize">14sp</item>
+    </style>
     <style name="Heading3">
         <item name="android:textColor">@color/gray_900</item>
         <item name="android:textSize">28sp</item>

@@ -18,6 +18,7 @@ import com.ensak.connect.reponse.feed.FeedContentResponse;
 import com.ensak.connect.reponse.feed.FeedResponse;
 import com.ensak.connect.utils.Utils;
 import com.ensak.connect.view.comments.CommentsActivity;
+import com.ensak.connect.view.question.QuestionShow.QuestionShowActivity;
 
 import java.util.ArrayList;
 
@@ -25,12 +26,14 @@ public class HomeAdapter extends
         RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
 
+    HomeOnItemClickListener listener;
     OfferItemHomeBinding offerItemHomeBinding;
 
     private FeedResponse feed;
 
-    public HomeAdapter(FeedResponse feed) {
+    public HomeAdapter(FeedResponse feed, HomeOnItemClickListener listener) {
         this.feed = feed;
+        this.listener = listener;
     }
 
     @Override
@@ -58,6 +61,9 @@ public class HomeAdapter extends
         if (post.getPostType().equals("Q&A")) {
             offerItemHomeBinding.chipTag.setChipBackgroundColorResource(R.color.tag_qa);
             offerItemHomeBinding.tvBody.setText(post.getTitle());
+            offerItemHomeBinding.tvBody.setOnClickListener(v -> {
+                listener.onItemClick(post.getId());
+            });
         } else if (post.getPostType().equals("DOCTORATE")) {
             offerItemHomeBinding.chipTag.setChipBackgroundColorResource(R.color.tag_doctorate);
             offerItemHomeBinding.llPositionDetails.setVisibility(View.VISIBLE);
@@ -124,7 +130,6 @@ public class HomeAdapter extends
 
         public ViewHolder(View itemView) {
             super(itemView);
-
         }
     }
 }

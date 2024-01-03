@@ -1,6 +1,7 @@
 package com.ensak.connect.view.home;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -17,9 +18,11 @@ import android.widget.Toast;
 
 import com.ensak.connect.R;
 import com.ensak.connect.adapters.home.HomeAdapter;
+import com.ensak.connect.adapters.home.HomeOnItemClickListener;
 import com.ensak.connect.databinding.FragmentHomeBinding;
 import com.ensak.connect.databinding.FragmentPostCategoryBinding;
 import com.ensak.connect.reponse.feed.FeedResponse;
+import com.ensak.connect.view.question.QuestionShow.QuestionShowActivity;
 import com.ensak.connect.view_model.HomeViewModel;
 
 import java.util.ArrayList;
@@ -69,7 +72,14 @@ public class PostCategoryFragment extends Fragment {
         feed.content = new ArrayList<>();
 
         rvAllOffers = binding.rvAllOffers;
-        adapter = new HomeAdapter(feed);
+        adapter = new HomeAdapter(feed, new HomeOnItemClickListener() {
+            @Override
+            public void onItemClick(int id) {
+                Intent postIntent = new Intent(getContext(), QuestionShowActivity.class);
+                postIntent.putExtra("ID", id);
+                startActivity(postIntent);
+            }
+        });
         rvAllOffers.setAdapter(adapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         rvAllOffers.setLayoutManager(layoutManager);

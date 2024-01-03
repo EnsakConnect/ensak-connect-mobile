@@ -1,6 +1,7 @@
 package com.ensak.connect.view.home;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -22,9 +23,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ensak.connect.R;
 import com.ensak.connect.adapters.home.HomeAdapter;
+import com.ensak.connect.adapters.home.HomeOnItemClickListener;
 import com.ensak.connect.adapters.home.RecommandedOffersAdapter;
 import com.ensak.connect.databinding.FragmentHomeBinding;
 import com.ensak.connect.reponse.feed.FeedResponse;
+import com.ensak.connect.view.question.QuestionShow.QuestionShowActivity;
 import com.ensak.connect.view_model.HomeViewModel;
 
 import java.util.ArrayList;
@@ -57,7 +60,14 @@ public class HomeFragment extends Fragment {
         rvRecommendedOffers.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
         rvAllOffers = binding.rvAllOffers;
-        adapter = new HomeAdapter(feed);
+        adapter = new HomeAdapter(feed, new HomeOnItemClickListener() {
+            @Override
+            public void onItemClick(int id) {
+                Intent postIntent = new Intent(getContext(), QuestionShowActivity.class);
+                postIntent.putExtra("ID", id);
+                startActivity(postIntent);
+            }
+        });
         rvAllOffers.setAdapter(adapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         rvAllOffers.setLayoutManager(layoutManager);
