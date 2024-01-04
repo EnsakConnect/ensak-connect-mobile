@@ -76,7 +76,7 @@ public class PostCategoryFragment extends Fragment {
             @Override
             public void onItemClick(int id) {
                 Intent postIntent = new Intent(getContext(), QuestionShowActivity.class);
-                postIntent.putExtra("ID", id);
+                postIntent.putExtra(QuestionShowActivity.EXTRA_ID, id);
                 startActivity(postIntent);
             }
         });

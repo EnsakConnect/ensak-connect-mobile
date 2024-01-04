@@ -117,14 +117,7 @@
                         android:id="@+id/chip_tag"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Blog"
-                        android:textColor="@color/white"
-                        android:textSize="10sp"
-                        app:chipMinHeight="24dp"
-                        app:textStartPadding="7dp"
-                        app:textEndPadding="7dp"
-                        app:chipBackgroundColor="@color/black"
-                        app:ensureMinTouchTargetSize="false" />
+                        style="@style/PostChipQna"/>
 
                     <Space
                         android:layout_width="12dp"
