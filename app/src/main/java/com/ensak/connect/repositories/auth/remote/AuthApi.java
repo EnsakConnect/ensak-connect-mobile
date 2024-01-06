@@ -1,9 +1,9 @@
 package com.ensak.connect.repositories.auth.remote;
 
-import com.ensak.connect.repositories.auth.remote.dto.LoginRequest;
-import com.ensak.connect.repositories.auth.remote.dto.AuthenticationResponse;
-import com.ensak.connect.repositories.auth.remote.dto.RegisterRequest;
-import com.ensak.connect.repositories.auth.remote.dto.UserResponse;
+import com.ensak.connect.repositories.auth.model.LoginRequest;
+import com.ensak.connect.repositories.auth.model.AuthenticationResponse;
+import com.ensak.connect.repositories.auth.model.RegisterRequest;
+import com.ensak.connect.repositories.auth.model.UserResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Body;

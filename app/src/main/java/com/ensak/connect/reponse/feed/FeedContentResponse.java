@@ -1,6 +1,6 @@
 package com.ensak.connect.reponse.feed;
 
-import com.ensak.connect.reponse.UserResponse;
+import com.ensak.connect.repositories.auth.model.UserResponse;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 

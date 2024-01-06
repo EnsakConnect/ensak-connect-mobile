@@ -10,7 +10,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.ensak.connect.core.SessionManager;
 import com.ensak.connect.repositories.RepositoryCallBack;
 import com.ensak.connect.repositories.auth.AuthRepository;
-import com.ensak.connect.repositories.auth.remote.dto.UserResponse;
+import com.ensak.connect.repositories.auth.model.UserResponse;
 import com.ensak.connect.repositories.health.HealthRepository;
 import com.ensak.connect.repositories.health.remote.dto.HealthResponse;
 

@@ -5,10 +5,10 @@ import android.util.Log;
 
 import com.ensak.connect.repositories.RepositoryCallBack;
 import com.ensak.connect.repositories.auth.remote.AuthApi;
-import com.ensak.connect.repositories.auth.remote.dto.LoginRequest;
-import com.ensak.connect.repositories.auth.remote.dto.AuthenticationResponse;
-import com.ensak.connect.repositories.auth.remote.dto.RegisterRequest;
-import com.ensak.connect.repositories.auth.remote.dto.UserResponse;
+import com.ensak.connect.repositories.auth.model.LoginRequest;
+import com.ensak.connect.repositories.auth.model.AuthenticationResponse;
+import com.ensak.connect.repositories.auth.model.RegisterRequest;
+import com.ensak.connect.repositories.auth.model.UserResponse;
 import com.ensak.connect.retrofit.RetrofitRequest;
 
 import retrofit2.Call;

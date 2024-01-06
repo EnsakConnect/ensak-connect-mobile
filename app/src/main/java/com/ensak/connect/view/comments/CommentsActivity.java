@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -20,11 +19,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.ensak.connect.adapters.comments.CommentsAdapter;
 import com.ensak.connect.databinding.ActivityCommentsBinding;
 import com.ensak.connect.reponse.CommentResponse;
-import com.ensak.connect.reponse.UserResponse;
 import com.ensak.connect.view_model.CommentViewModel;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 public class CommentsActivity extends AppCompatActivity {
 

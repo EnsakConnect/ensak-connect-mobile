@@ -1,4 +1,4 @@
-package com.ensak.connect.repositories.auth.remote.dto;
+package com.ensak.connect.repositories.auth.model;
 
 public class AuthenticationResponse {
     private String token;

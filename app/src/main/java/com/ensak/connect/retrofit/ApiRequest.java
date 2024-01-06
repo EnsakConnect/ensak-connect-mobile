@@ -5,10 +5,8 @@ import com.ensak.connect.models.CodeVerification;
 import com.ensak.connect.models.EducationRequest;
 import com.ensak.connect.models.EmailResetPassword;
 import com.ensak.connect.models.ExperienceRequest;
-import com.ensak.connect.models.Notification;
 import com.ensak.connect.models.RegisterRequest;
 import com.ensak.connect.models.ResumeRequest;
-import com.ensak.connect.models.UserProfile;
 import com.ensak.connect.reponse.ChatMessageResponse;
 import com.ensak.connect.reponse.CommentResponse;
 import com.ensak.connect.reponse.ConversationResponse;
@@ -17,13 +15,10 @@ import com.ensak.connect.reponse.ExperienceResponse;
 import com.ensak.connect.reponse.NameResponse;
 import com.ensak.connect.reponse.NotificationResponse;
 import com.ensak.connect.reponse.ProfileResponse;
-import com.ensak.connect.reponse.RegistrationResponse;
 import com.ensak.connect.models.LoginRequest;
-import com.ensak.connect.reponse.LoginResponse;
-import com.ensak.connect.reponse.NameResponse;
+import com.ensak.connect.repositories.auth.model.LoginResponse;
 import com.ensak.connect.reponse.PostResponse;
 
-import java.lang.reflect.Executable;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.ensak.connect.reponse;
+package com.ensak.connect.repositories.auth.model;
 
 public class LoginResponse {
     private String token;

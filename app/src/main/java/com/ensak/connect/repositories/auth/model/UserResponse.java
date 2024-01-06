@@ -1,4 +1,4 @@
-package com.ensak.connect.reponse;
+package com.ensak.connect.repositories.auth.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -7,6 +7,11 @@ public class UserResponse {
     @SerializedName("id")
     @Expose
     private int id;
+
+    @SerializedName("email")
+    @Expose
+    private String email = "email";
+
 
     @SerializedName("firstname")
     @Expose
@@ -40,6 +45,10 @@ public class UserResponse {
         return id;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
     public String getFirstname() {
         return firstname;
     }
@@ -63,4 +72,5 @@ public class UserResponse {
     public String getProfileType() {
         return profileType;
     }
+
 }
