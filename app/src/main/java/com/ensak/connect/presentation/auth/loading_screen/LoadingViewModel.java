@@ -6,6 +6,7 @@ import android.util.Log;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 
 import com.ensak.connect.service.SessionManagerService;
 import com.ensak.connect.repository.shared.RepositoryCallBack;
@@ -16,7 +17,12 @@ import com.ensak.connect.repository.health.model.HealthResponse;
 
 import org.jetbrains.annotations.NotNull;
 
-public class LoadingViewModel extends AndroidViewModel {
+import javax.inject.Inject;
+
+import dagger.hilt.android.lifecycle.HiltViewModel;
+
+@HiltViewModel
+public class LoadingViewModel extends ViewModel {
     public enum REDIRECT_TO {
         LOGIN,
         HOME
@@ -31,11 +37,12 @@ public class LoadingViewModel extends AndroidViewModel {
     private final MutableLiveData<String> errorMessage = new MutableLiveData<>("");
     private final MutableLiveData<REDIRECT_TO> redirectTo = new MutableLiveData<>(null);
 
-    public LoadingViewModel(@NotNull Application application) {
-        super(application);
-        healthRepository = new HealthRepository(application);
-        authRepository = new AuthRepository(application);
-        sessionManager = new SessionManagerService(application);
+    @Inject
+    public LoadingViewModel(HealthRepository healthRepository, SessionManagerService sessionManager) {
+        this.healthRepository = healthRepository;
+        this.sessionManager = sessionManager;
+//        authRepository = new AuthRepository(application);
+//        sessionManager = new SessionManagerService(application);
     }
 
     public void startChecks() {
@@ -55,7 +62,7 @@ public class LoadingViewModel extends AndroidViewModel {
                 }
                 isError.setValue(false);
                 currentAction.setValue("Connected to server successfully.");
-                checkTokenIsValid();
+//                checkTokenIsValid();
             }
 
             @Override
@@ -67,32 +74,32 @@ public class LoadingViewModel extends AndroidViewModel {
         });
     }
 
-    private void checkTokenIsValid() {
-        if(! sessionManager.isLoggedIn()){
-            redirectToLogin();
-            return;
-        }
-        currentAction.setValue("Verifying user token...");
-        authRepository.checkToken(new RepositoryCallBack<UserResponse>() {
-            @Override
-            public void onSuccess(UserResponse data) {
-                isError.setValue(false);
-                isLoading.setValue(false);
-                currentAction.setValue("Token is valid, id: "+data.getId()+", email: " + data.getEmail());
-                redirectedToHome();
-            }
-
-            @Override
-            public void onFailure(Throwable throwable) {
-                Log.w(TAG, throwable.getMessage());
-                isError.setValue(false);
-                isLoading.setValue(false);
-                currentAction.setValue("Invalid user token, redirecting to login");
-                sessionManager.logoutUser();
-                redirectToLogin();
-            }
-        });
-    }
+//    private void checkTokenIsValid() {
+//        if(! sessionManager.isLoggedIn()){
+//            redirectToLogin();
+//            return;
+//        }
+//        currentAction.setValue("Verifying user token...");
+//        authRepository.checkToken(new RepositoryCallBack<UserResponse>() {
+//            @Override
+//            public void onSuccess(UserResponse data) {
+//                isError.setValue(false);
+//                isLoading.setValue(false);
+//                currentAction.setValue("Token is valid, id: "+data.getId()+", email: " + data.getEmail());
+//                redirectedToHome();
+//            }
+//
+//            @Override
+//            public void onFailure(Throwable throwable) {
+//                Log.w(TAG, throwable.getMessage());
+//                isError.setValue(false);
+//                isLoading.setValue(false);
+//                currentAction.setValue("Invalid user token, redirecting to login");
+//                sessionManager.logoutUser();
+//                redirectToLogin();
+//            }
+//        });
+//    }
 
     private void redirectToLogin() {
         redirectTo.setValue(REDIRECT_TO.LOGIN);

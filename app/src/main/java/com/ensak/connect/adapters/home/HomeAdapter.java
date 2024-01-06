@@ -21,7 +21,6 @@ import com.ensak.connect.presentation.job_post.comments.CommentsActivity;
 public class HomeAdapter extends
         RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-
     MainPostItemBinding offerItemHomeBinding;
 
     private FeedResponse feed;
