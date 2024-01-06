@@ -5,8 +5,8 @@ import android.util.Log;
 
 import com.ensak.connect.repositories.RepositoryCallBack;
 import com.ensak.connect.repositories.question_post.remote.QuestionApi;
-import com.ensak.connect.repositories.question_post.remote.dto.QuestionPostRequest;
-import com.ensak.connect.repositories.question_post.remote.dto.QuestionPostResponse;
+import com.ensak.connect.repositories.question_post.model.QuestionPostRequest;
+import com.ensak.connect.repositories.question_post.model.QuestionPostResponse;
 import com.ensak.connect.retrofit.RetrofitRequest;
 
 import retrofit2.Call;

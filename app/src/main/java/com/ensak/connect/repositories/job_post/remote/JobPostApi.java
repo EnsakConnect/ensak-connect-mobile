@@ -1,9 +1,7 @@
 package com.ensak.connect.repositories.job_post.remote;
 
-import com.ensak.connect.repositories.job_post.remote.dto.JobPostRequest;
-import com.ensak.connect.repositories.job_post.remote.dto.JobPostResponse;
-import com.ensak.connect.repositories.question_post.remote.dto.QuestionPostRequest;
-import com.ensak.connect.repositories.question_post.remote.dto.QuestionPostResponse;
+import com.ensak.connect.repositories.job_post.model.JobPostRequest;
+import com.ensak.connect.repositories.job_post.model.JobPostResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Body;

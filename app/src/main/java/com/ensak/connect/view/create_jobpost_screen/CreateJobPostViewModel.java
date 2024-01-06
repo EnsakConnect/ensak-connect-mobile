@@ -6,15 +6,12 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
-import com.ensak.connect.core.SessionManager;
-import com.ensak.connect.repositories.auth.AuthRepository;
 import com.ensak.connect.repositories.job_post.JobPostRepository;
-import com.ensak.connect.repositories.job_post.remote.dto.JobPostRequest;
-import com.ensak.connect.repositories.job_post.remote.dto.JobPostResponse;
+import com.ensak.connect.repositories.job_post.model.JobPostRequest;
+import com.ensak.connect.repositories.job_post.model.JobPostResponse;
 import com.ensak.connect.repositories.RepositoryCallBack;
 
 import java.util.Arrays;
-import java.util.List;
 
 public class CreateJobPostViewModel extends AndroidViewModel {
     private MutableLiveData<Boolean> isLoading = new MutableLiveData(false);

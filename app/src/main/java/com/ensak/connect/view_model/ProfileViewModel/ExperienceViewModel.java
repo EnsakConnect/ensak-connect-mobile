@@ -8,18 +8,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.ensak.connect.models.ExperienceRequest;
-import com.ensak.connect.reponse.ExperienceResponse;
 import com.ensak.connect.repositories.ExperienceRepository;
-import com.ensak.connect.repositories.ProfileRepository;
-import com.ensak.connect.repositories.RepositoryCallBack;
-import com.ensak.connect.repositories.question_post.QuestionRepository;
-import com.ensak.connect.repositories.question_post.remote.dto.QuestionPostRequest;
-import com.ensak.connect.repositories.question_post.remote.dto.QuestionPostResponse;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.Date;
 
 public class ExperienceViewModel extends AndroidViewModel {
     private MutableLiveData<Boolean> isLoading = new MutableLiveData(false);

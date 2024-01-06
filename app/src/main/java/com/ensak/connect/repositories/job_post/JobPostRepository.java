@@ -5,8 +5,8 @@ import android.util.Log;
 
 import com.ensak.connect.repositories.RepositoryCallBack;
 import com.ensak.connect.repositories.job_post.remote.JobPostApi;
-import com.ensak.connect.repositories.job_post.remote.dto.JobPostRequest;
-import com.ensak.connect.repositories.job_post.remote.dto.JobPostResponse;
+import com.ensak.connect.repositories.job_post.model.JobPostRequest;
+import com.ensak.connect.repositories.job_post.model.JobPostResponse;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

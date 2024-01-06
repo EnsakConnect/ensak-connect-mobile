@@ -1,4 +1,4 @@
-package com.ensak.connect.repositories.question_post.remote.dto;
+package com.ensak.connect.repositories.question_post.model;
 
 import java.util.ArrayList;
 import java.util.List;

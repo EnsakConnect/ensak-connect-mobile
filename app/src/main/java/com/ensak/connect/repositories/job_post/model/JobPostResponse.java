@@ -1,4 +1,4 @@
-package com.ensak.connect.repositories.job_post.remote.dto;
+package com.ensak.connect.repositories.job_post.model;
 
 import com.ensak.connect.repositories.shared.dto.AuthorResponse;
 

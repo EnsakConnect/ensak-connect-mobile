@@ -9,11 +9,10 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.ensak.connect.repositories.RepositoryCallBack;
 import com.ensak.connect.repositories.question_post.QuestionRepository;
-import com.ensak.connect.repositories.question_post.remote.dto.QuestionPostRequest;
-import com.ensak.connect.repositories.question_post.remote.dto.QuestionPostResponse;
+import com.ensak.connect.repositories.question_post.model.QuestionPostRequest;
+import com.ensak.connect.repositories.question_post.model.QuestionPostResponse;
 
 import java.util.Arrays;
-import java.util.List;
 
 public class CreateQuestionViewModel extends AndroidViewModel {
     private MutableLiveData<Boolean> isLoading = new MutableLiveData(false);
