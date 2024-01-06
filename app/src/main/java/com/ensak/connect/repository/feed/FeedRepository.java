@@ -9,7 +9,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.ensak.connect.repository.feed.model.FeedResponse;
 import com.ensak.connect.repository.feed.remote.FeedApi;
-import com.ensak.connect.retrofit.RetrofitRequest;
+import com.ensak.connect.service.RetrofitService;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -20,7 +20,7 @@ public class FeedRepository {
     private final FeedApi apiRequest;
 
     public FeedRepository(Context context){
-        apiRequest = RetrofitRequest.getRetrofitInstance(context).create(FeedApi.class);
+        apiRequest = RetrofitService.getRetrofitInstance(context).create(FeedApi.class);
     }
 
     public LiveData<FeedResponse> getFeed(int page, String search, String filter) {

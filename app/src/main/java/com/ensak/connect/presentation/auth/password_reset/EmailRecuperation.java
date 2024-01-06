@@ -9,8 +9,8 @@ import android.widget.EditText;
 
 import com.ensak.connect.R;
 import com.ensak.connect.repository.auth.model.PasswordResetRequest;
-import com.ensak.connect.retrofit.ApiRequest;
-import com.ensak.connect.retrofit.RetrofitRequest;
+import com.ensak.connect.service.retrofit.ApiRequest;
+import com.ensak.connect.service.RetrofitService;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -30,8 +30,8 @@ public class EmailRecuperation extends AppCompatActivity {
     private void sendRequestemail(){
         EditText eemailreset=findViewById(R.id.emailRecuperation);
         Button btnsendmail=findViewById(R.id.buttonResetPassword);
-        RetrofitRequest retrofitRequest=new RetrofitRequest(getApplicationContext());
-        ApiRequest apiRequest=retrofitRequest.getRetrofitInstance(getApplicationContext()).create(ApiRequest.class);
+        RetrofitService retrofitService =new RetrofitService(getApplicationContext());
+        ApiRequest apiRequest= retrofitService.getRetrofitInstance(getApplicationContext()).create(ApiRequest.class);
 
         btnsendmail.setOnClickListener(view -> {
             String emailreset=String.valueOf(eemailreset.getText());

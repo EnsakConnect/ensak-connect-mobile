@@ -14,7 +14,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.ensak.connect.R;
 import com.ensak.connect.databinding.CommentItemBinding;
 import com.ensak.connect.repository.job_post.model.JobPostCommentResponse;
-import com.ensak.connect.utils.Utils;
+import com.ensak.connect.utils.DateUtil;
 
 import java.util.ArrayList;
 
@@ -45,7 +45,7 @@ public class CommentsAdapter extends
 
         binding.tvUserName.setText(comment.getUser().getFirstname() + " " + comment.getUser().getLastname());
         binding.tvUserTitle.setText("Full Stack Developer - SQLI");
-        binding.tvCommentDate.setText(Utils.calculateTimeAgo(comment.getDate()));
+        binding.tvCommentDate.setText(DateUtil.calculateTimeAgo(comment.getDate()));
         binding.tvComment.setText(comment.getComment());
 
         Glide.with(context)

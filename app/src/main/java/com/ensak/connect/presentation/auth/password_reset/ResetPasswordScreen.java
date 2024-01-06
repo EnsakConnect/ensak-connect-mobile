@@ -10,8 +10,8 @@ import android.widget.Toast;
 
 import com.ensak.connect.R;
 import com.ensak.connect.repository.auth.model.ChangePasswordRequest;
-import com.ensak.connect.retrofit.ApiRequest;
-import com.ensak.connect.retrofit.RetrofitRequest;
+import com.ensak.connect.service.retrofit.ApiRequest;
+import com.ensak.connect.service.RetrofitService;
 import com.ensak.connect.presentation.auth.login.LoginActivity;
 
 import retrofit2.Call;
@@ -32,8 +32,8 @@ public class ResetPasswordScreen extends AppCompatActivity {
         EditText epasswordchange=findViewById(R.id.passwordChange);
         Button btnconfirm=findViewById(R.id.btnConfirmChange);
 
-        RetrofitRequest retrofitRequest=new RetrofitRequest(getApplicationContext());
-        ApiRequest apiRequest=retrofitRequest.getRetrofitInstance(getApplicationContext()).create(ApiRequest.class);
+        RetrofitService retrofitService =new RetrofitService(getApplicationContext());
+        ApiRequest apiRequest= retrofitService.getRetrofitInstance(getApplicationContext()).create(ApiRequest.class);
 
         btnconfirm.setOnClickListener(view -> {
             String passwordchangeVar=String.valueOf(epasswordchange.getText());

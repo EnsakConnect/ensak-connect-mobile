@@ -11,8 +11,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.ensak.connect.R;
-import com.ensak.connect.models.Experience;
-import com.ensak.connect.utils.Utils;
+import com.ensak.connect.model.Experience;
+import com.ensak.connect.utils.DateUtil;
 import com.ensak.connect.presentation.profile.ExperienceEditActivity;
 
 import java.util.List;
@@ -69,7 +69,7 @@ public class ExperienceAdapter extends RecyclerView.Adapter<ExperienceAdapter.Ex
             titleTextView.setText(experience.getPositionTitle());
             companyTextView.setText(experience.getCompanyName());
 //          locationTextView.setText(experience.getLocation());
-            periodTextView.setText(Utils.formatPeriod(experience.getStartDate(), experience.getEndDate()));
+            periodTextView.setText(DateUtil.formatPeriod(experience.getStartDate(), experience.getEndDate()));
             descriptionTextView.setText(experience.getDescription());
             if (iconEdit != null) {
                 iconEdit.setOnClickListener(v -> {

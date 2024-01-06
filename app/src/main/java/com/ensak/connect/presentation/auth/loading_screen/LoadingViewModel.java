@@ -7,7 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.ensak.connect.core.SessionManager;
+import com.ensak.connect.service.SessionManagerService;
 import com.ensak.connect.repository.shared.RepositoryCallBack;
 import com.ensak.connect.repository.auth.AuthRepository;
 import com.ensak.connect.repository.auth.model.UserResponse;
@@ -24,7 +24,7 @@ public class LoadingViewModel extends AndroidViewModel {
     private final String TAG = getClass().getSimpleName();
     private HealthRepository healthRepository;
     private AuthRepository authRepository;
-    private SessionManager sessionManager;
+    private SessionManagerService sessionManager;
     private final MutableLiveData<Boolean> isLoading = new MutableLiveData<>(true);
     private final MutableLiveData<Boolean> isError = new MutableLiveData<>(true);
     private final MutableLiveData<String> currentAction = new MutableLiveData<>("");
@@ -35,7 +35,7 @@ public class LoadingViewModel extends AndroidViewModel {
         super(application);
         healthRepository = new HealthRepository(application);
         authRepository = new AuthRepository(application);
-        sessionManager = new SessionManager(application);
+        sessionManager = new SessionManagerService(application);
     }
 
     public void startChecks() {

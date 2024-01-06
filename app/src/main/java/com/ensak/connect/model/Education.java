@@ -1,4 +1,4 @@
-package com.ensak.connect.models;
+package com.ensak.connect.model;
 public class Education {
     private int id;
     private String createdAt;

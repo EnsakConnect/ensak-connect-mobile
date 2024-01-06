@@ -1,4 +1,4 @@
-package com.ensak.connect.retrofit;
+package com.ensak.connect.service.retrofit;
 
 import com.ensak.connect.repository.auth.model.ChangePasswordRequest;
 import com.ensak.connect.repository.auth.model.CodeVerificationRequest;

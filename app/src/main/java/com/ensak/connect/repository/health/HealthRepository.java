@@ -6,7 +6,7 @@ import android.util.Log;
 import com.ensak.connect.repository.shared.RepositoryCallBack;
 import com.ensak.connect.repository.health.remote.HealthApi;
 import com.ensak.connect.repository.health.model.HealthResponse;
-import com.ensak.connect.retrofit.RetrofitRequest;
+import com.ensak.connect.service.RetrofitService;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -17,7 +17,7 @@ public class HealthRepository {
     private final String TAG = getClass().getSimpleName();
     private HealthApi api;
     public HealthRepository(Context context) {
-        api = RetrofitRequest.getRetrofitInstance(context).create(HealthApi.class);
+        api = RetrofitService.getRetrofitInstance(context).create(HealthApi.class);
     }
 
     public void healthCheck(RepositoryCallBack<HealthResponse> callBack) {

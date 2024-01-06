@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
-public class Utils {
+public class DateUtil {
     public static String calculateTimeAgo(Date newDate) {
         long timestamp = newDate.getTime();
         long currentTime = System.currentTimeMillis();

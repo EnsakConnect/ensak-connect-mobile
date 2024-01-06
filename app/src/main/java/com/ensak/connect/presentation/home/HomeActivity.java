@@ -8,7 +8,7 @@ import android.view.Menu;
 import android.widget.Toast;
 
 import com.ensak.connect.R;
-import com.ensak.connect.core.SessionManager;
+import com.ensak.connect.service.SessionManagerService;
 import com.ensak.connect.databinding.ActivityMainBinding;
 import com.ensak.connect.presentation.auth.loading_screen.LoadingActivity;
 import com.ensak.connect.presentation.profile.ProfileActivity;
@@ -35,7 +35,7 @@ public class HomeActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private NavigationView navigationView;
     private DrawerLayout drawer;
-    SessionManager sessionManager;
+    SessionManagerService sessionManager;
 
     private FloatingActionButton btnAdd;
     private FloatingActionButton btnNewQuestion;
@@ -59,7 +59,7 @@ public class HomeActivity extends AppCompatActivity {
         btnNewJobOffer = findViewById(R.id.btnNewJobOffer);
         setupFABActions();
 
-        sessionManager = new SessionManager(this);
+        sessionManager = new SessionManagerService(this);
         if (!sessionManager.isLoggedIn()) {
             Intent intent = new Intent(this, LoadingActivity.class);
             startActivity(intent);

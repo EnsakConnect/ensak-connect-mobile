@@ -7,7 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.ensak.connect.core.SessionManager;
+import com.ensak.connect.service.SessionManagerService;
 import com.ensak.connect.repository.shared.RepositoryCallBack;
 import com.ensak.connect.repository.auth.AuthRepository;
 import com.ensak.connect.repository.auth.model.AuthenticationResponse;
@@ -15,7 +15,7 @@ import com.ensak.connect.repository.auth.model.RegisterRequest;
 
 public class RegistrationViewModel extends AndroidViewModel {
     private AuthRepository authRepository;
-    private SessionManager sessionManager;
+    private SessionManagerService sessionManager;
     private MutableLiveData<Boolean> isLoading = new MutableLiveData<>(false);
     private MutableLiveData<Boolean> hasRegistered = new MutableLiveData<>(false);
     private MutableLiveData<String> errorMsg = new MutableLiveData<>("");
@@ -23,7 +23,7 @@ public class RegistrationViewModel extends AndroidViewModel {
     public RegistrationViewModel(@NonNull Application application) {
         super(application);
         authRepository = new AuthRepository(application);
-        sessionManager = new SessionManager(application);
+        sessionManager = new SessionManagerService(application);
     }
 
     public void register(String fullName, String email, String accountType, String password, String passwordConfirmation) {

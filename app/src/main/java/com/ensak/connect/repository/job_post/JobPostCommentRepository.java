@@ -8,8 +8,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.ensak.connect.repository.job_post.model.JobPostCommentResponse;
-import com.ensak.connect.retrofit.ApiRequest;
-import com.ensak.connect.retrofit.RetrofitRequest;
+import com.ensak.connect.service.retrofit.ApiRequest;
+import com.ensak.connect.service.RetrofitService;
 
 import java.util.ArrayList;
 
@@ -22,7 +22,7 @@ public class JobPostCommentRepository {
     private final ApiRequest apiRequest;
 
     public JobPostCommentRepository(Context context) {
-        apiRequest = RetrofitRequest.getRetrofitInstance(context).create(ApiRequest.class);
+        apiRequest = RetrofitService.getRetrofitInstance(context).create(ApiRequest.class);
     }
 
 

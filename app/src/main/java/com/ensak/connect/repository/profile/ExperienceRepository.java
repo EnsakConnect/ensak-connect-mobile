@@ -9,8 +9,8 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.ensak.connect.repository.profile.model.ExperienceRequest;
 import com.ensak.connect.repository.profile.model.ExperienceResponse;
-import com.ensak.connect.retrofit.ApiRequest;
-import com.ensak.connect.retrofit.RetrofitRequest;
+import com.ensak.connect.service.retrofit.ApiRequest;
+import com.ensak.connect.service.RetrofitService;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -22,7 +22,7 @@ public class ExperienceRepository {
 
 
     public ExperienceRepository(Context context) {
-        this.apiRequest = RetrofitRequest.getRetrofitInstance(context).create(ApiRequest.class);
+        this.apiRequest = RetrofitService.getRetrofitInstance(context).create(ApiRequest.class);
     }
     public static ExperienceRepository getInstance(Context context) {
         if (experienceRepository == null) {

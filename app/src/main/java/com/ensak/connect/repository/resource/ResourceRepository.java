@@ -6,7 +6,7 @@ import android.net.Uri;
 import com.ensak.connect.repository.shared.RepositoryCallBack;
 import com.ensak.connect.repository.resource.remote.ResourceApi;
 import com.ensak.connect.repository.resource.model.ResourceResponse;
-import com.ensak.connect.retrofit.RetrofitRequest;
+import com.ensak.connect.service.RetrofitService;
 import com.ensak.connect.utils.FileUtil;
 
 import java.io.File;
@@ -25,7 +25,7 @@ public class ResourceRepository {
 
     public ResourceRepository(Context context) {
         this.context = context;
-        api = RetrofitRequest.getRetrofitInstance(context).create(ResourceApi.class);
+        api = RetrofitService.getRetrofitInstance(context).create(ResourceApi.class);
     }
 
     public void uploadUriFile(Uri uri, RepositoryCallBack<ResourceResponse> callBack) {

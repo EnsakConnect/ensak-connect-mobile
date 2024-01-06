@@ -12,8 +12,8 @@ import android.widget.Toast;
 import com.ensak.connect.adapters.notifications.NotificationAdapter;
 import com.ensak.connect.databinding.ActivityNotificationBinding;
 import com.ensak.connect.repository.notification.model.NotificationResponse;
-import com.ensak.connect.retrofit.ApiRequest;
-import com.ensak.connect.retrofit.RetrofitRequest;
+import com.ensak.connect.service.retrofit.ApiRequest;
+import com.ensak.connect.service.RetrofitService;
 
 import java.util.List;
 
@@ -50,7 +50,7 @@ public class NotificationActivity extends AppCompatActivity {
     }
 
     private void loadNotifications(){
-        RetrofitRequest retrofitRequest=new RetrofitRequest(getApplicationContext());
+        RetrofitService retrofitRequest=new RetrofitService(getApplicationContext());
         ApiRequest apiRequest=retrofitRequest.getRetrofitInstance(getApplicationContext()).create(ApiRequest.class);
         Call<List<NotificationResponse>> call = apiRequest.getAllNotifications();
         call.enqueue(new Callback<List<NotificationResponse>>() {

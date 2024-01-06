@@ -1,5 +1,5 @@
 package com.ensak.connect.repository.job_post;
-import com.ensak.connect.retrofit.RetrofitRequest;
+import com.ensak.connect.service.RetrofitService;
 import android.content.Context;
 import android.util.Log;
 
@@ -15,7 +15,7 @@ public class JobPostRepository {
     private JobPostApi api;
 
     public JobPostRepository(Context context) {
-        api = RetrofitRequest.getRetrofitInstance(context).create(JobPostApi.class);
+        api = RetrofitService.getRetrofitInstance(context).create(JobPostApi.class);
     }
 
     public void create(JobPostRequest request, RepositoryCallBack<JobPostResponse> callBack) {

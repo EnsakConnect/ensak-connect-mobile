@@ -1,9 +1,9 @@
-package com.ensak.connect.core;
+package com.ensak.connect.service;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 
-public class SessionManager {
+public class SessionManagerService {
     private static final String PREF_NAME = "UserSession";
     private static final String IS_LOGGED_IN = "IsLoggedIn";
     private static final String KEY_USER_TOKEN = "UserToken";
@@ -12,7 +12,7 @@ public class SessionManager {
     SharedPreferences.Editor editor;
     Context context;
 
-    public SessionManager(Context context) {
+    public SessionManagerService(Context context) {
         this.context = context;
         preferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         editor = preferences.edit();

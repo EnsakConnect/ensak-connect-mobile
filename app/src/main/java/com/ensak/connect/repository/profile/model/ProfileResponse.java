@@ -4,8 +4,8 @@ package com.ensak.connect.repository.profile.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.ensak.connect.models.Education;
-import com.ensak.connect.models.Experience;
+import com.ensak.connect.model.Education;
+import com.ensak.connect.model.Experience;
 
 import java.util.ArrayList;
 import java.util.Date;

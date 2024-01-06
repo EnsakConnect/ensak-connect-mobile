@@ -9,7 +9,7 @@ import com.ensak.connect.repository.auth.model.LoginRequest;
 import com.ensak.connect.repository.auth.model.AuthenticationResponse;
 import com.ensak.connect.repository.auth.model.RegisterRequest;
 import com.ensak.connect.repository.auth.model.UserResponse;
-import com.ensak.connect.retrofit.RetrofitRequest;
+import com.ensak.connect.service.RetrofitService;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -19,7 +19,7 @@ public class AuthRepository {
     private final String TAG = getClass().getSimpleName();
     private AuthApi api;
     public AuthRepository(Context context) {
-        api = RetrofitRequest.getRetrofitInstance(context).create(AuthApi.class);
+        api = RetrofitService.getRetrofitInstance(context).create(AuthApi.class);
     }
 
     public void checkToken(RepositoryCallBack<UserResponse> callBack) {

@@ -10,8 +10,8 @@ import android.widget.Toast;
 
 import com.ensak.connect.R;
 import com.ensak.connect.repository.auth.model.CodeVerificationRequest;
-import com.ensak.connect.retrofit.ApiRequest;
-import com.ensak.connect.retrofit.RetrofitRequest;
+import com.ensak.connect.service.retrofit.ApiRequest;
+import com.ensak.connect.service.RetrofitService;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -31,7 +31,7 @@ public class CodeValidationScreen extends AppCompatActivity {
         EditText ecodeverif=findViewById(R.id.CodeVerification);
         Button btnSendCode=findViewById(R.id.btnSendCode);
 
-        RetrofitRequest retrofitRequest=new RetrofitRequest(getApplicationContext());
+        RetrofitService retrofitRequest=new RetrofitService(getApplicationContext());
         ApiRequest apiRequest=retrofitRequest.getRetrofitInstance(getApplicationContext()).create(ApiRequest.class);
 
         btnSendCode.setOnClickListener(view -> {

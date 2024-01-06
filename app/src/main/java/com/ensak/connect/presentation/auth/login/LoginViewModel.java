@@ -6,7 +6,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.ensak.connect.core.SessionManager;
+import com.ensak.connect.service.SessionManagerService;
 import com.ensak.connect.repository.shared.RepositoryCallBack;
 import com.ensak.connect.repository.auth.AuthRepository;
 import com.ensak.connect.repository.auth.model.LoginRequest;
@@ -16,7 +16,7 @@ import com.ensak.connect.repository.auth.model.AuthenticationResponse;
 public class LoginViewModel extends AndroidViewModel {
 
     private AuthRepository authRepository;
-    private SessionManager sessionManager;
+    private SessionManagerService sessionManager;
     private MutableLiveData<Boolean> isLoading = new MutableLiveData<>(false);
     private MutableLiveData<Boolean> hasLoggedIn = new MutableLiveData<>(false);
     private MutableLiveData<String> errorMsg = new MutableLiveData<>("");
@@ -25,7 +25,7 @@ public class LoginViewModel extends AndroidViewModel {
     public LoginViewModel(@NonNull Application application) {
         super(application);
         authRepository = new AuthRepository(application);
-        sessionManager = new SessionManager(application);
+        sessionManager = new SessionManagerService(application);
     }
 
     public void login(String email, String password) {

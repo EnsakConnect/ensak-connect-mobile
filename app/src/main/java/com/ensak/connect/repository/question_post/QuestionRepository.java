@@ -7,7 +7,7 @@ import com.ensak.connect.repository.shared.RepositoryCallBack;
 import com.ensak.connect.repository.question_post.remote.QuestionApi;
 import com.ensak.connect.repository.question_post.model.QuestionPostRequest;
 import com.ensak.connect.repository.question_post.model.QuestionPostResponse;
-import com.ensak.connect.retrofit.RetrofitRequest;
+import com.ensak.connect.service.RetrofitService;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -18,7 +18,7 @@ public class QuestionRepository {
     private QuestionApi api;
 
     public QuestionRepository(Context context) {
-        api = RetrofitRequest.getRetrofitInstance(context).create(QuestionApi.class);
+        api = RetrofitService.getRetrofitInstance(context).create(QuestionApi.class);
     }
 
     public void create(QuestionPostRequest request, RepositoryCallBack<QuestionPostResponse> callBack) {

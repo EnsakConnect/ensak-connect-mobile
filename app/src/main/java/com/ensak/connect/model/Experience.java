@@ -1,10 +1,5 @@
-package com.ensak.connect.models;
+package com.ensak.connect.model;
 
-
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-
-import java.util.Date;
 
 public class Experience {
 

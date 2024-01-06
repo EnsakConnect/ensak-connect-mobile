@@ -8,8 +8,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.ensak.connect.repository.profile.model.ProfileResponse;
-import com.ensak.connect.retrofit.ApiRequest;
-import com.ensak.connect.retrofit.RetrofitRequest;
+import com.ensak.connect.service.retrofit.ApiRequest;
+import com.ensak.connect.service.RetrofitService;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -21,7 +21,7 @@ public class ProfileRepository {
 
 
     public ProfileRepository(Context context) {
-        this.apiRequest = RetrofitRequest.getRetrofitInstance(context).create(ApiRequest.class);
+        this.apiRequest = RetrofitService.getRetrofitInstance(context).create(ApiRequest.class);
     }
     public static ProfileRepository getInstance(Context context) {
         if (profileRepository == null) {
