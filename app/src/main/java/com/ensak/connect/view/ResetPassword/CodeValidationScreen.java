@@ -4,17 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.ensak.connect.R;
-import com.ensak.connect.models.CodeVerification;
-import com.ensak.connect.models.EmailResetPassword;
+import com.ensak.connect.repository.auth.model.CodeVerificationRequest;
 import com.ensak.connect.retrofit.ApiRequest;
 import com.ensak.connect.retrofit.RetrofitRequest;
-import com.ensak.connect.view.login.LoginActivity;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -39,21 +36,21 @@ public class CodeValidationScreen extends AppCompatActivity {
 
         btnSendCode.setOnClickListener(view -> {
             String codeverif=String.valueOf(ecodeverif.getText());
-            CodeVerification codeVerification=new CodeVerification();
+            CodeVerificationRequest codeVerificationRequest =new CodeVerificationRequest();
             Intent intent = getIntent();
             if(intent != null) {
                 String emailreset = intent.getStringExtra("emailreset");
-                codeVerification.setEmail(emailreset);
+                codeVerificationRequest.setEmail(emailreset);
             }
-            codeVerification.setCode(codeverif);
-            apiRequest.sendcode(codeVerification).enqueue(new Callback<CodeVerification>() {
+            codeVerificationRequest.setCode(codeverif);
+            apiRequest.sendcode(codeVerificationRequest).enqueue(new Callback<CodeVerificationRequest>() {
                 @Override
-                public void onResponse(Call<CodeVerification> call, Response<CodeVerification> response) {
+                public void onResponse(Call<CodeVerificationRequest> call, Response<CodeVerificationRequest> response) {
                     //Toast.makeText(CodeValidationScreen.this, "sent succesfully", Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
-                public void onFailure(Call<CodeVerification> call, Throwable t) {
+                public void onFailure(Call<CodeVerificationRequest> call, Throwable t) {
                     Toast.makeText(CodeValidationScreen.this, "sent failed", Toast.LENGTH_SHORT).show();
                 }
             });

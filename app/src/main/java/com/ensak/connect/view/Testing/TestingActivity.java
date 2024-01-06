@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
 import com.ensak.connect.databinding.ActivityTestingBinding;
-import com.ensak.connect.repositories.resource.remote.dto.ResourceResponse;
+import com.ensak.connect.repository.resource.model.ResourceResponse;
 import com.ensak.connect.service.ActivityResultCallback;
 import com.ensak.connect.service.FileUploadService;
 

@@ -7,9 +7,8 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.ensak.connect.models.EducationRequest;
-import com.ensak.connect.repositories.EducationRepository;
-import com.ensak.connect.repositories.ProfileRepository;
+import com.ensak.connect.repository.profile.model.EducationRequest;
+import com.ensak.connect.repository.profile.EducationRepository;
 
 public class EducationViewModel extends AndroidViewModel {
     private MutableLiveData<Boolean> isLoading = new MutableLiveData(false);

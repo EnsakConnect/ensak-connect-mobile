@@ -9,17 +9,15 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ensak.connect.R;
-import com.ensak.connect.models.Experience;
-import com.ensak.connect.models.Skill;
-import com.ensak.connect.utils.Utils;
+import com.ensak.connect.repository.profile.model.SkillResponse;
 
 import java.util.List;
 
 public class SkillsAdapter extends RecyclerView.Adapter<SkillsAdapter.SkillViewHolder> {
 
-    private List<Skill> skillsList;
+    private List<SkillResponse> skillsList;
 
-    public SkillsAdapter(List<Skill> skillsList) {
+    public SkillsAdapter(List<SkillResponse> skillsList) {
         this.skillsList = skillsList;
     }
 
@@ -32,7 +30,7 @@ public class SkillsAdapter extends RecyclerView.Adapter<SkillsAdapter.SkillViewH
 
     @Override
     public void onBindViewHolder(@NonNull SkillViewHolder holder, int position) {
-        Skill skill = skillsList.get(position);
+        SkillResponse skill = skillsList.get(position);
         holder.bind(skill);
     }
 
@@ -49,7 +47,7 @@ public class SkillsAdapter extends RecyclerView.Adapter<SkillsAdapter.SkillViewH
             skillTextView = itemView.findViewById(R.id.skillTextView); // ID from your skill_item.xml
         }
 
-        void bind(Skill skill) {
+        void bind(SkillResponse skill) {
             skillTextView.setText(skill.getName());
 //
         }

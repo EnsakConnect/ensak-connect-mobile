@@ -6,8 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.ensak.connect.reponse.ChatMessageResponse;
-import com.ensak.connect.repositories.ChatRepository;
+import com.ensak.connect.repository.chat.model.ChatMessageResponse;
+import com.ensak.connect.repository.chat.ChatRepository;
 
 import java.util.ArrayList;
 

@@ -7,8 +7,8 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.ensak.connect.models.ExperienceRequest;
-import com.ensak.connect.repositories.ExperienceRepository;
+import com.ensak.connect.repository.profile.model.ExperienceRequest;
+import com.ensak.connect.repository.profile.ExperienceRepository;
 
 public class ExperienceViewModel extends AndroidViewModel {
     private MutableLiveData<Boolean> isLoading = new MutableLiveData(false);

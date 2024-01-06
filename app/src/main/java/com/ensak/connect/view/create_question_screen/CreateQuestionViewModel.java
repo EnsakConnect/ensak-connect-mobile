@@ -7,10 +7,10 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.ensak.connect.repositories.RepositoryCallBack;
-import com.ensak.connect.repositories.question_post.QuestionRepository;
-import com.ensak.connect.repositories.question_post.model.QuestionPostRequest;
-import com.ensak.connect.repositories.question_post.model.QuestionPostResponse;
+import com.ensak.connect.repository.shared.RepositoryCallBack;
+import com.ensak.connect.repository.question_post.QuestionRepository;
+import com.ensak.connect.repository.question_post.model.QuestionPostRequest;
+import com.ensak.connect.repository.question_post.model.QuestionPostResponse;
 
 import java.util.Arrays;
 

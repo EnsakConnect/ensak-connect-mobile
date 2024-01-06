@@ -1,23 +1,18 @@
 package com.ensak.connect.retrofit;
 
-import com.ensak.connect.models.ChangePassword;
-import com.ensak.connect.models.CodeVerification;
-import com.ensak.connect.models.EducationRequest;
-import com.ensak.connect.models.EmailResetPassword;
-import com.ensak.connect.models.ExperienceRequest;
-import com.ensak.connect.models.RegisterRequest;
-import com.ensak.connect.models.ResumeRequest;
-import com.ensak.connect.reponse.ChatMessageResponse;
-import com.ensak.connect.reponse.CommentResponse;
-import com.ensak.connect.reponse.ConversationResponse;
-import com.ensak.connect.reponse.EducationResponse;
-import com.ensak.connect.reponse.ExperienceResponse;
-import com.ensak.connect.reponse.NameResponse;
-import com.ensak.connect.reponse.NotificationResponse;
-import com.ensak.connect.reponse.ProfileResponse;
-import com.ensak.connect.models.LoginRequest;
-import com.ensak.connect.repositories.auth.model.LoginResponse;
-import com.ensak.connect.reponse.PostResponse;
+import com.ensak.connect.repository.auth.model.ChangePasswordRequest;
+import com.ensak.connect.repository.auth.model.CodeVerificationRequest;
+import com.ensak.connect.repository.profile.model.EducationRequest;
+import com.ensak.connect.repository.auth.model.PasswordResetRequest;
+import com.ensak.connect.repository.profile.model.ExperienceRequest;
+import com.ensak.connect.repository.chat.model.ChatMessageResponse;
+import com.ensak.connect.repository.job_post.model.JobPostCommentResponse;
+import com.ensak.connect.repository.chat.model.ConversationResponse;
+import com.ensak.connect.repository.job_post.model.JobPostResponse;
+import com.ensak.connect.repository.profile.model.EducationResponse;
+import com.ensak.connect.repository.profile.model.ExperienceResponse;
+import com.ensak.connect.repository.notification.model.NotificationResponse;
+import com.ensak.connect.repository.profile.model.ProfileResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,17 +25,14 @@ import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface ApiRequest {
-    @GET("ensak-connect")
-    Call<NameResponse> getTestMessage();
-
     @GET("job-posts")
-    Call<ArrayList<PostResponse>> getPosts();
+    Call<ArrayList<JobPostResponse>> getPosts();
 
     @GET("job-posts/{job_post_id}/comments")
-    Call<ArrayList<CommentResponse>> getComments(@Path("job_post_id") String postId);
+    Call<ArrayList<JobPostCommentResponse>> getComments(@Path("job_post_id") String postId);
 
     @POST("job-posts/{job_post_id}/comments")
-    Call<CommentResponse> sendComment(@Path("job_post_id") String postId, @Body String content);
+    Call<JobPostCommentResponse> sendComment(@Path("job_post_id") String postId, @Body String content);
 
     @GET("conversations")
     Call<ArrayList<ConversationResponse>> getConversations();
@@ -54,26 +46,17 @@ public interface ApiRequest {
     @POST("chat/{conversation_id}")
     Call<ChatMessageResponse> sendChatMessage(@Path("conversation_id") String conversationId, @Body String message);
 
-    @POST("auth/register")
-    Call<RegisterRequest> register(@Body RegisterRequest request);
-
-    @POST("auth/login")
-    Call<LoginResponse> loginUser(@Body LoginRequest loginRequest);
-
     @POST("auth/password-reset")
-    Call<EmailResetPassword> sendmail(@Body EmailResetPassword emailrequest);
+    Call<PasswordResetRequest> sendmail(@Body PasswordResetRequest emailrequest);
 
     @POST("auth/password-reset/verify")
-    Call<CodeVerification> sendcode(@Body CodeVerification codeVerification);
+    Call<CodeVerificationRequest> sendcode(@Body CodeVerificationRequest codeVerificationRequest);
 
     @POST("auth/change-password")
-    Call<ChangePassword> changepasswd(@Body ChangePassword changePassword);
+    Call<ChangePasswordRequest> changepasswd(@Body ChangePasswordRequest changePasswordRequest);
 
     @GET("profile/52/detailed")
     Call<ProfileResponse> getUserProfile();
-
-    @POST("profile/resume")
-    Call<ResumeRequest> UploadResume(@Body ResumeRequest resumeRequest);
 
     @GET("notifications")
     Call<List<NotificationResponse>> getAllNotifications();

@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ensak.connect.adapters.comments.CommentsAdapter;
 import com.ensak.connect.databinding.ActivityCommentsBinding;
-import com.ensak.connect.reponse.CommentResponse;
+import com.ensak.connect.repository.job_post.model.JobPostCommentResponse;
 import com.ensak.connect.view_model.CommentViewModel;
 
 import java.util.ArrayList;
@@ -28,7 +28,7 @@ public class CommentsActivity extends AppCompatActivity {
     private ActivityCommentsBinding binding;
     private CommentViewModel commentViewModel;
 
-    private ArrayList<CommentResponse> comments;
+    private ArrayList<JobPostCommentResponse> comments;
     private CommentsAdapter adapter;
     private RecyclerView rvComments;
     private CardView cardSendComment;

@@ -8,11 +8,11 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.ensak.connect.core.SessionManager;
-import com.ensak.connect.repositories.RepositoryCallBack;
-import com.ensak.connect.repositories.auth.AuthRepository;
-import com.ensak.connect.repositories.auth.model.UserResponse;
-import com.ensak.connect.repositories.health.HealthRepository;
-import com.ensak.connect.repositories.health.model.HealthResponse;
+import com.ensak.connect.repository.shared.RepositoryCallBack;
+import com.ensak.connect.repository.auth.AuthRepository;
+import com.ensak.connect.repository.auth.model.UserResponse;
+import com.ensak.connect.repository.health.HealthRepository;
+import com.ensak.connect.repository.health.model.HealthResponse;
 
 import org.jetbrains.annotations.NotNull;
 

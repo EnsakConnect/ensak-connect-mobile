@@ -6,10 +6,10 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
-import com.ensak.connect.repositories.job_post.JobPostRepository;
-import com.ensak.connect.repositories.job_post.model.JobPostRequest;
-import com.ensak.connect.repositories.job_post.model.JobPostResponse;
-import com.ensak.connect.repositories.RepositoryCallBack;
+import com.ensak.connect.repository.job_post.JobPostRepository;
+import com.ensak.connect.repository.job_post.model.JobPostRequest;
+import com.ensak.connect.repository.job_post.model.JobPostResponse;
+import com.ensak.connect.repository.shared.RepositoryCallBack;
 
 import java.util.Arrays;
 

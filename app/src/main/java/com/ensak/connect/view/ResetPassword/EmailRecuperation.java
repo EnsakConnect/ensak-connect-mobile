@@ -4,17 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.ensak.connect.R;
-import com.ensak.connect.models.EmailResetPassword;
-import com.ensak.connect.models.RegisterRequest;
+import com.ensak.connect.repository.auth.model.PasswordResetRequest;
 import com.ensak.connect.retrofit.ApiRequest;
 import com.ensak.connect.retrofit.RetrofitRequest;
-import com.ensak.connect.view.Registration.RegistrationScreen;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -40,17 +36,17 @@ public class EmailRecuperation extends AppCompatActivity {
         btnsendmail.setOnClickListener(view -> {
             String emailreset=String.valueOf(eemailreset.getText());
 
-            EmailResetPassword emailResetPassword=new EmailResetPassword();
-            emailResetPassword.setEmail(emailreset);
+            PasswordResetRequest passwordResetRequest =new PasswordResetRequest();
+            passwordResetRequest.setEmail(emailreset);
 
-            apiRequest.sendmail(emailResetPassword).enqueue(new Callback<EmailResetPassword>() {
+            apiRequest.sendmail(passwordResetRequest).enqueue(new Callback<PasswordResetRequest>() {
                 @Override
-                public void onResponse(Call<EmailResetPassword> call, Response<EmailResetPassword> response) {
+                public void onResponse(Call<PasswordResetRequest> call, Response<PasswordResetRequest> response) {
                     // Ne rien faire ici
                 }
 
                 @Override
-                public void onFailure(Call<EmailResetPassword> call, Throwable t) {
+                public void onFailure(Call<PasswordResetRequest> call, Throwable t) {
                     // Ne rien faire ici
                 }
             });

@@ -6,8 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.ensak.connect.reponse.feed.FeedResponse;
-import com.ensak.connect.repositories.feed.FeedRepository;
+import com.ensak.connect.repository.feed.model.FeedResponse;
+import com.ensak.connect.repository.feed.FeedRepository;
 
 public class HomeViewModel extends AndroidViewModel {
 

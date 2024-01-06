@@ -2,13 +2,11 @@ package com.ensak.connect.view.home;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
@@ -24,7 +22,7 @@ import com.ensak.connect.R;
 import com.ensak.connect.adapters.home.HomeAdapter;
 import com.ensak.connect.adapters.home.RecommandedOffersAdapter;
 import com.ensak.connect.databinding.FragmentHomeBinding;
-import com.ensak.connect.reponse.feed.FeedResponse;
+import com.ensak.connect.repository.feed.model.FeedResponse;
 import com.ensak.connect.view_model.HomeViewModel;
 
 import java.util.ArrayList;

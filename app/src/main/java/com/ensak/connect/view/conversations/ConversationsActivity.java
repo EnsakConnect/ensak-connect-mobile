@@ -13,14 +13,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import com.ensak.connect.R;
-import com.ensak.connect.adapters.comments.CommentsAdapter;
 import com.ensak.connect.adapters.conversations.ConversationsAdapter;
-import com.ensak.connect.databinding.ActivityCommentsBinding;
 import com.ensak.connect.databinding.ActivityConversationsBinding;
-import com.ensak.connect.reponse.CommentResponse;
-import com.ensak.connect.reponse.ConversationResponse;
-import com.ensak.connect.view_model.CommentViewModel;
+import com.ensak.connect.repository.chat.model.ConversationResponse;
 import com.ensak.connect.view_model.conversations.ConversationsViewModel;
 
 import java.util.ArrayList;

@@ -7,10 +7,10 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.ensak.connect.core.SessionManager;
-import com.ensak.connect.repositories.RepositoryCallBack;
-import com.ensak.connect.repositories.auth.AuthRepository;
-import com.ensak.connect.repositories.auth.model.LoginRequest;
-import com.ensak.connect.repositories.auth.model.AuthenticationResponse;
+import com.ensak.connect.repository.shared.RepositoryCallBack;
+import com.ensak.connect.repository.auth.AuthRepository;
+import com.ensak.connect.repository.auth.model.LoginRequest;
+import com.ensak.connect.repository.auth.model.AuthenticationResponse;
 
 
 public class LoginViewModel extends AndroidViewModel {

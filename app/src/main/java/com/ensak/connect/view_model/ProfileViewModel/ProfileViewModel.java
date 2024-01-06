@@ -6,8 +6,8 @@ import android.util.Log;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.ensak.connect.reponse.ProfileResponse;
-import com.ensak.connect.repositories.ProfileRepository;
+import com.ensak.connect.repository.profile.model.ProfileResponse;
+import com.ensak.connect.repository.profile.ProfileRepository;
 
 public class ProfileViewModel extends ViewModel {
 

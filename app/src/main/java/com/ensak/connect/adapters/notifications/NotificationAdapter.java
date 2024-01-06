@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ensak.connect.R;
-import com.ensak.connect.reponse.NotificationResponse;
+import com.ensak.connect.repository.notification.model.NotificationResponse;
 import java.text.SimpleDateFormat;
 
 import java.util.List;

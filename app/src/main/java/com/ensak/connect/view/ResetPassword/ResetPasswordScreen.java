@@ -9,8 +9,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.ensak.connect.R;
-import com.ensak.connect.models.ChangePassword;
-import com.ensak.connect.models.CodeVerification;
+import com.ensak.connect.repository.auth.model.ChangePasswordRequest;
 import com.ensak.connect.retrofit.ApiRequest;
 import com.ensak.connect.retrofit.RetrofitRequest;
 import com.ensak.connect.view.login.LoginActivity;
@@ -38,18 +37,18 @@ public class ResetPasswordScreen extends AppCompatActivity {
 
         btnconfirm.setOnClickListener(view -> {
             String passwordchangeVar=String.valueOf(epasswordchange.getText());
-            ChangePassword changePassword=new ChangePassword();
+            ChangePasswordRequest changePasswordRequest =new ChangePasswordRequest();
 
-            changePassword.setPassword(passwordchangeVar);
+            changePasswordRequest.setPassword(passwordchangeVar);
 
-            apiRequest.changepasswd(changePassword).enqueue(new Callback<ChangePassword>() {
+            apiRequest.changepasswd(changePasswordRequest).enqueue(new Callback<ChangePasswordRequest>() {
                 @Override
-                public void onResponse(Call<ChangePassword> call, Response<ChangePassword> response) {
+                public void onResponse(Call<ChangePasswordRequest> call, Response<ChangePasswordRequest> response) {
                     Toast.makeText(ResetPasswordScreen.this, "sent succesfully", Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
-                public void onFailure(Call<ChangePassword> call, Throwable t) {
+                public void onFailure(Call<ChangePasswordRequest> call, Throwable t) {
                     Toast.makeText(ResetPasswordScreen.this, "sent failed", Toast.LENGTH_SHORT).show();
                 }
             });

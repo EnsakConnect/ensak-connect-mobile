@@ -9,12 +9,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
-import com.ensak.connect.R;
 import com.ensak.connect.adapters.notifications.NotificationAdapter;
-import com.ensak.connect.databinding.ActivityConversationsBinding;
 import com.ensak.connect.databinding.ActivityNotificationBinding;
-import com.ensak.connect.models.Notification;
-import com.ensak.connect.reponse.NotificationResponse;
+import com.ensak.connect.repository.notification.model.NotificationResponse;
 import com.ensak.connect.retrofit.ApiRequest;
 import com.ensak.connect.retrofit.RetrofitRequest;
 
