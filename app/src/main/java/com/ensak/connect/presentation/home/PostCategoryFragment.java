@@ -21,6 +21,9 @@ import com.ensak.connect.repository.feed.model.FeedResponse;
 
 import java.util.ArrayList;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class PostCategoryFragment extends Fragment {
 
     private static final String ARG_PARAM1 = "filter";

@@ -5,19 +5,24 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModel;
 
 import com.ensak.connect.repository.feed.model.FeedResponse;
 import com.ensak.connect.repository.feed.FeedRepository;
 
-public class HomeViewModel extends AndroidViewModel {
+import javax.inject.Inject;
+
+import dagger.hilt.android.lifecycle.HiltViewModel;
+
+@HiltViewModel
+public class HomeViewModel extends ViewModel {
 
     private LiveData<FeedResponse> feed;
     private FeedRepository repository;
 
-    public HomeViewModel(@NonNull Application application) {
-        super(application);
-        repository = new FeedRepository(application);
-
+    @Inject
+    public HomeViewModel(FeedRepository feedRepository) {
+        this.repository = feedRepository;
     }
 
     public LiveData<FeedResponse> getFeed(int page, String search, String filter) {

@@ -11,16 +11,20 @@ import com.ensak.connect.repository.feed.model.FeedResponse;
 import com.ensak.connect.repository.feed.remote.FeedApi;
 import com.ensak.connect.service.RetrofitService;
 
+import javax.inject.Inject;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class FeedRepository {
     private static final String TAG = FeedRepository.class.getSimpleName();
     private final FeedApi apiRequest;
 
-    public FeedRepository(Context context){
-        apiRequest = RetrofitService.getRetrofitInstance(context).create(FeedApi.class);
+    @Inject
+    public FeedRepository(Retrofit retrofit){
+        apiRequest = retrofit.create(FeedApi.class);
     }
 
     public LiveData<FeedResponse> getFeed(int page, String search, String filter) {

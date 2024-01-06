@@ -26,6 +26,9 @@ import com.ensak.connect.repository.feed.model.FeedResponse;
 
 import java.util.ArrayList;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class HomeFragment extends Fragment {
 
     private MainHomeFragementBinding binding;
