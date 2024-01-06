@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 
 import com.ensak.connect.service.SessionManagerService;
 import com.ensak.connect.repository.shared.RepositoryCallBack;
@@ -12,8 +13,13 @@ import com.ensak.connect.repository.auth.AuthRepository;
 import com.ensak.connect.repository.auth.model.LoginRequest;
 import com.ensak.connect.repository.auth.model.AuthenticationResponse;
 
+import javax.inject.Inject;
 
-public class LoginViewModel extends AndroidViewModel {
+import dagger.hilt.android.lifecycle.HiltViewModel;
+
+
+@HiltViewModel
+public class LoginViewModel extends ViewModel {
 
     private AuthRepository authRepository;
     private SessionManagerService sessionManager;
@@ -22,10 +28,10 @@ public class LoginViewModel extends AndroidViewModel {
     private MutableLiveData<String> errorMsg = new MutableLiveData<>("");
 
 
-    public LoginViewModel(@NonNull Application application) {
-        super(application);
-        authRepository = new AuthRepository(application);
-        sessionManager = new SessionManagerService(application);
+    @Inject
+    public LoginViewModel(AuthRepository authRepository, SessionManagerService sessionManager) {
+        this.authRepository = authRepository;
+        this.sessionManager = sessionManager;
     }
 
     public void login(String email, String password) {

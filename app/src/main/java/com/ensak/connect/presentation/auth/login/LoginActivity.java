@@ -85,8 +85,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void initializeViewModel() {
-        loginViewModel = new ViewModelProvider(this, new ViewModelProvider.AndroidViewModelFactory(getApplication()))
-                .get(LoginViewModel.class);
+        loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
 
         loginViewModel.getIsLoading().observe(this, isLoading -> {
             if(isLoading){

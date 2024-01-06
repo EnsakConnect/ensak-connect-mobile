@@ -11,15 +11,20 @@ import com.ensak.connect.repository.auth.model.RegisterRequest;
 import com.ensak.connect.repository.auth.model.UserResponse;
 import com.ensak.connect.service.RetrofitService;
 
+import javax.inject.Inject;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class AuthRepository {
     private final String TAG = getClass().getSimpleName();
     private AuthApi api;
-    public AuthRepository(Context context) {
-        api = RetrofitService.getRetrofitInstance(context).create(AuthApi.class);
+
+    @Inject
+    public AuthRepository(Retrofit retrofit) {
+        api = retrofit.create(AuthApi.class);
     }
 
     public void checkToken(RepositoryCallBack<UserResponse> callBack) {

@@ -38,11 +38,10 @@ public class LoadingViewModel extends ViewModel {
     private final MutableLiveData<REDIRECT_TO> redirectTo = new MutableLiveData<>(null);
 
     @Inject
-    public LoadingViewModel(HealthRepository healthRepository, SessionManagerService sessionManager) {
+    public LoadingViewModel(HealthRepository healthRepository, AuthRepository authRepository, SessionManagerService sessionManager) {
         this.healthRepository = healthRepository;
         this.sessionManager = sessionManager;
-//        authRepository = new AuthRepository(application);
-//        sessionManager = new SessionManagerService(application);
+        this.authRepository = authRepository;
     }
 
     public void startChecks() {
@@ -62,7 +61,7 @@ public class LoadingViewModel extends ViewModel {
                 }
                 isError.setValue(false);
                 currentAction.setValue("Connected to server successfully.");
-//                checkTokenIsValid();
+                checkTokenIsValid();
             }
 
             @Override
@@ -74,32 +73,32 @@ public class LoadingViewModel extends ViewModel {
         });
     }
 
-//    private void checkTokenIsValid() {
-//        if(! sessionManager.isLoggedIn()){
-//            redirectToLogin();
-//            return;
-//        }
-//        currentAction.setValue("Verifying user token...");
-//        authRepository.checkToken(new RepositoryCallBack<UserResponse>() {
-//            @Override
-//            public void onSuccess(UserResponse data) {
-//                isError.setValue(false);
-//                isLoading.setValue(false);
-//                currentAction.setValue("Token is valid, id: "+data.getId()+", email: " + data.getEmail());
-//                redirectedToHome();
-//            }
-//
-//            @Override
-//            public void onFailure(Throwable throwable) {
-//                Log.w(TAG, throwable.getMessage());
-//                isError.setValue(false);
-//                isLoading.setValue(false);
-//                currentAction.setValue("Invalid user token, redirecting to login");
-//                sessionManager.logoutUser();
-//                redirectToLogin();
-//            }
-//        });
-//    }
+    private void checkTokenIsValid() {
+        if(! sessionManager.isLoggedIn()){
+            redirectToLogin();
+            return;
+        }
+        currentAction.setValue("Verifying user token...");
+        authRepository.checkToken(new RepositoryCallBack<UserResponse>() {
+            @Override
+            public void onSuccess(UserResponse data) {
+                isError.setValue(false);
+                isLoading.setValue(false);
+                currentAction.setValue("Token is valid, id: "+data.getId()+", email: " + data.getEmail());
+                redirectedToHome();
+            }
+
+            @Override
+            public void onFailure(Throwable throwable) {
+                Log.w(TAG, throwable.getMessage());
+                isError.setValue(false);
+                isLoading.setValue(false);
+                currentAction.setValue("Invalid user token, redirecting to login");
+                sessionManager.logoutUser();
+                redirectToLogin();
+            }
+        });
+    }
 
     private void redirectToLogin() {
         redirectTo.setValue(REDIRECT_TO.LOGIN);
