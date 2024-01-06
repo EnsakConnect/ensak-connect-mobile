@@ -42,7 +42,7 @@
             android:layout_weight="1"
             android:scrollbars="vertical"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/comment_item" />
+            tools:listitem="@layout/job_post_comment_item" />
 
         <LinearLayout
             android:layout_width="match_parent"

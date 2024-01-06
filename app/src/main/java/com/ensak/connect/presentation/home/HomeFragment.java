@@ -21,14 +21,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.ensak.connect.R;
 import com.ensak.connect.adapters.home.HomeAdapter;
 import com.ensak.connect.adapters.home.RecommandedOffersAdapter;
-import com.ensak.connect.databinding.FragmentHomeBinding;
+import com.ensak.connect.databinding.MainHomeFragementBinding;
 import com.ensak.connect.repository.feed.model.FeedResponse;
 
 import java.util.ArrayList;
 
 public class HomeFragment extends Fragment {
 
-    private FragmentHomeBinding binding;
+    private MainHomeFragementBinding binding;
     private RecyclerView rvAllOffers, rvRecommendedOffers;
     private HomeViewModel homeViewModel;
     private FeedResponse feed, recommendedOffersFeed;
@@ -41,7 +41,7 @@ public class HomeFragment extends Fragment {
         HomeViewModel homeViewModel =
                 new ViewModelProvider(this).get(HomeViewModel.class);
 
-        binding = FragmentHomeBinding.inflate(inflater, container, false);
+        binding = MainHomeFragementBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         feed = new FeedResponse();

@@ -23,7 +23,7 @@
                 android:id="@+id/iconEdit"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:src="@drawable/edit_icon"
+                android:src="@drawable/ic_edit"
                 android:layout_marginRight="8dp"
                 android:contentDescription="Edit"
                 app:tint="@color/purple_500" />
@@ -32,7 +32,7 @@
                 android:id="@+id/iconDelete"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:src="@drawable/delete_icon"
+                android:src="@drawable/ic_delete"
                 android:contentDescription="Delete"
                 app:tint="@color/error" />
         </LinearLayout>

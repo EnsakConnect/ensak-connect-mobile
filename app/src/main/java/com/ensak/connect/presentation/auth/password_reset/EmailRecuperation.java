@@ -21,7 +21,7 @@ public class EmailRecuperation extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_email_recuperation);
+        setContentView(R.layout.auth_email_recuperation_activity);
 
         sendRequestemail();
 

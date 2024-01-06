@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.ensak.connect.R;
-import com.ensak.connect.databinding.ConversationItemBinding;
+import com.ensak.connect.databinding.ChatConversationItemBinding;
 import com.ensak.connect.repository.chat.model.ConversationResponse;
 import com.ensak.connect.presentation.chat.chat.ChatActivity;
 
@@ -20,7 +20,7 @@ import java.util.ArrayList;
 
 public class ConversationsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    ConversationItemBinding binding;
+    ChatConversationItemBinding binding;
     private ArrayList<ConversationResponse> conversations;
 
     public ConversationsAdapter(ArrayList<ConversationResponse> conversations) {
@@ -32,7 +32,7 @@ public class ConversationsAdapter extends RecyclerView.Adapter<RecyclerView.View
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
 
-        binding = binding.inflate(inflater, parent, false);
+        binding = ChatConversationItemBinding.inflate(inflater, parent, false);
         ConversationsAdapter.ViewHolder viewHolder = new ConversationsAdapter.ViewHolder(binding.getRoot());
         return viewHolder;
     }

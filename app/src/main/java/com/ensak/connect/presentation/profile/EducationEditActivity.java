@@ -10,7 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import com.ensak.connect.databinding.ActivityModifyProfileEducationBinding;
+import com.ensak.connect.databinding.ProfileEducationFormActivityBinding;
 
 import java.util.Calendar;
 import java.util.Locale;
@@ -18,7 +18,7 @@ import java.util.Locale;
 public class EducationEditActivity extends AppCompatActivity {
 
 
-    private ActivityModifyProfileEducationBinding binding;
+    private ProfileEducationFormActivityBinding binding;
     private EducationEditViewModel educationEditViewModel;
     private Boolean isUpdate = false;
     private String id = "";
@@ -30,7 +30,7 @@ public class EducationEditActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityModifyProfileEducationBinding.inflate(getLayoutInflater());
+        binding = ProfileEducationFormActivityBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.toolbar);

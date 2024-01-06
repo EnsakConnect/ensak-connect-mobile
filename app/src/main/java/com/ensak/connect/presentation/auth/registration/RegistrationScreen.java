@@ -10,18 +10,18 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
-import com.ensak.connect.databinding.ActivityRegistrationScreenBinding;
+import com.ensak.connect.databinding.AuthRegistrationActivityBinding;
 import com.ensak.connect.presentation.home.HomeActivity;
 
 
 public class RegistrationScreen extends AppCompatActivity {
 
-    private ActivityRegistrationScreenBinding binding;
+    private AuthRegistrationActivityBinding binding;
     private RegistrationViewModel registrationViewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityRegistrationScreenBinding.inflate(getLayoutInflater());
+        binding = AuthRegistrationActivityBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         setupAccountTypeSelect();
 

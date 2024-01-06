@@ -107,7 +107,7 @@
                     android:layout_marginRight="10dp"
                     android:layout_marginBottom="10dp"
                     android:layout_weight="0"
-                    android:src="@drawable/outline_info_24" />
+                    android:src="@drawable/ic_outline_info_24" />
             </LinearLayout>
 
 
@@ -216,7 +216,7 @@
                     android:layout_width="26dp"
                     android:layout_height="26dp"
                     android:layout_marginRight="8dp"
-                    android:background="@drawable/outline_thumb_up_24" />
+                    android:background="@drawable/ic_outline_thumb_up_24" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -241,7 +241,7 @@
                     android:layout_width="26dp"
                     android:layout_height="26dp"
                     android:layout_marginRight="8dp"
-                    android:background="@drawable/outline_comment_24" />
+                    android:background="@drawable/ic_outline_comment_24" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -267,7 +267,7 @@
                     android:layout_width="26dp"
                     android:layout_height="26dp"
                     android:layout_marginRight="8dp"
-                    android:background="@drawable/outline_share_24" />
+                    android:background="@drawable/ic_outline_share_24" />
 
                 <TextView
                     android:layout_width="wrap_content"

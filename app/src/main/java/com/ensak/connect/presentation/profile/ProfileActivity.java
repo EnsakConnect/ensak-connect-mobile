@@ -18,11 +18,11 @@ import com.bumptech.glide.Glide;
 import com.ensak.connect.adapters.Profile.EducationAdapter;
 import com.ensak.connect.adapters.Profile.ExperienceAdapter;
 import com.ensak.connect.adapters.Profile.SkillsAdapter;
-import com.ensak.connect.databinding.ActivityProfileBinding;
+import com.ensak.connect.databinding.ProfileActivityBinding;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    private ActivityProfileBinding binding;
+    private ProfileActivityBinding binding;
     private ExperienceAdapter experienceAdapter;
     private EducationAdapter educationAdapter;
     private SkillsAdapter skillsAdapter;
@@ -33,7 +33,7 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityProfileBinding.inflate(getLayoutInflater());
+        binding = ProfileActivityBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.toolbar);

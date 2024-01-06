@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.ensak.connect.adapters.notifications.NotificationAdapter;
-import com.ensak.connect.databinding.ActivityNotificationBinding;
+import com.ensak.connect.databinding.NotificationActivityBinding;
 import com.ensak.connect.repository.notification.model.NotificationResponse;
 import com.ensak.connect.service.retrofit.ApiRequest;
 import com.ensak.connect.service.RetrofitService;
@@ -24,12 +24,12 @@ import retrofit2.Response;
 public class NotificationActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
-    private ActivityNotificationBinding binding;
+    private NotificationActivityBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityNotificationBinding.inflate(getLayoutInflater());
+        binding = NotificationActivityBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         recyclerView = binding.notificationsList;

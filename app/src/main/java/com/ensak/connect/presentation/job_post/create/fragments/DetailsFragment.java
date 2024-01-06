@@ -10,17 +10,17 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
 import com.ensak.connect.R;
-import com.ensak.connect.databinding.FragmentDetailsBinding;
+import com.ensak.connect.databinding.JobPostDetailsFragmentBinding;
 
 public class DetailsFragment extends Fragment {
 
-    private FragmentDetailsBinding binding;
+    private JobPostDetailsFragmentBinding binding;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentDetailsBinding.inflate(inflater, container, false);
+        binding = JobPostDetailsFragmentBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
         setupCategorySelect();
 

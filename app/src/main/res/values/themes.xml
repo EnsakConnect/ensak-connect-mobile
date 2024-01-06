@@ -38,7 +38,7 @@
     <style name="CustomButton" parent="Widget.AppCompat.Button">
         <item name="android:textSize">10sp</item>
         <item name="android:textColor">@color/primary</item>
-        <item name="android:background">@drawable/lighpurple_button</item>
+        <item name="android:background">@drawable/app_button_lighpurple</item>
         <item name="android:minHeight">0dp</item>
         <item name="android:minWidth">0dp</item>
         <item name="android:padding">10sp</item>
@@ -54,7 +54,7 @@
         <item name="android:layout_width">120dp</item>
         <item name="android:layout_height">48dp</item>
         <item name="android:text">@string/se_connecter</item>
-        <item name="android:background">@drawable/button_style</item>
+        <item name="android:background">@drawable/app_button_background</item>
         <item name="android:layout_marginBottom">16dp</item>
     </style>
 
@@ -75,12 +75,12 @@
     </style>
 
     <style name="ButtonPrimary" parent="ButtonBase">
-        <item name="android:background">@drawable/button_style</item>
+        <item name="android:background">@drawable/app_button_background</item>
         <item name="android:textColor">@color/white</item>
     </style>
 
     <style name="ButtonPrimarySecondary" parent="ButtonBase">
-        <item name="android:background">@drawable/button_primary_secondary_background</item>
+        <item name="android:background">@drawable/app_button_background_secondary</item>
         <item name="android:textColor">@color/primary</item>
     </style>
 
@@ -93,19 +93,19 @@
     </style>
 
     <style name="ButtonDanger" parent="ButtonBase">
-        <item name="android:background">@drawable/button_danger_background</item>
+        <item name="android:background">@drawable/app_button_background_danger</item>
         <item name="android:textColor">@color/white</item>
     </style>
 
     <style name="ButtonDangerSecondary" parent="ButtonBase">
-        <item name="android:background">@drawable/button_danger_secondary_background</item>
+        <item name="android:background">@drawable/app_button_background_danger_secondary</item>
         <item name="android:textColor">@color/error</item>
     </style>
 
     <style name="CustomizableButton" parent="Widget.AppCompat.Button">
         <item name="android:layout_width">65dp</item>
         <item name="android:layout_height">25dp</item>
-        <item name="android:background">@drawable/customizable_button</item>
+        <item name="android:background">@drawable/app_button_customizable</item>
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">10sp</item>
         <item name="android:gravity">center</item>
@@ -114,7 +114,7 @@
 
     <!-- EditText -->
     <style name="EditTextBase" parent="Widget.AppCompat.EditText">
-        <item name="android:background">@drawable/bg_edittext</item>
+        <item name="android:background">@drawable/app_edittext_background</item>
         <item name="android:padding">10dp</item>
         <item name="android:paddingStart">12dp</item>
         <item name="android:paddingEnd">12dp</item>

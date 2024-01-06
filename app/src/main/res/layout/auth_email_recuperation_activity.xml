@@ -9,7 +9,7 @@
         android:id="@+id/imageViewLock"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/lock_icon"
+        android:src="@drawable/ic_lock"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="64dp"
         android:layout_marginBottom="32dp" />
@@ -33,7 +33,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="24dp"
-        android:background="@drawable/edittext_bg"
+        android:background="@drawable/app_edittext_bg"
         android:hint="Enter your email"
         android:inputType="textEmailAddress" />
 
@@ -43,7 +43,7 @@
         android:layout_height="wrap_content"
         android:text="Reset Password"
         android:textSize="18sp"
-        android:background="@drawable/edittext_bg"
+        android:background="@drawable/app_edittext_bg"
         android:textColor="#FFFFFF"
         android:layout_below="@id/emailRecuperation"
         android:layout_marginStart="24dp"

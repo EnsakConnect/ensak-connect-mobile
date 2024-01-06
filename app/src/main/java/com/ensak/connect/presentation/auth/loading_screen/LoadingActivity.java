@@ -7,18 +7,18 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
-import com.ensak.connect.databinding.ActivityLoadingBinding;
+import com.ensak.connect.databinding.AuthLoadingActivityBinding;
 import com.ensak.connect.presentation.home.HomeActivity;
 import com.ensak.connect.presentation.auth.login.LoginActivity;
 
 public class LoadingActivity extends AppCompatActivity {
     private final String TAG = getClass().getSimpleName();
-    private ActivityLoadingBinding binding;
+    private AuthLoadingActivityBinding binding;
     private LoadingViewModel loadingViewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityLoadingBinding.inflate(getLayoutInflater());
+        binding = AuthLoadingActivityBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         initViewModel();

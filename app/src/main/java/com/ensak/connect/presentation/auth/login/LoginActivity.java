@@ -19,14 +19,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import com.ensak.connect.databinding.ActivityLoginBinding;
+import com.ensak.connect.databinding.AuthLoginActivityBinding;
 import com.ensak.connect.presentation.auth.registration.RegistrationScreen;
 import com.ensak.connect.presentation.auth.password_reset.ResetPasswordScreen;
 import com.ensak.connect.presentation.home.HomeActivity;
 
 public class LoginActivity extends AppCompatActivity {
     private final String TAG = getClass().getSimpleName();
-    private ActivityLoginBinding binding;
+    private AuthLoginActivityBinding binding;
     private LoginViewModel loginViewModel;
     private ActivityResultLauncher<Intent> registerActivityResultLauncher;
 
@@ -34,7 +34,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityLoginBinding.inflate(getLayoutInflater());
+        binding = AuthLoginActivityBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         setupCreateAccountTextView();
 

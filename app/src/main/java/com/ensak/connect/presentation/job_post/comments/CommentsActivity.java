@@ -17,14 +17,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ensak.connect.adapters.comments.CommentsAdapter;
-import com.ensak.connect.databinding.ActivityCommentsBinding;
+import com.ensak.connect.databinding.JobPostCommentsActivityBinding;
 import com.ensak.connect.repository.job_post.model.JobPostCommentResponse;
 
 import java.util.ArrayList;
 
 public class CommentsActivity extends AppCompatActivity {
 
-    private ActivityCommentsBinding binding;
+    private JobPostCommentsActivityBinding binding;
     private CommentViewModel commentViewModel;
 
     private ArrayList<JobPostCommentResponse> comments;
@@ -37,7 +37,7 @@ public class CommentsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityCommentsBinding.inflate(getLayoutInflater());
+        binding = JobPostCommentsActivityBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         setSupportActionBar(binding.toolbar);
 

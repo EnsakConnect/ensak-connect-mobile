@@ -10,14 +10,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import com.ensak.connect.databinding.ActivityModifyProfileExperienceBinding;
+import com.ensak.connect.databinding.ProfileExperienceFormActivityBinding;
 
 import java.util.Calendar;
 import java.util.Locale;
 
 public class ExperienceEditActivity extends AppCompatActivity {
 
-    private ActivityModifyProfileExperienceBinding binding;
+    private ProfileExperienceFormActivityBinding binding;
     private ExperienceEditViewModel experienceEditViewModel;
     private Boolean isUpdate = false;
     private String id = "";
@@ -31,7 +31,7 @@ public class ExperienceEditActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityModifyProfileExperienceBinding.inflate(getLayoutInflater());
+        binding = ProfileExperienceFormActivityBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.toolbar);

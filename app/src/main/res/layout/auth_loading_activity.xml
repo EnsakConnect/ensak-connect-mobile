@@ -18,7 +18,7 @@
         <ImageView
             android:layout_width="200dp"
             android:layout_height="77dp"
-            android:src="@drawable/logo_ensak_connect"
+            android:src="@drawable/app_logo"
             android:layout_marginBottom="24dp"/>
         <ProgressBar
             android:id="@+id/progressLoading"

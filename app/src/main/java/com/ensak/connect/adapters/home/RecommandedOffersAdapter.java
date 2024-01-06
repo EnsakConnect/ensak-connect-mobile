@@ -9,14 +9,14 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.ensak.connect.databinding.RecommendedOfferItemBinding;
+import com.ensak.connect.databinding.MainRecommendedOfferItemBinding;
 import com.ensak.connect.repository.feed.model.FeedContentResponse;
 import com.ensak.connect.repository.feed.model.FeedResponse;
 
 public class RecommandedOffersAdapter extends
         RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    RecommendedOfferItemBinding binding;
+    MainRecommendedOfferItemBinding binding;
     private FeedResponse feed;
 
     public RecommandedOffersAdapter(FeedResponse feed) {
@@ -28,7 +28,7 @@ public class RecommandedOffersAdapter extends
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
 
-        binding = RecommendedOfferItemBinding.inflate(inflater, parent, false);
+        binding = MainRecommendedOfferItemBinding.inflate(inflater, parent, false);
         ViewHolder viewHolder = new ViewHolder(binding.getRoot());
         return viewHolder;
     }

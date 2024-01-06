@@ -23,7 +23,7 @@ public class ResetPasswordScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_reset_password_screen);
+        setContentView(R.layout.auth_change_password_activity);
 
         changepasswordmethod();
     }

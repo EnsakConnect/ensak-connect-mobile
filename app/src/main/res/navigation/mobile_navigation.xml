@@ -9,11 +9,11 @@
         android:id="@+id/nav_home"
         android:name="com.ensak.connect.presentation.home.HomeFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/main_home_fragement" />
 
     <fragment
         android:id="@+id/nav_post_category"
         android:name="com.ensak.connect.presentation.home.PostCategoryFragment"
         android:label="Category"
-        tools:layout="@layout/fragment_post_category" />
+        tools:layout="@layout/main_post_category_fragment" />
 </navigation>

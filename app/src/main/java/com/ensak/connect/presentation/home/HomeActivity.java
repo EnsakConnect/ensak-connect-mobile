@@ -8,8 +8,8 @@ import android.view.Menu;
 import android.widget.Toast;
 
 import com.ensak.connect.R;
+import com.ensak.connect.databinding.MainActivityBinding;
 import com.ensak.connect.service.SessionManagerService;
-import com.ensak.connect.databinding.ActivityMainBinding;
 import com.ensak.connect.presentation.auth.loading_screen.LoadingActivity;
 import com.ensak.connect.presentation.profile.ProfileActivity;
 import com.ensak.connect.presentation.settigns.SettingsActivity;
@@ -32,7 +32,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class HomeActivity extends AppCompatActivity {
     private final String TAG = getClass().getSimpleName();
     private AppBarConfiguration mAppBarConfiguration;
-    private ActivityMainBinding binding;
+    private MainActivityBinding binding;
     private NavigationView navigationView;
     private DrawerLayout drawer;
     SessionManagerService sessionManager;
@@ -50,7 +50,7 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        binding = MainActivityBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         btnAdd = findViewById(R.id.btnAdd);
