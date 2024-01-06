@@ -14,7 +14,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.ensak.connect.R;
 import com.ensak.connect.databinding.ConversationItemBinding;
 import com.ensak.connect.repository.chat.model.ConversationResponse;
-import com.ensak.connect.view.chat.ChatActivity;
+import com.ensak.connect.presentation.chat.chat.ChatActivity;
 
 import java.util.ArrayList;
 

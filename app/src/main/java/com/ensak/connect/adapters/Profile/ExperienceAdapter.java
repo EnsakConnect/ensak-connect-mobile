@@ -13,14 +13,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.ensak.connect.R;
 import com.ensak.connect.models.Experience;
 import com.ensak.connect.utils.Utils;
-import com.ensak.connect.view.Profile.ModifyProfileExperience;
-import com.ensak.connect.view.Profile.ProfileActivity;
+import com.ensak.connect.presentation.profile.ExperienceEditActivity;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 public class ExperienceAdapter extends RecyclerView.Adapter<ExperienceAdapter.ExperienceViewHolder> {
 
@@ -78,7 +73,7 @@ public class ExperienceAdapter extends RecyclerView.Adapter<ExperienceAdapter.Ex
             descriptionTextView.setText(experience.getDescription());
             if (iconEdit != null) {
                 iconEdit.setOnClickListener(v -> {
-                    Intent intent = new Intent(context, ModifyProfileExperience.class);
+                    Intent intent = new Intent(context, ExperienceEditActivity.class);
                     intent.putExtra("id", String.valueOf(experience.getId()));
                     intent.putExtra("title", titleTextView.getText().toString());
                     intent.putExtra("company", companyTextView.getText().toString());

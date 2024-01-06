@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.create_jobpost_screen.Fragments.DescriptionFragment">
+    tools:context=".presentation.job_post.create.fragments.DescriptionFragment">
 
 
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -19,7 +19,7 @@
             android:paddingHorizontal="32dp"
             android:paddingVertical="64dp"
             android:background="@color/background"
-            tools:context=".view.create_jobpost_screen.CreateJobPostActivity">
+            tools:context=".presentation.job_post.create.JobPostCreateActivity">
 
             <TextView
                 android:layout_width="wrap_content"

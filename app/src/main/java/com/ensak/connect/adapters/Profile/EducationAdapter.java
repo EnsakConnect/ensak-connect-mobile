@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ensak.connect.models.Education;
 import com.ensak.connect.utils.Utils;
-import com.ensak.connect.view.Profile.ModifyProfileEducation;
+import com.ensak.connect.presentation.profile.EducationEditActivity;
 
 import java.util.List;
 
@@ -69,7 +69,7 @@ public class EducationAdapter extends RecyclerView.Adapter<EducationAdapter.Educ
             descriptionTextView.setText(education.getDescription());
             if (iconEdit != null) {
                 iconEdit.setOnClickListener(v -> {
-                    Intent intent = new Intent(context, ModifyProfileEducation.class);
+                    Intent intent = new Intent(context, EducationEditActivity.class);
                     intent.putExtra("education", String.valueOf(education.getId()));
                     intent.putExtra("field", fieldTextView.getText().toString());
                     intent.putExtra("school", schoolTextView.getText().toString());
