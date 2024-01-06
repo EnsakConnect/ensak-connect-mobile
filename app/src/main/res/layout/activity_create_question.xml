@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".view.create_question_screen.CreateQuestionActivity"
+    tools:context=".presentation.question_post.create.CreateQuestionActivity"
     android:background="@color/background_light">
 
     <LinearLayout

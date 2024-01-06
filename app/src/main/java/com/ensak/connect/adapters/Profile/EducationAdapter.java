@@ -12,9 +12,9 @@ import com.ensak.connect.R;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.ensak.connect.models.Education;
-import com.ensak.connect.utils.Utils;
-import com.ensak.connect.view.Profile.ModifyProfileEducation;
+import com.ensak.connect.model.Education;
+import com.ensak.connect.utils.DateUtil;
+import com.ensak.connect.presentation.profile.EducationEditActivity;
 
 import java.util.List;
 
@@ -65,11 +65,11 @@ public class EducationAdapter extends RecyclerView.Adapter<EducationAdapter.Educ
             fieldTextView.setText(education.getField());
             schoolTextView.setText(education.getSchool());
 //            locationTextView.setText(education.getSchool());
-            periodTextView.setText(Utils.formatPeriod(education.getStartDate(), education.getEndDate()));
+            periodTextView.setText(DateUtil.formatPeriod(education.getStartDate(), education.getEndDate()));
             descriptionTextView.setText(education.getDescription());
             if (iconEdit != null) {
                 iconEdit.setOnClickListener(v -> {
-                    Intent intent = new Intent(context, ModifyProfileEducation.class);
+                    Intent intent = new Intent(context, EducationEditActivity.class);
                     intent.putExtra("education", String.valueOf(education.getId()));
                     intent.putExtra("field", fieldTextView.getText().toString());
                     intent.putExtra("school", schoolTextView.getText().toString());

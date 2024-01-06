@@ -4,9 +4,9 @@ import android.content.Context;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.ActivityResultRegistry;
 import androidx.activity.result.contract.ActivityResultContracts;
-import com.ensak.connect.repositories.RepositoryCallBack;
-import com.ensak.connect.repositories.resource.ResourceRepository;
-import com.ensak.connect.repositories.resource.remote.dto.ResourceResponse;
+import com.ensak.connect.repository.shared.RepositoryCallBack;
+import com.ensak.connect.repository.resource.ResourceRepository;
+import com.ensak.connect.repository.resource.model.ResourceResponse;
 
 public class FileUploadService {
     ActivityResultLauncher<String> fileSelectedActivityLauncher;

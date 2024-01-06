@@ -7,19 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
-import com.ensak.connect.R;
 import com.ensak.connect.databinding.RecommendedOfferItemBinding;
-import com.ensak.connect.models.HomeModel;
-import com.ensak.connect.reponse.feed.FeedContentResponse;
-import com.ensak.connect.reponse.feed.FeedResponse;
-import com.ensak.connect.utils.Utils;
-
-import java.util.ArrayList;
+import com.ensak.connect.repository.feed.model.FeedContentResponse;
+import com.ensak.connect.repository.feed.model.FeedResponse;
 
 public class RecommandedOffersAdapter extends
         RecyclerView.Adapter<RecyclerView.ViewHolder> {

@@ -4,21 +4,15 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
-import com.ensak.connect.R;
 import com.ensak.connect.databinding.ChatReceiverMessageBinding;
 import com.ensak.connect.databinding.ChatSenderMessageBinding;
-import com.ensak.connect.reponse.ChatMessageResponse;
+import com.ensak.connect.repository.chat.model.ChatMessageResponse;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 
 public class ChatAdapter extends RecyclerView.Adapter {
 

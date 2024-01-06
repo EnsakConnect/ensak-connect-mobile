@@ -14,12 +14,9 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.ensak.connect.R;
 import com.ensak.connect.databinding.OfferItemHomeBinding;
-import com.ensak.connect.reponse.feed.FeedContentResponse;
-import com.ensak.connect.reponse.feed.FeedResponse;
-import com.ensak.connect.utils.Utils;
-import com.ensak.connect.view.comments.CommentsActivity;
-
-import java.util.ArrayList;
+import com.ensak.connect.repository.feed.model.FeedContentResponse;
+import com.ensak.connect.repository.feed.model.FeedResponse;
+import com.ensak.connect.presentation.job_post.comments.CommentsActivity;
 
 public class HomeAdapter extends
         RecyclerView.Adapter<RecyclerView.ViewHolder> {
