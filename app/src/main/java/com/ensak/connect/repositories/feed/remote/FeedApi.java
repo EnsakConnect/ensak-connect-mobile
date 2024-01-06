@@ -1,4 +1,4 @@
-package com.ensak.connect.repositories.feed;
+package com.ensak.connect.repositories.feed.remote;
 
 import com.ensak.connect.reponse.feed.FeedResponse;
 
