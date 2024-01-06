@@ -22,7 +22,7 @@ public class CodeValidationScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_code_validation_screen);
+        setContentView(R.layout.auth_code_validation_activity);
         sendcodeverification();
     }
 

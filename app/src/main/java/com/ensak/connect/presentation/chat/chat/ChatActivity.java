@@ -15,14 +15,14 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.ensak.connect.R;
 import com.ensak.connect.adapters.chat.ChatAdapter;
-import com.ensak.connect.databinding.ActivityChatBinding;
+import com.ensak.connect.databinding.ChatActivityBinding;
 import com.ensak.connect.repository.chat.model.ChatMessageResponse;
 
 import java.util.ArrayList;
 
 public class ChatActivity extends AppCompatActivity {
 
-    private ActivityChatBinding binding;
+    private ChatActivityBinding binding;
     private ChatViewModel chatViewModel;
 
     private ArrayList<ChatMessageResponse> messages;
@@ -33,7 +33,7 @@ public class ChatActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityChatBinding.inflate(getLayoutInflater());
+        binding = ChatActivityBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         Bundle extras = getIntent().getExtras();

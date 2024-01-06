@@ -31,7 +31,7 @@ public class ExperienceAdapter extends RecyclerView.Adapter<ExperienceAdapter.Ex
     @NonNull
     @Override
     public ExperienceViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.expereince_fragment, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.profile_expereince_fragment, parent, false);
         return new ExperienceViewHolder(itemView,context);
     }
 

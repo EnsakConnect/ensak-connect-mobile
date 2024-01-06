@@ -30,7 +30,7 @@ public class EducationAdapter extends RecyclerView.Adapter<EducationAdapter.Educ
     @NonNull
     @Override
     public EducationViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.expereince_fragment, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.profile_expereince_fragment, parent, false);
         return new EducationViewHolder(itemView,context);
     }
 

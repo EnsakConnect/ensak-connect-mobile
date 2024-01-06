@@ -6,17 +6,17 @@ import androidx.lifecycle.ViewModelProvider;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import com.ensak.connect.databinding.ActivityCreateQuestionBinding;
+import com.ensak.connect.databinding.QuestionPostCreateActivityBinding;
 
 public class CreateQuestionActivity extends AppCompatActivity {
     private final String TAG = getClass().getSimpleName();
-    private ActivityCreateQuestionBinding binding;
+    private QuestionPostCreateActivityBinding binding;
     private CreateQuestionViewModel createQuestionViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityCreateQuestionBinding.inflate(getLayoutInflater());
+        binding = QuestionPostCreateActivityBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         initViewModel();

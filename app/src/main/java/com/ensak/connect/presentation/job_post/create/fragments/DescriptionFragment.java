@@ -10,21 +10,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.ensak.connect.databinding.FragmentDescriptionBinding;
+import com.ensak.connect.databinding.JobPostDescriptionFragmentBinding;
 import com.ensak.connect.presentation.job_post.create.JobPostCreateViewModel;
 
 
 public class DescriptionFragment extends Fragment {
     private final String TAG = getClass().getSimpleName();
     public String jobTitle,companyName,location,companyType,category;
-    private FragmentDescriptionBinding binding;
+    private JobPostDescriptionFragmentBinding binding;
     private JobPostCreateViewModel jobPostCreateViewModel;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentDescriptionBinding.inflate(inflater, container, false);
+        binding = JobPostDescriptionFragmentBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
         getDetailsFragmentInfos();
         initializeViewModel();
@@ -42,18 +42,18 @@ public class DescriptionFragment extends Fragment {
         jobPostCreateViewModel = new ViewModelProvider(this, new ViewModelProvider.AndroidViewModelFactory(requireActivity().getApplication()))
                 .get(JobPostCreateViewModel.class);
 
-        jobPostCreateViewModel.getIsSuccess().observe(this, success -> {
+        jobPostCreateViewModel.getIsSuccess().observe(getViewLifecycleOwner(), success -> {
             if(success) {
                 getActivity().getSupportFragmentManager().popBackStack();
             }
         });
 
-        jobPostCreateViewModel.getSuccessMessage().observe(this, msg -> {
+        jobPostCreateViewModel.getSuccessMessage().observe(getViewLifecycleOwner(), msg -> {
             if(msg.length() == 0) return;
             Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
         });
 
-        jobPostCreateViewModel.getErrorMessage().observe(this, msg -> {
+        jobPostCreateViewModel.getErrorMessage().observe(getViewLifecycleOwner(), msg -> {
             if(msg.length() == 0) return;
             Toast.makeText(getContext(),"Error"+msg, Toast.LENGTH_SHORT).show();
 

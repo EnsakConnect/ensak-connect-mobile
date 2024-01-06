@@ -41,7 +41,7 @@
             android:layout_weight="1"
             android:scrollbars="vertical"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/conversation_item" />
+            tools:listitem="@layout/chat_conversation_item" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_new_conversation"

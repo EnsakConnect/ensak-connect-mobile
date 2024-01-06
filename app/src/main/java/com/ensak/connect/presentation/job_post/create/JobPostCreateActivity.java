@@ -10,19 +10,19 @@ import android.view.View;
 
 import com.ensak.connect.R;
 import com.ensak.connect.adapters.fragmentAdapter.FragmentAdapter;
-import com.ensak.connect.databinding.ActivityCreateJobPostBinding;
+import com.ensak.connect.databinding.JobPostCreateActivityBinding;
 import com.ensak.connect.presentation.job_post.create.fragments.DetailsFragment;
 
 public class JobPostCreateActivity extends AppCompatActivity {
 
-    private ActivityCreateJobPostBinding binding;
+    private JobPostCreateActivityBinding binding;
     private ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_create_job_post);
-        binding = ActivityCreateJobPostBinding.inflate(getLayoutInflater());
+        binding = JobPostCreateActivityBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         setSupportActionBar(binding.toolbarA);
         ActionBar actionBar=getSupportActionBar();

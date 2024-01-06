@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.ensak.connect.R;
-import com.ensak.connect.databinding.CommentItemBinding;
+import com.ensak.connect.databinding.JobPostCommentItemBinding;
 import com.ensak.connect.repository.job_post.model.JobPostCommentResponse;
 import com.ensak.connect.utils.DateUtil;
 
@@ -21,7 +21,7 @@ import java.util.ArrayList;
 public class CommentsAdapter extends
         RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    CommentItemBinding binding;
+    JobPostCommentItemBinding binding;
     private ArrayList<JobPostCommentResponse> comments;
 
     public CommentsAdapter(ArrayList<JobPostCommentResponse> comments) {
@@ -33,7 +33,7 @@ public class CommentsAdapter extends
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
 
-        binding = binding.inflate(inflater, parent, false);
+        binding = JobPostCommentItemBinding.inflate(inflater, parent, false);
         ViewHolder viewHolder = new ViewHolder(binding.getRoot());
         return viewHolder;
     }

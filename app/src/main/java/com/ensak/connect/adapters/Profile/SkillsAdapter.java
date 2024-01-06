@@ -24,7 +24,7 @@ public class SkillsAdapter extends RecyclerView.Adapter<SkillsAdapter.SkillViewH
     @NonNull
     @Override
     public SkillViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.skills_fragment, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.profile_skills_fragment, parent, false);
         return new SkillViewHolder(itemView);
     }
 

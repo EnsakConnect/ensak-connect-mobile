@@ -16,7 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.ensak.connect.adapters.home.HomeAdapter;
-import com.ensak.connect.databinding.FragmentPostCategoryBinding;
+import com.ensak.connect.databinding.MainPostCategoryFragmentBinding;
 import com.ensak.connect.repository.feed.model.FeedResponse;
 
 import java.util.ArrayList;
@@ -48,7 +48,7 @@ public class PostCategoryFragment extends Fragment {
         }
     }
 
-    private FragmentPostCategoryBinding binding;
+    private MainPostCategoryFragmentBinding binding;
     private RecyclerView rvAllOffers;
     private HomeViewModel homeViewModel;
     private FeedResponse feed;
@@ -57,7 +57,7 @@ public class PostCategoryFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentPostCategoryBinding.inflate(inflater, container, false);
+        binding = MainPostCategoryFragmentBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         requireActivity().setTitle(filter);

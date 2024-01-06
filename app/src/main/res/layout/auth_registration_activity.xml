@@ -97,7 +97,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 style="@style/EditTextBase"
-                android:popupBackground="@drawable/bg_edittext"
+                android:popupBackground="@drawable/app_edittext_background"
                 android:padding="8dp" />
 
         </LinearLayout>

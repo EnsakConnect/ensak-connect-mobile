@@ -13,7 +13,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.ensak.connect.R;
-import com.ensak.connect.databinding.OfferItemHomeBinding;
+import com.ensak.connect.databinding.MainHomeFragementBinding;
+import com.ensak.connect.databinding.MainPostItemBinding;
+import com.ensak.connect.databinding.MainRecommendedOfferItemBinding;
 import com.ensak.connect.repository.feed.model.FeedContentResponse;
 import com.ensak.connect.repository.feed.model.FeedResponse;
 import com.ensak.connect.presentation.job_post.comments.CommentsActivity;
@@ -22,7 +24,7 @@ public class HomeAdapter extends
         RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
 
-    OfferItemHomeBinding offerItemHomeBinding;
+    MainPostItemBinding offerItemHomeBinding;
 
     private FeedResponse feed;
 
@@ -35,7 +37,7 @@ public class HomeAdapter extends
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
 
-        offerItemHomeBinding = OfferItemHomeBinding.inflate(inflater, parent, false);
+        offerItemHomeBinding = MainPostItemBinding.inflate(inflater, parent, false);
         ViewHolder viewHolder = new ViewHolder(offerItemHomeBinding.getRoot());
         return viewHolder;
     }

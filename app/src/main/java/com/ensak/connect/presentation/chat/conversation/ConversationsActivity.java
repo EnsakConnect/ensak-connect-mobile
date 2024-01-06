@@ -14,14 +14,14 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.ensak.connect.adapters.conversations.ConversationsAdapter;
-import com.ensak.connect.databinding.ActivityConversationsBinding;
+import com.ensak.connect.databinding.ChatConversationsActivityBinding;
 import com.ensak.connect.repository.chat.model.ConversationResponse;
 
 import java.util.ArrayList;
 
 public class ConversationsActivity extends AppCompatActivity {
 
-    private ActivityConversationsBinding binding;
+    private ChatConversationsActivityBinding binding;
     private ConversationsViewModel conversationViewModel;
 
     private ArrayList<ConversationResponse> conversations;
@@ -31,7 +31,7 @@ public class ConversationsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityConversationsBinding.inflate(getLayoutInflater());
+        binding = ChatConversationsActivityBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         setSupportActionBar(binding.toolbar);
 
