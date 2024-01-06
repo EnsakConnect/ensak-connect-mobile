@@ -12,7 +12,7 @@ import com.ensak.connect.repositories.RepositoryCallBack;
 import com.ensak.connect.repositories.auth.AuthRepository;
 import com.ensak.connect.repositories.auth.model.UserResponse;
 import com.ensak.connect.repositories.health.HealthRepository;
-import com.ensak.connect.repositories.health.remote.dto.HealthResponse;
+import com.ensak.connect.repositories.health.model.HealthResponse;
 
 import org.jetbrains.annotations.NotNull;
 

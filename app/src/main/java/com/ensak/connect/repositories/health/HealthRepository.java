@@ -5,7 +5,7 @@ import android.util.Log;
 
 import com.ensak.connect.repositories.RepositoryCallBack;
 import com.ensak.connect.repositories.health.remote.HealthApi;
-import com.ensak.connect.repositories.health.remote.dto.HealthResponse;
+import com.ensak.connect.repositories.health.model.HealthResponse;
 import com.ensak.connect.retrofit.RetrofitRequest;
 
 import retrofit2.Call;
