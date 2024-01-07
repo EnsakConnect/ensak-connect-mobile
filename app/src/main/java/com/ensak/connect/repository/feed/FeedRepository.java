@@ -1,6 +1,5 @@
 package com.ensak.connect.repository.feed;
 
-import android.content.Context;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -9,7 +8,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.ensak.connect.repository.feed.model.FeedResponse;
 import com.ensak.connect.repository.feed.remote.FeedApi;
-import com.ensak.connect.service.RetrofitService;
+import com.ensak.connect.repository.shared.RepositoryCallBack;
 
 import javax.inject.Inject;
 
@@ -20,36 +19,29 @@ import retrofit2.Retrofit;
 
 public class FeedRepository {
     private static final String TAG = FeedRepository.class.getSimpleName();
-    private final FeedApi apiRequest;
+    private final FeedApi api;
 
     @Inject
     public FeedRepository(Retrofit retrofit){
-        apiRequest = retrofit.create(FeedApi.class);
+        api = retrofit.create(FeedApi.class);
     }
 
-    public LiveData<FeedResponse> getFeed(int page, String search, String filter) {
-        final MutableLiveData<FeedResponse> data = new MutableLiveData<>();
-        apiRequest.getFeed(page, 10, search, filter)
-                .enqueue(new Callback<FeedResponse>() {
-                    @Override
-                    public void onResponse(@NonNull Call<FeedResponse> call, @NonNull Response<FeedResponse> response) {
-                        Log.d(TAG, "onResponse response:: " + response);
+    public void getFeed(Integer page, String search, String filter, RepositoryCallBack<FeedResponse> callback) {
+        api.getFeed(page, 10, search, filter).enqueue(new Callback<FeedResponse>() {
+            @Override
+            public void onResponse(Call<FeedResponse> call, Response<FeedResponse> response) {
+                if(! response.isSuccessful() || response.body() == null) {
+                    callback.onFailure(new Exception("Request failed"));
+                    return;
+                }
+                Log.d(TAG, "Response: " + response.body());
+                callback.onSuccess(response.body());
+            }
 
-                        if (response.body() != null) {
-                            try {
-                                data.setValue(response.body());
-                                Log.d(TAG, "API get feed: " + response.body().getContent().get(0).getDescription());
-                            } catch (Throwable ex) {
-                                Log.e(TAG, "Exception occured: " + ex.getMessage());
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(@NonNull Call<FeedResponse> call, @NonNull Throwable t) {
-                        data.setValue(null);
-                    }
-                });
-        return data;
+            @Override
+            public void onFailure(Call<FeedResponse> call, Throwable t) {
+                callback.onFailure(t);
+            }
+        });
     }
 }
