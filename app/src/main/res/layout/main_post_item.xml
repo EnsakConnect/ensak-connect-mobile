@@ -83,10 +83,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Blog"
-                    android:textColor="@color/white"
                     android:textSize="10sp"
-                    app:chipBackgroundColor="@color/black"
-                    app:ensureMinTouchTargetSize="false" />
+                    style="@style/PostChip" />
 
                 <Space
                     android:layout_width="10dp"
@@ -177,6 +175,7 @@
 
         <TextView
             android:id="@+id/tv_body"
+            style="@style/Paragraph"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
@@ -221,7 +220,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="J'aime" />
+                    android:text="@string/like" />
             </LinearLayout>
 
             <Space
@@ -246,7 +245,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Commentez" />
+                    android:text="@string/comments" />
             </LinearLayout>
 
             <Space
@@ -272,7 +271,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Partagez" />
+                    android:text="@string/share" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

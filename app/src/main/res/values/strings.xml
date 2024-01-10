@@ -17,7 +17,7 @@
     <string name="nom_utilisateur">Nom Utilisateur</string>
     <string name="user_details">Développeur Fullstack - Entreprise\nMorocco, Kenitra</string>
     <string name="modify_my_profile">Modifier mon profil</string>
-    <string name="share">Partager</string>
+    <string name="share">Share</string>
     <string name="voir_le_cv">Voir le CV</string>
     <string name="static_description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed odio tortor, tincidunt in magna at, ultrices semper est. Mauris sem nulla, placerat nec pellentesque vitae, malesuada eget dolor. Donec pellentesque nulla ut quam maximus porttitor. Vestibulum pellentesque convallis facilisis.</string>
     <string name="se_connecter">se connecter\n</string>
@@ -46,6 +46,8 @@
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="like">Like</string>
+    <string name="comments">Comments</string>
 
 
 </resources>
