@@ -2,6 +2,7 @@ package com.ensak.connect.presentation.chat.chat;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,14 +21,16 @@ import com.ensak.connect.repository.chat.model.ChatMessageResponse;
 
 import java.util.ArrayList;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class ChatActivity extends AppCompatActivity {
 
     private ChatActivityBinding binding;
     private ChatViewModel chatViewModel;
 
-    private ArrayList<ChatMessageResponse> messages;
+    private ArrayList<ChatMessageResponse> messages = new ArrayList<>();
     private ChatAdapter adapter;
-    private RecyclerView rvConversations;
     String conversationId, receiverName, receiverImage;
 
     @Override
@@ -45,22 +48,14 @@ public class ChatActivity extends AppCompatActivity {
         }
 
         initViews();
-        getChatMessages(conversationId);
+        initViewModel();
+        chatViewModel.fetchChatMessages(conversationId);
     }
 
     private void initViews() {
-        messages = new ArrayList<>();
-        messages.add(new ChatMessageResponse(1));
-        messages.add(new ChatMessageResponse(2));
-        messages.add(new ChatMessageResponse(1));
-        messages.add(new ChatMessageResponse(1));
-        messages.add(new ChatMessageResponse(1));
-        messages.add(new ChatMessageResponse(2));
-
         adapter = new ChatAdapter(this, messages);
-        rvConversations = binding.rvChatMessages;
-        rvConversations.setAdapter(adapter);
-        rvConversations.setLayoutManager(new LinearLayoutManager(this));
+        binding.rvChatMessages.setAdapter(adapter);
+        binding.rvChatMessages.setLayoutManager(new LinearLayoutManager(this));
 
         binding.tvReceiverName.setText(receiverName);
         Glide.with(this)
@@ -72,59 +67,40 @@ public class ChatActivity extends AppCompatActivity {
                 .into(binding.ivReceiverImage);
 
 
-        binding.btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+        binding.btnBack.setOnClickListener(view -> finish());
 
-        binding.cardSendMessage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String message = binding.etMessage.getText().toString();
-                if (!message.isEmpty()) {
-                    messages.add(new ChatMessageResponse(1));
-                    adapter.notifyDataSetChanged();
-                    rvConversations.smoothScrollToPosition(messages.size() - 1);
-                    binding.etMessage.setText("");
-
-                    sendChatMessage(conversationId, message);
-                }
-            }
+        binding.cardSendMessage.setOnClickListener(view -> {
+            sendChatMessage();
         });
     }
 
-    private void getChatMessages(String conversationId) {
-        chatViewModel = ViewModelProviders.of(this).get(ChatViewModel.class);
-        try {
-            chatViewModel.getChatMessages(conversationId).observe((LifecycleOwner) this, responses -> {
-                if (responses != null) {
+    private void initViewModel() {
+        chatViewModel = new ViewModelProvider(this).get(ChatViewModel.class);
 
-                    String message = responses.get(0).getMessage();
-                    Log.d("Main Log", message);
+        chatViewModel.getIsLoading().observe(this, isLoading -> {
+            // TODO: set is loading state
+        });
 
-                    messages.clear();
-                    messages.addAll(responses);
-                    adapter.notifyDataSetChanged();
-                }
-            });
-        } catch (Throwable ex) {
-            Toast.makeText(this, "Error getting chat messages.", Toast.LENGTH_LONG);
-        }
+        chatViewModel.getErrorMessage().observe(this, errorMessage -> {
+            if(errorMessage.isEmpty()) {return; }
+            Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
+        });
+
+        chatViewModel.getMessage().observe(this, responseMessage -> {
+            messages.clear();
+            messages.addAll(responseMessage);
+            adapter.notifyDataSetChanged();
+            binding.rvChatMessages.smoothScrollToPosition(messages.size() - 1);
+//            adapter.notifyDataSetChanged();
+        });
     }
 
-    private void sendChatMessage(String conversationId, String message) {
-        try {
-            chatViewModel.sendChatMessage(conversationId, message).observe((LifecycleOwner) this, responses -> {
-                if (responses != null) {
-
-                    String res = responses.getMessage();
-                    Log.d("Main Log", res);
-                }
-            });
-        } catch (Throwable ex) {
-            Toast.makeText(this, "Error sending msg", Toast.LENGTH_LONG);
+    private void sendChatMessage() {
+        String message = binding.etMessage.getText().toString();
+        // TODO: add validation
+        if (!message.isEmpty()) {
+            chatViewModel.sendMessage(conversationId, message);
         }
+
     }
 }

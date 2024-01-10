@@ -30,6 +30,14 @@ public class ChatMessageResponse {
         this.senderId = senderId;
     }
 
+    public ChatMessageResponse(int id, int senderId, int receiverId, String message, Date date) {
+        this.id = id;
+        this.senderId = senderId;
+        this.receiverId = receiverId;
+        this.message = message;
+        this.date = date;
+    }
+
     public int getSenderId() {
         return senderId;
     }
