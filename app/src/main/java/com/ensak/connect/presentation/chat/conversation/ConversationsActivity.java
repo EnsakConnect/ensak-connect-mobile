@@ -3,6 +3,7 @@ package com.ensak.connect.presentation.chat.conversation;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,6 +20,9 @@ import com.ensak.connect.repository.chat.model.ConversationResponse;
 
 import java.util.ArrayList;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class ConversationsActivity extends AppCompatActivity {
 
     private ChatConversationsActivityBinding binding;
@@ -38,15 +42,11 @@ public class ConversationsActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayShowTitleEnabled(false);
         actionBar.setDisplayHomeAsUpEnabled(true);
-        binding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        binding.toolbar.setNavigationOnClickListener(v -> finish());
 
         initViews();
-        loadConversations(this);
+        initViewModel();
+        conversationViewModel.fetchConversations();
     }
 
     private void initViews() {
@@ -63,46 +63,34 @@ public class ConversationsActivity extends AppCompatActivity {
         binding.fabNewConversation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                createNewConversation(ConversationsActivity.this);
+                createNewConversation();
             }
         });
     }
 
-    private void loadConversations(Context context) {
-        conversationViewModel = ViewModelProviders.of(this).get(ConversationsViewModel.class);
-        try {
-            conversationViewModel.getConversations().observe((LifecycleOwner) context, responses -> {
-                if (responses != null) {
+    private void initViewModel() {
+        conversationViewModel = new ViewModelProvider(this).get(ConversationsViewModel.class);
+        conversationViewModel.getConversations().observe(this, conversationResponses -> {
+            conversations.clear();
+            conversations.addAll(conversationResponses);
+            adapter.notifyDataSetChanged();
+        });
 
-                    String message = responses.get(0).getUser().getFirstname();
-                    Log.d("Main Log", message);
+        conversationViewModel.getIsLoading().observe(this, isLoading -> {
+            // TODO: show loading state
+            Toast.makeText(this, "Loading...", Toast.LENGTH_SHORT).show();
+        });
 
-                    conversations.clear();
-                    conversations.addAll(responses);
-                    adapter.notifyDataSetChanged();
-                }
-            });
-        } catch (Throwable ex) {
-            Toast.makeText(context, "Error getting posts.", Toast.LENGTH_LONG);
-        }
+        conversationViewModel.getErrorMessage().observe(this, errorMessage -> {
+            if(errorMessage.isEmpty()){
+                return;
+            }
+            Toast.makeText(this, "Loading...", Toast.LENGTH_SHORT).show();
+        });
     }
 
-    private void createNewConversation(Context context) {
-        conversationViewModel = ViewModelProviders.of(this).get(ConversationsViewModel.class);
-        try {
-            conversationViewModel.addConversation().observe((LifecycleOwner) context, responses -> {
-                if (responses != null) {
-
-                    String message = responses.getUser().getFirstname();
-                    Log.d("Main Log", message);
-
-                    conversations.clear();
-                    conversations.add(responses);
-                    adapter.notifyDataSetChanged();
-                }
-            });
-        } catch (Throwable ex) {
-            Toast.makeText(context, "Error getting posts.", Toast.LENGTH_LONG);
-        }
+    private void createNewConversation() {
+        // TODO: implement the add conversation with the backend endpoint
+        conversationViewModel.addConversation();
     }
 }
