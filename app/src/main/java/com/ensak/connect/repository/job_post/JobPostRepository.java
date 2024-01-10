@@ -1,21 +1,25 @@
 package com.ensak.connect.repository.job_post;
-import com.ensak.connect.service.RetrofitService;
-import android.content.Context;
 import android.util.Log;
 
 import com.ensak.connect.repository.shared.RepositoryCallBack;
 import com.ensak.connect.repository.job_post.remote.JobPostApi;
 import com.ensak.connect.repository.job_post.model.JobPostRequest;
 import com.ensak.connect.repository.job_post.model.JobPostResponse;
+
+import javax.inject.Inject;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
+
 public class JobPostRepository {
     private final String TAG = getClass().getSimpleName();
     private JobPostApi api;
 
-    public JobPostRepository(Context context) {
-        api = RetrofitService.getRetrofitInstance(context).create(JobPostApi.class);
+    @Inject
+    public JobPostRepository(Retrofit retrofit) {
+        api = retrofit.create(JobPostApi.class);
     }
 
     public void create(JobPostRequest request, RepositoryCallBack<JobPostResponse> callBack) {

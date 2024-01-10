@@ -12,6 +12,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,6 +23,9 @@ import com.ensak.connect.repository.job_post.model.JobPostCommentResponse;
 
 import java.util.ArrayList;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class CommentsActivity extends AppCompatActivity {
 
     private JobPostCommentsActivityBinding binding;
@@ -29,9 +33,6 @@ public class CommentsActivity extends AppCompatActivity {
 
     private ArrayList<JobPostCommentResponse> comments;
     private CommentsAdapter adapter;
-    private RecyclerView rvComments;
-    private CardView cardSendComment;
-    private EditText etComment;
     private String postId;
 
     @Override
@@ -41,6 +42,9 @@ public class CommentsActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         setSupportActionBar(binding.toolbar);
 
+        /**
+         * Action bar
+         */
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayShowTitleEnabled(false);
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -51,86 +55,67 @@ public class CommentsActivity extends AppCompatActivity {
             }
         });
 
+        /**
+         * Reading extras
+         */
         Bundle extras = getIntent().getExtras();
         postId = "1";
         if (extras != null) {
             postId = String.valueOf(extras.getInt("postId"));
         }
 
-        initRecyclerView();
-        initSendNewComment();
-        loadComments(this, postId);
+        initView();
+        initViewModel();
+
+        commentViewModel.fetchComments(postId);
     }
 
-    private void initSendNewComment() {
-        etComment = binding.etComment;
-        cardSendComment = binding.cardSendComment;
+    private void initViewModel() {
+        commentViewModel = new ViewModelProvider(this).get(CommentViewModel.class);
 
-        cardSendComment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String comment = etComment.getText().toString();
-                if (comment.isEmpty()) {
-                    Toast.makeText(CommentsActivity.this, "Please enter a comment.", Toast.LENGTH_LONG).show();
-                } else {
-                    // send comment to API
-                    sendNewComment(postId, etComment.getText().toString().trim());
+        commentViewModel.getComments().observe(this, commentsValue -> {
+                String message = commentsValue.get(0).getUser().getFirstname();
+                Log.d("Main Log", message);
+                comments.clear();
+                comments.addAll(commentsValue);
+                adapter.notifyDataSetChanged();
+        });
 
-                    // Clear input
-                    etComment.setText("");
-                    etComment.clearFocus();
+        commentViewModel.getIsLoading().observe(this, isLoading -> {
+            // TODO: show loading state
+        });
 
-                    // Hide keyboard
-                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(etComment.getWindowToken(), 0);
-                }
-            }
+        commentViewModel.getErrorMessage().observe(this, isLoading -> {
+            // TODO: show error state
         });
     }
 
-    private void sendNewComment(String postId, String comment) {
-        try {
-            commentViewModel.sendComment(postId, comment).observe((LifecycleOwner) this, response -> {
-                if (response != null) {
-
-                    String message = response.getComment();
-                    Log.d("Main Log", message);
-
-                    comments.add(0, response);
-                    adapter.notifyItemInserted(0);
-                }
-            });
-        } catch (Throwable ex) {
-            Toast.makeText(this, "Error sending comment.", Toast.LENGTH_LONG);
-        }
-    }
-
-    private void initRecyclerView() {
+    private void initView() {
         comments = new ArrayList<>();
-
-        rvComments = binding.rvComments;
         adapter = new CommentsAdapter(comments);
-        rvComments.setAdapter(adapter);
-        rvComments.setLayoutManager(new LinearLayoutManager(this));
+        binding.rvComments.setAdapter(adapter);
+        binding.rvComments.setLayoutManager(new LinearLayoutManager(this));
+
+        binding.cardSendComment.setOnClickListener(view -> {
+            sendNewComment();
+        });
     }
 
-    private void loadComments(Context context, String postId) {
-        commentViewModel = ViewModelProviders.of(this).get(CommentViewModel.class);
-        try {
-            commentViewModel.getComments(postId).observe((LifecycleOwner) context, responses -> {
-                if (responses != null) {
-
-                    String message = responses.get(0).getUser().getFirstname();
-                    Log.d("Main Log", message);
-
-                    comments.clear();
-                    comments.addAll(responses);
-                    adapter.notifyDataSetChanged();
-                }
-            });
-        } catch (Throwable ex) {
-            Toast.makeText(context, "Error getting posts.", Toast.LENGTH_LONG);
+    private void sendNewComment() {
+        String comment = binding.etComment.getText().toString();
+        if (comment.isEmpty()) {
+            Toast.makeText(CommentsActivity.this, "Please enter a comment.", Toast.LENGTH_LONG).show();
+            return;
         }
 
+        // Hide keyboard
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(binding.etComment.getWindowToken(), 0);
+        commentViewModel.sendComment(postId, comment);
+        adapter.notifyItemInserted(0);
+
+        // Clear input
+        binding.etComment.setText("");
+        binding.etComment.clearFocus();
     }
 }

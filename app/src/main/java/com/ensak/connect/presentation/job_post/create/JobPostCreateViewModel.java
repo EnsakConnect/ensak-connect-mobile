@@ -5,6 +5,7 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 
 import com.ensak.connect.repository.job_post.JobPostRepository;
 import com.ensak.connect.repository.job_post.model.JobPostRequest;
@@ -13,16 +14,21 @@ import com.ensak.connect.repository.shared.RepositoryCallBack;
 
 import java.util.Arrays;
 
-public class JobPostCreateViewModel extends AndroidViewModel {
+import javax.inject.Inject;
+
+import dagger.hilt.android.lifecycle.HiltViewModel;
+
+@HiltViewModel
+public class JobPostCreateViewModel extends ViewModel {
     private MutableLiveData<Boolean> isLoading = new MutableLiveData(false);
     private MutableLiveData<Boolean> isSuccess = new MutableLiveData(false);
     private MutableLiveData<String> errorMessage = new MutableLiveData<>("");
     private MutableLiveData<String> successMessage = new MutableLiveData<>("");
     private JobPostRepository jobPostRepository;
 
-    public JobPostCreateViewModel(@NonNull Application application) {
-        super(application);
-        jobPostRepository = new JobPostRepository(application);
+    @Inject
+    public JobPostCreateViewModel(JobPostRepository jobPostRepository) {
+        this.jobPostRepository = jobPostRepository;
     }
 
     public void createJobPost(String jobTitle,String description,String companyName,String location,String companyType,String category, String tags) {

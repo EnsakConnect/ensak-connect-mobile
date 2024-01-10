@@ -12,6 +12,9 @@ import android.widget.ArrayAdapter;
 import com.ensak.connect.R;
 import com.ensak.connect.databinding.JobPostDetailsFragmentBinding;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class DetailsFragment extends Fragment {
 
     private JobPostDetailsFragmentBinding binding;
