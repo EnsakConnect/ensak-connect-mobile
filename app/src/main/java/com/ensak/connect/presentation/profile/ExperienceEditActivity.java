@@ -15,6 +15,9 @@ import com.ensak.connect.databinding.ProfileExperienceFormActivityBinding;
 import java.util.Calendar;
 import java.util.Locale;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class ExperienceEditActivity extends AppCompatActivity {
 
     private ProfileExperienceFormActivityBinding binding;
@@ -45,8 +48,6 @@ public class ExperienceEditActivity extends AppCompatActivity {
             }
         });
 
-        initViewModel();
-
         if (getIntent() != null && getIntent().getExtras() != null) {
             id = getIntent().getStringExtra("id");
             String title = getIntent().getStringExtra("title");
@@ -55,25 +56,23 @@ public class ExperienceEditActivity extends AppCompatActivity {
             String endDate = getIntent().getStringExtra("endDate");
             String description = getIntent().getStringExtra("description");
             isUpdate = getIntent().getBooleanExtra("isUpdate", false);
-
 //            String startDate = Utils.convertIsoToReadableFormat(startDateIso);
 //            String endDate = Utils.convertIsoToReadableFormat(endDateISO);
-
             binding.txtStartDateExperience.setText(startDate);
             binding.txtEndDateExperience.setText(endDate);
             binding.txtPosition.setText(title);
             binding.txtCompany.setText(company);
             binding.txtDescriptionExperience.setText(description);
-
             if(isUpdate) {
                 binding.btnCreate.setText("Update");
             }
-
-
         }
 
+        initView();
+        initViewModel();
+    }
 
-
+    private void initView() {
         binding.txtStartDateExperience.setFocusable(false);
         binding.txtStartDateExperience.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,11 +101,10 @@ public class ExperienceEditActivity extends AppCompatActivity {
         binding.btnCreate.setOnClickListener(v -> {
             createExperience();
         });
-
-
     }
+
     private void initViewModel() {
-        experienceEditViewModel = new ViewModelProvider(this, new ViewModelProvider.AndroidViewModelFactory(getApplication()))
+        experienceEditViewModel = new ViewModelProvider(this)
                 .get(ExperienceEditViewModel.class);
 
         experienceEditViewModel.getIsSuccess().observe(this, success -> {
@@ -137,7 +135,6 @@ public class ExperienceEditActivity extends AppCompatActivity {
         String endDate = binding.txtEndDateExperience.getText().toString().trim();
         String description = binding.txtDescriptionExperience.getText().toString().trim();
         if (isUpdate) {
-
             experienceEditViewModel.updateExperience(id, title, company, contractType, location, startDate, endDate, description);
         } else {
             experienceEditViewModel.createExperience(title, company, contractType, location, startDate, endDate, description);

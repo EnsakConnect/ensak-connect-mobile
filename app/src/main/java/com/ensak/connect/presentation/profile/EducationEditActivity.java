@@ -15,9 +15,10 @@ import com.ensak.connect.databinding.ProfileEducationFormActivityBinding;
 import java.util.Calendar;
 import java.util.Locale;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class EducationEditActivity extends AppCompatActivity {
-
-
     private ProfileEducationFormActivityBinding binding;
     private EducationEditViewModel educationEditViewModel;
     private Boolean isUpdate = false;
@@ -44,7 +45,6 @@ public class EducationEditActivity extends AppCompatActivity {
             }
         });
 
-        initViewModel();
         if (getIntent() != null && getIntent().getExtras() != null) {
             id = getIntent().getStringExtra("id");
             String field = getIntent().getStringExtra("field");
@@ -54,20 +54,23 @@ public class EducationEditActivity extends AppCompatActivity {
             String endDate = getIntent().getStringExtra("endDate");
             String description = getIntent().getStringExtra("description");
             isUpdate = getIntent().getBooleanExtra("isUpdate", false);
-
 //            String startDate = Utils.convertIsoToReadableFormat(startDateIso);
 //            String endDate = Utils.convertIsoToReadableFormat(endDateISO);
-
             binding.txtStartDate.setText(startDate);
             binding.txtEndDate.setText(endDate);
             binding.txtField.setText(field);
             binding.txtSchool.setText(school);
             binding.txtDescription.setText(description);
-
             if(isUpdate) {
                 binding.btnCreate.setText("Update");
             }
         }
+
+        initView();
+        initViewModel();
+    }
+
+    private void initView() {
         binding.txtStartDate.setFocusable(false);
         binding.txtStartDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,11 +98,10 @@ public class EducationEditActivity extends AppCompatActivity {
         binding.btnCreate.setOnClickListener(v -> {
             createEducation();
         });
-
-
     }
+
     private void initViewModel() {
-         educationEditViewModel = new ViewModelProvider(this, new ViewModelProvider.AndroidViewModelFactory(getApplication()))
+         educationEditViewModel = new ViewModelProvider(this)
                 .get(EducationEditViewModel.class);
 
         educationEditViewModel.getIsSuccess().observe(this, success -> {
