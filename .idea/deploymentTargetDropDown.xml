@@ -1,26 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="deploymentTargetDropDown">
-    <value>
-      <entry key="ENSAK_CONNECT">
-        <State />
-      </entry>
-      <entry key="app">
-        <State>
-          <targetSelectedWithDropDown>
-            <Target>
-              <type value="QUICK_BOOT_TARGET" />
-              <deviceKey>
-                <Key>
-                  <type value="VIRTUAL_DEVICE_PATH" />
-                  <value value="C:\Users\hayta\.android\avd\Pixel_5_Edited_API_34.avd" />
-                </Key>
-              </deviceKey>
-            </Target>
-          </targetSelectedWithDropDown>
-          <timeTargetWasSelectedWithDropDown value="2023-12-24T19:13:00.231469900Z" />
-        </State>
-      </entry>
-    </value>
+    <targetSelectedWithDropDown>
+      <Target>
+        <type value="QUICK_BOOT_TARGET" />
+        <deviceKey>
+          <Key>
+            <type value="VIRTUAL_DEVICE_PATH" />
+            <value value="C:\Users\mapping\.android\avd\Pixel_7_API_31.avd" />
+          </Key>
+        </deviceKey>
+      </Target>
+    </targetSelectedWithDropDown>
+    <timeTargetWasSelectedWithDropDown value="2024-01-10T12:13:26.199097300Z" />
   </component>
 </project>

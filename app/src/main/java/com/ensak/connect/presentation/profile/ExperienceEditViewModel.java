@@ -6,20 +6,28 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 
 import com.ensak.connect.repository.profile.model.ExperienceRequest;
 import com.ensak.connect.repository.profile.ExperienceRepository;
+import com.ensak.connect.repository.profile.model.ExperienceResponse;
+import com.ensak.connect.repository.shared.RepositoryCallBack;
 
-public class ExperienceEditViewModel extends AndroidViewModel {
+import javax.inject.Inject;
+
+import dagger.hilt.android.lifecycle.HiltViewModel;
+
+@HiltViewModel
+public class ExperienceEditViewModel extends ViewModel {
     private MutableLiveData<Boolean> isLoading = new MutableLiveData(false);
     private MutableLiveData<Boolean> isSuccess = new MutableLiveData(false);
     private MutableLiveData<String> errorMessage = new MutableLiveData<>("");
     private MutableLiveData<String> successMessage = new MutableLiveData<>("");
     private ExperienceRepository experienceRepository;
 
-    public ExperienceEditViewModel(@NonNull Application application) {
-        super(application);
-        experienceRepository = new ExperienceRepository(application);
+    @Inject
+    public ExperienceEditViewModel(ExperienceRepository experienceRepository) {
+        this.experienceRepository = experienceRepository;
     }
 
     public void createExperience(String title, String company, String contractType,String location, String from, String to, String description) {
@@ -39,7 +47,6 @@ public class ExperienceEditViewModel extends AndroidViewModel {
             errorMessage.setValue("Description is required.");
             return;
         }
-        isLoading.setValue(true);
         ExperienceRequest request = new ExperienceRequest();
         request.setPositionTitle(title);
         request.setCompanyName(company);
@@ -48,7 +55,23 @@ public class ExperienceEditViewModel extends AndroidViewModel {
         request.setEndDate(to);
         request.setDescription(description);
         request.setContractType(contractType);
-        experienceRepository.uploadExperience(request);
+        isLoading.setValue(true);
+        experienceRepository.addExperience(request, new RepositoryCallBack<ExperienceResponse>() {
+            @Override
+            public void onSuccess(ExperienceResponse data) {
+                // TODO: Add this item to the list of experiences
+                successMessage.setValue("Experience created successfully");
+                errorMessage.setValue("");
+                isLoading.setValue(false);
+            }
+
+            @Override
+            public void onFailure(Throwable throwable) {
+                successMessage.setValue("");
+                errorMessage.setValue("Error creating the experience item");
+                isLoading.setValue(false);
+            }
+        });
     }
 
     public void updateExperience(String id,String title, String company, String contractType,String location, String from, String to, String description) {
@@ -68,7 +91,6 @@ public class ExperienceEditViewModel extends AndroidViewModel {
             errorMessage.setValue("Description is required.");
             return;
         }
-        isLoading.setValue(true);
         ExperienceRequest request = new ExperienceRequest();
         request.setPositionTitle(title);
         request.setCompanyName(company);
@@ -77,7 +99,23 @@ public class ExperienceEditViewModel extends AndroidViewModel {
         request.setEndDate(to);
         request.setDescription(description);
         request.setContractType(contractType);
-        experienceRepository.updateExperience(id,request);
+        isLoading.setValue(true);
+        experienceRepository.updateExperience(id, request, new RepositoryCallBack<ExperienceResponse>() {
+            @Override
+            public void onSuccess(ExperienceResponse data) {
+                // TODO: update the item changed, or refresh data
+                isLoading.setValue(false);
+                successMessage.setValue("Experience updated successfully");
+                errorMessage.setValue("");
+            }
+
+            @Override
+            public void onFailure(Throwable throwable) {
+                isLoading.setValue(false);
+                successMessage.setValue("");
+                errorMessage.setValue("Error updating Experience");
+            }
+        });
     }
     public LiveData<Boolean> getIsLoading() {
         return isLoading;

@@ -1,4 +1,4 @@
-package com.ensak.connect.adapters.home;
+package com.ensak.connect.adapters.feed;
 
 
 import android.content.Context;
@@ -17,11 +17,7 @@ public class RecommandedOffersAdapter extends
         RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     MainRecommendedOfferItemBinding binding;
-    private FeedResponse feed;
-
-    public RecommandedOffersAdapter(FeedResponse feed) {
-        this.feed = feed;
-    }
+    private FeedResponse feed = new FeedResponse();
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -31,6 +27,11 @@ public class RecommandedOffersAdapter extends
         binding = MainRecommendedOfferItemBinding.inflate(inflater, parent, false);
         ViewHolder viewHolder = new ViewHolder(binding.getRoot());
         return viewHolder;
+    }
+
+    public void setItems(FeedResponse feed) {
+        this.feed = feed;
+        notifyDataSetChanged();
     }
 
     @Override

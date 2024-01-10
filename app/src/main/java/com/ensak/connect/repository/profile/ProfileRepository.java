@@ -1,61 +1,45 @@
 package com.ensak.connect.repository.profile;
 
 
-import android.content.Context;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.ensak.connect.repository.profile.model.ProfileResponse;
-import com.ensak.connect.service.retrofit.ApiRequest;
-import com.ensak.connect.service.RetrofitService;
+import com.ensak.connect.repository.profile.remote.ProfileApi;
+import com.ensak.connect.repository.shared.RepositoryCallBack;
+
+import javax.inject.Inject;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class ProfileRepository {
-    private ApiRequest apiRequest;
-    private static ProfileRepository profileRepository;
+    private ProfileApi api;
 
-
-    public ProfileRepository(Context context) {
-        this.apiRequest = RetrofitService.getRetrofitInstance(context).create(ApiRequest.class);
-    }
-    public static ProfileRepository getInstance(Context context) {
-        if (profileRepository == null) {
-            profileRepository = new ProfileRepository(context.getApplicationContext());
-        }
-        return profileRepository;
+    @Inject
+    public ProfileRepository(Retrofit retrofit) {
+        this.api = retrofit.create(ProfileApi.class);
     }
 
-    public LiveData<ProfileResponse> getProfile() {
-        final MutableLiveData<ProfileResponse> profileData = new MutableLiveData<>();
-        apiRequest.getUserProfile().enqueue(new Callback<ProfileResponse>() {
+    public void getProfile(Integer profileId, RepositoryCallBack<ProfileResponse> callback) {
+        api.getUserProfile(profileId).enqueue(new Callback<ProfileResponse>() {
             @Override
             public void onResponse(Call<ProfileResponse> call, Response<ProfileResponse> response) {
-                if (response.isSuccessful()) {
-                    profileData.setValue(response.body());
-                    // Log the successful response
-
-                } else {
-                    profileData.setValue(null);
-                    Log.e("ProfileRepository", "Error code: " + response.code());
+                if(!response.isSuccessful() || response.body() == null) {
+                    callback.onFailure(new Exception("Empty body"));
+                    return;
                 }
+                callback.onSuccess(response.body());
             }
 
             @Override
             public void onFailure(Call<ProfileResponse> call, Throwable t) {
-                profileData.setValue(null);
-                Log.e("ProfileRepository", "Failure: " + t.getMessage(), t);
+                callback.onFailure(t);
             }
         });
-        return profileData;
     }
-
-
-
-
-
 }

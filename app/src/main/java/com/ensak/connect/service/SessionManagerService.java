@@ -3,6 +3,17 @@ package com.ensak.connect.service;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import javax.inject.Singleton;
+
+import dagger.Module;
+import dagger.Provides;
+import dagger.hilt.InstallIn;
+import dagger.hilt.android.qualifiers.ApplicationContext;
+import dagger.hilt.components.SingletonComponent;
+
+
+@Module
+@InstallIn(SingletonComponent.class)
 public class SessionManagerService {
     private static final String PREF_NAME = "UserSession";
     private static final String IS_LOGGED_IN = "IsLoggedIn";
@@ -11,6 +22,12 @@ public class SessionManagerService {
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
     Context context;
+
+    @Provides
+    @Singleton
+    public static SessionManagerService provideSessionManagerService(@ApplicationContext Context context) {
+        return new SessionManagerService(context);
+    }
 
     public SessionManagerService(Context context) {
         this.context = context;

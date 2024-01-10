@@ -8,16 +8,23 @@ import com.ensak.connect.repository.health.remote.HealthApi;
 import com.ensak.connect.repository.health.model.HealthResponse;
 import com.ensak.connect.service.RetrofitService;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
+import dagger.Provides;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class HealthRepository {
 
     private final String TAG = getClass().getSimpleName();
     private HealthApi api;
-    public HealthRepository(Context context) {
-        api = RetrofitService.getRetrofitInstance(context).create(HealthApi.class);
+
+    @Inject
+    public HealthRepository(Retrofit retrofit) {
+        api = retrofit.create(HealthApi.class);
     }
 
     public void healthCheck(RepositoryCallBack<HealthResponse> callBack) {

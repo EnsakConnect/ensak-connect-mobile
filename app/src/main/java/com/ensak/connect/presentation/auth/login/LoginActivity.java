@@ -24,6 +24,9 @@ import com.ensak.connect.presentation.auth.registration.RegistrationScreen;
 import com.ensak.connect.presentation.auth.password_reset.ResetPasswordScreen;
 import com.ensak.connect.presentation.home.HomeActivity;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class LoginActivity extends AppCompatActivity {
     private final String TAG = getClass().getSimpleName();
     private AuthLoginActivityBinding binding;
@@ -85,8 +88,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void initializeViewModel() {
-        loginViewModel = new ViewModelProvider(this, new ViewModelProvider.AndroidViewModelFactory(getApplication()))
-                .get(LoginViewModel.class);
+        loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
 
         loginViewModel.getIsLoading().observe(this, isLoading -> {
             if(isLoading){

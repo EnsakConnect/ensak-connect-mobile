@@ -29,6 +29,9 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class HomeActivity extends AppCompatActivity {
     private final String TAG = getClass().getSimpleName();
     private AppBarConfiguration mAppBarConfiguration;

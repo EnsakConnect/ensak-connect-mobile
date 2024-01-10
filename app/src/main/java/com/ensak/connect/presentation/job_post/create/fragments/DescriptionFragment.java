@@ -13,7 +13,9 @@ import android.widget.Toast;
 import com.ensak.connect.databinding.JobPostDescriptionFragmentBinding;
 import com.ensak.connect.presentation.job_post.create.JobPostCreateViewModel;
 
+import dagger.hilt.android.AndroidEntryPoint;
 
+@AndroidEntryPoint
 public class DescriptionFragment extends Fragment {
     private final String TAG = getClass().getSimpleName();
     public String jobTitle,companyName,location,companyType,category;
@@ -39,7 +41,7 @@ public class DescriptionFragment extends Fragment {
         return view;
     }
     private void initializeViewModel() {
-        jobPostCreateViewModel = new ViewModelProvider(this, new ViewModelProvider.AndroidViewModelFactory(requireActivity().getApplication()))
+        jobPostCreateViewModel = new ViewModelProvider(this)
                 .get(JobPostCreateViewModel.class);
 
         jobPostCreateViewModel.getIsSuccess().observe(getViewLifecycleOwner(), success -> {

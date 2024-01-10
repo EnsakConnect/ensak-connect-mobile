@@ -6,6 +6,7 @@ import android.util.Log;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 
 import com.ensak.connect.service.SessionManagerService;
 import com.ensak.connect.repository.shared.RepositoryCallBack;
@@ -16,7 +17,12 @@ import com.ensak.connect.repository.health.model.HealthResponse;
 
 import org.jetbrains.annotations.NotNull;
 
-public class LoadingViewModel extends AndroidViewModel {
+import javax.inject.Inject;
+
+import dagger.hilt.android.lifecycle.HiltViewModel;
+
+@HiltViewModel
+public class LoadingViewModel extends ViewModel {
     public enum REDIRECT_TO {
         LOGIN,
         HOME
@@ -31,11 +37,11 @@ public class LoadingViewModel extends AndroidViewModel {
     private final MutableLiveData<String> errorMessage = new MutableLiveData<>("");
     private final MutableLiveData<REDIRECT_TO> redirectTo = new MutableLiveData<>(null);
 
-    public LoadingViewModel(@NotNull Application application) {
-        super(application);
-        healthRepository = new HealthRepository(application);
-        authRepository = new AuthRepository(application);
-        sessionManager = new SessionManagerService(application);
+    @Inject
+    public LoadingViewModel(HealthRepository healthRepository, AuthRepository authRepository, SessionManagerService sessionManager) {
+        this.healthRepository = healthRepository;
+        this.sessionManager = sessionManager;
+        this.authRepository = authRepository;
     }
 
     public void startChecks() {

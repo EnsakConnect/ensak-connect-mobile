@@ -58,8 +58,9 @@ public class ChatAdapter extends RecyclerView.Adapter {
         Context context = holder.itemView.getContext();
 
         if (holder.getClass() == OutgoingViewHolder.class) {
-            senderBinding.tvMessage.setText("Sent Msg");
-            senderBinding.tvTime.setText("02:12 pm");
+            // INFO: sent message
+            senderBinding.tvMessage.setText(message.getMessage());
+            senderBinding.tvTime.setText(message.getDate().toString());
 
 //            long time = msgData.get(position).getMsgTime();
 //            final Calendar cal = Calendar.getInstance();
@@ -67,8 +68,9 @@ public class ChatAdapter extends RecyclerView.Adapter {
 //            final String timeString =
 //                    new SimpleDateFormat("HH:mm").format(cal.getTime());
         } else {
-            receiverBinding.tvMessage.setText("Received Msg");
-            receiverBinding.tvTime.setText("02:12 pm");
+            // INFO: Received message
+            receiverBinding.tvMessage.setText(message.getMessage());
+            receiverBinding.tvTime.setText(message.getDate().toString());
         }
     }
 

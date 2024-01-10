@@ -9,79 +9,59 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.ensak.connect.repository.profile.model.EducationRequest;
 import com.ensak.connect.repository.profile.model.EducationResponse;
+import com.ensak.connect.repository.profile.remote.ProfileApi;
+import com.ensak.connect.repository.shared.RepositoryCallBack;
 import com.ensak.connect.service.retrofit.ApiRequest;
 import com.ensak.connect.service.RetrofitService;
+
+import javax.inject.Inject;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class EducationRepository {
-    private ApiRequest apiRequest;
-    private static EducationRepository educationRepository;
+    private ProfileApi api;
 
-
-    public EducationRepository(Context context) {
-        this.apiRequest = RetrofitService.getRetrofitInstance(context).create(ApiRequest.class);
-    }
-    public static EducationRepository getInstance(Context context) {
-        if (educationRepository == null) {
-            educationRepository = new EducationRepository(context.getApplicationContext());
-        }
-        return educationRepository;
+    @Inject
+    public EducationRepository(Retrofit retrofit) {
+        this.api = retrofit.create(ProfileApi.class);
     }
 
-    public LiveData<EducationResponse> uploadEducation(EducationRequest educationRequest) {
-        MutableLiveData<EducationResponse> liveData = new MutableLiveData<>();
-
-        apiRequest.UploadEducation(educationRequest).enqueue(new Callback<EducationResponse>() {
+    public void addEducation(EducationRequest educationRequest, RepositoryCallBack<EducationResponse> callback) {
+        api.UploadEducation(educationRequest).enqueue(new Callback<EducationResponse>() {
             @Override
             public void onResponse(@NonNull Call<EducationResponse> call, @NonNull Response<EducationResponse> response) {
-                if (response.isSuccessful()) {
-                    liveData.postValue(response.body());
-                    Log.d("ProfileRepositoryExperience", "Experience data fetched successfully");
-                    Log.d("ProfileRepository", "Response: " + response.body());
-                } else {
-                    liveData.postValue(null);
+                if(!response.isSuccessful() || response.body() == null){
+                    callback.onFailure(new Exception("Empty body"));
+                    return;
                 }
-
+                callback.onSuccess(response.body());
             }
 
             @Override
             public void onFailure(@NonNull Call<EducationResponse> call, @NonNull Throwable t) {
-                liveData.postValue(null); // Or some error object
+                callback.onFailure(t);
             }
         });
-
-        return liveData;
     }
 
-    public LiveData<EducationResponse> updateEducation(String id, EducationRequest educationRequest) {
-        final MutableLiveData<EducationResponse> data = new MutableLiveData<>();
-        apiRequest.UpdateEducation(id, educationRequest)
-                .enqueue(new Callback<EducationResponse>() {
-
-
-                    @Override
-                    public void onResponse(@NonNull Call<EducationResponse> call, @NonNull Response<EducationResponse> response) {
-
-
-
-                        if (response.body() != null) {
-                            try {
-                                data.setValue(response.body());
-                                Log.d("TAG", "API test result:: " + response.body().getSchool());
-                            } catch (Throwable ex) {
-                                Log.e("TAG", "Exception occured: " + ex.getMessage());
-                            }
-                        }
+    public void updateEducation(String id, EducationRequest educationRequest, RepositoryCallBack<EducationResponse> callback) {
+        api.UpdateEducation(id, educationRequest).enqueue(new Callback<EducationResponse>() {
+                @Override
+                public void onResponse(@NonNull Call<EducationResponse> call, @NonNull Response<EducationResponse> response) {
+                    if(!response.isSuccessful() || response.body() == null){
+                        callback.onFailure(new Exception("Empty body"));
+                        return;
                     }
+                    callback.onSuccess(response.body());
+                }
 
-                    @Override
-                    public void onFailure(@NonNull Call<EducationResponse> call, @NonNull Throwable t) {
-                        data.setValue(null);
-                    }
-                });
-        return data;
+                @Override
+                public void onFailure(@NonNull Call<EducationResponse> call, @NonNull Throwable t) {
+                    callback.onFailure(t);
+                }
+        });
     }
 }

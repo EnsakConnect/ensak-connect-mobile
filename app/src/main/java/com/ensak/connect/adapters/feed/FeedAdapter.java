@@ -1,4 +1,4 @@
-package com.ensak.connect.adapters.home;
+package com.ensak.connect.adapters.feed;
 
 
 import android.content.Context;
@@ -18,16 +18,16 @@ import com.ensak.connect.repository.feed.model.FeedContentResponse;
 import com.ensak.connect.repository.feed.model.FeedResponse;
 import com.ensak.connect.presentation.job_post.comments.CommentsActivity;
 
-public class HomeAdapter extends
+public class FeedAdapter extends
         RecyclerView.Adapter<RecyclerView.ViewHolder> {
-
 
     MainPostItemBinding offerItemHomeBinding;
 
-    private FeedResponse feed;
+    private FeedResponse feed = new FeedResponse();
 
-    public HomeAdapter(FeedResponse feed) {
+    public void setItems(FeedResponse feed) {
         this.feed = feed;
+        notifyDataSetChanged();
     }
 
     @Override

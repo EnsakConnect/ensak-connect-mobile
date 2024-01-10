@@ -9,16 +9,20 @@ import com.ensak.connect.repository.question_post.model.QuestionPostRequest;
 import com.ensak.connect.repository.question_post.model.QuestionPostResponse;
 import com.ensak.connect.service.RetrofitService;
 
+import javax.inject.Inject;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class QuestionRepository {
     private final String TAG = getClass().getSimpleName();
     private QuestionApi api;
 
-    public QuestionRepository(Context context) {
-        api = RetrofitService.getRetrofitInstance(context).create(QuestionApi.class);
+    @Inject
+    public QuestionRepository(Retrofit retrofit) {
+        api = retrofit.create(QuestionApi.class);
     }
 
     public void create(QuestionPostRequest request, RepositoryCallBack<QuestionPostResponse> callBack) {

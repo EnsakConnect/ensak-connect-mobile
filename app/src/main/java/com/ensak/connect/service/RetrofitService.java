@@ -9,6 +9,13 @@ import com.ensak.connect.constants.AppConstants;
 
 import java.io.IOException;
 
+import javax.inject.Singleton;
+
+import dagger.Module;
+import dagger.Provides;
+import dagger.hilt.InstallIn;
+import dagger.hilt.android.qualifiers.ApplicationContext;
+import dagger.hilt.components.SingletonComponent;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -17,16 +24,21 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+
+@Module
+@InstallIn(SingletonComponent.class)
 public class RetrofitService {
     public static Retrofit retrofit;
+
+
 
     public RetrofitService(Context context){
         getRetrofitInstance(context);
     }
 
-
-
-    public static Retrofit getRetrofitInstance(Context context) {
+    @Provides
+    @Singleton
+    public static Retrofit getRetrofitInstance(@ApplicationContext Context context) {
         if (retrofit == null) {
 
             SessionManagerService sessionManager = new SessionManagerService(context);

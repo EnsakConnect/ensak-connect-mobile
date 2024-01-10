@@ -11,9 +11,15 @@ import com.ensak.connect.databinding.AuthLoadingActivityBinding;
 import com.ensak.connect.presentation.home.HomeActivity;
 import com.ensak.connect.presentation.auth.login.LoginActivity;
 
+import javax.inject.Inject;
+
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class LoadingActivity extends AppCompatActivity {
     private final String TAG = getClass().getSimpleName();
     private AuthLoadingActivityBinding binding;
+
     private LoadingViewModel loadingViewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,8 +32,7 @@ public class LoadingActivity extends AppCompatActivity {
     }
 
     private void initViewModel() {
-        loadingViewModel = new ViewModelProvider(this, new ViewModelProvider.AndroidViewModelFactory(getApplication()))
-                .get(LoadingViewModel.class);
+        loadingViewModel = new ViewModelProvider(this).get(LoadingViewModel.class);
 
         // Progress bar visibility
         loadingViewModel.getIsLoading().observe(this, isLoading -> {

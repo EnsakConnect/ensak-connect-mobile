@@ -13,6 +13,9 @@ import com.ensak.connect.adapters.fragmentAdapter.FragmentAdapter;
 import com.ensak.connect.databinding.JobPostCreateActivityBinding;
 import com.ensak.connect.presentation.job_post.create.fragments.DetailsFragment;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class JobPostCreateActivity extends AppCompatActivity {
 
     private JobPostCreateActivityBinding binding;

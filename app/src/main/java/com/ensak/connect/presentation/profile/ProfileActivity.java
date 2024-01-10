@@ -4,12 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -20,6 +19,9 @@ import com.ensak.connect.adapters.Profile.ExperienceAdapter;
 import com.ensak.connect.adapters.Profile.SkillsAdapter;
 import com.ensak.connect.databinding.ProfileActivityBinding;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class ProfileActivity extends AppCompatActivity {
 
     private ProfileActivityBinding binding;
@@ -27,8 +29,6 @@ public class ProfileActivity extends AppCompatActivity {
     private EducationAdapter educationAdapter;
     private SkillsAdapter skillsAdapter;
     private ProfileViewModel profileViewModel;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,13 +40,14 @@ public class ProfileActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayShowTitleEnabled(false);
         actionBar.setDisplayHomeAsUpEnabled(true);
-        binding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        binding.toolbar.setNavigationOnClickListener(v -> finish());
 
+        initView();
+        initViewModel();
+        profileViewModel.fetchProfileData();
+    }
+
+    private void initView() {
         binding.experienceRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         binding.educationRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         binding.skillsRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
@@ -59,17 +60,6 @@ public class ProfileActivity extends AppCompatActivity {
         // Load images from URLs using Glide
         Glide.with(this).load(bannerImageUrl).into(binding.bannerImage);
         Glide.with(this).load(profileImageUrl).into(binding.userProfileImage);
-
-
-        profileViewModel = new ViewModelProvider(this, new ViewModelProvider.Factory() {
-            @NonNull
-            @Override
-            public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-                return (T) new ProfileViewModel(getApplicationContext());
-            }
-        }).get(ProfileViewModel.class);
-        // Observe LiveData
-        loadData();
 
         binding.btnModifyProfile.setOnClickListener(v -> profileViewModel.fetchProfileData());
 
@@ -84,9 +74,20 @@ public class ProfileActivity extends AppCompatActivity {
         });
     }
 
-    private void loadData(){
-        profileViewModel.fetchProfileData();
-        profileViewModel.getProfileLiveData().observe(this, profileResponse -> {
+    private void initViewModel() {
+        profileViewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
+
+        profileViewModel.getIsLoading().observe(this, isLoading -> {
+            // TODO: show loading state
+        });
+
+        profileViewModel.getErrorMessage().observe(this, errorMessage -> {
+            if(errorMessage.isEmpty()){ return; }
+            // TODO: show error message/ state
+            Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
+        });
+
+        profileViewModel.getProfile().observe(this, profileResponse -> {
             if (profileResponse != null) {
                 String fullName = profileResponse.getFullName();
                 binding.userName.setText(fullName);
@@ -119,6 +120,6 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        loadData();
+        profileViewModel.fetchProfileData();
     }
 }
