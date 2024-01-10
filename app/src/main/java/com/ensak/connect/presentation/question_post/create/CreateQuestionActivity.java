@@ -8,6 +8,9 @@ import android.widget.Toast;
 
 import com.ensak.connect.databinding.QuestionPostCreateActivityBinding;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class CreateQuestionActivity extends AppCompatActivity {
     private final String TAG = getClass().getSimpleName();
     private QuestionPostCreateActivityBinding binding;
@@ -31,8 +34,7 @@ public class CreateQuestionActivity extends AppCompatActivity {
     }
 
     private void initViewModel() {
-        createQuestionViewModel = new ViewModelProvider(this, new ViewModelProvider.AndroidViewModelFactory(getApplication()))
-                .get(CreateQuestionViewModel.class);
+        createQuestionViewModel = new ViewModelProvider(this).get(CreateQuestionViewModel.class);
 
         createQuestionViewModel.getIsSuccess().observe(this, success -> {
             if(success) {
