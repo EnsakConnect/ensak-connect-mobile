@@ -26,7 +26,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
                 android:text="Nom entreprise"
-                android:textColor="@color/black" />
+                android:textSize="10sp"
+                android:textColor="@color/grey_800" />
 
             <Space
                 android:layout_width="wrap_content"
@@ -39,9 +40,8 @@
                 android:layout_height="wrap_content"
                 android:text="Stage PFE"
                 android:textColor="@color/white"
-                android:textSize="10sp"
-                app:chipBackgroundColor="@color/black"
-                app:ensureMinTouchTargetSize="false" />
+                style="@style/PostChip"
+                app:chipBackgroundColor="@color/black" />
         </LinearLayout>
 
         <TextView
@@ -51,12 +51,15 @@
             android:paddingVertical="4dp"
             android:text="Java swing developer"
             android:textColor="@color/black"
-            android:textSize="18sp" />
+            android:textStyle="bold"
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/tv_tags"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/gray_600"
+            android:textSize="12sp"
             android:text="#JEE #java #web #postgresql" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

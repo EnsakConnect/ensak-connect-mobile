@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
+    android:paddingHorizontal="@dimen/activity_horizontal_margin"
     tools:context=".presentation.home.PostCategoryFragment">
 
     <androidx.recyclerview.widget.RecyclerView
@@ -11,6 +13,7 @@
         android:layout_height="wrap_content"
         android:nestedScrollingEnabled="false"
         android:paddingVertical="10dp"
-        android:orientation="vertical" />
+        android:orientation="vertical"
+        tools:listitem="@layout/main_post_item"/>
 
 </FrameLayout>

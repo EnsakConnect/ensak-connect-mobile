@@ -11,7 +11,16 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="grey">#FFe2e8f0</color>
-    <color name="grey_700">#FF666666</color>
+
+    <color name="grey_900">#1A202C</color>
+    <color name="grey_800">#2D3748</color>
+    <color name="grey_700">#4A5568</color>
+    <color name="grey_600">#718096</color>
+    <color name="grey_500">#A0AEC0</color>
+    <color name="grey_400">#CBD5E0</color>
+    <color name="grey_300">#E2E8F0</color>
+    <color name="grey_200">#EDF2F7</color>
+    <color name="grey_100">#F7FAFC</color>
 
     <color name="primary">#FF5552FE</color>
     <color name="primary_35">#235552FE</color>
