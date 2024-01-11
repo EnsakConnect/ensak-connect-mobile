@@ -71,6 +71,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
         });
 
         changePasswordViewModel.getIsSuccess().observe(this, success -> {
+            if(! success) return;
             Toast.makeText(this, "Password changed successfully", Toast.LENGTH_SHORT).show();
             finish();
         });

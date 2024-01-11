@@ -88,19 +88,19 @@ public class AuthRepository {
         });
     }
 
-    public void passwordReset(PasswordResetRequest request, RepositoryCallBack<Object> callBack) {
-        api.sendPasswordResetRequest(request).enqueue(new Callback<PasswordResetRequest>() {
+    public void passwordReset(PasswordResetRequest request, RepositoryCallBack<Void> callBack) {
+        api.sendPasswordResetRequest(request).enqueue(new Callback<Void>() {
             @Override
-            public void onResponse(Call<PasswordResetRequest> call, Response<PasswordResetRequest> response) {
+            public void onResponse(Call<Void> call, Response<Void> response) {
                 if(response.isSuccessful()){
-                    callBack.onSuccess(response.body());
+                    callBack.onSuccess(null);
                 } else {
                     callBack.onFailure(new Exception("Request failed"));
                 }
             }
 
             @Override
-            public void onFailure(Call<PasswordResetRequest> call, Throwable t) {
+            public void onFailure(Call<Void> call, Throwable t) {
                 callBack.onFailure(t);
             }
         });
@@ -125,9 +125,10 @@ public class AuthRepository {
     }
 
     public void changePassword(ChangePasswordRequest request, RepositoryCallBack<Void> callback) {
-        api.changePassword(request).enqueue(new Callback<ChangePasswordRequest>() {
+        api.changePassword(request).enqueue(new Callback<Void>() {
             @Override
-            public void onResponse(Call<ChangePasswordRequest> call, Response<ChangePasswordRequest> response) {
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                Log.d(TAG, response.body().toString());
                 if(response.isSuccessful()){
                     callback.onSuccess(null);
                 } else {
@@ -136,7 +137,8 @@ public class AuthRepository {
             }
 
             @Override
-            public void onFailure(Call<ChangePasswordRequest> call, Throwable t) {
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.d(TAG,"Error: " + t.getMessage());
                 callback.onFailure(t);
             }
         });

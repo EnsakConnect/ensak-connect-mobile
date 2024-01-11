@@ -44,7 +44,7 @@ public class CodeValidationActivity extends AppCompatActivity {
     private void initView() {
         binding.btnSendCode.setOnClickListener(v -> {
             String code = binding.CodeVerification.getText().toString();
-            codeValidationViewModel.sendCodeVerification(code, this.email);
+            codeValidationViewModel.sendCodeVerification(this.email, code);
         });
     }
 

@@ -23,11 +23,11 @@ public interface AuthApi {
     @POST("auth/register")
     Call<AuthenticationResponse> register(@Body RegisterRequest request);
     @POST("auth/password-reset")
-    Call<PasswordResetRequest> sendPasswordResetRequest(@Body PasswordResetRequest emailrequest);
+    Call<Void> sendPasswordResetRequest(@Body PasswordResetRequest emailrequest);
 
     @POST("auth/password-reset/verify")
     Call<CodeVerificationResponse> sendCodeVerificationRequest(@Body CodeVerificationRequest codeVerificationRequest);
 
     @POST("auth/change-password")
-    Call<ChangePasswordRequest> changePassword(@Body ChangePasswordRequest changePasswordRequest);
+    Call<Void> changePassword(@Body ChangePasswordRequest changePasswordRequest);
 }

@@ -32,9 +32,9 @@ public class PasswordResetViewModel extends ViewModel {
         isLoading.setValue(true);
         PasswordResetRequest request = new PasswordResetRequest();
         request.setEmail(email);
-        authRepository.passwordReset(request, new RepositoryCallBack<Object>() {
+        authRepository.passwordReset(request, new RepositoryCallBack<Void>() {
             @Override
-            public void onSuccess(Object data) {
+            public void onSuccess(Void data) {
                 isSuccess.setValue(true);
                 isLoading.setValue(false);
             }
