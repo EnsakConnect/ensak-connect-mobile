@@ -13,7 +13,10 @@ import android.widget.Toast;
 import com.ensak.connect.databinding.AuthRegistrationActivityBinding;
 import com.ensak.connect.presentation.home.HomeActivity;
 
+import dagger.hilt.android.AndroidEntryPoint;
 
+
+@AndroidEntryPoint
 public class RegistrationScreen extends AppCompatActivity {
 
     private AuthRegistrationActivityBinding binding;

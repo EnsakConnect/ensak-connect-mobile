@@ -17,10 +17,12 @@ import com.ensak.connect.service.retrofit.ApiRequest;
 import com.ensak.connect.service.RetrofitService;
 import com.ensak.connect.presentation.auth.login.LoginActivity;
 
+import dagger.hilt.android.AndroidEntryPoint;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+@AndroidEntryPoint
 public class ChangePasswordActivity extends AppCompatActivity {
 
     private AuthChangePasswordActivityBinding binding;
