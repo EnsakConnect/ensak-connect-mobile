@@ -17,7 +17,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CodeValidationScreen extends AppCompatActivity {
+public class PasswordResetVerificationActivity extends AppCompatActivity {
+    public static String EMAIL_KEY = "email_address";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,11 +52,11 @@ public class CodeValidationScreen extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<CodeVerificationRequest> call, Throwable t) {
-                    Toast.makeText(CodeValidationScreen.this, "sent failed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PasswordResetVerificationActivity.this, "sent failed", Toast.LENGTH_SHORT).show();
                 }
             });
 
-            Intent intent1 = new Intent(CodeValidationScreen.this, ResetPasswordScreen.class);
+            Intent intent1 = new Intent(PasswordResetVerificationActivity.this, ChangePasswordActivity.class);
             startActivity(intent1);
         });
     }

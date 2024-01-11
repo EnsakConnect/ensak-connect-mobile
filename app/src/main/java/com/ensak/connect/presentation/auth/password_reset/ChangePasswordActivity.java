@@ -18,7 +18,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ResetPasswordScreen extends AppCompatActivity {
+public class ChangePasswordActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,16 +44,16 @@ public class ResetPasswordScreen extends AppCompatActivity {
             apiRequest.changepasswd(changePasswordRequest).enqueue(new Callback<ChangePasswordRequest>() {
                 @Override
                 public void onResponse(Call<ChangePasswordRequest> call, Response<ChangePasswordRequest> response) {
-                    Toast.makeText(ResetPasswordScreen.this, "sent succesfully", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ChangePasswordActivity.this, "sent succesfully", Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
                 public void onFailure(Call<ChangePasswordRequest> call, Throwable t) {
-                    Toast.makeText(ResetPasswordScreen.this, "sent failed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ChangePasswordActivity.this, "sent failed", Toast.LENGTH_SHORT).show();
                 }
             });
 
-            Intent intent = new Intent(ResetPasswordScreen.this, LoginActivity.class);
+            Intent intent = new Intent(ChangePasswordActivity.this, LoginActivity.class);
             startActivity(intent);
         });
     }
