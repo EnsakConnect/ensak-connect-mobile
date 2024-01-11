@@ -36,7 +36,7 @@ public class RegistrationScreen extends AppCompatActivity {
     }
 
     private void setupAccountTypeSelect() {
-        String[] types = {"STUDENT", "PROFESSOR", "LAUREATE"};
+        String[] types = {"Student", "Professor", "Laureate"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, types);
         binding.slctAccountType.setAdapter(adapter);
     }

@@ -15,7 +15,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
 @HiltViewModel
 public class PasswordResetViewModel extends ViewModel {
     private AuthRepository authRepository;
-    private MutableLiveData<Boolean> isLoading = new MutableLiveData<>(true);
+    private MutableLiveData<Boolean> isLoading = new MutableLiveData<>(false);
     private MutableLiveData<Boolean> isSuccess = new MutableLiveData<>(false);
     private MutableLiveData<String> errorMessage = new MutableLiveData<>("");
 

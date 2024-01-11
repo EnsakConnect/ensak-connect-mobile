@@ -45,7 +45,7 @@ public class RegistrationViewModel extends ViewModel {
         RegisterRequest request = new RegisterRequest();
         request.setFullname(fullName);
         request.setEmail(email);
-        request.setRole(accountType);
+        request.setRole(accountType.toUpperCase());
         request.setPassword(password);
         authRepository.register(request, new RepositoryCallBack<AuthenticationResponse>() {
             @Override
