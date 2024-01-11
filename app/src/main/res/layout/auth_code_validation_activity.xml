@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    >
+    android:background="@color/background">
 
     <ImageView
         android:id="@+id/imageViewLock"
@@ -18,36 +18,59 @@
         android:id="@+id/textViewTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        style="@style/Heading3"
         android:text="Verification Code"
-        android:textSize="24sp"
-        android:textStyle="bold"
         android:layout_below="@id/imageViewLock"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="32dp" />
+        android:layout_marginBottom="64dp" />
 
+    <TextView
+        style="@style/Label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/CodeVerification"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="8dp"
+        android:text="Code:" />
     <EditText
         android:id="@+id/CodeVerification"
-        android:layout_width="336dp"
-        android:layout_height="49dp"
-        android:layout_below="@id/textViewTitle"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="24dp"
-        android:background="@drawable/app_edittext_bg"
-        android:hint="Enter Verification Code here"
-        android:inputType="number" />
-
-    <Button
-        android:id="@+id/btnSendCode"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Continue"
-        android:textSize="18sp"
-        android:background="@drawable/app_edittext_bg"
-        android:textColor="#FFFFFF"
+        style="@style/EditTextBase"
+        android:layout_below="@id/textViewTitle"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:hint="XXXXXX"
+        android:inputType="number" />
+
+    <!-- Reset Button -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
         android:layout_below="@id/CodeVerification"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
-        android:layout_marginTop="32dp" />
+        android:layout_marginTop="32dp">
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnSendCode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Verify"
+            style="@style/ButtonPrimary"/>
+        .
+        <ProgressBar
+            android:id="@+id/prgLoading"
+            android:visibility="invisible"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="16dp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:backgroundTint="@color/white"
+            style="@style/LoadingWhite"
+            />
+    </RelativeLayout>
 
 </RelativeLayout>

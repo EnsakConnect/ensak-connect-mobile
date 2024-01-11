@@ -2,6 +2,7 @@ package com.ensak.connect.repository.auth.remote;
 
 import com.ensak.connect.repository.auth.model.ChangePasswordRequest;
 import com.ensak.connect.repository.auth.model.CodeVerificationRequest;
+import com.ensak.connect.repository.auth.model.CodeVerificationResponse;
 import com.ensak.connect.repository.auth.model.LoginRequest;
 import com.ensak.connect.repository.auth.model.AuthenticationResponse;
 import com.ensak.connect.repository.auth.model.PasswordResetRequest;
@@ -25,7 +26,7 @@ public interface AuthApi {
     Call<PasswordResetRequest> sendPasswordResetRequest(@Body PasswordResetRequest emailrequest);
 
     @POST("auth/password-reset/verify")
-    Call<CodeVerificationRequest> verifyPasswordResetCode(@Body CodeVerificationRequest codeVerificationRequest);
+    Call<CodeVerificationResponse> sendCodeVerificationRequest(@Body CodeVerificationRequest codeVerificationRequest);
 
     @POST("auth/change-password")
     Call<ChangePasswordRequest> changePassword(@Body ChangePasswordRequest changePasswordRequest);

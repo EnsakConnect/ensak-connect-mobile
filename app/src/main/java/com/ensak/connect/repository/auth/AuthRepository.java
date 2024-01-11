@@ -3,6 +3,8 @@ package com.ensak.connect.repository.auth;
 import android.content.Context;
 import android.util.Log;
 
+import com.ensak.connect.repository.auth.model.CodeVerificationRequest;
+import com.ensak.connect.repository.auth.model.CodeVerificationResponse;
 import com.ensak.connect.repository.auth.model.PasswordResetRequest;
 import com.ensak.connect.repository.shared.RepositoryCallBack;
 import com.ensak.connect.repository.auth.remote.AuthApi;
@@ -98,6 +100,24 @@ public class AuthRepository {
 
             @Override
             public void onFailure(Call<PasswordResetRequest> call, Throwable t) {
+                callBack.onFailure(t);
+            }
+        });
+    }
+
+    public void sendCodeVerification(CodeVerificationRequest request, RepositoryCallBack<CodeVerificationResponse> callBack) {
+        api.sendCodeVerificationRequest(request).enqueue(new Callback<CodeVerificationResponse>() {
+            @Override
+            public void onResponse(Call<CodeVerificationResponse> call, Response<CodeVerificationResponse> response) {
+                if(response.isSuccessful() && response.body() != null){
+                    callBack.onSuccess(response.body());
+                }else {
+                    callBack.onFailure(new Exception("Request failed"));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CodeVerificationResponse> call, Throwable t) {
                 callBack.onFailure(t);
             }
         });

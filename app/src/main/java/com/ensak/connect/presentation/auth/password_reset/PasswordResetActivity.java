@@ -2,24 +2,12 @@ package com.ensak.connect.presentation.auth.password_reset;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
-
-import com.ensak.connect.R;
 import com.ensak.connect.databinding.AuthPasswordResetActivityBinding;
-import com.ensak.connect.repository.auth.model.PasswordResetRequest;
-import com.ensak.connect.service.retrofit.ApiRequest;
-import com.ensak.connect.service.RetrofitService;
-
 import dagger.hilt.android.AndroidEntryPoint;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 @AndroidEntryPoint
 public class PasswordResetActivity extends AppCompatActivity {
@@ -68,8 +56,8 @@ public class PasswordResetActivity extends AppCompatActivity {
         passwordResetViewModel.getIsSuccess().observe(this, isSuccess -> {
             if(!isSuccess) return;
 
-            Intent verify = new Intent(this, PasswordResetVerificationActivity.class);
-            verify.putExtra(PasswordResetVerificationActivity.EMAIL_KEY, binding.emailRecuperation.getText().toString());
+            Intent verify = new Intent(this, CodeValidationActivity.class);
+            verify.putExtra(CodeValidationActivity.EMAIL_KEY, binding.emailRecuperation.getText().toString());
             startActivity(verify);
             finish();
         });
