@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Border definition -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/grey_300"/> <!-- Border color -->
+            <corners android:radius="5dp"/>
+        </shape>
+    </item>
+    <!-- Inner content padding -->
+    <item android:left="1dp" android:top="1dp" android:right="1dp" android:bottom="1dp">
+        <shape android:shape="rectangle">
+            <corners android:radius="5dp"/>
+            <solid android:color="@android:color/white"/> <!-- Background color of the Card -->
+        </shape>
+    </item>
+</layer-list>

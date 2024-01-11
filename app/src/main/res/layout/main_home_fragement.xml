@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="#F2F2F2"
     android:orientation="vertical"
+    android:paddingHorizontal="@dimen/activity_horizontal_margin"
     tools:context=".presentation.home.FeedFragment">
 
     <androidx.core.widget.NestedScrollView
@@ -21,15 +22,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingHorizontal="16dp"
                 android:paddingVertical="16dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    style="@style/Heading5"
                     android:text="Offres recommandées"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/grey_700" />
 
                 <TextView
                     android:id="@+id/tv_see_all_offers"
@@ -37,6 +38,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Voir toutes les offres"
+                    android:textSize="12sp"
+                    android:textColor="@color/grey_600"
                     android:textAlignment="textEnd" />
             </LinearLayout>
 
@@ -46,22 +49,23 @@
                 android:layout_height="wrap_content"
                 android:nestedScrollingEnabled="false"
                 android:orientation="horizontal"
-                android:paddingHorizontal="16dp"
+                tools:listitem="@layout/main_recommended_offer_item"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingHorizontal="16dp"
-                android:paddingVertical="10dp">
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="8dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Touts"
-                    android:textColor="@color/black" />
+                    android:textStyle="bold"
+                    android:textColor="@color/grey_700" />
 
                 <ImageView
                     android:id="@+id/iv_filter"
@@ -77,6 +81,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:nestedScrollingEnabled="false"
+                tools:listitem="@layout/main_post_item"
                 android:orientation="vertical" />
         </LinearLayout>
 
