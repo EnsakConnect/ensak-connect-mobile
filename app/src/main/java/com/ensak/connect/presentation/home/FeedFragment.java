@@ -1,6 +1,7 @@
 package com.ensak.connect.presentation.home;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
@@ -22,6 +24,10 @@ import com.ensak.connect.R;
 import com.ensak.connect.adapters.feed.FeedAdapter;
 import com.ensak.connect.adapters.feed.RecommandedOffersAdapter;
 import com.ensak.connect.databinding.MainHomeFragementBinding;
+import com.ensak.connect.repository.feed.model.FeedContentResponse;
+import com.ensak.connect.repository.feed.model.FeedResponse;
+
+import java.util.ArrayList;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -33,6 +39,9 @@ public class FeedFragment extends Fragment {
     private FeedViewModel recommendedFeedViewModel;
     private FeedAdapter feedAdapter;
     private RecommandedOffersAdapter recommandedOffersAdapter;
+    private RecyclerView recyclerView;
+    private boolean isLoading = false;
+    private FeedResponse feed;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -46,6 +55,8 @@ public class FeedFragment extends Fragment {
         setupFeedRecycleView();
         setupFilterSpinner(getContext());
 
+        feed = new FeedResponse();
+
         feedViewModel.fetchFeed(0, null, "");
         recommendedFeedViewModel.fetchFeed(0, null, "PFE");
 
@@ -54,24 +65,21 @@ public class FeedFragment extends Fragment {
     }
 
     private void setupFeedRecycleView() {
+        recyclerView = binding.rvAllOffers;
         feedAdapter = new FeedAdapter();
-        binding.rvAllOffers.setAdapter(feedAdapter);
+        recyclerView.setAdapter(feedAdapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        binding.rvAllOffers.setLayoutManager(layoutManager);
+        recyclerView.setLayoutManager(layoutManager);
 
         // Set up the scroll listener for pagination
-        binding.rvAllOffers.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        binding.nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
             @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
 
-                int visibleItemCount = layoutManager.getChildCount();
-                int totalItemCount = layoutManager.getItemCount();
-                int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
+                Log.i("visiblePosition", scrollY + " " + ( v.getMeasuredHeight() - v.getChildAt(0).getMeasuredHeight() ));
 
-                // Trigger load more when the user is at the end of the list
-                if (visibleItemCount + firstVisibleItemPosition >= totalItemCount
-                        && firstVisibleItemPosition >= 0) {
+                if (scrollY + ( v.getMeasuredHeight() - v.getChildAt(0).getMeasuredHeight() ) == 0) {
+                    Log.i("visiblePosition", "BOTTOM SCROLL");
                     onLoadMore();
                 }
             }
@@ -89,7 +97,15 @@ public class FeedFragment extends Fragment {
                 new ViewModelProvider(this).get(FeedViewModel.class);
 
         feedViewModel.getFeed().observe(getViewLifecycleOwner(), feedResponse -> {
-            feedAdapter.setItems(feedResponse);
+            ArrayList<FeedContentResponse> list = feedResponse.getContent();
+            list.addAll(feed.getContent());
+            list.addAll(feedResponse.getContent());
+            feed = feedResponse;
+
+            feed.content = list;
+            feedAdapter.setItems(feed);
+            feedAdapter.notifyDataSetChanged();
+            isLoading = false;
         });
 
         feedViewModel.getIsLoading().observe(getViewLifecycleOwner(), isLoading -> {
@@ -129,9 +145,12 @@ public class FeedFragment extends Fragment {
     }
 
     public void onLoadMore() {
-//        if (feed.getPageNumber() < feed.getTotalPages() - 1) {
-////            getPosts(getContext(), feed.getPageNumber() + 1, "");
-//        }
+        if(isLoading) return;
+
+        if (feed.getPageNumber() < feed.getTotalPages() - 1) {
+            isLoading = true;
+            feedViewModel.fetchFeed(feed.getPageNumber() + 1, null, "");
+        }
     }
 
     private void setupFilterSpinner(Context context) {
