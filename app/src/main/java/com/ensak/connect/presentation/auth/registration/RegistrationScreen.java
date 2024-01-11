@@ -13,7 +13,10 @@ import android.widget.Toast;
 import com.ensak.connect.databinding.AuthRegistrationActivityBinding;
 import com.ensak.connect.presentation.home.HomeActivity;
 
+import dagger.hilt.android.AndroidEntryPoint;
 
+
+@AndroidEntryPoint
 public class RegistrationScreen extends AppCompatActivity {
 
     private AuthRegistrationActivityBinding binding;
@@ -39,8 +42,7 @@ public class RegistrationScreen extends AppCompatActivity {
     }
 
     private void initializeViewModel() {
-        registrationViewModel = new ViewModelProvider(this, new ViewModelProvider.AndroidViewModelFactory(getApplication()))
-                .get(RegistrationViewModel.class);
+        registrationViewModel = new ViewModelProvider(this).get(RegistrationViewModel.class);
 
         registrationViewModel.getErrorMsg().observe(this, errorMsg -> {
             if(!errorMsg.isEmpty()){

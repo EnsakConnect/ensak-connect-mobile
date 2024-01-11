@@ -57,13 +57,13 @@
             android:exported="false"
             android:theme="@style/Theme.ENSAKConnect.NoActionBar" />
         <activity
-            android:name=".presentation.auth.password_reset.CodeValidationScreen"
+            android:name=".presentation.auth.password_reset.CodeValidationActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.auth.password_reset.EmailRecuperation"
+            android:name=".presentation.auth.password_reset.PasswordResetActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.auth.password_reset.ResetPasswordScreen"
+            android:name=".presentation.auth.password_reset.ChangePasswordActivity"
             android:exported="false" />
         <activity
             android:name=".presentation.job_post.comments.CommentsActivity"

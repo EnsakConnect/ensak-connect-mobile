@@ -25,27 +25,6 @@ import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface ApiRequest {
-    @GET("job-posts")
-    Call<ArrayList<JobPostResponse>> getPosts();
-
-    @GET("job-posts/{job_post_id}/comments")
-    Call<ArrayList<JobPostCommentResponse>> getComments(@Path("job_post_id") String postId);
-
-    @POST("job-posts/{job_post_id}/comments")
-    Call<JobPostCommentResponse> sendComment(@Path("job_post_id") String postId, @Body String content);
-
-    @GET("conversations")
-    Call<ArrayList<ConversationResponse>> getConversations();
-
-    @POST("conversations")
-    Call<ConversationResponse> addConversation();
-
-    @GET("chat/{conversation_id}")
-    Call<ArrayList<ChatMessageResponse>> getChatMessages(@Path("conversation_id") String conversationId);
-
-    @POST("chat/{conversation_id}")
-    Call<ChatMessageResponse> sendChatMessage(@Path("conversation_id") String conversationId, @Body String message);
-
     @POST("auth/password-reset")
     Call<PasswordResetRequest> sendmail(@Body PasswordResetRequest emailrequest);
 
@@ -55,21 +34,6 @@ public interface ApiRequest {
     @POST("auth/change-password")
     Call<ChangePasswordRequest> changepasswd(@Body ChangePasswordRequest changePasswordRequest);
 
-    @GET("profile/52/detailed")
-    Call<ProfileResponse> getUserProfile();
-
     @GET("notifications")
     Call<List<NotificationResponse>> getAllNotifications();
-
-    @POST("profile/experiences")
-    Call<ExperienceResponse> UploadExperience(@Body ExperienceRequest experienceRequest);
-
-    @POST("profile/educations")
-    Call<EducationResponse> UploadEducation(@Body EducationRequest educationRequest);
-
-    @PUT("profile/experiences/{experience_id}")
-    Call<ExperienceResponse> UpdateExperience(@Path("experience_id") String experienceId, @Body ExperienceRequest experienceRequest);
-
-    @PUT("profile/educations/{educations_id}")
-    Call<EducationResponse> UpdateEducation(@Path("education_id") String educationIf, @Body EducationRequest educationRequest);
 }

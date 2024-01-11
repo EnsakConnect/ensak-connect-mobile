@@ -3,6 +3,10 @@ package com.ensak.connect.repository.auth;
 import android.content.Context;
 import android.util.Log;
 
+import com.ensak.connect.repository.auth.model.ChangePasswordRequest;
+import com.ensak.connect.repository.auth.model.CodeVerificationRequest;
+import com.ensak.connect.repository.auth.model.CodeVerificationResponse;
+import com.ensak.connect.repository.auth.model.PasswordResetRequest;
 import com.ensak.connect.repository.shared.RepositoryCallBack;
 import com.ensak.connect.repository.auth.remote.AuthApi;
 import com.ensak.connect.repository.auth.model.LoginRequest;
@@ -80,6 +84,62 @@ public class AuthRepository {
             @Override
             public void onFailure(Call<AuthenticationResponse> call, Throwable t) {
                 callBack.onFailure(t);
+            }
+        });
+    }
+
+    public void passwordReset(PasswordResetRequest request, RepositoryCallBack<Void> callBack) {
+        api.sendPasswordResetRequest(request).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if(response.isSuccessful()){
+                    callBack.onSuccess(null);
+                } else {
+                    callBack.onFailure(new Exception("Request failed"));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                callBack.onFailure(t);
+            }
+        });
+    }
+
+    public void sendCodeVerification(CodeVerificationRequest request, RepositoryCallBack<CodeVerificationResponse> callBack) {
+        api.sendCodeVerificationRequest(request).enqueue(new Callback<CodeVerificationResponse>() {
+            @Override
+            public void onResponse(Call<CodeVerificationResponse> call, Response<CodeVerificationResponse> response) {
+                if(response.isSuccessful() && response.body() != null){
+                    callBack.onSuccess(response.body());
+                }else {
+                    callBack.onFailure(new Exception("Request failed"));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CodeVerificationResponse> call, Throwable t) {
+                callBack.onFailure(t);
+            }
+        });
+    }
+
+    public void changePassword(ChangePasswordRequest request, RepositoryCallBack<Void> callback) {
+        api.changePassword(request).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                Log.d(TAG, response.body().toString());
+                if(response.isSuccessful()){
+                    callback.onSuccess(null);
+                } else {
+                    callback.onFailure(new Exception("Request Failed"));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.d(TAG,"Error: " + t.getMessage());
+                callback.onFailure(t);
             }
         });
     }
