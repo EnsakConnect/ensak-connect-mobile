@@ -20,6 +20,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.ensak.connect.databinding.AuthLoginActivityBinding;
+import com.ensak.connect.presentation.auth.password_reset.PasswordResetActivity;
 import com.ensak.connect.presentation.auth.registration.RegistrationScreen;
 import com.ensak.connect.presentation.auth.password_reset.ChangePasswordActivity;
 import com.ensak.connect.presentation.home.HomeActivity;
@@ -130,7 +131,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void forgotPassword() {
-        Intent intent = new Intent(this, ChangePasswordActivity.class);
+        Intent intent = new Intent(this, PasswordResetActivity.class);
         startActivity(intent);
+        finish();
     }
 }

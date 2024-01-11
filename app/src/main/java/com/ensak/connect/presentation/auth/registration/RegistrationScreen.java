@@ -36,14 +36,13 @@ public class RegistrationScreen extends AppCompatActivity {
     }
 
     private void setupAccountTypeSelect() {
-        String[] types = {"Student", "Professor", "Laureate"};
+        String[] types = {"STUDENT", "PROFESSOR", "LAUREATE"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, types);
         binding.slctAccountType.setAdapter(adapter);
     }
 
     private void initializeViewModel() {
-        registrationViewModel = new ViewModelProvider(this, new ViewModelProvider.AndroidViewModelFactory(getApplication()))
-                .get(RegistrationViewModel.class);
+        registrationViewModel = new ViewModelProvider(this).get(RegistrationViewModel.class);
 
         registrationViewModel.getErrorMsg().observe(this, errorMsg -> {
             if(!errorMsg.isEmpty()){
