@@ -7,21 +7,12 @@ import android.content.Intent;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
-import com.ensak.connect.R;
 import com.ensak.connect.databinding.AuthCodeValidationActivityBinding;
 import com.ensak.connect.presentation.home.HomeActivity;
-import com.ensak.connect.repository.auth.model.CodeVerificationRequest;
-import com.ensak.connect.service.retrofit.ApiRequest;
-import com.ensak.connect.service.RetrofitService;
 
 import dagger.hilt.android.AndroidEntryPoint;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 @AndroidEntryPoint
 public class CodeValidationActivity extends AppCompatActivity {

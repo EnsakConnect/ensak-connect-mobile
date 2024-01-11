@@ -1,17 +1,10 @@
 package com.ensak.connect.repository.job_post;
 
-import android.content.Context;
-import android.util.Log;
-
 import androidx.annotation.NonNull;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 
 import com.ensak.connect.repository.job_post.model.JobPostCommentResponse;
 import com.ensak.connect.repository.job_post.remote.JobPostApi;
 import com.ensak.connect.repository.shared.RepositoryCallBack;
-import com.ensak.connect.service.retrofit.ApiRequest;
-import com.ensak.connect.service.RetrofitService;
 
 import java.util.ArrayList;
 

@@ -2,6 +2,7 @@ package com.ensak.connect.presentation.notifications;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -12,19 +13,19 @@ import android.widget.Toast;
 import com.ensak.connect.adapters.notifications.NotificationAdapter;
 import com.ensak.connect.databinding.NotificationActivityBinding;
 import com.ensak.connect.repository.notification.model.NotificationResponse;
-import com.ensak.connect.service.retrofit.ApiRequest;
-import com.ensak.connect.service.RetrofitService;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import dagger.hilt.android.AndroidEntryPoint;
 
+@AndroidEntryPoint
 public class NotificationActivity extends AppCompatActivity {
-
-    private RecyclerView recyclerView;
     private NotificationActivityBinding binding;
+    private NotificationViewModel notificationViewModel;
+    private RecyclerView recyclerView;
+    private NotificationAdapter notificationAdapter;
+    private List<NotificationResponse> notifications = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +35,10 @@ public class NotificationActivity extends AppCompatActivity {
 
         recyclerView = binding.notificationsList;
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        setSupportActionBar(binding.toolbar);
+        notificationAdapter=new NotificationAdapter(notifications);
+        recyclerView.setAdapter(notificationAdapter);
 
+        setSupportActionBar(binding.toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayShowTitleEnabled(false);
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -46,36 +49,38 @@ public class NotificationActivity extends AppCompatActivity {
             }
         });
 
-        loadNotifications();
+        initViewModel();
+        notificationViewModel.fetchNotifications();
     }
+    private void initViewModel() {
+        notificationViewModel = new ViewModelProvider(this).get(NotificationViewModel.class);
 
-    private void loadNotifications(){
-        RetrofitService retrofitRequest=new RetrofitService(getApplicationContext());
-        ApiRequest apiRequest=retrofitRequest.getRetrofitInstance(getApplicationContext()).create(ApiRequest.class);
-        Call<List<NotificationResponse>> call = apiRequest.getAllNotifications();
-        call.enqueue(new Callback<List<NotificationResponse>>() {
-            @Override
-            public void onResponse(Call<List<NotificationResponse>> call, Response<List<NotificationResponse>> response) {
-                // Traitement de la réponse ici
-                if (response.isSuccessful()) {
-                    populateListView(response.body());
-                    // Faites quelque chose avec les données reçues
-                } else {
-                    // Gérer les erreurs de réponse
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<NotificationResponse>> call, Throwable t) {
-                Toast.makeText(NotificationActivity.this, "Failed To get Notifications", Toast.LENGTH_SHORT).show();
+        notificationViewModel.getIsLoading().observe(this, isLoading -> {
+            if(isLoading) {
+                binding.prgLoading.setVisibility(View.VISIBLE);
+                binding.notificationsList.setVisibility(View.GONE);
+                binding.txtEmpty.setVisibility(View.GONE);
+            } else {
+                binding.prgLoading.setVisibility(View.GONE);
             }
         });
 
+        notificationViewModel.getErrorMessage().observe(this, errorMessage -> {
+            if(errorMessage == null || errorMessage.isEmpty()) return;
+            Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
+        });
 
-    }
-
-    private void populateListView(List<NotificationResponse> notificationslist){
-        NotificationAdapter notificationAdapter=new NotificationAdapter(notificationslist);
-        recyclerView.setAdapter(notificationAdapter);
+        notificationViewModel.getNotifications().observe(this, notifs -> {
+            notifications.clear();
+            notifications.addAll(notifs);
+            notificationAdapter.notifyDataSetChanged();
+            if(notifs.size() == 0) {
+                binding.txtEmpty.setVisibility(View.VISIBLE);
+                binding.notificationsList.setVisibility(View.GONE);
+            } else {
+                binding.txtEmpty.setVisibility(View.GONE);
+                binding.notificationsList.setVisibility(View.VISIBLE);
+            }
+        });
     }
 }

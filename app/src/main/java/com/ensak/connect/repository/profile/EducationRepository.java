@@ -1,18 +1,11 @@
 package com.ensak.connect.repository.profile;
 
-import android.content.Context;
-import android.util.Log;
-
 import androidx.annotation.NonNull;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 
 import com.ensak.connect.repository.profile.model.EducationRequest;
 import com.ensak.connect.repository.profile.model.EducationResponse;
 import com.ensak.connect.repository.profile.remote.ProfileApi;
 import com.ensak.connect.repository.shared.RepositoryCallBack;
-import com.ensak.connect.service.retrofit.ApiRequest;
-import com.ensak.connect.service.RetrofitService;
 
 import javax.inject.Inject;
 
