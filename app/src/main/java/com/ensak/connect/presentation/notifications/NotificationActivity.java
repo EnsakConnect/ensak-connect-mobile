@@ -13,16 +13,11 @@ import android.widget.Toast;
 import com.ensak.connect.adapters.notifications.NotificationAdapter;
 import com.ensak.connect.databinding.NotificationActivityBinding;
 import com.ensak.connect.repository.notification.model.NotificationResponse;
-import com.ensak.connect.service.retrofit.ApiRequest;
-import com.ensak.connect.service.RetrofitService;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import dagger.hilt.android.AndroidEntryPoint;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 @AndroidEntryPoint
 public class NotificationActivity extends AppCompatActivity {
