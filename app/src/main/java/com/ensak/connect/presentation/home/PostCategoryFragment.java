@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.ensak.connect.adapters.feed.FeedAdapter;
 import com.ensak.connect.databinding.MainPostCategoryFragmentBinding;
+import com.ensak.connect.repository.feed.model.FeedContentResponse;
 import com.ensak.connect.repository.feed.model.FeedResponse;
 
 import java.util.ArrayList;
@@ -56,6 +57,7 @@ public class PostCategoryFragment extends Fragment {
     private FeedViewModel feedViewModel;
     private FeedResponse feed;
     private FeedAdapter adapter;
+    private boolean isLoading = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -70,6 +72,25 @@ public class PostCategoryFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         binding.rvAllOffers.setLayoutManager(layoutManager);
 
+        feed = new FeedResponse();
+
+        binding.rvAllOffers.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                int visibleItemCount = layoutManager.getChildCount();
+                int totalItemCount = layoutManager.getItemCount();
+                int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
+
+                // Trigger load more when the user is at the end of the list
+                if (visibleItemCount + firstVisibleItemPosition >= totalItemCount
+                        && firstVisibleItemPosition >= 0) {
+                    onLoadMore();
+                }
+            }
+        });
+
         initViewModel();
 
         feedViewModel.fetchFeed(0, null, filter);
@@ -77,11 +98,28 @@ public class PostCategoryFragment extends Fragment {
         return root;
     }
 
+    public void onLoadMore() {
+        if(isLoading) return;
+
+        if (feed.getPageNumber() < feed.getTotalPages() - 1) {
+            isLoading = true;
+            feedViewModel.fetchFeed(feed.getPageNumber() + 1, null, filter);
+        }
+    }
+
     private void initViewModel() {
         feedViewModel = new ViewModelProvider(this).get(FeedViewModel.class);
 
         feedViewModel.getFeed().observe(getViewLifecycleOwner(), feedResponse -> {
-            adapter.setItems(feedResponse);
+            ArrayList<FeedContentResponse> list = feedResponse.getContent();
+            list.addAll(feed.getContent());
+            list.addAll(feedResponse.getContent());
+            feed = feedResponse;
+
+            feed.content = list;
+            adapter.setItems(feed);
+            adapter.notifyDataSetChanged();
+            isLoading = false;
         });
     }
 }
