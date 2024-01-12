@@ -1,22 +1,30 @@
 package com.ensak.connect.presentation.profile;
 
+import android.telecom.Call;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.ensak.connect.model.Skill;
 import com.ensak.connect.repository.profile.EducationRepository;
 import com.ensak.connect.repository.profile.SkillRepository;
 import com.ensak.connect.repository.profile.model.EducationRequest;
 import com.ensak.connect.repository.profile.model.EducationResponse;
+import com.ensak.connect.repository.profile.model.ProfileResponse;
 import com.ensak.connect.repository.profile.model.SkillRequest;
 import com.ensak.connect.repository.profile.model.SkillResponse;
 import com.ensak.connect.repository.shared.RepositoryCallBack;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import dagger.hilt.android.lifecycle.HiltViewModel;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 @HiltViewModel
 public class SkillEditViewModel extends ViewModel {
@@ -29,6 +37,12 @@ public class SkillEditViewModel extends ViewModel {
     @Inject
     public SkillEditViewModel(SkillRepository skillRepository) {
         this.skillRepository = skillRepository;
+    }
+
+    private MutableLiveData<List<Skill>> skills = new MutableLiveData<>();
+
+    public LiveData<List<Skill>> getSkills() {
+        return skills;
     }
 
     public void createSkill(String skill, String level) {
@@ -78,4 +92,41 @@ public class SkillEditViewModel extends ViewModel {
     public LiveData<String> getErrorMessage() {
         return errorMessage;
     }
+
+    public void fetchSkills() {
+        isLoading.setValue(true);
+        skillRepository.getSkills(new RepositoryCallBack<List<Skill>>() {
+            @Override
+            public void onSuccess(List<Skill> data) {
+                skills.setValue(data); // This will be a List<Skill>
+                isLoading.setValue(false);
+                errorMessage.setValue("");
+            }
+
+            @Override
+            public void onFailure(Throwable throwable) {
+                errorMessage.setValue("Error fetching skills: " + throwable.getMessage());
+                isLoading.setValue(false);
+            }
+        });
+    }
+
+    public void deleteSkill(int skillId) {
+        isLoading.setValue(true);
+        skillRepository.deleteSkill(skillId, new RepositoryCallBack<Void>() {
+            @Override
+            public void onSuccess(Void result) {
+
+                fetchSkills();
+                isLoading.setValue(false);
+            }
+
+            @Override
+            public void onFailure(Throwable throwable) {
+
+                isLoading.setValue(false);
+            }
+        });
+    }
 }
+

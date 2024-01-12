@@ -2,6 +2,7 @@ package com.ensak.connect.presentation.profile;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -51,10 +52,16 @@ public class SkillsEditActivity extends AppCompatActivity {
             }
         });
 
+
         adapter = new AddSkillsAdapter(skillsList);
         binding.skillsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         binding.skillsRecyclerView.setAdapter(adapter);
 
+        initViewModel();
+        skillEditViewModel.fetchSkills();
+        skillEditViewModel.getSkills().observe(this, newSkills -> {
+            adapter.setSkills(newSkills);
+        });
 
 
         binding.txtSkill.setOnEditorActionListener((v, actionId, event) -> {
@@ -81,7 +88,7 @@ public class SkillsEditActivity extends AppCompatActivity {
             addSkillIfNotEmpty();
         });
 
-        initViewModel();
+
     }
 
     private void addSkillIfNotEmpty() {
@@ -93,27 +100,21 @@ public class SkillsEditActivity extends AppCompatActivity {
         }
     }
     private void addSkillToLinearLayout(String skillName) {
-
+        // Inflate the skill row layout
         View skillRow = LayoutInflater.from(this).inflate(R.layout.skill_item_layout, null, false);
 
+        // Set the text for the skill name
         TextView skillTextView = skillRow.findViewById(R.id.txtTitle);
         skillTextView.setText(skillName);
 
-
-        ImageView deleteIcon = skillRow.findViewById(R.id.iconRight);
+        // Set up the delete icon functionality
+        ImageView deleteIcon = skillRow.findViewById(R.id.iconDelete);
         deleteIcon.setOnClickListener(v -> ((LinearLayout)skillRow.getParent()).removeView(skillRow));
-
-
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        int bottomMargin = getResources().getDimensionPixelSize(R.dimen.recycler_view_spacing); // Define this value in your dimens.xml
-        layoutParams.setMargins(0, 0, 0, bottomMargin);
-
-        skillRow.setLayoutParams(layoutParams);
 
 
         binding.linearLayout.addView(skillRow);
     }
+
 
 
     private void createSkill() {

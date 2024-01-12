@@ -39,15 +39,22 @@ public class AddSkillsAdapter extends RecyclerView.Adapter<AddSkillsAdapter.Skil
         return skillsList.size();
     }
 
-    // Provide a reference to the views for each data item
+    public void setSkills(List<Skill> newSkills) {
+        this.skillsList = newSkills;
+        notifyDataSetChanged();
+    }
+
+
     public static class SkillViewHolder extends RecyclerView.ViewHolder {
         public TextView skillTextView;
+        public ImageView editImageView;
         public ImageView deleteImageView;
 
         public SkillViewHolder(View v) {
             super(v);
             skillTextView = v.findViewById(R.id.txtTitle);
-            deleteImageView = v.findViewById(R.id.iconRight);
+            editImageView = v.findViewById(R.id.iconEdit);
+            deleteImageView = v.findViewById(R.id.iconDelete);
         }
     }
 }
