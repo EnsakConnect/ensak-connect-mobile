@@ -1,5 +1,6 @@
 package com.ensak.connect.adapters.Profile;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,10 +12,20 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ensak.connect.model.Skill;
+import com.ensak.connect.repository.profile.model.SkillResponse;
 
 import java.util.List;
 
 public class AddSkillsAdapter extends RecyclerView.Adapter<AddSkillsAdapter.SkillViewHolder> {
+    public interface OnSkillDeleteListener {
+        void onSkillDelete(int position);
+    }
+
+    private OnSkillDeleteListener deleteListener;
+
+    public void setOnSkillDeleteListener(OnSkillDeleteListener listener) {
+        this.deleteListener = listener;
+    }
 
     private List<Skill> skillsList;
 
@@ -24,15 +35,16 @@ public class AddSkillsAdapter extends RecyclerView.Adapter<AddSkillsAdapter.Skil
 
 
     @Override
-    public SkillViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.skill_item_layout, parent, false);
-        return new SkillViewHolder(v);
+    public SkillViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.skill_item_layout, parent, false);
+        return new SkillViewHolder(itemView, deleteListener);
     }
+
 
     @Override
     public void onBindViewHolder(@NonNull AddSkillsAdapter.SkillViewHolder holder, int position) {
         Skill skill = skillsList.get(position);
-        holder.skillTextView.setText(skill.getName());
+        holder.txtTitle.setText(skill.getName());
     }
     @Override
     public int getItemCount() {
@@ -45,16 +57,28 @@ public class AddSkillsAdapter extends RecyclerView.Adapter<AddSkillsAdapter.Skil
     }
 
 
-    public static class SkillViewHolder extends RecyclerView.ViewHolder {
-        public TextView skillTextView;
-        public ImageView editImageView;
-        public ImageView deleteImageView;
+    static class SkillViewHolder extends RecyclerView.ViewHolder {
+        TextView txtTitle;
+        ImageView editIcon;
+        ImageView deleteIcon;
 
-        public SkillViewHolder(View v) {
-            super(v);
-            skillTextView = v.findViewById(R.id.txtTitle);
-            editImageView = v.findViewById(R.id.iconEdit);
-            deleteImageView = v.findViewById(R.id.iconDelete);
+        SkillViewHolder(View itemView, OnSkillDeleteListener deleteListener) {
+            super(itemView);
+            txtTitle = itemView.findViewById(R.id.txtTitle);
+            editIcon = itemView.findViewById(R.id.iconEdit);
+            deleteIcon = itemView.findViewById(R.id.iconDelete);
+
+            deleteIcon.setOnClickListener(v -> {
+                int position = getAdapterPosition();
+                if (position != RecyclerView.NO_POSITION && deleteListener != null) {
+                    deleteListener.onSkillDelete(position);
+                }
+            });
+        }
+
+        void bind(SkillResponse skill) {
+            txtTitle.setText(skill.getName());
         }
     }
+
 }

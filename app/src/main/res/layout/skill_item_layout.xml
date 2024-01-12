@@ -5,7 +5,9 @@
     android:orientation="horizontal"
     android:padding="8dp"
     android:gravity="center_vertical"
-    android:background="@color/white">
+
+    android:background="@drawable/circular_border"
+    android:layout_margin="8dp">
 
     <TextView
         android:id="@+id/txtTitle"

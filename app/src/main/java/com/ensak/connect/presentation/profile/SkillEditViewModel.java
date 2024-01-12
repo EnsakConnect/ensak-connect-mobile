@@ -1,6 +1,7 @@
 package com.ensak.connect.presentation.profile;
 
 import android.telecom.Call;
+import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -19,6 +20,7 @@ import com.ensak.connect.repository.profile.model.SkillResponse;
 import com.ensak.connect.repository.shared.RepositoryCallBack;
 
 import java.util.List;
+import java.util.Locale;
 
 import javax.inject.Inject;
 
@@ -116,17 +118,25 @@ public class SkillEditViewModel extends ViewModel {
         skillRepository.deleteSkill(skillId, new RepositoryCallBack<Void>() {
             @Override
             public void onSuccess(Void result) {
-
-                fetchSkills();
+                removeSkillFromList(skillId);
                 isLoading.setValue(false);
+                successMessage.setValue("Skill deleted successfully");
             }
 
             @Override
             public void onFailure(Throwable throwable) {
-
                 isLoading.setValue(false);
+                errorMessage.setValue("Error deleting skill: " + throwable.getMessage());
             }
         });
     }
+    private void removeSkillFromList(int skillid) {
+        List<Skill> currentSkills = skills.getValue();
+        if (currentSkills != null) {
+            currentSkills.removeIf(skill -> skill.getid() == skillid);
+            skills.setValue(currentSkills);
+        }
+    }
+
 }
 

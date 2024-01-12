@@ -19,8 +19,10 @@ import android.widget.Toast;
 
 import com.ensak.connect.R;
 import com.ensak.connect.adapters.Profile.AddSkillsAdapter;
+import com.ensak.connect.adapters.Profile.SkillsAdapter;
 import com.ensak.connect.databinding.ActivitySkillsEditBinding;
 import com.ensak.connect.model.Skill;
+import com.ensak.connect.repository.profile.model.SkillResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +35,7 @@ public class SkillsEditActivity extends AppCompatActivity {
 
     private ActivitySkillsEditBinding binding;
     private AddSkillsAdapter adapter;
+
     private SkillEditViewModel skillEditViewModel;
     private List<Skill> skillsList = new ArrayList<>();
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,19 +53,35 @@ public class SkillsEditActivity extends AppCompatActivity {
             public void onClick(View v) {
                 finish();
             }
+
+
         });
+
 
 
         adapter = new AddSkillsAdapter(skillsList);
         binding.skillsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         binding.skillsRecyclerView.setAdapter(adapter);
 
+
+
         initViewModel();
         skillEditViewModel.fetchSkills();
-        skillEditViewModel.getSkills().observe(this, newSkills -> {
-            adapter.setSkills(newSkills);
+        skillEditViewModel.getSkills().observe(this, skills -> {
+
+            skillsList.clear();
+            skillsList.addAll(skills);
+            adapter.notifyDataSetChanged();
         });
 
+        adapter.setOnSkillDeleteListener(position -> {
+
+            Skill skillToDelete = skillsList.get(position);
+            skillEditViewModel.deleteSkill(skillToDelete.getid());
+            skillsList.remove(position);
+            adapter.notifyItemRemoved(position);
+
+        });
 
         binding.txtSkill.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
@@ -91,6 +110,7 @@ public class SkillsEditActivity extends AppCompatActivity {
 
     }
 
+
     private void addSkillIfNotEmpty() {
         String skillName = binding.txtSkill.getText().toString();
         if (!skillName.isEmpty()) {
@@ -100,16 +120,18 @@ public class SkillsEditActivity extends AppCompatActivity {
         }
     }
     private void addSkillToLinearLayout(String skillName) {
-        // Inflate the skill row layout
+
         View skillRow = LayoutInflater.from(this).inflate(R.layout.skill_item_layout, null, false);
 
-        // Set the text for the skill name
+
         TextView skillTextView = skillRow.findViewById(R.id.txtTitle);
         skillTextView.setText(skillName);
 
-        // Set up the delete icon functionality
         ImageView deleteIcon = skillRow.findViewById(R.id.iconDelete);
-        deleteIcon.setOnClickListener(v -> ((LinearLayout)skillRow.getParent()).removeView(skillRow));
+        deleteIcon.setOnClickListener(v -> {
+            ((LinearLayout)skillRow.getParent()).removeView(skillRow);
+
+        });
 
 
         binding.linearLayout.addView(skillRow);
@@ -118,7 +140,7 @@ public class SkillsEditActivity extends AppCompatActivity {
 
 
     private void createSkill() {
-        Log.d("Skillrepo ", "create called succefully");
+
 
         String skill = binding.txtSkill.getText().toString().trim();
         String level = "BEGINNER";

@@ -2,19 +2,19 @@ package com.ensak.connect.model;
 
 public class Skill {
     private String name;
-    private int Id;
+    private int id;
 
-    public int getId() {
-        return Id;
+    public int getid() {
+        return id;
     }
 
-    public void setId(int id) {
-        Id = id;
+    public void setid(int id) {
+        id = id;
     }
 
-    // Constructor, getters, and setters
-    public Skill(String name) {
+    public Skill(String name, int id) {
         this.name = name;
+        this.id = id;
     }
 
     public String getName() {
