@@ -18,6 +18,10 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".presentation.profile.SkillsEditActivity"
+            android:theme="@style/Theme.ENSAKConnect.NoActionBar"
+            android:exported="false" />
+        <activity
             android:name=".presentation.testing.TestingActivity"
             android:exported="false" />
         <activity
