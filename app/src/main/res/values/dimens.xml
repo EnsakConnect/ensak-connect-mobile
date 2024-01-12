@@ -14,4 +14,5 @@
     <dimen name="feed_ic_size">20dp</dimen>
     <dimen name="feed_ic_margin">12dp</dimen>
     <dimen name="feed_text_interaction_size">12sp</dimen>
+    <dimen name="recycler_view_spacing">8dp</dimen>
 </resources>

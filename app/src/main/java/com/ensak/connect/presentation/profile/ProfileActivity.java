@@ -3,7 +3,6 @@ package com.ensak.connect.presentation.profile;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 
 
@@ -70,6 +69,11 @@ public class ProfileActivity extends AppCompatActivity {
 
         binding.modifyExperienceButton.setOnClickListener(v -> {
             Intent intent = new Intent(ProfileActivity.this, ExperienceEditActivity.class);
+            startActivity(intent);
+        });
+
+        binding.modifySkillsButton.setOnClickListener(v -> {
+            Intent intent = new Intent(ProfileActivity.this, SkillsEditActivity.class);
             startActivity(intent);
         });
     }
