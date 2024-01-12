@@ -2,9 +2,11 @@ package com.ensak.connect.presentation.profile;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -12,6 +14,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ensak.connect.R;
 import com.ensak.connect.adapters.Profile.AddSkillsAdapter;
@@ -29,6 +32,7 @@ public class SkillsEditActivity extends AppCompatActivity {
 
     private ActivitySkillsEditBinding binding;
     private AddSkillsAdapter adapter;
+    private SkillEditViewModel skillEditViewModel;
     private List<Skill> skillsList = new ArrayList<>();
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +62,7 @@ public class SkillsEditActivity extends AppCompatActivity {
                 String skillName = binding.txtSkill.getText().toString();
                 if (!skillName.isEmpty()) {
                     addSkillToLinearLayout(skillName);
+                    createSkill();
                     binding.txtSkill.setText(""); // Clear EditText
                 }
                 return true;
@@ -65,17 +70,18 @@ public class SkillsEditActivity extends AppCompatActivity {
             return false;
         });
 
-        binding.txtSkill.setOnTouchListener((v, event) -> {
-            if (event.getAction() == MotionEvent.ACTION_UP) {
-                if (binding.txtSkill.getCompoundDrawables()[2] != null) {
-                    if (event.getRawX() >= (binding.txtSkill.getRight() - binding.txtSkill.getCompoundDrawables()[2].getBounds().width())) {
-                        addSkillIfNotEmpty();
-                        return true;
-                    }
-                }
-            }
-            return false;
+
+        binding.btnCancel.setOnClickListener(v -> {
+            finish();
         });
+
+
+        binding.btnCreate.setOnClickListener(v -> {
+            createSkill();
+            addSkillIfNotEmpty();
+        });
+
+        initViewModel();
     }
 
     private void addSkillIfNotEmpty() {
@@ -83,6 +89,7 @@ public class SkillsEditActivity extends AppCompatActivity {
         if (!skillName.isEmpty()) {
             addSkillToLinearLayout(skillName);
             binding.txtSkill.setText(""); // Clear EditText
+
         }
     }
     private void addSkillToLinearLayout(String skillName) {
@@ -106,6 +113,37 @@ public class SkillsEditActivity extends AppCompatActivity {
 
 
         binding.linearLayout.addView(skillRow);
+    }
+
+
+    private void createSkill() {
+        Log.d("Skillrepo ", "create called succefully");
+
+        String skill = binding.txtSkill.getText().toString().trim();
+        String level = "BEGINNER";
+        skillEditViewModel.createSkill(skill, level);
+
+    }
+
+    private void initViewModel() {
+        skillEditViewModel = new ViewModelProvider(this)
+                .get(SkillEditViewModel.class);
+
+        skillEditViewModel.getIsSuccess().observe(this, success -> {
+            if(success) {
+                finish();
+            }
+        });
+
+        skillEditViewModel.getSuccessMessage().observe(this, msg -> {
+            if(msg.length() == 0) return;
+            Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+        });
+
+        skillEditViewModel.getErrorMessage().observe(this, msg -> {
+            if(msg.length() == 0) return;
+            Toast.makeText(this, "Error: " + msg, Toast.LENGTH_SHORT).show();
+        });
     }
 
 }

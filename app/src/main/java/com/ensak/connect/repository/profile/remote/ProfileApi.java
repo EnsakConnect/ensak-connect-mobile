@@ -8,6 +8,8 @@ import com.ensak.connect.repository.profile.model.ExperienceRequest;
 import com.ensak.connect.repository.profile.model.ExperienceResponse;
 import com.ensak.connect.repository.profile.model.ProfileDetailedResponse;
 import com.ensak.connect.repository.profile.model.ProfileInformationRequest;
+import com.ensak.connect.repository.profile.model.SkillRequest;
+import com.ensak.connect.repository.profile.model.SkillResponse;
 
 import java.util.List;
 
@@ -42,4 +44,7 @@ public interface ProfileApi {
 
     @PUT("profile/banner/{resource_id}")
     Call<UserResponse> updateProfileBanner(@Path("resource_id") Integer resource_id);
+
+    @POST("profile/skills")
+    Call<SkillResponse> addSkill(@Body SkillRequest skillRequest);
 }
