@@ -169,24 +169,57 @@
                         android:text="Save changes"/>
 
                 </LinearLayout>
+            </LinearLayout>
 
-                <!-- Profile picture -->
-                <!--                <LinearLayout-->
-                <!--                    android:layout_width="match_parent"-->
-                <!--                    android:layout_height="wrap_content"-->
-                <!--                    android:layout_gravity="bottom">-->
-                <!--                    <ImageView-->
-                <!--                        android:layout_width="96dp"-->
-                <!--                        android:layout_height="96dp"-->
-                <!--                        android:background="@color/gray_600"/>-->
+            <!-- Profile picture -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="32dp"
+                android:layout_marginTop="16dp"
+                android:gravity="center">
+                <ImageView
+                    android:id="@+id/imgProfilePicture"
+                    android:layout_width="112dp"
+                    android:layout_height="112dp"
+                    android:src="@drawable/profile_picture_placeholder"
+                    android:scaleType="centerCrop"
+                    android:layout_marginBottom="16dp"
+                    android:background="@color/gray_600"/>
 
-                <!--                    <androidx.appcompat.widget.AppCompatButton-->
-                <!--                        android:layout_width="wrap_content"-->
-                <!--                        android:layout_height="wrap_content"-->
-                <!--                        android:text="Update profile"-->
-                <!--                        android:gravity="center_horizontal"-->
-                <!--                        style="@style/ButtonPrimary"/>-->
-                <!--                </LinearLayout>-->
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnUpdateProfilePicture"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Update profile picture"
+                    android:gravity="center_horizontal"
+                    style="@style/ButtonPrimary"/>
+            </LinearLayout>
+
+            <!-- Profile Banner -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="24dp"
+                android:gravity="center">
+                <ImageView
+                    android:id="@+id/imgProfileBanner"
+                    android:src="@drawable/profile_banner_placeholder"
+                    android:scaleType="centerCrop"
+                    android:layout_width="match_parent"
+                    android:layout_height="160dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@color/gray_600"/>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnUpdateProfileBanner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Update profile banner"
+                    android:gravity="center_horizontal"
+                    style="@style/ButtonPrimary"/>
             </LinearLayout>
 
             <LinearLayout

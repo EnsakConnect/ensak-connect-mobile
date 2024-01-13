@@ -1,6 +1,7 @@
 package com.ensak.connect.repository.profile;
 
 
+import com.ensak.connect.repository.auth.model.UserResponse;
 import com.ensak.connect.repository.profile.model.ProfileDetailedResponse;
 import com.ensak.connect.repository.profile.model.ProfileInformationRequest;
 import com.ensak.connect.repository.profile.remote.ProfileApi;
@@ -53,6 +54,42 @@ public class ProfileRepository {
             @Override
             public void onFailure(Call<ProfileDetailedResponse> call, Throwable t) {
                 callback.onFailure(t);
+            }
+        });
+    }
+
+    public void updateProfilePicture(Integer resourceId, RepositoryCallBack<UserResponse> callback) {
+        api.updateProfilePicture(resourceId).enqueue(new Callback<UserResponse>() {
+            @Override
+            public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
+                if(response.isSuccessful()){
+                    callback.onSuccess(response.body());
+                } else {
+                    callback.onFailure(new Exception());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UserResponse> call, Throwable t) {
+                callback.onFailure(t);
+            }
+        });
+    }
+
+    public void updateProfileBanner(Integer resourceId, RepositoryCallBack<UserResponse> callBack) {
+        api.updateProfileBanner(resourceId).enqueue(new Callback<UserResponse>() {
+            @Override
+            public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
+                if(response.isSuccessful()){
+                    callBack.onSuccess(response.body());
+                } else {
+                    callBack.onFailure(new Exception());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UserResponse> call, Throwable t) {
+                callBack.onFailure(t);
             }
         });
     }

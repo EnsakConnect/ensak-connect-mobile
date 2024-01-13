@@ -1,5 +1,6 @@
 package com.ensak.connect.repository.profile.remote;
 
+import com.ensak.connect.repository.auth.model.UserResponse;
 import com.ensak.connect.repository.notification.model.NotificationResponse;
 import com.ensak.connect.repository.profile.model.EducationRequest;
 import com.ensak.connect.repository.profile.model.EducationResponse;
@@ -35,4 +36,10 @@ public interface ProfileApi {
 
     @PUT("profile/educations/{educations_id}")
     Call<EducationResponse> UpdateEducation(@Path("education_id") String educationIf, @Body EducationRequest educationRequest);
+
+    @PUT("profile/profile-picture/{resource_id}")
+    Call<UserResponse> updateProfilePicture(@Path("resource_id") Integer resource_id);
+
+    @PUT("profile/banner/{resource_id}")
+    Call<UserResponse> updateProfileBanner(@Path("resource_id") Integer resource_id);
 }

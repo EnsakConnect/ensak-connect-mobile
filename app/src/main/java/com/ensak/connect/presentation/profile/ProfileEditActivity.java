@@ -7,9 +7,19 @@ import androidx.lifecycle.ViewModelProvider;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.model.GlideUrl;
+import com.bumptech.glide.load.model.LazyHeaders;
 import com.ensak.connect.R;
+import com.ensak.connect.constants.AppConstants;
 import com.ensak.connect.databinding.ProfileEditActivityBinding;
+import com.ensak.connect.presentation.testing.TestingActivity;
 import com.ensak.connect.repository.profile.model.ProfileInformationRequest;
+import com.ensak.connect.repository.resource.model.ResourceResponse;
+import com.ensak.connect.service.ActivityResultCallback;
+import com.ensak.connect.service.FileUploadService;
+import com.ensak.connect.service.GlideAuthUrl;
+import com.ensak.connect.service.SessionManagerService;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -39,6 +49,14 @@ public class ProfileEditActivity extends AppCompatActivity {
         binding.btnUpdateInfo.setOnClickListener(v -> {
             saveInformation();
         });
+
+        binding.btnUpdateProfilePicture.setOnClickListener(v -> {
+            updateProfilePicture();
+        });
+
+        binding.btnUpdateProfileBanner.setOnClickListener(v -> {
+            updateProfileBanner();
+        });
     }
 
     private void initViewModel() {
@@ -54,6 +72,26 @@ public class ProfileEditActivity extends AppCompatActivity {
             binding.txtType.setText(information.getProfileType());
         });
 
+        profileEditViewModel.getProfilePicture().observe(this, profilePicture -> {
+            String url = AppConstants.BASE_URL + "resources/"+profilePicture;
+            Glide.with(this)
+                    .load(GlideAuthUrl.getUrl(this, url))
+                    .placeholder(R.drawable.profile_picture_placeholder)
+                    .error(R.drawable.profile_picture_placeholder)
+                    .centerCrop()
+                    .into(binding.imgProfilePicture);
+        });
+
+        profileEditViewModel.getProfileBanner().observe(this, profileBanner -> {
+            String url = AppConstants.BASE_URL + "resources/"+profileBanner;
+            Glide.with(this)
+                    .load(GlideAuthUrl.getUrl(this, url))
+                    .placeholder(R.drawable.profile_banner_placeholder)
+                    .error(R.drawable.profile_banner_placeholder)
+                    .centerCrop()
+                    .into(binding.imgProfileBanner);
+        });
+
         profileEditViewModel.getIsLoading().observe(this, isLoading -> {
             if(isLoading) {
                 binding.txtFullName.setEnabled(false);
@@ -66,9 +104,9 @@ public class ProfileEditActivity extends AppCompatActivity {
             }
         });
 
-        profileEditViewModel.getIsSuccess().observe(this, isSuccess -> {
-            if(isSuccess) {
-                Toast.makeText(this, "Profile updated successfully", Toast.LENGTH_SHORT).show();
+        profileEditViewModel.getSuccessMessage().observe(this, successMessage -> {
+            if(!successMessage.isEmpty()) {
+                Toast.makeText(this, successMessage, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -91,5 +129,37 @@ public class ProfileEditActivity extends AppCompatActivity {
         request.setProfileType(binding.txtType.getText().toString());
 
         profileEditViewModel.saveInformation(request);
+    }
+
+    private void updateProfilePicture() {
+        FileUploadService profileUploadService = new FileUploadService(this, getActivityResultRegistry(), new ActivityResultCallback<ResourceResponse>() {
+            @Override
+            public void onSuccess(ResourceResponse data) {
+                profileEditViewModel.updateProfilePicture(data.getId());
+            }
+
+            @Override
+            public void onError(Throwable throwable) {
+                Toast.makeText(ProfileEditActivity.this, "Error uploading file.", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        profileUploadService.selectedAndUpload("image/*");
+    }
+
+    private void updateProfileBanner() {
+        FileUploadService profileUploadService = new FileUploadService(this, getActivityResultRegistry(), new ActivityResultCallback<ResourceResponse>() {
+            @Override
+            public void onSuccess(ResourceResponse data) {
+                profileEditViewModel.updateProfileBanner(data.getId());
+            }
+
+            @Override
+            public void onError(Throwable throwable) {
+                Toast.makeText(ProfileEditActivity.this, "Error uploading file.", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        profileUploadService.selectedAndUpload("image/*");
     }
 }
