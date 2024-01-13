@@ -64,7 +64,8 @@ public class ProfileActivity extends AppCompatActivity {
 
         initView();
         initViewModel();
-        profileViewModel.fetchProfileData(userId);
+        profileViewModel.setUserId(userId);
+        profileViewModel.fetchProfileData();
     }
 
     private void initView() {
@@ -165,7 +166,7 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         profileViewModel.fetchProfileData(
-                (Integer) Objects.requireNonNull(getIntent().getExtras()).get(KEY_USER_ID)
+
         );
     }
 }

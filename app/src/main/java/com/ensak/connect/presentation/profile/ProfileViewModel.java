@@ -7,9 +7,10 @@ import androidx.lifecycle.ViewModel;
 import com.ensak.connect.repository.profile.model.ProfileDetailedResponse;
 import com.ensak.connect.repository.profile.EducationRepository;
 import com.ensak.connect.repository.profile.ExperienceRepository;
-import com.ensak.connect.repository.profile.model.ProfileResponse;
 import com.ensak.connect.repository.profile.ProfileRepository;
 import com.ensak.connect.repository.shared.RepositoryCallBack;
+
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -21,6 +22,8 @@ public class ProfileViewModel extends ViewModel {
     private MutableLiveData<ProfileDetailedResponse> profile = new MutableLiveData<>();
     private MutableLiveData<Boolean> isLoading = new MutableLiveData<>(true);
     private MutableLiveData<String> errorMessage = new MutableLiveData<>("");
+    private Integer userId;
+
 
     public MutableLiveData<String> getSuccessMessage() {
         return successMessage;
@@ -43,7 +46,11 @@ public class ProfileViewModel extends ViewModel {
         this.experienceRepository = experienceRepository;
     }
 
-    public void fetchProfileData(Integer userId) {
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    public void fetchProfileData() {
         isLoading.setValue(true);
         profileRepository.getProfile(userId, new RepositoryCallBack<ProfileDetailedResponse>() {
             @Override
@@ -68,7 +75,7 @@ public class ProfileViewModel extends ViewModel {
             public void onSuccess(Void result) {
                 // Handle the successful deletion
                 // You might need to update your LiveData that holds the list of educations
-                fetchProfileData(); // Optionally, fetch the updated profile data
+                fetchProfileData();
                 isLoading.setValue(false);
                 successMessage.setValue("Education deleted successfully");
             }
