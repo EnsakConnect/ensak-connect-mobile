@@ -22,6 +22,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class ProfileActivity extends AppCompatActivity {
+    private final String TAG = getClass().getSimpleName();
 
     private ProfileActivityBinding binding;
     private ExperienceAdapter experienceAdapter;
@@ -47,6 +48,13 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void initView() {
+        binding.btnModifyProfile.setOnClickListener(v -> {
+            Log.d(TAG, "btnModifyProfile click");
+            Intent updateProfileIntent = new Intent(ProfileActivity.this, ProfileEditActivity.class);
+            Log.d(TAG, "btnModifyProfile Intent:" + updateProfileIntent.toString());
+            startActivity(updateProfileIntent);
+        });
+
         binding.experienceRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         binding.educationRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         binding.skillsRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
@@ -59,8 +67,6 @@ public class ProfileActivity extends AppCompatActivity {
         // Load images from URLs using Glide
         Glide.with(this).load(bannerImageUrl).into(binding.bannerImage);
         Glide.with(this).load(profileImageUrl).into(binding.userProfileImage);
-
-        binding.btnModifyProfile.setOnClickListener(v -> profileViewModel.fetchProfileData());
 
         binding.modifyEducationButton.setOnClickListener(v -> {
             Intent intent = new Intent(ProfileActivity.this, EducationEditActivity.class);
@@ -97,7 +103,7 @@ public class ProfileActivity extends AppCompatActivity {
                 binding.userName.setText(fullName);
                 String userTitle = profileResponse.getTitle();
                 String userDetailsText = userTitle;
-                Log.d("TAG", "onCreate: " + userDetailsText);
+                Log.d(TAG, "onCreate: " + userDetailsText);
                 binding.userDetails.setText(userDetailsText);
 
                 experienceAdapter = new ExperienceAdapter(this, profileResponse.getExperienceList());
@@ -115,11 +121,10 @@ public class ProfileActivity extends AppCompatActivity {
                     binding.resumebtn.setText("Ajouter un CV");
                 }
             } else {
-                Log.d("TAG", "onCreate: Profile response is null");
+                Log.d(TAG, "onCreate: Profile response is null");
             }
         });
     }
-
 
     @Override
     protected void onResume() {
