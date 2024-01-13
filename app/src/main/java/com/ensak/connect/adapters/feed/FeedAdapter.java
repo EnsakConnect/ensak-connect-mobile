@@ -13,10 +13,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.ensak.connect.R;
+import com.ensak.connect.constants.AppConstants;
 import com.ensak.connect.databinding.MainPostItemBinding;
+import com.ensak.connect.presentation.profile.ProfileActivity;
 import com.ensak.connect.repository.feed.model.FeedContentResponse;
 import com.ensak.connect.repository.feed.model.FeedResponse;
 import com.ensak.connect.presentation.job_post.comments.CommentsActivity;
+import com.ensak.connect.service.GlideAuthUrl;
 
 public class FeedAdapter extends
         RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -90,24 +93,28 @@ public class FeedAdapter extends
             }
         }
 
-        offerItemHomeBinding.llComment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(context, CommentsActivity.class);
-                intent.putExtra("postId", post.getId());
-                context.startActivity(intent);
-            }
+        offerItemHomeBinding.llComment.setOnClickListener(view -> {
+            Intent intent = new Intent(context, CommentsActivity.class);
+            intent.putExtra("postId", post.getId());
+            context.startActivity(intent);
         });
 
-        // TODO: 5/12/2023 add user image
-        // TODO: 5/12/2023 add user title
-        offerItemHomeBinding.tvUserTitle.setText("Développeur Android");
+        offerItemHomeBinding.crdUserData.setOnClickListener(view -> {
+            Intent intent = new Intent(context, ProfileActivity.class);
+            intent.putExtra(ProfileActivity.KEY_USER_ID, post.getAuthor().getId());
+            context.startActivity(intent);
+        });
+        offerItemHomeBinding.tvUserTitle.setText(post.getAuthor().getTitle());
         Glide.with(offerItemHomeBinding.getRoot().getContext())
-                .load("https://www.w3schools.com/w3images/avatar2.png")
-                .apply(new RequestOptions()
-                        .placeholder(R.drawable.ic_launcher_background) // Placeholder image
-                        .error(R.drawable.ic_launcher_background) // Error image in case of loading failure
+                .load(
+                        GlideAuthUrl.getUrl(
+                                offerItemHomeBinding.getRoot().getContext(),
+                                AppConstants.BASE_URL + "resources/" + post.getAuthor().getProfilePicture()
+                        )
                 )
+                .placeholder(R.drawable.profile_picture_placeholder)
+                .error(R.drawable.profile_picture_placeholder)
+                .centerCrop()
                 .into(offerItemHomeBinding.ivUserImage);
     }
 
