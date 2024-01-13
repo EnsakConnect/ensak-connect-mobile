@@ -21,12 +21,14 @@ import com.ensak.connect.constants.AppConstants;
 import com.ensak.connect.databinding.ProfileActivityBinding;
 import com.ensak.connect.service.GlideAuthUrl;
 
+import java.util.Objects;
+
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class ProfileActivity extends AppCompatActivity {
     private final String TAG = getClass().getSimpleName();
-
+    public static final String KEY_USER_ID = "user_id";
     private ProfileActivityBinding binding;
     private ExperienceAdapter experienceAdapter;
     private EducationAdapter educationAdapter;
@@ -47,7 +49,9 @@ public class ProfileActivity extends AppCompatActivity {
 
         initView();
         initViewModel();
-        profileViewModel.fetchProfileData();
+        profileViewModel.fetchProfileData(
+                (Integer) Objects.requireNonNull(getIntent().getExtras()).get(KEY_USER_ID)
+        );
     }
 
     private void initView() {
@@ -139,6 +143,8 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        profileViewModel.fetchProfileData();
+        profileViewModel.fetchProfileData(
+                (Integer) Objects.requireNonNull(getIntent().getExtras()).get(KEY_USER_ID)
+        );
     }
 }

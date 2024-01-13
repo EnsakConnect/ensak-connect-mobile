@@ -7,8 +7,13 @@ import android.view.MenuItem;
 import android.view.Menu;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.ensak.connect.R;
+import com.ensak.connect.constants.AppConstants;
 import com.ensak.connect.databinding.MainActivityBinding;
+import com.ensak.connect.databinding.MainNavHeaderBinding;
+import com.ensak.connect.presentation.auth.login.LoginActivity;
+import com.ensak.connect.service.GlideAuthUrl;
 import com.ensak.connect.service.SessionManagerService;
 import com.ensak.connect.presentation.auth.loading_screen.LoadingActivity;
 import com.ensak.connect.presentation.profile.ProfileActivity;
@@ -22,6 +27,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -36,6 +42,8 @@ public class HomeActivity extends AppCompatActivity {
     private final String TAG = getClass().getSimpleName();
     private AppBarConfiguration mAppBarConfiguration;
     private MainActivityBinding binding;
+    private MainNavHeaderBinding headerBinding;
+    private HomeViewModel homeViewModel;
     private NavigationView navigationView;
     private DrawerLayout drawer;
     SessionManagerService sessionManager;
@@ -55,6 +63,8 @@ public class HomeActivity extends AppCompatActivity {
 
         binding = MainActivityBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        headerBinding = MainNavHeaderBinding.bind(binding.navView.getHeaderView(0));
 
         btnAdd = findViewById(R.id.btnAdd);
         btnNewQuestion = findViewById(R.id.btnNewQuestion);
@@ -93,6 +103,39 @@ public class HomeActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navigationView, navController);
 
         listenForDrawerItemSelection();
+
+        initViewModel();
+        homeViewModel.getAuthenticatedUser();
+    }
+
+    private void initViewModel() {
+        homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
+
+        homeViewModel.getUserData().observe(this, user -> {
+            headerBinding.txtHeaderFullName.setText(user.getFullName());
+            headerBinding.txtHeaderTitle.setText(user.getTitle());
+
+            Glide.with(this)
+                    .load(
+                            GlideAuthUrl.getUrl(this, AppConstants.BASE_URL + "resources/" + user.getProfilePicture())
+                    )
+                    .placeholder(R.drawable.profile_picture_placeholder)
+                    .error(R.drawable.profile_picture_placeholder)
+                    .into(headerBinding.imgHeaderPicture);
+        });
+
+        homeViewModel.getIsLoading().observe(this, isLoading -> {
+            // TODO: do something when loading
+        });
+
+        homeViewModel.getIsError().observe(this, isError -> {
+            if(isError){
+                Intent loginIntent = new Intent(this, LoginActivity.class);
+                startActivity(loginIntent);
+                finish();
+                Toast.makeText(this, "Could not get logged in user", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void setupFABActions() {
@@ -177,6 +220,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void listenForDrawerItemSelection() {
+        SessionManagerService session = new SessionManagerService(this);
         navigationView.setNavigationItemSelectedListener(item -> {
             int itemId = item.getItemId();
             if (itemId == R.id.nav_home) {
@@ -207,6 +251,7 @@ public class HomeActivity extends AppCompatActivity {
                 binding.appBarMain.toolbar.setTitle("Q&A");
             } else if (itemId == R.id.nav_profile) {
                 Intent intent = new Intent(this, ProfileActivity.class);
+                intent.putExtra(ProfileActivity.KEY_USER_ID, session.getUserId());
                 startActivity(intent);
             } else if (itemId == R.id.nav_messages) {
                 startActivity(new Intent(this, ConversationsActivity.class));
@@ -216,7 +261,7 @@ public class HomeActivity extends AppCompatActivity {
                 Intent intent = new Intent(this, SettingsActivity.class);
                 startActivity(intent);
             } else if (itemId == R.id.nav_about) {
-                Toast.makeText(this, "nav_about", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "nav_about: userId " + session.getUserId(), Toast.LENGTH_SHORT).show();
             } else if (itemId == R.id.nav_logout) {
                 sessionManager.logoutUser();
                 Intent loadingScreenIntent = new Intent(this, LoadingActivity.class);
@@ -226,5 +271,11 @@ public class HomeActivity extends AppCompatActivity {
             drawer.closeDrawers();
             return true;
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        homeViewModel.getAuthenticatedUser();
     }
 }
