@@ -22,6 +22,7 @@ public class ProfileEditViewModel extends ViewModel {
     private MutableLiveData<Boolean> isLoading = new MutableLiveData<>(false);
     private MutableLiveData<String> successMessage = new MutableLiveData<>("");
     private MutableLiveData<String> errorMessage = new MutableLiveData<>("");
+    private Integer userId;
 
     private ProfileRepository profileRepository;
     @Inject
@@ -29,9 +30,13 @@ public class ProfileEditViewModel extends ViewModel {
         this.profileRepository = profileRepository;
     }
 
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
     public void refresh() {
         isLoading.setValue(true);
-        profileRepository.getProfile(4, new RepositoryCallBack<ProfileDetailedResponse>() {
+        profileRepository.getProfile(userId, new RepositoryCallBack<ProfileDetailedResponse>() {
             @Override
             public void onSuccess(ProfileDetailedResponse data) {
                 information.setValue(data);
