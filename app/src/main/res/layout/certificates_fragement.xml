@@ -29,7 +29,7 @@
                 app:tint="@color/error" />
         </LinearLayout>
 
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -38,20 +38,26 @@
                 android:id="@+id/certificationTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:text="@string/certificateTitle"
-                android:textSize="16sp"
+                android:textSize="18sp"
                 android:textColor="@color/grey_700"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp" />
 
             <TextView
                 android:id="@+id/certificateLink"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/lien"
+                android:text="View Credentials"
                 android:textColor="@color/grey_700"
-                android:textSize="12sp" />
+                android:textSize="16sp"
+                android:clickable="true"
+                android:focusable="true"
+                android:fontFamily="sans-serif"
+                android:textStyle="italic" />
+
         </LinearLayout>
+
 
 
     </LinearLayout>

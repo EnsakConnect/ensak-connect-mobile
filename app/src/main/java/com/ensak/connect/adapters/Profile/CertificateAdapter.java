@@ -2,6 +2,7 @@ package com.ensak.connect.adapters.Profile;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,16 +69,26 @@ public class CertificateAdapter extends RecyclerView.Adapter<CertificateAdapter.
         private OnCertificateDeleteListener deleteListener;
         private List<CertificateResponse> certificateResponseList;
         private final CertificateAdapter adapter;
-
-
-
-
         CertificateViewHolder(View itemView, Context context, CertificateAdapter  certificateAdapter){
             super(itemView);
             this.adapter = certificateAdapter;
             nameTextView = itemView.findViewById(R.id.certificationTitle);
             linkTextView = itemView.findViewById(R.id.certificateLink);
             iconDelete = itemView.findViewById(R.id.iconDelete);
+
+            linkTextView.setOnClickListener(v -> {
+                int position = getAdapterPosition();
+                if (position != RecyclerView.NO_POSITION) {
+                    CertificateResponse certificate = adapter.certificateResponseList.get(position);
+                    String url = certificate.getLink();
+                    if (!url.startsWith("http://") && !url.startsWith("https://")) {
+                        url = "http://" + url; // Ensure the URL starts with http:// or https://
+                    }
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                    context.startActivity(browserIntent);
+                }
+            });
+
         }
 
         void bind(CertificateResponse certificateResponse, Context context) {
@@ -85,7 +96,7 @@ public class CertificateAdapter extends RecyclerView.Adapter<CertificateAdapter.
                 return;
             }
             nameTextView.setText(certificateResponse.getName());
-            linkTextView.setText(certificateResponse.getLink());
+
 
 
             if (iconDelete != null) {

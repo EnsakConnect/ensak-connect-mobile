@@ -85,6 +85,9 @@ public class CertificateActivity extends AppCompatActivity {
 //            educationEditViewModel.updateExperience(id, field, degree, school, startDate, endDate, description);
 //        } else {
             certificateViewModel.createCertificate(name, link);
+        binding.certificateTitle.setText("");
+        binding.certificateLink.setText("");
+
 //        }
 
     }

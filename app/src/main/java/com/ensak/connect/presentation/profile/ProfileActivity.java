@@ -62,6 +62,7 @@ public class ProfileActivity extends AppCompatActivity {
             binding.modifyEducationButton.setVisibility(View.GONE);
             binding.modifyExperienceButton.setVisibility(View.GONE);
             binding.modifySkillsButton.setVisibility(View.GONE);
+            binding.modifyCertificateButton.setVisibility(View.GONE);
         }
 
         initView();
