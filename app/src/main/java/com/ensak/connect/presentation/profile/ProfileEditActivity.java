@@ -29,15 +29,18 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class ProfileEditActivity extends AppCompatActivity {
     private ProfileEditActivityBinding binding;
     private ProfileEditViewModel profileEditViewModel;
+    private SessionManagerService sessionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ProfileEditActivityBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        sessionManager = new SessionManagerService(this);
 
         initView();
         initViewModel();
+        profileEditViewModel.setUserId(sessionManager.getUserId());
         profileEditViewModel.refresh();
     }
     private void initView() {
