@@ -10,7 +10,7 @@ import com.ensak.connect.model.Experience;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class ProfileResponse {
+public class ProfileDetailedResponse {
 
     @SerializedName("id")
     @Expose
@@ -23,6 +23,26 @@ public class ProfileResponse {
     @SerializedName("title")
     @Expose
     private String title;
+
+    @SerializedName("phone")
+    @Expose
+    private String phone;
+
+    @SerializedName("city")
+    @Expose
+    private String city;
+
+    @SerializedName("address")
+    @Expose
+    private String address;
+
+    @SerializedName("profileType")
+    @Expose
+    private String profileType;
+
+    @SerializedName("description")
+    @Expose
+    private String description;
 
     @SerializedName("createdAt")
     @Expose
@@ -79,6 +99,26 @@ public class ProfileResponse {
 
     public String getTitle() {
         return title;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getProfileType() {
+        return profileType;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public Date getCreatedAt() {
