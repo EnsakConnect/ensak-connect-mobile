@@ -146,6 +146,10 @@ public class ProfileActivity extends AppCompatActivity {
                 certificateAdapter = new CertificateAdapter(this, profileResponse.getCertificationList());
                 binding.certificatsRecyclerView.setAdapter(certificateAdapter);
 
+                certificateAdapter.setOnCertificateDeleteListener(certificationId -> {
+                    profileViewModel.deleteCertification(certificationId);
+                });
+
                 if(profileResponse.getResume() != null){
                     binding.resumebtn.setText("Voir le CV");
                 } else {

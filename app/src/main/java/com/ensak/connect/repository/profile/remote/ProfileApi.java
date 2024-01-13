@@ -67,4 +67,7 @@ public interface ProfileApi {
     @POST("profile/certifications")
     Call<CertificateResponse> addCertification(@Body CertificateRequest certificateRequest);
 
+    @DELETE("profile/certifications/{certificationId}")
+    Call<Void> deleteCertification(@Path("certificationId") int certificationId);
+
 }

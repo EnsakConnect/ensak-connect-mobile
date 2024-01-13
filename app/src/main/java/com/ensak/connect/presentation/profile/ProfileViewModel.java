@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.ensak.connect.repository.profile.CertificateRepository;
 import com.ensak.connect.repository.profile.model.ProfileDetailedResponse;
 import com.ensak.connect.repository.profile.EducationRepository;
 import com.ensak.connect.repository.profile.ExperienceRepository;
@@ -37,13 +38,15 @@ public class ProfileViewModel extends ViewModel {
     private ProfileRepository profileRepository;
     private EducationRepository educationRepository;
     private ExperienceRepository experienceRepository;
+    private CertificateRepository certificateRepository;
 
 
     @Inject
-    public ProfileViewModel(ProfileRepository profileRepository, EducationRepository educationRepository, ExperienceRepository experienceRepository) {
+    public ProfileViewModel(ProfileRepository profileRepository, EducationRepository educationRepository, ExperienceRepository experienceRepository,CertificateRepository certificateRepository) {
         this.profileRepository = profileRepository;
         this.educationRepository = educationRepository;
         this.experienceRepository = experienceRepository;
+        this.certificateRepository = certificateRepository;
     }
 
     public void setUserId(Integer userId) {
@@ -111,6 +114,26 @@ public class ProfileViewModel extends ViewModel {
     }
 
 
+    public void deleteCertification(int certificationId) {
+        isLoading.setValue(true);
+        certificateRepository.deleteCertification(certificationId, new RepositoryCallBack<Void>() {
+            @Override
+            public void onSuccess(Void result) {
+                // Handle the successful deletion
+                // You might need to update your LiveData that holds the list of educations
+                fetchProfileData(); // Optionally, fetch the updated profile data
+                isLoading.setValue(false);
+                successMessage.setValue("Education deleted successfully");
+            }
+
+            @Override
+            public void onFailure(Throwable throwable) {
+                // Handle the failure case
+                errorMessage.setValue("Error deleting education: " + throwable.getMessage());
+                isLoading.setValue(false);
+            }
+        });
+    }
     public LiveData<ProfileDetailedResponse> getProfile() {
         return profile;
     }

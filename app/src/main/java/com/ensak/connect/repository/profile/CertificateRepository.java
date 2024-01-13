@@ -42,26 +42,10 @@ public class CertificateRepository {
         });
     }
 
-    public void updateEducation(String id, EducationRequest educationRequest, RepositoryCallBack<EducationResponse> callback) {
-        api.UpdateEducation(id, educationRequest).enqueue(new Callback<EducationResponse>() {
-            @Override
-            public void onResponse(@NonNull Call<EducationResponse> call, @NonNull Response<EducationResponse> response) {
-                if(!response.isSuccessful() || response.body() == null){
-                    callback.onFailure(new Exception("Empty body"));
-                    return;
-                }
-                callback.onSuccess(response.body());
-            }
 
-            @Override
-            public void onFailure(@NonNull Call<EducationResponse> call, @NonNull Throwable t) {
-                callback.onFailure(t);
-            }
-        });
-    }
 
-    public void deleteEducation(int educationId, RepositoryCallBack<Void> callback) {
-        api.deleteEducation(educationId).enqueue(new Callback<Void>() {
+    public void deleteCertification(int certificationId, RepositoryCallBack<Void> callback) {
+        api.deleteCertification(certificationId).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
