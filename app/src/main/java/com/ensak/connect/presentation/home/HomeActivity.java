@@ -104,6 +104,10 @@ public class HomeActivity extends AppCompatActivity {
 
         listenForDrawerItemSelection();
 
+        headerBinding.crdUserData.setOnClickListener(v -> {
+            openUserProfile();
+        });
+
         initViewModel();
         homeViewModel.getAuthenticatedUser();
     }
@@ -220,7 +224,6 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void listenForDrawerItemSelection() {
-        SessionManagerService session = new SessionManagerService(this);
         navigationView.setNavigationItemSelectedListener(item -> {
             int itemId = item.getItemId();
             if (itemId == R.id.nav_home) {
@@ -250,9 +253,7 @@ public class HomeActivity extends AppCompatActivity {
                 navController.navigate(R.id.nav_post_category, bundle);
                 binding.appBarMain.toolbar.setTitle("Q&A");
             } else if (itemId == R.id.nav_profile) {
-                Intent intent = new Intent(this, ProfileActivity.class);
-                intent.putExtra(ProfileActivity.KEY_USER_ID, session.getUserId());
-                startActivity(intent);
+                openUserProfile();
             } else if (itemId == R.id.nav_messages) {
                 startActivity(new Intent(this, ConversationsActivity.class));
             } else if (itemId == R.id.nav_notifications) {
@@ -261,7 +262,7 @@ public class HomeActivity extends AppCompatActivity {
                 Intent intent = new Intent(this, SettingsActivity.class);
                 startActivity(intent);
             } else if (itemId == R.id.nav_about) {
-                Toast.makeText(this, "nav_about: userId " + session.getUserId(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "nav_about", Toast.LENGTH_SHORT).show();
             } else if (itemId == R.id.nav_logout) {
                 sessionManager.logoutUser();
                 Intent loadingScreenIntent = new Intent(this, LoadingActivity.class);
@@ -271,6 +272,12 @@ public class HomeActivity extends AppCompatActivity {
             drawer.closeDrawers();
             return true;
         });
+    }
+
+    private void openUserProfile() {
+        Intent intent = new Intent(this, ProfileActivity.class);
+        intent.putExtra(ProfileActivity.KEY_USER_ID, sessionManager.getUserId());
+        startActivity(intent);
     }
 
     @Override
