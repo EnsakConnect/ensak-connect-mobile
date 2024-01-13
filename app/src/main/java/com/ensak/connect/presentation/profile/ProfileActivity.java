@@ -3,6 +3,7 @@ package com.ensak.connect.presentation.profile;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 
@@ -20,6 +21,7 @@ import com.ensak.connect.adapters.Profile.SkillsAdapter;
 import com.ensak.connect.constants.AppConstants;
 import com.ensak.connect.databinding.ProfileActivityBinding;
 import com.ensak.connect.service.GlideAuthUrl;
+import com.ensak.connect.service.SessionManagerService;
 
 import java.util.Objects;
 
@@ -30,6 +32,8 @@ public class ProfileActivity extends AppCompatActivity {
     private final String TAG = getClass().getSimpleName();
     public static final String KEY_USER_ID = "user_id";
     private ProfileActivityBinding binding;
+    private SessionManagerService sessionManager;
+    private Integer userId;
     private ExperienceAdapter experienceAdapter;
     private EducationAdapter educationAdapter;
     private SkillsAdapter skillsAdapter;
@@ -47,11 +51,20 @@ public class ProfileActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         binding.toolbar.setNavigationOnClickListener(v -> finish());
 
+        sessionManager = new SessionManagerService(this);
+        userId = (Integer) Objects.requireNonNull(getIntent().getExtras()).get(KEY_USER_ID);
+
+        assert userId != null;
+        if(! userId.equals(sessionManager.getUserId())) {
+            binding.btnModifyProfile.setVisibility(View.GONE);
+            binding.modifyEducationButton.setVisibility(View.GONE);
+            binding.modifyExperienceButton.setVisibility(View.GONE);
+            binding.modifySkillsButton.setVisibility(View.GONE);
+        }
+
         initView();
         initViewModel();
-        profileViewModel.fetchProfileData(
-                (Integer) Objects.requireNonNull(getIntent().getExtras()).get(KEY_USER_ID)
-        );
+        profileViewModel.fetchProfileData(userId);
     }
 
     private void initView() {
