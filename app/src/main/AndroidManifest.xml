@@ -21,13 +21,14 @@
 
             android:name=".presentation.About.AboutActivity"
             android:exported="false"
-
-            android:name=".presentation.profile.ProfileEditActivity"
-
             android:theme="@style/Theme.ENSAKConnect.NoActionBar"
             android:windowSoftInputMode="adjustPan"/>
         <activity
-            android:name=".presentation.profile.SkillsEditActivity"
+            android:name=".presentation.profile.CertificateActivity"
+            android:exported="false"
+            android:theme="@style/Theme.ENSAKConnect.NoActionBar"/>
+        <activity
+            android:name=".presentation.profile.ProfileEditActivity"
             android:exported="false"
             android:theme="@style/Theme.ENSAKConnect.NoActionBar" />
         <activity
