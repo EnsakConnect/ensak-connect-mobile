@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.ensak.connect.repository.profile.model.ProfileResponse;
+import com.ensak.connect.repository.profile.model.ProfileDetailedResponse;
 import com.ensak.connect.repository.profile.ProfileRepository;
 import com.ensak.connect.repository.shared.RepositoryCallBack;
 
@@ -15,7 +15,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
 @HiltViewModel
 public class ProfileViewModel extends ViewModel {
 
-    private MutableLiveData<ProfileResponse> profile = new MutableLiveData<>();
+    private MutableLiveData<ProfileDetailedResponse> profile = new MutableLiveData<>();
     private MutableLiveData<Boolean> isLoading = new MutableLiveData<>(true);
     private MutableLiveData<String> errorMessage = new MutableLiveData<>("");
     private ProfileRepository profileRepository;
@@ -27,9 +27,9 @@ public class ProfileViewModel extends ViewModel {
 
     public void fetchProfileData() {
         isLoading.setValue(true);
-        profileRepository.getProfile(4, new RepositoryCallBack<ProfileResponse>() {
+        profileRepository.getProfile(4, new RepositoryCallBack<ProfileDetailedResponse>() {
             @Override
-            public void onSuccess(ProfileResponse data) {
+            public void onSuccess(ProfileDetailedResponse data) {
                 profile.setValue(data);
                 isLoading.setValue(false);
                 errorMessage.setValue("");
@@ -43,7 +43,7 @@ public class ProfileViewModel extends ViewModel {
         });
     }
 
-    public LiveData<ProfileResponse> getProfile() {
+    public LiveData<ProfileDetailedResponse> getProfile() {
         return profile;
     }
     public LiveData<Boolean> getIsLoading() {

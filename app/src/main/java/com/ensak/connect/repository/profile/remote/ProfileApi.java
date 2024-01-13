@@ -5,7 +5,8 @@ import com.ensak.connect.repository.profile.model.EducationRequest;
 import com.ensak.connect.repository.profile.model.EducationResponse;
 import com.ensak.connect.repository.profile.model.ExperienceRequest;
 import com.ensak.connect.repository.profile.model.ExperienceResponse;
-import com.ensak.connect.repository.profile.model.ProfileResponse;
+import com.ensak.connect.repository.profile.model.ProfileDetailedResponse;
+import com.ensak.connect.repository.profile.model.ProfileInformationRequest;
 
 import java.util.List;
 
@@ -18,10 +19,10 @@ import retrofit2.http.Path;
 
 public interface ProfileApi {
     @GET("profile/{profile_id}/detailed")
-    Call<ProfileResponse> getUserProfile(@Path("profile_id") Integer profileId);
+    Call<ProfileDetailedResponse> getUserProfile(@Path("profile_id") Integer profileId);
 
-    @GET("notifications")
-    Call<List<NotificationResponse>> getAllNotifications();
+    @PUT("profile")
+    Call<ProfileDetailedResponse> updateProfile(@Body ProfileInformationRequest request);
 
     @POST("profile/experiences")
     Call<ExperienceResponse> addExperience(@Body ExperienceRequest experienceRequest);

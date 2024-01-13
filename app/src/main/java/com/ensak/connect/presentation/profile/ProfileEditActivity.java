@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import com.ensak.connect.R;
 import com.ensak.connect.databinding.ProfileEditActivityBinding;
+import com.ensak.connect.repository.profile.model.ProfileInformationRequest;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -35,7 +36,9 @@ public class ProfileEditActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         binding.toolbar.setNavigationOnClickListener(v -> finish());
 
-
+        binding.btnUpdateInfo.setOnClickListener(v -> {
+            saveInformation();
+        });
     }
 
     private void initViewModel() {
@@ -45,6 +48,10 @@ public class ProfileEditActivity extends AppCompatActivity {
             binding.txtFullName.setText(information.getFullName());
             binding.txtProfileTitle.setText(information.getTitle());
             binding.txtDescription.setText(information.getDescription());
+            binding.txtPhone.setText(information.getPhone());
+            binding.txtCity.setText(information.getCity());
+            binding.txtAddress.setText(information.getAddress());
+            binding.txtType.setText(information.getProfileType());
         });
 
         profileEditViewModel.getIsLoading().observe(this, isLoading -> {
@@ -59,11 +66,30 @@ public class ProfileEditActivity extends AppCompatActivity {
             }
         });
 
+        profileEditViewModel.getIsSuccess().observe(this, isSuccess -> {
+            if(isSuccess) {
+                Toast.makeText(this, "Profile updated successfully", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         profileEditViewModel.getErrorMessage().observe(this, errorMessage -> {
             if(errorMessage == null || errorMessage.isEmpty()){
                 return;
             }
             Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
         });
+    }
+
+    private void saveInformation() {
+        ProfileInformationRequest request = new ProfileInformationRequest();
+        request.setFullName(binding.txtFullName.getText().toString());
+        request.setTitle(binding.txtProfileTitle.getText().toString());
+        request.setDescription(binding.txtDescription.getText().toString());
+        request.setPhone(binding.txtPhone.getText().toString());
+        request.setCity(binding.txtCity.getText().toString());
+        request.setAddress(binding.txtAddress.getText().toString());
+        request.setProfileType(binding.txtType.getText().toString());
+
+        profileEditViewModel.saveInformation(request);
     }
 }

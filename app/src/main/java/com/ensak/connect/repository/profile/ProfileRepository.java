@@ -1,12 +1,8 @@
 package com.ensak.connect.repository.profile;
 
 
-import android.util.Log;
-
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-
-import com.ensak.connect.repository.profile.model.ProfileResponse;
+import com.ensak.connect.repository.profile.model.ProfileDetailedResponse;
+import com.ensak.connect.repository.profile.model.ProfileInformationRequest;
 import com.ensak.connect.repository.profile.remote.ProfileApi;
 import com.ensak.connect.repository.shared.RepositoryCallBack;
 
@@ -25,10 +21,10 @@ public class ProfileRepository {
         this.api = retrofit.create(ProfileApi.class);
     }
 
-    public void getProfile(Integer profileId, RepositoryCallBack<ProfileResponse> callback) {
-        api.getUserProfile(profileId).enqueue(new Callback<ProfileResponse>() {
+    public void getProfile(Integer profileId, RepositoryCallBack<ProfileDetailedResponse> callback) {
+        api.getUserProfile(profileId).enqueue(new Callback<ProfileDetailedResponse>() {
             @Override
-            public void onResponse(Call<ProfileResponse> call, Response<ProfileResponse> response) {
+            public void onResponse(Call<ProfileDetailedResponse> call, Response<ProfileDetailedResponse> response) {
                 if(!response.isSuccessful() || response.body() == null) {
                     callback.onFailure(new Exception("Empty body"));
                     return;
@@ -37,7 +33,25 @@ public class ProfileRepository {
             }
 
             @Override
-            public void onFailure(Call<ProfileResponse> call, Throwable t) {
+            public void onFailure(Call<ProfileDetailedResponse> call, Throwable t) {
+                callback.onFailure(t);
+            }
+        });
+    }
+
+    public void updateProfile(ProfileInformationRequest request, RepositoryCallBack<ProfileDetailedResponse> callback) {
+        api.updateProfile(request).enqueue(new Callback<ProfileDetailedResponse>() {
+            @Override
+            public void onResponse(Call<ProfileDetailedResponse> call, Response<ProfileDetailedResponse> response) {
+                if(! response.isSuccessful()){
+                    callback.onFailure(new Exception());
+                    return;
+                }
+                callback.onSuccess(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<ProfileDetailedResponse> call, Throwable t) {
                 callback.onFailure(t);
             }
         });
