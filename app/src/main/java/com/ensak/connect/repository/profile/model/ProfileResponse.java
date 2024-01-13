@@ -24,6 +24,10 @@ public class ProfileResponse {
     @Expose
     private String title;
 
+    @SerializedName("description")
+    @Expose
+    private String description;
+
     @SerializedName("createdAt")
     @Expose
     private Date createdAt;
@@ -79,6 +83,10 @@ public class ProfileResponse {
 
     public String getTitle() {
         return title;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public Date getCreatedAt() {
