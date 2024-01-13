@@ -4,6 +4,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -13,6 +14,7 @@ import com.bumptech.glide.load.model.LazyHeaders;
 import com.ensak.connect.R;
 import com.ensak.connect.constants.AppConstants;
 import com.ensak.connect.databinding.ProfileEditActivityBinding;
+import com.ensak.connect.presentation.auth.password_reset.ChangePasswordActivity;
 import com.ensak.connect.presentation.testing.TestingActivity;
 import com.ensak.connect.repository.profile.model.ProfileInformationRequest;
 import com.ensak.connect.repository.resource.model.ResourceResponse;
@@ -56,6 +58,11 @@ public class ProfileEditActivity extends AppCompatActivity {
 
         binding.btnUpdateProfileBanner.setOnClickListener(v -> {
             updateProfileBanner();
+        });
+
+        binding.btnChangePassword.setOnClickListener(v -> {
+            Intent changePasswordIntent = new Intent(this, ChangePasswordActivity.class);
+            startActivity(changePasswordIntent);
         });
     }
 
