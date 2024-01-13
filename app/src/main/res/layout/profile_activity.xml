@@ -51,11 +51,13 @@
                 android:layout_height="150dp"
                 android:layout_alignParentTop="true"
                 android:adjustViewBounds="true"
+                android:src="@drawable/profile_banner_placeholder"
                 android:contentDescription="@string/banner_content_description"
                 android:scaleType="centerCrop" />
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/userProfileImage"
+                android:src="@drawable/profile_picture_placeholder"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_marginStart="@dimen/activity_horizontal_margin"
