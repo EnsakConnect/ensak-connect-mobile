@@ -172,12 +172,18 @@
             </LinearLayout>
 
             <!-- Profile picture -->
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Profile picture"
+                style="@style/Heading4"
+                android:layout_marginBottom="16dp"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_marginBottom="32dp"
-                android:layout_marginTop="16dp"
                 android:gravity="center">
                 <ImageView
                     android:id="@+id/imgProfilePicture"
@@ -198,6 +204,12 @@
             </LinearLayout>
 
             <!-- Profile Banner -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Profile Banner"
+                style="@style/Heading4"
+                android:layout_marginBottom="16dp"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
