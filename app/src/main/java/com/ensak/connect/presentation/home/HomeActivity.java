@@ -125,6 +125,7 @@ public class HomeActivity extends AppCompatActivity {
                     )
                     .placeholder(R.drawable.profile_picture_placeholder)
                     .error(R.drawable.profile_picture_placeholder)
+                    .centerCrop()
                     .into(headerBinding.imgHeaderPicture);
         });
 
