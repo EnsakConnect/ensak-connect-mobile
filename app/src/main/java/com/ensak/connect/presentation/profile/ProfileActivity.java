@@ -64,7 +64,8 @@ public class ProfileActivity extends AppCompatActivity {
 
         initView();
         initViewModel();
-        profileViewModel.fetchProfileData(userId);
+        profileViewModel.setUserId(userId);
+        profileViewModel.fetchProfileData();
     }
 
     private void initView() {
@@ -120,8 +121,16 @@ public class ProfileActivity extends AppCompatActivity {
                 experienceAdapter = new ExperienceAdapter(this, profileResponse.getExperienceList());
                 binding.experienceRecyclerView.setAdapter(experienceAdapter);
 
+                experienceAdapter.setOnExperienceDeleteListener(experienceId -> {
+                    profileViewModel.deleteExperience(experienceId);
+                });
+
                 educationAdapter = new EducationAdapter(this, profileResponse.getEducationList());
                 binding.educationRecyclerView.setAdapter(educationAdapter);
+
+                educationAdapter.setOnEducationDeleteListener(educationId -> {
+                    profileViewModel.deleteEducation(educationId);
+                });
 
                 skillsAdapter = new SkillsAdapter(profileResponse.getSkillList());
                 binding.skillsRecyclerView.setAdapter(skillsAdapter);
@@ -157,7 +166,7 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         profileViewModel.fetchProfileData(
-                (Integer) Objects.requireNonNull(getIntent().getExtras()).get(KEY_USER_ID)
+
         );
     }
 }
