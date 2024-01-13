@@ -57,4 +57,22 @@ public class EducationRepository {
                 }
         });
     }
+
+    public void deleteEducation(int educationId, RepositoryCallBack<Void> callback) {
+        api.deleteEducation(educationId).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    callback.onSuccess(null);
+                } else {
+                    callback.onFailure(new Exception("Delete request was not successful"));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                callback.onFailure(t);
+            }
+        });
+    }
 }

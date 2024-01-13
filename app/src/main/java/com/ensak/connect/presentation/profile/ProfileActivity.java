@@ -3,6 +3,7 @@ package com.ensak.connect.presentation.profile;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 
@@ -13,17 +14,26 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.bumptech.glide.Glide;
+import com.ensak.connect.R;
 import com.ensak.connect.adapters.Profile.EducationAdapter;
 import com.ensak.connect.adapters.Profile.ExperienceAdapter;
 import com.ensak.connect.adapters.Profile.SkillsAdapter;
+import com.ensak.connect.constants.AppConstants;
 import com.ensak.connect.databinding.ProfileActivityBinding;
+import com.ensak.connect.service.GlideAuthUrl;
+import com.ensak.connect.service.SessionManagerService;
+
+import java.util.Objects;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class ProfileActivity extends AppCompatActivity {
-
+    private final String TAG = getClass().getSimpleName();
+    public static final String KEY_USER_ID = "user_id";
     private ProfileActivityBinding binding;
+    private SessionManagerService sessionManager;
+    private Integer userId;
     private ExperienceAdapter experienceAdapter;
     private EducationAdapter educationAdapter;
     private SkillsAdapter skillsAdapter;
@@ -41,26 +51,34 @@ public class ProfileActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         binding.toolbar.setNavigationOnClickListener(v -> finish());
 
+        sessionManager = new SessionManagerService(this);
+        userId = (Integer) Objects.requireNonNull(getIntent().getExtras()).get(KEY_USER_ID);
+
+        assert userId != null;
+        if(! userId.equals(sessionManager.getUserId())) {
+            binding.btnModifyProfile.setVisibility(View.GONE);
+            binding.modifyEducationButton.setVisibility(View.GONE);
+            binding.modifyExperienceButton.setVisibility(View.GONE);
+            binding.modifySkillsButton.setVisibility(View.GONE);
+        }
+
         initView();
         initViewModel();
+        profileViewModel.setUserId(userId);
         profileViewModel.fetchProfileData();
     }
 
     private void initView() {
+        binding.btnModifyProfile.setOnClickListener(v -> {
+            Log.d(TAG, "btnModifyProfile click");
+            Intent updateProfileIntent = new Intent(ProfileActivity.this, ProfileEditActivity.class);
+            Log.d(TAG, "btnModifyProfile Intent:" + updateProfileIntent.toString());
+            startActivity(updateProfileIntent);
+        });
+
         binding.experienceRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         binding.educationRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         binding.skillsRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-
-        // URLs for the images
-        String bannerImageUrl = "https://www.schudio.com/wp-content/uploads/2017/05/banner-user-journey.png";
-        String backIconUrl = "https://example.com/path/to/back/icon.png";
-        String profileImageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStsRVE2OpWFMYeY5S1bXG5J4UXp-FkBHGpUM5YDpIsXVWPw2ZdmLUzIitofNwhB_7cahk&usqp=CAU"; // Replace with your actual URL
-
-        // Load images from URLs using Glide
-        Glide.with(this).load(bannerImageUrl).into(binding.bannerImage);
-        Glide.with(this).load(profileImageUrl).into(binding.userProfileImage);
-
-        binding.btnModifyProfile.setOnClickListener(v -> profileViewModel.fetchProfileData());
 
         binding.modifyEducationButton.setOnClickListener(v -> {
             Intent intent = new Intent(ProfileActivity.this, EducationEditActivity.class);
@@ -97,14 +115,22 @@ public class ProfileActivity extends AppCompatActivity {
                 binding.userName.setText(fullName);
                 String userTitle = profileResponse.getTitle();
                 String userDetailsText = userTitle;
-                Log.d("TAG", "onCreate: " + userDetailsText);
+                Log.d(TAG, "onCreate: " + userDetailsText);
                 binding.userDetails.setText(userDetailsText);
 
                 experienceAdapter = new ExperienceAdapter(this, profileResponse.getExperienceList());
                 binding.experienceRecyclerView.setAdapter(experienceAdapter);
 
+                experienceAdapter.setOnExperienceDeleteListener(experienceId -> {
+                    profileViewModel.deleteExperience(experienceId);
+                });
+
                 educationAdapter = new EducationAdapter(this, profileResponse.getEducationList());
                 binding.educationRecyclerView.setAdapter(educationAdapter);
+
+                educationAdapter.setOnEducationDeleteListener(educationId -> {
+                    profileViewModel.deleteEducation(educationId);
+                });
 
                 skillsAdapter = new SkillsAdapter(profileResponse.getSkillList());
                 binding.skillsRecyclerView.setAdapter(skillsAdapter);
@@ -114,16 +140,33 @@ public class ProfileActivity extends AppCompatActivity {
                 } else {
                     binding.resumebtn.setText("Ajouter un CV");
                 }
+
+                Glide.with(this)
+                        .load(
+                                GlideAuthUrl.getUrl(this, AppConstants.BASE_URL + "resources/" + profileResponse.getProfilePicture())
+                        ).placeholder(R.drawable.profile_banner_placeholder)
+                        .error(R.drawable.profile_picture_placeholder)
+                        .centerCrop()
+                        .into(binding.userProfileImage);
+
+                Glide.with(this)
+                        .load(
+                                GlideAuthUrl.getUrl(this, AppConstants.BASE_URL + "resources/" + profileResponse.getBanner())
+                        ).placeholder(R.drawable.profile_banner_placeholder)
+                        .error(R.drawable.profile_banner_placeholder)
+                        .centerCrop()
+                        .into(binding.bannerImage);
             } else {
-                Log.d("TAG", "onCreate: Profile response is null");
+                Log.d(TAG, "onCreate: Profile response is null");
             }
         });
     }
 
-
     @Override
     protected void onResume() {
         super.onResume();
-        profileViewModel.fetchProfileData();
+        profileViewModel.fetchProfileData(
+
+        );
     }
 }

@@ -39,7 +39,7 @@ public class AuthRepository {
                     callBack.onFailure(new Exception("Request failed, code: " + response.code()));
                     return;
                 }
-                Log.d(TAG, "onResponse: " + response);
+                Log.d(TAG, "onResponse: " + response.body());
                 callBack.onSuccess(response.body());
             }
 

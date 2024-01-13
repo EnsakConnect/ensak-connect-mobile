@@ -77,7 +77,7 @@
                     android:focusable="true"
                     android:clickable="true"
                     android:inputType="text"
-                    android:drawableEnd="@drawable/ic_done"
+
                     android:drawablePadding="10dp"
                     android:layout_marginBottom="16dp"
                 />
@@ -107,14 +107,14 @@
                     android:layout_height="wrap_content"
                     style="@style/ButtonDangerSecondary"
                     android:layout_marginEnd="16dp"
-                    android:text="Cancel" />
+                    android:text="Terminer" />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btnCreate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/ButtonPrimary"
-                    android:text="Create" />
+                    android:text="Ajouter" />
             </LinearLayout>
 
         </LinearLayout>
