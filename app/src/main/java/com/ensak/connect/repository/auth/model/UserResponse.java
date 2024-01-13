@@ -4,7 +4,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class UserResponse {
-    @SerializedName("id")
+    @SerializedName("userId")
     @Expose
     private int id;
 
@@ -73,4 +73,17 @@ public class UserResponse {
         return profileType;
     }
 
+    @Override
+    public String toString() {
+        return "UserResponse{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", fullName='" + fullName + '\'' +
+                ", title='" + title + '\'' +
+                ", profilePicture='" + profilePicture + '\'' +
+                ", profileType='" + profileType + '\'' +
+                '}';
+    }
 }

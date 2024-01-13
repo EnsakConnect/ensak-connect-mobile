@@ -25,9 +25,9 @@ public class ProfileViewModel extends ViewModel {
         this.profileRepository = profileRepository;
     }
 
-    public void fetchProfileData() {
+    public void fetchProfileData(Integer userId) {
         isLoading.setValue(true);
-        profileRepository.getProfile(4, new RepositoryCallBack<ProfileDetailedResponse>() {
+        profileRepository.getProfile(userId, new RepositoryCallBack<ProfileDetailedResponse>() {
             @Override
             public void onSuccess(ProfileDetailedResponse data) {
                 profile.setValue(data);

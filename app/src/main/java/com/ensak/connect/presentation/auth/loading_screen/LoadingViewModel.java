@@ -38,7 +38,11 @@ public class LoadingViewModel extends ViewModel {
     private final MutableLiveData<REDIRECT_TO> redirectTo = new MutableLiveData<>(null);
 
     @Inject
-    public LoadingViewModel(HealthRepository healthRepository, AuthRepository authRepository, SessionManagerService sessionManager) {
+    public LoadingViewModel(
+            HealthRepository healthRepository,
+            AuthRepository authRepository,
+            SessionManagerService sessionManager
+    ) {
         this.healthRepository = healthRepository;
         this.sessionManager = sessionManager;
         this.authRepository = authRepository;
@@ -84,7 +88,9 @@ public class LoadingViewModel extends ViewModel {
             public void onSuccess(UserResponse data) {
                 isError.setValue(false);
                 isLoading.setValue(false);
+                sessionManager.setUserId(data.getId());
                 currentAction.setValue("Token is valid, id: "+data.getId()+", email: " + data.getEmail());
+                Log.d(TAG, "User: " + data.toString());
                 redirectedToHome();
             }
 
