@@ -104,7 +104,13 @@ public class FeedAdapter extends
             intent.putExtra(ProfileActivity.KEY_USER_ID, post.getAuthor().getId());
             context.startActivity(intent);
         });
-        offerItemHomeBinding.tvUserTitle.setText(post.getAuthor().getTitle());
+
+        if(post.getAuthor().getTitle() == null || post.getAuthor().getTitle().isEmpty()){
+            offerItemHomeBinding.tvUserTitle.setVisibility(View.GONE);
+        } else {
+            offerItemHomeBinding.tvUserTitle.setVisibility(View.VISIBLE);
+            offerItemHomeBinding.tvUserTitle.setText(post.getAuthor().getTitle());
+        }
         Glide.with(offerItemHomeBinding.getRoot().getContext())
                 .load(
                         GlideAuthUrl.getUrl(
