@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import com.ensak.connect.R;
 import com.ensak.connect.databinding.MainActivityBinding;
+import com.ensak.connect.presentation.About.AboutActivity;
 import com.ensak.connect.service.SessionManagerService;
 import com.ensak.connect.presentation.auth.loading_screen.LoadingActivity;
 import com.ensak.connect.presentation.profile.ProfileActivity;
@@ -216,7 +217,8 @@ public class HomeActivity extends AppCompatActivity {
                 Intent intent = new Intent(this, SettingsActivity.class);
                 startActivity(intent);
             } else if (itemId == R.id.nav_about) {
-                Toast.makeText(this, "nav_about", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this, AboutActivity.class);
+                startActivity(intent);
             } else if (itemId == R.id.nav_logout) {
                 sessionManager.logoutUser();
                 Intent loadingScreenIntent = new Intent(this, LoadingActivity.class);
