@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.bumptech.glide.Glide;
 import com.ensak.connect.R;
+import com.ensak.connect.adapters.Profile.CertificateAdapter;
 import com.ensak.connect.adapters.Profile.EducationAdapter;
 import com.ensak.connect.adapters.Profile.ExperienceAdapter;
 import com.ensak.connect.adapters.Profile.SkillsAdapter;
@@ -37,6 +38,7 @@ public class ProfileActivity extends AppCompatActivity {
     private ExperienceAdapter experienceAdapter;
     private EducationAdapter educationAdapter;
     private SkillsAdapter skillsAdapter;
+    private CertificateAdapter certificateAdapter;
     private ProfileViewModel profileViewModel;
 
     @Override
@@ -60,6 +62,7 @@ public class ProfileActivity extends AppCompatActivity {
             binding.modifyEducationButton.setVisibility(View.GONE);
             binding.modifyExperienceButton.setVisibility(View.GONE);
             binding.modifySkillsButton.setVisibility(View.GONE);
+            binding.modifyCertificateButton.setVisibility(View.GONE);
         }
 
         initView();
@@ -79,6 +82,7 @@ public class ProfileActivity extends AppCompatActivity {
         binding.experienceRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         binding.educationRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         binding.skillsRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        binding.certificatsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         binding.modifyEducationButton.setOnClickListener(v -> {
             Intent intent = new Intent(ProfileActivity.this, EducationEditActivity.class);
@@ -92,6 +96,11 @@ public class ProfileActivity extends AppCompatActivity {
 
         binding.modifySkillsButton.setOnClickListener(v -> {
             Intent intent = new Intent(ProfileActivity.this, SkillsEditActivity.class);
+            startActivity(intent);
+        });
+
+        binding.modifyCertificateButton.setOnClickListener(v -> {
+            Intent intent = new Intent(ProfileActivity.this, CertificateActivity.class);
             startActivity(intent);
         });
     }
@@ -134,6 +143,13 @@ public class ProfileActivity extends AppCompatActivity {
 
                 skillsAdapter = new SkillsAdapter(profileResponse.getSkillList());
                 binding.skillsRecyclerView.setAdapter(skillsAdapter);
+
+                certificateAdapter = new CertificateAdapter(this, profileResponse.getCertificationList());
+                binding.certificatsRecyclerView.setAdapter(certificateAdapter);
+
+                certificateAdapter.setOnCertificateDeleteListener(certificationId -> {
+                    profileViewModel.deleteCertification(certificationId);
+                });
 
                 if(profileResponse.getResume() != null){
                     binding.resumebtn.setText("Voir le CV");

@@ -49,6 +49,9 @@
     <string name="like">Like</string>
     <string name="comments">Comments</string>
     <string name="expriences">Expèriences</string>
+    <string name="certificate_name">Google data analytics</string>
+    <string name="lien">Lien</string>
+    <string name="certificateTitle">Google Cloud Platform Fundamentals: Core Infrastructure</string>
 
 
 </resources>
