@@ -11,10 +11,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.ensak.connect.R;
+import com.ensak.connect.model.Education;
 import com.ensak.connect.model.Experience;
 import com.ensak.connect.utils.DateUtil;
 import com.ensak.connect.presentation.profile.ExperienceEditActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ExperienceAdapter extends RecyclerView.Adapter<ExperienceAdapter.ExperienceViewHolder> {
@@ -22,17 +24,26 @@ public class ExperienceAdapter extends RecyclerView.Adapter<ExperienceAdapter.Ex
     private List<Experience> experienceList;
     private Context context;
 
+    public interface OnExperienceDeleteListener {
+        void onExperienceDelete(int experienceId);
+    }
+
+    private ExperienceAdapter.OnExperienceDeleteListener deleteListener;
+    public void setOnExperienceDeleteListener(ExperienceAdapter.OnExperienceDeleteListener listener) {
+        this.deleteListener = listener;
+    }
+
 
     public ExperienceAdapter(Context context, List<Experience> experienceList) {
         this.context = context;
-        this.experienceList = experienceList;
+        this.experienceList = experienceList != null ? experienceList : new ArrayList<>();
     }
 
     @NonNull
     @Override
-    public ExperienceViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ExperienceAdapter.ExperienceViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.profile_expereince_fragment, parent, false);
-        return new ExperienceViewHolder(itemView,context);
+        return new ExperienceAdapter.ExperienceViewHolder(itemView, context, this);
     }
 
     @Override
@@ -51,11 +62,14 @@ public class ExperienceAdapter extends RecyclerView.Adapter<ExperienceAdapter.Ex
         locationTextView, periodTextView, descriptionTextView;
 
         ImageView iconEdit, iconDelete;
+        private ExperienceAdapter.OnExperienceDeleteListener deleteListener;
+        private List<Experience> experienceList;
+        private final ExperienceAdapter adapter;
 
 
-        ExperienceViewHolder(View itemView, Context context) {
+        ExperienceViewHolder(View itemView, Context context, ExperienceAdapter experienceAdapter) {
             super(itemView);
-
+            this.adapter = experienceAdapter;
             titleTextView = itemView.findViewById(R.id.experienceTitle);
             companyTextView = itemView.findViewById(R.id.companyLocation);
 //            locationTextView = itemView.findViewById(R.id.companyLocation);
@@ -87,7 +101,11 @@ public class ExperienceAdapter extends RecyclerView.Adapter<ExperienceAdapter.Ex
 
             if (iconDelete != null) {
                 iconDelete.setOnClickListener(v -> {
-
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION && adapter.deleteListener != null) {
+                        Experience experienceToDelete = adapter.experienceList.get(position);
+                        adapter.deleteListener.onExperienceDelete(experienceToDelete.getId());
+                    }
                 });
             }
         }

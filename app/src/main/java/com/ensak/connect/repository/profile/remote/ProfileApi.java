@@ -56,4 +56,10 @@ public interface ProfileApi {
     @DELETE("profile/skills/{skillId}")
     Call<Void> deleteSkill(@Path("skillId") int skillId);
 
+    @DELETE("profile/experiences/{educationId}")
+    Call<Void> deleteExperience(@Path("educationId") int educationId);
+
+    @DELETE("profile/educations/{experiencesId}")
+    Call<Void> deleteEducation(@Path("experiencesId") int skillId);
+
 }

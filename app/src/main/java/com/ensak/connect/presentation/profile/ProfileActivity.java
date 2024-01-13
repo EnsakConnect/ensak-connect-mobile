@@ -120,8 +120,16 @@ public class ProfileActivity extends AppCompatActivity {
                 experienceAdapter = new ExperienceAdapter(this, profileResponse.getExperienceList());
                 binding.experienceRecyclerView.setAdapter(experienceAdapter);
 
+                experienceAdapter.setOnExperienceDeleteListener(experienceId -> {
+                    profileViewModel.deleteExperience(experienceId);
+                });
+
                 educationAdapter = new EducationAdapter(this, profileResponse.getEducationList());
                 binding.educationRecyclerView.setAdapter(educationAdapter);
+
+                educationAdapter.setOnEducationDeleteListener(educationId -> {
+                    profileViewModel.deleteEducation(educationId);
+                });
 
                 skillsAdapter = new SkillsAdapter(profileResponse.getSkillList());
                 binding.skillsRecyclerView.setAdapter(skillsAdapter);
