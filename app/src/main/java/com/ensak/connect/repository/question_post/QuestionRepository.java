@@ -11,6 +11,8 @@ import com.ensak.connect.repository.question_post.model.QuestionPostRequest;
 import com.ensak.connect.repository.question_post.model.QuestionPostResponse;
 import com.ensak.connect.service.RetrofitService;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -75,7 +77,8 @@ public class QuestionRepository {
                     callback.onFailure(new Exception());
                     return;
                 }
-
+                List<QuestionPostAnswerResponse> answers = response.body();
+                Collections.sort(answers, (o1, o2) -> o2.getCreatedAt().compareTo(o1.getCreatedAt()));
                 callback.onSuccess(response.body());
             }
 
