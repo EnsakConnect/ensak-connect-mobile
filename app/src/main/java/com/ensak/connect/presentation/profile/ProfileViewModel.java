@@ -4,9 +4,15 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.ensak.connect.repository.profile.model.ProfileResponse;
+import com.ensak.connect.repository.auth.model.UserResponse;
+import com.ensak.connect.repository.profile.CertificateRepository;
+import com.ensak.connect.repository.profile.model.ProfileDetailedResponse;
+import com.ensak.connect.repository.profile.EducationRepository;
+import com.ensak.connect.repository.profile.ExperienceRepository;
 import com.ensak.connect.repository.profile.ProfileRepository;
 import com.ensak.connect.repository.shared.RepositoryCallBack;
+
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -15,21 +21,44 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
 @HiltViewModel
 public class ProfileViewModel extends ViewModel {
 
-    private MutableLiveData<ProfileResponse> profile = new MutableLiveData<>();
+    private MutableLiveData<ProfileDetailedResponse> profile = new MutableLiveData<>();
     private MutableLiveData<Boolean> isLoading = new MutableLiveData<>(true);
     private MutableLiveData<String> errorMessage = new MutableLiveData<>("");
+    private Integer userId;
+
+
+    public MutableLiveData<String> getSuccessMessage() {
+        return successMessage;
+    }
+
+    public void setSuccessMessage(MutableLiveData<String> successMessage) {
+        this.successMessage = successMessage;
+    }
+
+    private MutableLiveData<String> successMessage = new MutableLiveData<>("");
     private ProfileRepository profileRepository;
+    private EducationRepository educationRepository;
+    private ExperienceRepository experienceRepository;
+    private CertificateRepository certificateRepository;
+
 
     @Inject
-    public ProfileViewModel(ProfileRepository profileRepository) {
+    public ProfileViewModel(ProfileRepository profileRepository, EducationRepository educationRepository, ExperienceRepository experienceRepository,CertificateRepository certificateRepository) {
         this.profileRepository = profileRepository;
+        this.educationRepository = educationRepository;
+        this.experienceRepository = experienceRepository;
+        this.certificateRepository = certificateRepository;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public void fetchProfileData() {
         isLoading.setValue(true);
-        profileRepository.getProfile(4, new RepositoryCallBack<ProfileResponse>() {
+        profileRepository.getProfile(userId, new RepositoryCallBack<ProfileDetailedResponse>() {
             @Override
-            public void onSuccess(ProfileResponse data) {
+            public void onSuccess(ProfileDetailedResponse data) {
                 profile.setValue(data);
                 isLoading.setValue(false);
                 errorMessage.setValue("");
@@ -43,7 +72,71 @@ public class ProfileViewModel extends ViewModel {
         });
     }
 
-    public LiveData<ProfileResponse> getProfile() {
+    public void deleteEducation(int educationId) {
+        isLoading.setValue(true);
+        educationRepository.deleteEducation(educationId, new RepositoryCallBack<Void>() {
+            @Override
+            public void onSuccess(Void result) {
+                // Handle the successful deletion
+                // You might need to update your LiveData that holds the list of educations
+                fetchProfileData();
+                isLoading.setValue(false);
+                successMessage.setValue("Education deleted successfully");
+            }
+
+            @Override
+            public void onFailure(Throwable throwable) {
+                // Handle the failure case
+                errorMessage.setValue("Error deleting education: " + throwable.getMessage());
+                isLoading.setValue(false);
+            }
+        });
+    }
+
+    public void deleteExperience(int experienceId) {
+        isLoading.setValue(true);
+        experienceRepository.deleteExperience(experienceId, new RepositoryCallBack<Void>() {
+            @Override
+            public void onSuccess(Void result) {
+                // Handle the successful deletion
+                // You might need to update your LiveData that holds the list of educations
+                fetchProfileData(); // Optionally, fetch the updated profile data
+                isLoading.setValue(false);
+                successMessage.setValue("Education deleted successfully");
+            }
+
+            @Override
+            public void onFailure(Throwable throwable) {
+                // Handle the failure case
+                errorMessage.setValue("Error deleting education: " + throwable.getMessage());
+                isLoading.setValue(false);
+            }
+        });
+    }
+
+
+    public void deleteCertification(int certificationId) {
+        isLoading.setValue(true);
+        certificateRepository.deleteCertification(certificationId, new RepositoryCallBack<Void>() {
+            @Override
+            public void onSuccess(Void result) {
+                // Handle the successful deletion
+                // You might need to update your LiveData that holds the list of educations
+                fetchProfileData(); // Optionally, fetch the updated profile data
+                isLoading.setValue(false);
+                successMessage.setValue("Education deleted successfully");
+            }
+
+            @Override
+            public void onFailure(Throwable throwable) {
+                // Handle the failure case
+                errorMessage.setValue("Error deleting education: " + throwable.getMessage());
+                isLoading.setValue(false);
+            }
+        });
+    }
+
+    public LiveData<ProfileDetailedResponse> getProfile() {
         return profile;
     }
     public LiveData<Boolean> getIsLoading() {

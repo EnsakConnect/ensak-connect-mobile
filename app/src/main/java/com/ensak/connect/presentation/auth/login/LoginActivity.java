@@ -20,6 +20,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.ensak.connect.databinding.AuthLoginActivityBinding;
+import com.ensak.connect.presentation.auth.loading_screen.LoadingActivity;
 import com.ensak.connect.presentation.auth.password_reset.PasswordResetActivity;
 import com.ensak.connect.presentation.auth.registration.RegistrationScreen;
 import com.ensak.connect.presentation.auth.password_reset.ChangePasswordActivity;
@@ -105,7 +106,7 @@ public class LoginActivity extends AppCompatActivity {
             if(hasLoggedIn) {
                 // Handle successful login
                 Toast.makeText(LoginActivity.this, "Login Successful.", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(this, HomeActivity.class);
+                Intent intent = new Intent(this, LoadingActivity.class);
                 startActivity(intent);
                 finish();
             }

@@ -4,8 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.profile.SkillsEditActivity"
+    tools:context=".presentation.profile.CertificateActivity"
     android:background="@color/background_light">
+
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
@@ -28,7 +29,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/expriences" />
+                android:text="Certificats" />
         </androidx.appcompat.widget.Toolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -44,6 +45,7 @@
             android:layout_height="wrap_content"
             android:background="@color/background"
             android:orientation="vertical">
+
             <LinearLayout
                 android:id="@+id/linearLayout"
                 android:layout_width="match_parent"
@@ -58,7 +60,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/heading2_bottom_margin"
-                    android:text="Expèriences"
+                    android:text="Certificats"
                     android:textColor="#000"
                     android:textSize="28sp"
                     android:textStyle="bold" />
@@ -66,32 +68,32 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Skill :"
+                    android:text="Titre certificat :"
                     style="@style/Label"/>
 
                 <EditText
-                    android:id="@+id/txtSkill"
+                    android:id="@+id/certificateTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     style="@style/EditTextBase"
-                    android:focusable="true"
-                    android:clickable="true"
                     android:inputType="text"
-
-                    android:drawablePadding="10dp"
                     android:layout_marginBottom="16dp"
-                />
+                    />
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Lien :"
+                    style="@style/Label"/>
 
+                <EditText
+                    android:id="@+id/certificateLink"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/EditTextBase"
+                    />
 
             </LinearLayout>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/skillsRecyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp" />
-
 
             <LinearLayout
                 android:id="@+id/linearLayout2"
@@ -107,16 +109,16 @@
                     android:layout_height="wrap_content"
                     style="@style/ButtonDangerSecondary"
                     android:layout_marginEnd="16dp"
-                    android:text="Terminer" />
+                    android:text="Cancel" />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btnCreate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/ButtonPrimary"
-                    android:text="Ajouter" />
+                    android:text="Create" />
             </LinearLayout>
-
         </LinearLayout>
     </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
