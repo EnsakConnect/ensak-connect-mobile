@@ -94,6 +94,23 @@ public class ProfileRepository {
         });
     }
 
+    public void updateResume(Integer resourceId, RepositoryCallBack<UserResponse> callBack) {
+        api.updateResume(resourceId).enqueue(new Callback<UserResponse>() {
+            @Override
+            public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
+                if(!response.isSuccessful()){
+                    callBack.onFailure(new Exception());
+                    return;
+                }
 
+                callBack.onSuccess(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<UserResponse> call, Throwable t) {
+                callBack.onFailure(t);
+            }
+        });
+    }
 
 }

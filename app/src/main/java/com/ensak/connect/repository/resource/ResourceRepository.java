@@ -11,9 +11,13 @@ import com.ensak.connect.utils.FileUtil;
 
 import java.io.File;
 
+import javax.inject.Inject;
+
+import dagger.hilt.android.qualifiers.ApplicationContext;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -23,7 +27,8 @@ public class ResourceRepository {
     private ResourceApi api;
     private Context context;
 
-    public ResourceRepository(Context context) {
+    @Inject
+    public ResourceRepository(@ApplicationContext Context context) {
         this.context = context;
         api = RetrofitService.getRetrofitInstance(context).create(ResourceApi.class);
     }
@@ -52,5 +57,30 @@ public class ResourceRepository {
         } catch (Exception exception){
             callBack.onFailure(exception);
         }
+    }
+
+    public void downloadResource(String filename, String downloadName, RepositoryCallBack<String> callBack) {
+        api.download(filename).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if(!response.isSuccessful()){
+                    callBack.onFailure(new Exception());
+                    return;
+                }
+
+                // TODO: download file
+                Boolean success = FileUtil.writeResponseBodyToDisk(context, response.body(), downloadName);
+                if (success) {
+                    callBack.onSuccess(downloadName);
+                } else {
+                    callBack.onFailure(new Exception("Error: could not write file"));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                callBack.onFailure(t);
+            }
+        });
     }
 }
