@@ -32,6 +32,10 @@ public class FeedContentResponse {
     @Expose
     private UserResponse author;
 
+    @SerializedName("company")
+    @Expose
+    private Company company;
+
     @SerializedName("commentsCount")
     @Expose
     private int commentsCount;
@@ -88,6 +92,9 @@ public class FeedContentResponse {
 //        return interactions;
 //    }
 
+    public Company getCompany() {
+        return company;
+    }
     public int getLikesCount() {
         return likesCount;
     }
