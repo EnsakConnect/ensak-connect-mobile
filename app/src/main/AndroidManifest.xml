@@ -18,14 +18,17 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".presentation.question_post.show.ShowQuestionPost"
-            android:exported="false"
-            android:theme="@style/Theme.ENSAKConnect.NoActionBar" />
+            android:name=".presentation.report.ReportActivity"
+            android:theme="@style/Theme.ENSAKConnect.NoActionBar"
+            android:exported="false" />
         <activity
             android:name=".presentation.profile.ProfileEditActivity"
             android:exported="false"
             android:theme="@style/Theme.ENSAKConnect.NoActionBar" />
-
+        <activity
+            android:name=".presentation.question_post.show.ShowQuestionPost"
+            android:exported="false"
+            android:theme="@style/Theme.ENSAKConnect.NoActionBar" />
         <activity
             android:name=".presentation.profile.CertificateActivity"
             android:exported="false"
@@ -84,10 +87,6 @@
             android:exported="false" />
         <activity
             android:name=".presentation.job_post.comments.CommentsActivity"
-            android:exported="false"
-            android:theme="@style/Theme.ENSAKConnect.NoActionBar" />
-        <activity
-            android:name=".presentation.static_activities.AboutActivity"
             android:exported="false"
             android:theme="@style/Theme.ENSAKConnect.NoActionBar" />
         <activity

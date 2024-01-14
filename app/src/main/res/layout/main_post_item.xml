@@ -116,17 +116,18 @@
                         android:textSize="12sp"
                         android:text="5h" />
 
-                    <ImageView
-                        android:layout_width="16dp"
-                        android:layout_height="16dp"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:layout_weight="0"
-                        android:src="@drawable/ic_info" />
-                </LinearLayout>
+                <ImageView
+                    android:id="@+id/btnReport"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_weight="0"
+                    android:src="@drawable/ic_info" />
+            </LinearLayout>
 
 
             </LinearLayout>
