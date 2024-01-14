@@ -136,22 +136,41 @@
                 android:textSize="14sp" />
 
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/resumebtn"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
-                style="@style/ButtonPrimary"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
                 android:layout_below="@+id/userDescription"
-                android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
                 android:layout_marginTop="24dp"
                 android:layout_marginBottom="16dp"
-                android:text="@string/voir_le_cv" />
+                android:id="@+id/resumeLayout"
+                android:layout_marginHorizontal="@dimen/activity_horizontal_margin">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/downloadResume"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    style="@style/ButtonPrimary"
+                    android:text="@string/voir_le_cv" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/uploadResume"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    style="@style/ButtonPrimary"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/upload_cv" />
+
+            </LinearLayout>
+
 
             <LinearLayout
                 android:id="@+id/experiencesContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/resumebtn"
+                android:layout_below="@id/resumeLayout"
                 android:orientation="vertical"
                 android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
                 android:paddingVertical="16dp">

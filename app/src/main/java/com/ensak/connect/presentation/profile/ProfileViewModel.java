@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.ensak.connect.repository.auth.model.UserResponse;
 import com.ensak.connect.repository.profile.CertificateRepository;
 import com.ensak.connect.repository.profile.model.ProfileDetailedResponse;
 import com.ensak.connect.repository.profile.EducationRepository;
@@ -134,6 +135,7 @@ public class ProfileViewModel extends ViewModel {
             }
         });
     }
+
     public LiveData<ProfileDetailedResponse> getProfile() {
         return profile;
     }
