@@ -1,5 +1,7 @@
 package com.ensak.connect.repository.question_post.remote;
 
+import com.ensak.connect.repository.question_post.model.QuestionPostAnswerRequest;
+import com.ensak.connect.repository.question_post.model.QuestionPostAnswerResponse;
 import com.ensak.connect.repository.question_post.model.QuestionPostRequest;
 import com.ensak.connect.repository.question_post.model.QuestionPostResponse;
 
@@ -15,4 +17,10 @@ public interface QuestionApi {
 
     @GET("questions/{id}")
     Call<QuestionPostResponse> get(@Path("id") Integer id);
+
+    @POST("questions/{question_id}/answers")
+    Call<QuestionPostAnswerResponse> addAnswer(
+            @Path("question_id") Integer question_id,
+            @Body QuestionPostAnswerRequest request
+    );
 }

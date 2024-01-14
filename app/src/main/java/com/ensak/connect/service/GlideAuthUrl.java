@@ -16,4 +16,8 @@ public class GlideAuthUrl {
                 .build()
         );
     }
+
+    public static GlideUrl getResource(Context context, String resource) {
+        return getUrl(context, AppConstants.BASE_URL + "resources/" + resource);
+    }
 }

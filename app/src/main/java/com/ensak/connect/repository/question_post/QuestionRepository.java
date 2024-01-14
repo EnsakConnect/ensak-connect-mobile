@@ -3,6 +3,8 @@ package com.ensak.connect.repository.question_post;
 import android.content.Context;
 import android.util.Log;
 
+import com.ensak.connect.repository.question_post.model.QuestionPostAnswerRequest;
+import com.ensak.connect.repository.question_post.model.QuestionPostAnswerResponse;
 import com.ensak.connect.repository.shared.RepositoryCallBack;
 import com.ensak.connect.repository.question_post.remote.QuestionApi;
 import com.ensak.connect.repository.question_post.model.QuestionPostRequest;
@@ -58,6 +60,25 @@ public class QuestionRepository {
 
             @Override
             public void onFailure(Call<QuestionPostResponse> call, Throwable t) {
+                callback.onFailure(t);
+            }
+        });
+    }
+
+    public void createAnswer(Integer questionId, QuestionPostAnswerRequest request, RepositoryCallBack<QuestionPostAnswerResponse> callback) {
+        api.addAnswer(questionId, request).enqueue(new Callback<QuestionPostAnswerResponse>() {
+            @Override
+            public void onResponse(Call<QuestionPostAnswerResponse> call, Response<QuestionPostAnswerResponse> response) {
+                if(! response.isSuccessful() || response.body() == null){
+                    callback.onFailure(new Exception());
+                    return;
+                }
+
+                callback.onSuccess(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<QuestionPostAnswerResponse> call, Throwable t) {
                 callback.onFailure(t);
             }
         });
