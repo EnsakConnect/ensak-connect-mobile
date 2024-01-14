@@ -3,6 +3,7 @@ package com.ensak.connect.presentation.question_post.show;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.ensak.connect.R;
+import com.ensak.connect.adapters.question_post.AnswerAdapter;
 import com.ensak.connect.constants.AppConstants;
 import com.ensak.connect.databinding.QuestionPostCreateActivityBinding;
 import com.ensak.connect.databinding.QuestionPostShowActivityBinding;
@@ -25,6 +27,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class ShowQuestionPost extends AppCompatActivity {
     private QuestionPostShowActivityBinding binding;
     private ShowQuestionPostViewModel viewModel;
+    private AnswerAdapter answerAdapter;
     private Integer questionPostId;
     public static final String KEY_QUESTION_POST_ID = "question_id";
 
@@ -39,6 +42,7 @@ public class ShowQuestionPost extends AppCompatActivity {
         questionPostId = (Integer) getIntent().getExtras().get(KEY_QUESTION_POST_ID);
         viewModel.setQuestionPostId(questionPostId);
         viewModel.fetchQuestionPost();
+        viewModel.fetchAllAnswers();
     }
 
     private void initView() {
@@ -47,6 +51,9 @@ public class ShowQuestionPost extends AppCompatActivity {
         actionBar.setDisplayShowTitleEnabled(false);
         actionBar.setDisplayHomeAsUpEnabled(true);
         binding.toolbar.setNavigationOnClickListener(v -> finish());
+        answerAdapter = new AnswerAdapter();
+        binding.rvComments.setAdapter(answerAdapter);
+        binding.rvComments.setVisibility(View.GONE);
 
         binding.btnAddAnswer.setOnClickListener(v -> {
             createAnswer();
@@ -78,6 +85,17 @@ public class ShowQuestionPost extends AppCompatActivity {
                 intent.putExtra(ProfileActivity.KEY_USER_ID, questionPost.getAuthor().getId());
                 startActivity(intent);
             });
+        });
+
+        viewModel.getAnswers().observe(this, answers -> {
+            answerAdapter.setAnswers(answers);
+            if(answers.size() == 0){
+                binding.tvNoAnswers.setVisibility(View.VISIBLE);
+                binding.rvComments.setVisibility(View.GONE);
+            } else {
+                binding.rvComments.setVisibility(View.VISIBLE);
+                binding.tvNoAnswers.setVisibility(View.GONE);
+            }
         });
 
         viewModel.getErrorMessage().observe(this, errorMessage -> {

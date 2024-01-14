@@ -53,6 +53,23 @@ public class ShowQuestionPostViewModel extends ViewModel {
         });
     }
 
+    public void fetchAllAnswers() {
+        isLoading.setValue(true);
+        questionRepository.getAnswer(questionPostId, new RepositoryCallBack<List<QuestionPostAnswerResponse>>() {
+            @Override
+            public void onSuccess(List<QuestionPostAnswerResponse> data) {
+                isLoading.setValue(false);
+                answers.setValue(data);
+            }
+
+            @Override
+            public void onFailure(Throwable throwable) {
+                isLoading.setValue(false);
+                errorMessage.setValue("Error loading answers");
+            }
+        });
+    }
+
     public void createAnswer(String answer) {
         if(answer.isEmpty()){
             errorMessage.setValue("Answer cannot be empty");
@@ -66,7 +83,7 @@ public class ShowQuestionPostViewModel extends ViewModel {
             public void onSuccess(QuestionPostAnswerResponse data) {
                 isLoading.setValue(false);
                 successMessage.setValue("Answer added successfully");
-                // TODO add answer to answers list
+                fetchAllAnswers();
             }
 
             @Override
@@ -79,6 +96,10 @@ public class ShowQuestionPostViewModel extends ViewModel {
 
     public LiveData<QuestionPostResponse> getQuestion() {
         return question;
+    }
+
+    public LiveData<List<QuestionPostAnswerResponse>> getAnswers() {
+        return answers;
     }
 
     public LiveData<Boolean> getIsLoading() {

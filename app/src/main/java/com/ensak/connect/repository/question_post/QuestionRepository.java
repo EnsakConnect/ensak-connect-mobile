@@ -11,6 +11,8 @@ import com.ensak.connect.repository.question_post.model.QuestionPostRequest;
 import com.ensak.connect.repository.question_post.model.QuestionPostResponse;
 import com.ensak.connect.service.RetrofitService;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import retrofit2.Call;
@@ -60,6 +62,25 @@ public class QuestionRepository {
 
             @Override
             public void onFailure(Call<QuestionPostResponse> call, Throwable t) {
+                callback.onFailure(t);
+            }
+        });
+    }
+
+    public void getAnswer(Integer quesitonId, RepositoryCallBack<List<QuestionPostAnswerResponse>> callback) {
+        api.getAnswers(quesitonId).enqueue(new Callback<List<QuestionPostAnswerResponse>>() {
+            @Override
+            public void onResponse(Call<List<QuestionPostAnswerResponse>> call, Response<List<QuestionPostAnswerResponse>> response) {
+                if(! response.isSuccessful() || response.body() == null) {
+                    callback.onFailure(new Exception());
+                    return;
+                }
+
+                callback.onSuccess(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<List<QuestionPostAnswerResponse>> call, Throwable t) {
                 callback.onFailure(t);
             }
         });

@@ -5,6 +5,8 @@ import com.ensak.connect.repository.question_post.model.QuestionPostAnswerRespon
 import com.ensak.connect.repository.question_post.model.QuestionPostRequest;
 import com.ensak.connect.repository.question_post.model.QuestionPostResponse;
 
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -17,6 +19,9 @@ public interface QuestionApi {
 
     @GET("questions/{id}")
     Call<QuestionPostResponse> get(@Path("id") Integer id);
+
+    @GET("questions/{id}/answers")
+    Call<List<QuestionPostAnswerResponse>> getAnswers(@Path("id") Integer id);
 
     @POST("questions/{question_id}/answers")
     Call<QuestionPostAnswerResponse> addAnswer(
