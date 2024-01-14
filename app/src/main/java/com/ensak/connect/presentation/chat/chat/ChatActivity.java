@@ -18,8 +18,14 @@ import com.ensak.connect.R;
 import com.ensak.connect.adapters.chat.ChatAdapter;
 import com.ensak.connect.databinding.ChatActivityBinding;
 import com.ensak.connect.repository.chat.model.ChatMessageResponse;
+import com.onesignal.OSNotification;
+import com.onesignal.OSNotificationReceivedEvent;
+import com.onesignal.OneSignal;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -48,8 +54,37 @@ public class ChatActivity extends AppCompatActivity {
         }
 
         initViews();
-        initViewModel();
-        chatViewModel.fetchChatMessages(conversationId);
+//        initViewModel();
+//        chatViewModel.fetchChatMessages(conversationId);
+
+        OneSignal.setNotificationWillShowInForegroundHandler(new OneSignal.OSNotificationWillShowInForegroundHandler() {
+            @Override
+            public void notificationWillShowInForeground(OSNotificationReceivedEvent osNotificationReceivedEvent) {
+                Log.v("Notiffffffff", "notificationWillShowInForeground fired with event: " + osNotificationReceivedEvent);
+
+                OSNotification notification = osNotificationReceivedEvent.getNotification();
+                JSONObject data = notification.getAdditionalData();
+                Log.v("Notiffffffff", "title->: " + notification.getTitle());
+
+                try {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            addMessage(new ChatMessageResponse(
+                                    0,
+                                    0,
+                                    0,
+                                    notification.getBody(),
+                                    new Date()
+                            ));
+                            Log.v("Notiffffffff", "message added: " + notification.getBody());
+                        }
+                    });
+                } catch (Exception e) {
+                    Log.v("Notiffffffff", "error->: " + e.getMessage());
+                }
+            }
+        });
     }
 
     private void initViews() {
@@ -82,7 +117,9 @@ public class ChatActivity extends AppCompatActivity {
         });
 
         chatViewModel.getErrorMessage().observe(this, errorMessage -> {
-            if(errorMessage.isEmpty()) {return; }
+            if (errorMessage.isEmpty()) {
+                return;
+            }
             Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
         });
 
@@ -102,5 +139,11 @@ public class ChatActivity extends AppCompatActivity {
             chatViewModel.sendMessage(conversationId, message);
         }
 
+    }
+
+    public void addMessage(ChatMessageResponse message) {
+        messages.add(message);
+        adapter.notifyDataSetChanged();
+        binding.rvChatMessages.smoothScrollToPosition(messages.size() - 1);
     }
 }
