@@ -19,7 +19,7 @@ public interface ChatApi {
     @POST("conversations")
     Call<ConversationResponse> addConversation();
 
-    @GET("chat-messages/{conversation_id}")
+    @GET("chat-messages/{conversationId}")
     Call<ArrayList<ChatMessageResponse>> getChatMessages(@Path("conversationId") int conversationId);
 
     @POST("chat-messages")

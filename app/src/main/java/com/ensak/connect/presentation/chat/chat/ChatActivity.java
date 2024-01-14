@@ -38,7 +38,7 @@ public class ChatActivity extends AppCompatActivity {
 
     private ArrayList<ChatMessageResponse> messages = new ArrayList<>();
     private ChatAdapter adapter;
-    int conversationId = 102, userId = 4;
+    int conversationId, userId;
     String receiverName, receiverImage;
 
     @Override
@@ -56,8 +56,8 @@ public class ChatActivity extends AppCompatActivity {
         }
 
         initViews();
-//        initViewModel();
-//        chatViewModel.fetchChatMessages(conversationId);
+        initViewModel();
+        chatViewModel.fetchChatMessages(conversationId);
 
         OneSignal.setNotificationWillShowInForegroundHandler(new OneSignal.OSNotificationWillShowInForegroundHandler() {
             @Override
@@ -66,19 +66,30 @@ public class ChatActivity extends AppCompatActivity {
 
                 OSNotification notification = osNotificationReceivedEvent.getNotification();
                 JSONObject data = notification.getAdditionalData();
+                int notifConversationId = data.optInt("conversationId");
+                int notifSenderId = data.optInt("senderId");
                 Log.v("Notiffffffff", "title->: " + notification.getTitle());
 
                 try {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+                            if (notifConversationId != conversationId) {
+                                return;
+                            }
+                            if (notifSenderId == userId) {
+                                osNotificationReceivedEvent.complete(null);
+                                return;
+                            }
+
                             addMessage(new ChatMessageResponse(
                                     0,
-                                    0,
-                                    0,
+                                    notifConversationId,
+                                    notifSenderId,
                                     notification.getBody(),
                                     new Date()
                             ));
+                            osNotificationReceivedEvent.complete(null);
                             Log.v("Notiffffffff", "message added: " + notification.getBody());
                         }
                     });
@@ -90,7 +101,7 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     private void initViews() {
-        adapter = new ChatAdapter(this, messages);
+        adapter = new ChatAdapter(this, messages, userId);
         binding.rvChatMessages.setAdapter(adapter);
         binding.rvChatMessages.setLayoutManager(new LinearLayoutManager(this));
 
@@ -129,16 +140,23 @@ public class ChatActivity extends AppCompatActivity {
             messages.clear();
             messages.addAll(responseMessage);
             adapter.notifyDataSetChanged();
-            binding.rvChatMessages.smoothScrollToPosition(messages.size() - 1);
-//            adapter.notifyDataSetChanged();
+            if (messages.size() > 0)
+                binding.rvChatMessages.smoothScrollToPosition(messages.size() - 1);
         });
     }
 
     private void sendChatMessage() {
         String message = binding.etMessage.getText().toString();
-        // TODO: add validation
         if (!message.isEmpty()) {
             chatViewModel.sendMessage(new ChatMessageRequest(conversationId, userId, message));
+            binding.etMessage.setText("");
+            addMessage(new ChatMessageResponse(
+                    0,
+                    conversationId,
+                    userId,
+                    message,
+                    new Date()
+            ));
         }
 
     }
@@ -146,6 +164,7 @@ public class ChatActivity extends AppCompatActivity {
     public void addMessage(ChatMessageResponse message) {
         messages.add(message);
         adapter.notifyDataSetChanged();
-        binding.rvChatMessages.smoothScrollToPosition(messages.size() - 1);
+        if (messages.size() > 0)
+            binding.rvChatMessages.smoothScrollToPosition(messages.size() - 1);
     }
 }
