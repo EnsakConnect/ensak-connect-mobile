@@ -88,6 +88,7 @@ public class ShowQuestionPost extends AppCompatActivity {
         viewModel.getSuccessMessage().observe(this, successMessage -> {
             if(successMessage == null || successMessage.isEmpty()) return;
             Toast.makeText(this, successMessage, Toast.LENGTH_SHORT).show();
+            binding.txtNewAnswer.setText("");
         });
 
         viewModel.getIsLoading().observe(this, isLoading -> {
