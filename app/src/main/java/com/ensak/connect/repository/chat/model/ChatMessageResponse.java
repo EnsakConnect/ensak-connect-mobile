@@ -10,48 +10,44 @@ public class ChatMessageResponse {
     @Expose
     int id;
 
+    @SerializedName("conversationId")
+    @Expose
+    int conversationId;
+
     @SerializedName("senderId")
     @Expose
     int senderId;
 
-    @SerializedName("receiverId")
+    @SerializedName("content")
     @Expose
-    int receiverId;
+    String content;
 
-    @SerializedName("message")
-    @Expose
-    String message;
-
-    @SerializedName("date")
+    @SerializedName("createdAt")
     @Expose
     Date date;
 
-    public ChatMessageResponse(int senderId) {
-        this.senderId = senderId;
-    }
-
-    public ChatMessageResponse(int id, int senderId, int receiverId, String message, Date date) {
+    public ChatMessageResponse(int id, int conversationId, int senderId, String content, Date date) {
         this.id = id;
+        this.conversationId = conversationId;
         this.senderId = senderId;
-        this.receiverId = receiverId;
-        this.message = message;
+        this.content = content;
         this.date = date;
-    }
-
-    public int getSenderId() {
-        return senderId;
     }
 
     public int getId() {
         return id;
     }
 
-    public int getReceiverId() {
-        return receiverId;
+    public int getConversationId() {
+        return conversationId;
     }
 
-    public String getMessage() {
-        return message;
+    public int getSenderId() {
+        return senderId;
+    }
+
+    public String getContent() {
+        return content;
     }
 
     public Date getDate() {

@@ -56,7 +56,7 @@ public class ChatViewModel extends ViewModel {
         repository.sendChatMessage(chatMessage, new RepositoryCallBack() {
             @Override
             public void onSuccess(Object data) {
-                fetchChatMessages(chatMessage.getConversationId());
+                isLoading.setValue(false);
             }
 
             @Override
