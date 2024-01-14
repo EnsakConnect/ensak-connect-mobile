@@ -16,6 +16,7 @@ import com.ensak.connect.R;
 import com.ensak.connect.constants.AppConstants;
 import com.ensak.connect.databinding.MainPostItemBinding;
 import com.ensak.connect.presentation.profile.ProfileActivity;
+import com.ensak.connect.presentation.report.ReportActivity;
 import com.ensak.connect.repository.feed.model.FeedContentResponse;
 import com.ensak.connect.repository.feed.model.FeedResponse;
 import com.ensak.connect.presentation.job_post.comments.CommentsActivity;
@@ -96,6 +97,13 @@ public class FeedAdapter extends
         offerItemHomeBinding.llComment.setOnClickListener(view -> {
             Intent intent = new Intent(context, CommentsActivity.class);
             intent.putExtra("postId", post.getId());
+            context.startActivity(intent);
+        });
+
+        offerItemHomeBinding.btnReport.setOnClickListener(view -> {
+            Intent intent = new Intent(context, ReportActivity.class);
+            intent.putExtra("postId",post.getId());
+            intent.putExtra("postType",post.getPostType());
             context.startActivity(intent);
         });
 
