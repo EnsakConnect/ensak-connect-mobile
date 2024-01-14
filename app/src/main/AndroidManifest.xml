@@ -87,6 +87,10 @@
             android:exported="false"
             android:theme="@style/Theme.ENSAKConnect.NoActionBar" />
         <activity
+            android:name=".presentation.static_activities.AboutActivity"
+            android:exported="false"
+            android:theme="@style/Theme.ENSAKConnect.NoActionBar" />
+        <activity
             android:name=".presentation.auth.registration.RegistrationScreen"
             android:exported="false"
             android:theme="@style/Theme.ENSAKConnect.NoActionBar" />

@@ -1,4 +1,4 @@
-package com.ensak.connect.presentation.About;
+package com.ensak.connect.presentation.static_activities;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;

@@ -12,7 +12,7 @@ import com.ensak.connect.R;
 import com.ensak.connect.constants.AppConstants;
 import com.ensak.connect.databinding.MainActivityBinding;
 
-import com.ensak.connect.presentation.About.AboutActivity;
+import com.ensak.connect.presentation.static_activities.AboutActivity;
 
 import com.ensak.connect.databinding.MainNavHeaderBinding;
 import com.ensak.connect.presentation.auth.login.LoginActivity;
