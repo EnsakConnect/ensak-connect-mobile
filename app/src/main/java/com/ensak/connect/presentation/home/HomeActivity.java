@@ -9,6 +9,8 @@ import android.widget.Toast;
 
 import com.ensak.connect.R;
 import com.ensak.connect.databinding.MainActivityBinding;
+import com.ensak.connect.presentation.chat.chat.ChatActivity;
+import com.ensak.connect.repository.chat.model.ChatMessageResponse;
 import com.ensak.connect.service.SessionManagerService;
 import com.ensak.connect.presentation.auth.loading_screen.LoadingActivity;
 import com.ensak.connect.presentation.profile.ProfileActivity;
@@ -20,6 +22,9 @@ import com.ensak.connect.presentation.notifications.NotificationActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import com.google.android.material.navigation.NavigationView;
+import com.onesignal.OSNotification;
+import com.onesignal.OSNotificationReceivedEvent;
+import com.onesignal.OneSignal;
 
 import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
@@ -28,6 +33,10 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
+
+import org.json.JSONObject;
+
+import java.util.Calendar;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -47,7 +56,7 @@ public class HomeActivity extends AppCompatActivity {
     private Boolean isFABMenuOpen = false;
 
     NavController navController;
-
+    private static final String ONESIGNAL_APP_ID = "33340ee8-8b07-4a12-ad59-36f93ba2402b";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +102,8 @@ public class HomeActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navigationView, navController);
 
         listenForDrawerItemSelection();
+
+        configureOneSignal();
     }
 
     private void setupFABActions() {
@@ -226,5 +237,11 @@ public class HomeActivity extends AppCompatActivity {
             drawer.closeDrawers();
             return true;
         });
+    }
+
+    private void configureOneSignal() {
+        OneSignal.initWithContext(this);
+        OneSignal.setAppId(ONESIGNAL_APP_ID);
+        OneSignal.setExternalUserId("user1");
     }
 }
