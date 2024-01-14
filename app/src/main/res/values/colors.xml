@@ -38,6 +38,8 @@
     <color name="tag_pfe">#F44336</color>
     <color name="tag_cdi">#9C27B0</color>
     <color name="tag_qa">#8BC34A</color>
+    <color name="tag_qa_background">#265B21B6</color>
+    <color name="tag_qa_foreground">#5B21B6</color>
     <color name="tag_blog">#009688</color>
     <color name="tag_doctorate">#00BCD4</color>
 </resources>

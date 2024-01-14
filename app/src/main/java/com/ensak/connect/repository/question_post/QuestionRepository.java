@@ -43,4 +43,23 @@ public class QuestionRepository {
             }
         });
     }
+
+    public void get(Integer id, RepositoryCallBack<QuestionPostResponse> callback) {
+        api.get(id).enqueue(new Callback<QuestionPostResponse>() {
+            @Override
+            public void onResponse(Call<QuestionPostResponse> call, Response<QuestionPostResponse> response) {
+                if(!response.isSuccessful() || response.body() == null){
+                    callback.onFailure(new Exception());
+                    return;
+                }
+
+                callback.onSuccess(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<QuestionPostResponse> call, Throwable t) {
+                callback.onFailure(t);
+            }
+        });
+    }
 }

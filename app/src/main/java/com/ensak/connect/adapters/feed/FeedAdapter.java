@@ -16,6 +16,7 @@ import com.ensak.connect.R;
 import com.ensak.connect.constants.AppConstants;
 import com.ensak.connect.databinding.MainPostItemBinding;
 import com.ensak.connect.presentation.profile.ProfileActivity;
+import com.ensak.connect.presentation.question_post.show.ShowQuestionPost;
 import com.ensak.connect.repository.feed.model.FeedContentResponse;
 import com.ensak.connect.repository.feed.model.FeedResponse;
 import com.ensak.connect.presentation.job_post.comments.CommentsActivity;
@@ -56,13 +57,27 @@ public class FeedAdapter extends
         //offerItemHomeBinding.tvTimeAgo.setText(Utils.calculateTimeAgo(post.getDate()));
 
         if (post.getPostType().equals("Q&A")) {
-            offerItemHomeBinding.chipTag.setChipBackgroundColorResource(R.color.tag_qa);
+            /**
+             * Setup QNA Post
+             */
             offerItemHomeBinding.tvBody.setText(post.getTitle());
-        } else if (post.getPostType().equals("DOCTORATE")) {
+            offerItemHomeBinding.chipTag.setChipBackgroundColorResource(R.color.tag_qa_background);
+            offerItemHomeBinding.chipTag.setTextColor(context.getColor(R.color.tag_qa_foreground));
+            offerItemHomeBinding.tvBody.setOnClickListener(v -> {
+                Intent intent = new Intent(context, ShowQuestionPost.class);
+                intent.putExtra(ShowQuestionPost.KEY_QUESTION_POST_ID, post.getId());
+                context.startActivity(intent);
+            });
+        }
+        else if (post.getPostType().equals("DOCTORATE")) {
+            /**
+             * Setup Doctorate post
+             */
             offerItemHomeBinding.chipTag.setChipBackgroundColorResource(R.color.tag_doctorate);
             offerItemHomeBinding.llPositionDetails.setVisibility(View.VISIBLE);
             offerItemHomeBinding.tvPositionTitle.setText(post.getTitle());
-        } else if (post.getPostType().equals("BLOG")) {
+        }
+        else if (post.getPostType().equals("BLOG")) {
             offerItemHomeBinding.chipTag.setChipBackgroundColorResource(R.color.tag_blog);
             offerItemHomeBinding.ivBlogImage.setVisibility(View.VISIBLE);
             Glide.with(offerItemHomeBinding.getRoot().getContext())
