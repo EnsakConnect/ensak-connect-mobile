@@ -11,12 +11,15 @@ import com.ensak.connect.repository.auth.model.UserResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.Header;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 
 public interface AuthApi {
     @POST("auth/me")
     Call<UserResponse> me();
 
+    @Headers({"Origin: http://localhost:8081"})
     @POST("auth/login")
     Call<AuthenticationResponse> login(@Body LoginRequest request);
 

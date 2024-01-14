@@ -41,15 +41,12 @@ public class ConversationsActivity extends AppCompatActivity {
         binding.toolbar.setNavigationOnClickListener(v -> finish());
 
         initViews();
-//        initViewModel();
-//        conversationViewModel.fetchConversations();
+        initViewModel();
+        conversationViewModel.fetchConversations();
     }
 
     private void initViews() {
         conversations = new ArrayList<>();
-        conversations.add(new ConversationResponse());
-        conversations.add(new ConversationResponse());
-        conversations.add(new ConversationResponse());
 
         rvConversations = binding.rvConversations;
         adapter = new ConversationsAdapter(conversations);

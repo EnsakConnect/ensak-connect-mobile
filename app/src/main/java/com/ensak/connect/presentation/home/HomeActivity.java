@@ -11,8 +11,6 @@ import com.bumptech.glide.Glide;
 import com.ensak.connect.R;
 import com.ensak.connect.constants.AppConstants;
 import com.ensak.connect.databinding.MainActivityBinding;
-import com.ensak.connect.presentation.chat.chat.ChatActivity;
-import com.ensak.connect.repository.chat.model.ChatMessageResponse;
 
 import com.ensak.connect.presentation.About.AboutActivity;
 
@@ -31,8 +29,6 @@ import com.ensak.connect.presentation.notifications.NotificationActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import com.google.android.material.navigation.NavigationView;
-import com.onesignal.OSNotification;
-import com.onesignal.OSNotificationReceivedEvent;
 import com.onesignal.OneSignal;
 
 import androidx.annotation.NonNull;
@@ -43,10 +39,6 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
-
-import org.json.JSONObject;
-
-import java.util.Calendar;
 
 import dagger.hilt.android.AndroidEntryPoint;
 

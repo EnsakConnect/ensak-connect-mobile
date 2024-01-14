@@ -1,5 +1,6 @@
 package com.ensak.connect.repository.chat.remote;
 
+import com.ensak.connect.repository.chat.model.ChatMessageRequest;
 import com.ensak.connect.repository.chat.model.ChatMessageResponse;
 import com.ensak.connect.repository.chat.model.ConversationResponse;
 
@@ -18,9 +19,9 @@ public interface ChatApi {
     @POST("conversations")
     Call<ConversationResponse> addConversation();
 
-    @GET("chat/{conversation_id}")
-    Call<ArrayList<ChatMessageResponse>> getChatMessages(@Path("conversation_id") String conversationId);
+    @GET("chat-messages/{conversation_id}")
+    Call<ArrayList<ChatMessageResponse>> getChatMessages(@Path("conversationId") int conversationId);
 
-    @POST("chat/{conversation_id}")
-    Call<ChatMessageResponse> sendChatMessage(@Path("conversation_id") String conversationId, @Body String message);
+    @POST("chat-messages")
+    Call<ChatMessageResponse> sendChatMessage(@Body ChatMessageRequest chatMessage);
 }

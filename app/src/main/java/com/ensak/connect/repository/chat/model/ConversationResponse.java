@@ -1,6 +1,6 @@
 package com.ensak.connect.repository.chat.model;
 
-import com.ensak.connect.repository.auth.model.UserResponse;
+import com.ensak.connect.repository.profile.model.ProfileDetailedResponse;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -11,15 +11,19 @@ public class ConversationResponse {
     @Expose
     private int id;
 
-    @SerializedName("author")
+    @SerializedName("sender")
     @Expose
-    private UserResponse user;
+    private ProfileDetailedResponse sender;
 
-    @SerializedName("last_message")
+    @SerializedName("receiver")
+    @Expose
+    private ProfileDetailedResponse receiver;
+
+    @SerializedName("lastMessage")
     @Expose
     private String lastMessage;
 
-    @SerializedName("last_message_date")
+    @SerializedName("lastMessageDate")
     @Expose
     private Date lastMessageDate;
 
@@ -27,8 +31,12 @@ public class ConversationResponse {
         return id;
     }
 
-    public UserResponse getUser() {
-        return user;
+    public ProfileDetailedResponse getSender() {
+        return sender;
+    }
+
+    public ProfileDetailedResponse getReceiver() {
+        return receiver;
     }
 
     public String getLastMessage() {

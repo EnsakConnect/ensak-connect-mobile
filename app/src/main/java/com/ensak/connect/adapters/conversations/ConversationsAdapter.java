@@ -15,6 +15,9 @@ import com.ensak.connect.R;
 import com.ensak.connect.databinding.ChatConversationItemBinding;
 import com.ensak.connect.repository.chat.model.ConversationResponse;
 import com.ensak.connect.presentation.chat.chat.ChatActivity;
+import com.ensak.connect.repository.profile.model.ProfileDetailedResponse;
+import com.ensak.connect.service.SessionManagerService;
+import com.ensak.connect.utils.DateUtil;
 
 import java.util.ArrayList;
 
@@ -41,15 +44,30 @@ public class ConversationsAdapter extends RecyclerView.Adapter<RecyclerView.View
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         ConversationResponse conversation = conversations.get(position);
         Context context = holder.itemView.getContext();
+        SessionManagerService sessionManagerService = new SessionManagerService(context);
+        int userId = sessionManagerService.getUserId();
 
-//        binding.tvUserName.setText(conversation.getUser().getFirstname() + " " + conversation.getUser().getLastname());
-        binding.tvUserName.setText("Mohamed Amine");
-        binding.tvLastMessage.setText("Full Stack Developer - SQLI");
-        binding.tvLastDiscussionDate.setText("2j");
-//        binding.tvLastDiscussionDate.setText(Utils.calculateTimeAgo(conversation.getDate()));
+        ProfileDetailedResponse senderProfile = userId == conversation.getSender().getId() ?
+                conversation.getReceiver() :
+                conversation.getSender();
+        String senderName = senderProfile.getFullName();
+        String lastMessage = conversation.getLastMessage() != null ?
+                conversation.getLastMessage() :
+                "";
+        String lastMessageDate = conversation.getLastMessage() != null ?
+                DateUtil.covertDateToTimeAgo(conversation.getLastMessageDate()) :
+                "";
+        String logo = senderProfile.getProfilePicture() != null ?
+                senderProfile.getProfilePicture() :
+                "https://www.w3schools.com/w3images/avatar2.png";
+        int conversationId = conversation.getId();
+
+        binding.tvUserName.setText(senderName);
+        binding.tvLastMessage.setText(lastMessage);
+        binding.tvLastDiscussionDate.setText(lastMessageDate);
 
         Glide.with(context)
-                .load("https://www.w3schools.com/w3images/avatar2.png")
+                .load(logo)
                 .apply(new RequestOptions()
                         .placeholder(R.drawable.ic_launcher_background) // Placeholder image
                         .error(R.drawable.ic_launcher_background) // Error image in case of loading failure
@@ -60,9 +78,10 @@ public class ConversationsAdapter extends RecyclerView.Adapter<RecyclerView.View
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, ChatActivity.class);
-                intent.putExtra("conversation_id", "1");
-                intent.putExtra("receiver_name", "Mohamed Amine");
-                intent.putExtra("receiver_image", "https://www.w3schools.com/w3images/avatar2.png");
+                intent.putExtra("conversation_id", conversationId);
+                intent.putExtra("user_id", userId);
+                intent.putExtra("receiver_name", senderName);
+                intent.putExtra("receiver_image", logo);
                 context.startActivity(intent);
             }
         });

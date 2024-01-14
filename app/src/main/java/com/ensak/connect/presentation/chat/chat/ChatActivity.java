@@ -17,6 +17,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.ensak.connect.R;
 import com.ensak.connect.adapters.chat.ChatAdapter;
 import com.ensak.connect.databinding.ChatActivityBinding;
+import com.ensak.connect.repository.chat.model.ChatMessageRequest;
 import com.ensak.connect.repository.chat.model.ChatMessageResponse;
 import com.onesignal.OSNotification;
 import com.onesignal.OSNotificationReceivedEvent;
@@ -37,7 +38,8 @@ public class ChatActivity extends AppCompatActivity {
 
     private ArrayList<ChatMessageResponse> messages = new ArrayList<>();
     private ChatAdapter adapter;
-    String conversationId, receiverName, receiverImage;
+    int conversationId = 102, userId = 4;
+    String receiverName, receiverImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,9 +48,9 @@ public class ChatActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         Bundle extras = getIntent().getExtras();
-        conversationId = "1";
         if (extras != null) {
-            conversationId = extras.getString("conversation_id");
+            conversationId = extras.getInt("conversation_id");
+            userId = extras.getInt("user_id");
             receiverName = extras.getString("receiver_name");
             receiverImage = extras.getString("receiver_image");
         }
@@ -136,7 +138,7 @@ public class ChatActivity extends AppCompatActivity {
         String message = binding.etMessage.getText().toString();
         // TODO: add validation
         if (!message.isEmpty()) {
-            chatViewModel.sendMessage(conversationId, message);
+            chatViewModel.sendMessage(new ChatMessageRequest(conversationId, userId, message));
         }
 
     }

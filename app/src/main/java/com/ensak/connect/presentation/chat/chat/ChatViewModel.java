@@ -9,6 +9,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.ensak.connect.repository.chat.model.ChatMessageRequest;
 import com.ensak.connect.repository.chat.model.ChatMessageResponse;
 import com.ensak.connect.repository.chat.ChatRepository;
 import com.ensak.connect.repository.shared.RepositoryCallBack;
@@ -32,7 +33,7 @@ public class ChatViewModel extends ViewModel {
         this.repository = chatRepository;
     }
 
-    public void fetchChatMessages(String conversationId) {
+    public void fetchChatMessages(int conversationId) {
         isLoading.setValue(true);
         repository.fetchChatMessage(conversationId, new RepositoryCallBack<ArrayList<ChatMessageResponse>>() {
             @Override
@@ -50,12 +51,12 @@ public class ChatViewModel extends ViewModel {
         });
     }
 
-    public void sendMessage(String conversationId, String message) {
+    public void sendMessage(ChatMessageRequest chatMessage) {
         isLoading.setValue(true);
-        repository.sendChatMessage(conversationId, message, new RepositoryCallBack() {
+        repository.sendChatMessage(chatMessage, new RepositoryCallBack() {
             @Override
             public void onSuccess(Object data) {
-                fetchChatMessages(conversationId);
+                fetchChatMessages(chatMessage.getConversationId());
             }
 
             @Override
