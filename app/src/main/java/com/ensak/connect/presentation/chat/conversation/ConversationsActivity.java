@@ -2,15 +2,11 @@ package com.ensak.connect.presentation.chat.conversation;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -51,9 +47,6 @@ public class ConversationsActivity extends AppCompatActivity {
 
     private void initViews() {
         conversations = new ArrayList<>();
-        conversations.add(new ConversationResponse());
-        conversations.add(new ConversationResponse());
-        conversations.add(new ConversationResponse());
 
         rvConversations = binding.rvConversations;
         adapter = new ConversationsAdapter(conversations);
@@ -82,7 +75,7 @@ public class ConversationsActivity extends AppCompatActivity {
         });
 
         conversationViewModel.getErrorMessage().observe(this, errorMessage -> {
-            if(errorMessage.isEmpty()){
+            if (errorMessage.isEmpty()) {
                 return;
             }
             Toast.makeText(this, "Loading...", Toast.LENGTH_SHORT).show();

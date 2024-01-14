@@ -16,6 +16,7 @@ import com.ensak.connect.model.Education;
 import com.ensak.connect.utils.DateUtil;
 import com.ensak.connect.presentation.profile.EducationEditActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class EducationAdapter extends RecyclerView.Adapter<EducationAdapter.EducationViewHolder> {
@@ -23,16 +24,29 @@ public class EducationAdapter extends RecyclerView.Adapter<EducationAdapter.Educ
     private List<Education> educationList;
     private Context context;
 
-
-    public EducationAdapter(Context context, List<Education> educationList) {this.context=context; this.educationList = educationList;
+    public interface OnEducationDeleteListener {
+        void onEducationDelete(int educationId);
     }
+
+    private OnEducationDeleteListener deleteListener;
+    public void setOnEducationDeleteListener(OnEducationDeleteListener listener) {
+        this.deleteListener = listener;
+    }
+
+
+    public EducationAdapter(Context context, List<Education> educationList) {
+        this.context = context;
+        this.educationList = educationList != null ? educationList : new ArrayList<>();
+    }
+
 
     @NonNull
     @Override
     public EducationViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.profile_expereince_fragment, parent, false);
-        return new EducationViewHolder(itemView,context);
+        return new EducationViewHolder(itemView, context, this);
     }
+
 
     @Override
     public void onBindViewHolder(@NonNull EducationViewHolder holder, int position) {
@@ -49,9 +63,16 @@ public class EducationAdapter extends RecyclerView.Adapter<EducationAdapter.Educ
         TextView fieldTextView, degreeTextView, schoolTextView,locationTextView, descriptionTextView,periodTextView;
 
         ImageView iconEdit, iconDelete;
+        private OnEducationDeleteListener deleteListener;
+        private List<Education> educationList;
+        private final EducationAdapter adapter;
 
-        EducationViewHolder(View itemView, Context context){
+
+
+
+        EducationViewHolder(View itemView, Context context, EducationAdapter  educationAdapter){
             super(itemView);
+            this.adapter = educationAdapter;
             fieldTextView = itemView.findViewById(R.id.experienceTitle);
             schoolTextView = itemView.findViewById(R.id.companyLocation);
 //            locationTextView = itemView.findViewById(R.id.companyLocation);
@@ -62,6 +83,9 @@ public class EducationAdapter extends RecyclerView.Adapter<EducationAdapter.Educ
         }
 
         void bind(Education education, Context context) {
+            if (education == null) {
+                return;
+            }
             fieldTextView.setText(education.getField());
             schoolTextView.setText(education.getSchool());
 //            locationTextView.setText(education.getSchool());
@@ -81,6 +105,17 @@ public class EducationAdapter extends RecyclerView.Adapter<EducationAdapter.Educ
                     context.startActivity(intent);
                 });
             }
+
+            if (iconDelete != null) {
+                iconDelete.setOnClickListener(v -> {
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION && adapter.deleteListener != null) {
+                        Education educationToDelete = adapter.educationList.get(position);
+                        adapter.deleteListener.onEducationDelete(educationToDelete.getId());
+                    }
+                });
+            }
+
                 }
         }
 

@@ -17,9 +17,16 @@ import com.bumptech.glide.request.RequestOptions;
 import com.ensak.connect.R;
 import com.ensak.connect.adapters.chat.ChatAdapter;
 import com.ensak.connect.databinding.ChatActivityBinding;
+import com.ensak.connect.repository.chat.model.ChatMessageRequest;
 import com.ensak.connect.repository.chat.model.ChatMessageResponse;
+import com.onesignal.OSNotification;
+import com.onesignal.OSNotificationReceivedEvent;
+import com.onesignal.OneSignal;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -31,7 +38,8 @@ public class ChatActivity extends AppCompatActivity {
 
     private ArrayList<ChatMessageResponse> messages = new ArrayList<>();
     private ChatAdapter adapter;
-    String conversationId, receiverName, receiverImage;
+    int conversationId, userId;
+    String receiverName, receiverImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,9 +48,9 @@ public class ChatActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         Bundle extras = getIntent().getExtras();
-        conversationId = "1";
         if (extras != null) {
-            conversationId = extras.getString("conversation_id");
+            conversationId = extras.getInt("conversation_id");
+            userId = extras.getInt("user_id");
             receiverName = extras.getString("receiver_name");
             receiverImage = extras.getString("receiver_image");
         }
@@ -50,10 +58,50 @@ public class ChatActivity extends AppCompatActivity {
         initViews();
         initViewModel();
         chatViewModel.fetchChatMessages(conversationId);
+
+        OneSignal.setNotificationWillShowInForegroundHandler(new OneSignal.OSNotificationWillShowInForegroundHandler() {
+            @Override
+            public void notificationWillShowInForeground(OSNotificationReceivedEvent osNotificationReceivedEvent) {
+                Log.v("Notiffffffff", "notificationWillShowInForeground fired with event: " + osNotificationReceivedEvent);
+
+                OSNotification notification = osNotificationReceivedEvent.getNotification();
+                JSONObject data = notification.getAdditionalData();
+                int notifConversationId = data.optInt("conversationId");
+                int notifSenderId = data.optInt("senderId");
+                Log.v("Notiffffffff", "title->: " + notification.getTitle());
+
+                try {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (notifConversationId != conversationId) {
+                                return;
+                            }
+                            if (notifSenderId == userId) {
+                                osNotificationReceivedEvent.complete(null);
+                                return;
+                            }
+
+                            addMessage(new ChatMessageResponse(
+                                    0,
+                                    notifConversationId,
+                                    notifSenderId,
+                                    notification.getBody(),
+                                    new Date()
+                            ));
+                            osNotificationReceivedEvent.complete(null);
+                            Log.v("Notiffffffff", "message added: " + notification.getBody());
+                        }
+                    });
+                } catch (Exception e) {
+                    Log.v("Notiffffffff", "error->: " + e.getMessage());
+                }
+            }
+        });
     }
 
     private void initViews() {
-        adapter = new ChatAdapter(this, messages);
+        adapter = new ChatAdapter(this, messages, userId);
         binding.rvChatMessages.setAdapter(adapter);
         binding.rvChatMessages.setLayoutManager(new LinearLayoutManager(this));
 
@@ -82,7 +130,9 @@ public class ChatActivity extends AppCompatActivity {
         });
 
         chatViewModel.getErrorMessage().observe(this, errorMessage -> {
-            if(errorMessage.isEmpty()) {return; }
+            if (errorMessage.isEmpty()) {
+                return;
+            }
             Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
         });
 
@@ -90,17 +140,31 @@ public class ChatActivity extends AppCompatActivity {
             messages.clear();
             messages.addAll(responseMessage);
             adapter.notifyDataSetChanged();
-            binding.rvChatMessages.smoothScrollToPosition(messages.size() - 1);
-//            adapter.notifyDataSetChanged();
+            if (messages.size() > 0)
+                binding.rvChatMessages.smoothScrollToPosition(messages.size() - 1);
         });
     }
 
     private void sendChatMessage() {
         String message = binding.etMessage.getText().toString();
-        // TODO: add validation
         if (!message.isEmpty()) {
-            chatViewModel.sendMessage(conversationId, message);
+            chatViewModel.sendMessage(new ChatMessageRequest(conversationId, userId, message));
+            binding.etMessage.setText("");
+            addMessage(new ChatMessageResponse(
+                    0,
+                    conversationId,
+                    userId,
+                    message,
+                    new Date()
+            ));
         }
 
+    }
+
+    public void addMessage(ChatMessageResponse message) {
+        messages.add(message);
+        adapter.notifyDataSetChanged();
+        if (messages.size() > 0)
+            binding.rvChatMessages.smoothScrollToPosition(messages.size() - 1);
     }
 }

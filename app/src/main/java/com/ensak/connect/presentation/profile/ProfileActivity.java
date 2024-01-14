@@ -15,11 +15,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.bumptech.glide.Glide;
 import com.ensak.connect.R;
+import com.ensak.connect.adapters.Profile.CertificateAdapter;
 import com.ensak.connect.adapters.Profile.EducationAdapter;
 import com.ensak.connect.adapters.Profile.ExperienceAdapter;
 import com.ensak.connect.adapters.Profile.SkillsAdapter;
 import com.ensak.connect.constants.AppConstants;
 import com.ensak.connect.databinding.ProfileActivityBinding;
+import com.ensak.connect.repository.resource.model.ResourceResponse;
+import com.ensak.connect.service.ActivityResultCallback;
+import com.ensak.connect.service.FileUploadService;
 import com.ensak.connect.service.GlideAuthUrl;
 import com.ensak.connect.service.SessionManagerService;
 
@@ -37,6 +41,7 @@ public class ProfileActivity extends AppCompatActivity {
     private ExperienceAdapter experienceAdapter;
     private EducationAdapter educationAdapter;
     private SkillsAdapter skillsAdapter;
+    private CertificateAdapter certificateAdapter;
     private ProfileViewModel profileViewModel;
 
     @Override
@@ -60,11 +65,14 @@ public class ProfileActivity extends AppCompatActivity {
             binding.modifyEducationButton.setVisibility(View.GONE);
             binding.modifyExperienceButton.setVisibility(View.GONE);
             binding.modifySkillsButton.setVisibility(View.GONE);
+            binding.modifyCertificateButton.setVisibility(View.GONE);
+            binding.uploadResume.setVisibility(View.GONE);
         }
 
         initView();
         initViewModel();
-        profileViewModel.fetchProfileData(userId);
+        profileViewModel.setUserId(userId);
+        profileViewModel.fetchProfileData();
     }
 
     private void initView() {
@@ -78,6 +86,8 @@ public class ProfileActivity extends AppCompatActivity {
         binding.experienceRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         binding.educationRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         binding.skillsRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        binding.certificatsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
 
         binding.modifyEducationButton.setOnClickListener(v -> {
             Intent intent = new Intent(ProfileActivity.this, EducationEditActivity.class);
@@ -92,6 +102,23 @@ public class ProfileActivity extends AppCompatActivity {
         binding.modifySkillsButton.setOnClickListener(v -> {
             Intent intent = new Intent(ProfileActivity.this, SkillsEditActivity.class);
             startActivity(intent);
+        });
+
+        binding.modifyCertificateButton.setOnClickListener(v -> {
+            Intent intent = new Intent(ProfileActivity.this, CertificateActivity.class);
+            startActivity(intent);
+        });
+
+        binding.uploadResume.setOnClickListener(v -> {
+         //uploadLogic
+        });
+
+        binding.uploadResume.setOnClickListener(v -> {
+            //uploadLogic
+        });
+
+        binding.downloadResume.setOnClickListener(v -> {
+            //downlaod
         });
     }
 
@@ -120,16 +147,32 @@ public class ProfileActivity extends AppCompatActivity {
                 experienceAdapter = new ExperienceAdapter(this, profileResponse.getExperienceList());
                 binding.experienceRecyclerView.setAdapter(experienceAdapter);
 
+                experienceAdapter.setOnExperienceDeleteListener(experienceId -> {
+                    profileViewModel.deleteExperience(experienceId);
+                });
+
                 educationAdapter = new EducationAdapter(this, profileResponse.getEducationList());
                 binding.educationRecyclerView.setAdapter(educationAdapter);
+
+                educationAdapter.setOnEducationDeleteListener(educationId -> {
+                    profileViewModel.deleteEducation(educationId);
+                });
 
                 skillsAdapter = new SkillsAdapter(profileResponse.getSkillList());
                 binding.skillsRecyclerView.setAdapter(skillsAdapter);
 
+                certificateAdapter = new CertificateAdapter(this, profileResponse.getCertificationList());
+                binding.certificatsRecyclerView.setAdapter(certificateAdapter);
+
+                certificateAdapter.setOnCertificateDeleteListener(certificationId -> {
+                    profileViewModel.deleteCertification(certificationId);
+                });
+
                 if(profileResponse.getResume() != null){
-                    binding.resumebtn.setText("Voir le CV");
+                    binding.uploadResume.setText("Update CV");
                 } else {
-                    binding.resumebtn.setText("Ajouter un CV");
+                    binding.uploadResume.setText("Ajouter un CV");
+                    binding.downloadResume.setVisibility(View.GONE);
                 }
 
                 Glide.with(this)
@@ -153,11 +196,13 @@ public class ProfileActivity extends AppCompatActivity {
         });
     }
 
+
+
     @Override
     protected void onResume() {
         super.onResume();
         profileViewModel.fetchProfileData(
-                (Integer) Objects.requireNonNull(getIntent().getExtras()).get(KEY_USER_ID)
+
         );
     }
 }

@@ -1,0 +1,720 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+
+    tools:context=".presentation.static_activities.AboutActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/Theme.ENSAKConnect.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/Theme.ENSAKConnect.PopupOverlay">
+
+            <TextView
+                android:id="@+id/toolbar_title"
+                style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="About" />
+        </androidx.appcompat.widget.Toolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="16dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Application Aim -->
+            <TextView
+                android:id="@+id/textViewAim"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Application Aim"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="12dp"
+                android:textColor="@color/primary"/>
+
+
+            <TextView
+                android:id="@+id/textViewAimDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ENSAK Connect is an application developed for the National School of Applied Sciences of Kenitra (ENSA-Kenitra) community with the aim of facilitating students' integration into the job market. It provides internship offers for students and graduates, assisting them in finding jobs or internships. Additionally, it is designed for professors to post doctoral offers and support their students in seamlessly integrating into the market"
+                android:layout_marginBottom="24dp"/>
+
+            <!--Team Directors-->
+            <TextView
+                android:id="@+id/textViewTeam"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Project Directors"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="12dp"
+                android:textColor="@color/primary"/>
+
+
+            <!-- Team Director 1 -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:id="@+id/imageViewMember1"
+                        android:layout_width="100dp"
+                        android:layout_height="125dp"
+                        android:src="@drawable/image_prof_gahi"
+                        android:scaleType="centerCrop"
+                        android:layout_marginRight="16dp"/>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tVProfgahiname"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Gahi Youssef"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            android:layout_marginBottom="4dp"/>
+
+                        <TextView
+                            android:id="@+id/tvProfgahiDescription"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Associate Professor | Data Transformation Specialist | Big Data Trainer | Industry-Academia coordinator | Senior Researcher | IEEE Senior Member"
+                            android:layout_marginBottom="4dp"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="1dp">
+
+
+                            <ImageView
+                                android:id="@+id/profgahilinkedin"
+                                android:layout_width="32dp"
+                                android:layout_height="32dp"
+                                android:layout_gravity="left"
+                                android:src="@drawable/linkedin"
+                                android:contentDescription="LinkedIn"
+                                android:clickable="true"
+                                android:onClick="openLinkedIn"
+                                android:tag="https://www.linkedin.com/in/gahi-youssef-phd-hdr-8695ba64/"/>
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Team Director 2  -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:id="@+id/imageProfbouzekri"
+                        android:layout_width="100dp"
+                        android:layout_height="125dp"
+                        android:src="@drawable/image_prof_bouzekri"
+                        android:scaleType="centerCrop"
+                        android:layout_marginRight="16dp"/>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tVprofbouzekriname"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Yunes El Bouzekri El Idrissi"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            android:layout_marginBottom="4dp"/>
+
+                        <TextView
+                            android:id="@+id/tVProfbouzekriDescription"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Professor at Ibn Tofail University | IHM and JEE specialist | Backend Director | Dev Web | Javascript Expert"
+                            android:layout_marginBottom="4dp"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:paddingTop="2dp">
+
+
+                            <ImageView
+                                android:id="@+id/profbouzekrilinkedin"
+                                android:layout_width="32dp"
+                                android:layout_height="32dp"
+                                android:layout_gravity="left"
+                                android:src="@drawable/linkedin"
+                                android:contentDescription="LinkedIn"
+                                android:clickable="true"
+                                android:onClick="openLinkedIn"
+                                android:tag="https://www.linkedin.com/in/youn%C3%A8s-e-a904b247/"/>
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+
+            <!-- Dev Team -->
+
+            <TextView
+                android:id="@+id/tvTeamDev"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Team Developers"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="12dp"
+                android:textColor="@color/primary"/>
+
+
+            <!-- Team Member 1 -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:id="@+id/Benaliimage"
+                        android:layout_width="100dp"
+                        android:layout_height="125dp"
+                        android:src="@drawable/benalimouad"
+                        android:scaleType="centerCrop"
+                        android:layout_marginRight="16dp"/>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tvbenali"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Benali Mouad"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            android:layout_marginBottom="4dp"/>
+
+                        <TextView
+                            android:id="@+id/tvbenaliDescription"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textStyle="bold"
+                            android:text="Team Lead"
+                            android:layout_marginBottom="4dp"/>
+
+                        <TextView
+                            android:id="@+id/tvmouadsaidsomething"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="“The strength of the team is each member. The strength of each member is the team”"
+                            android:layout_marginBottom="4dp"/>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="1dp">
+
+
+                            <ImageView
+                                android:id="@+id/mouadlinkedin"
+                                android:layout_width="32dp"
+                                android:layout_height="32dp"
+                                android:layout_gravity="left"
+                                android:src="@drawable/linkedin"
+                                android:contentDescription="LinkedIn"
+                                android:clickable="true"
+                                android:onClick="openLinkedIn"
+                                android:tag="https://www.linkedin.com/in/mouad-benali/"/>
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Team Member 2 -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:id="@+id/omarimage"
+                        android:layout_width="100dp"
+                        android:layout_height="125dp"
+                        android:src="@drawable/omar_tof"
+                        android:scaleType="centerCrop"
+                        android:layout_marginRight="16dp"/>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tvomar"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Defaoui Omar"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            android:layout_marginBottom="4dp"/>
+
+                        <TextView
+                            android:id="@+id/tvomarDescription"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textStyle="bold"
+                            android:text="full stack Developper"
+                            android:layout_marginBottom="4dp"/>
+
+                        <TextView
+                            android:id="@+id/tvomarsaidsomething"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="“No one in the brief history of computing has ever written a piece of perfect software. It’s unlikely that you’ll be the first”"
+                            android:layout_marginBottom="4dp"/>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="1dp">
+
+
+                            <ImageView
+                                android:id="@+id/omarlinkedin"
+                                android:layout_width="32dp"
+                                android:layout_height="32dp"
+                                android:layout_gravity="left"
+                                android:src="@drawable/linkedin"
+                                android:contentDescription="LinkedIn"
+                                android:clickable="true"
+                                android:onClick="openLinkedIn"
+                                android:tag="https://www.linkedin.com/in/omardefaoui/"/>
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:id="@+id/Benasserimage"
+                        android:layout_width="100dp"
+                        android:layout_height="125dp"
+                        android:src="@drawable/benassertof"
+                        android:scaleType="centerCrop"
+                        android:layout_marginRight="16dp"/>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tvbenasser"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Benasser Hassan Ayoub"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            android:layout_marginBottom="4dp"/>
+
+                        <TextView
+                            android:id="@+id/tvbenasserDescription"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textStyle="bold"
+                            android:text="full stack Developper"
+                            android:layout_marginBottom="4dp"/>
+
+                        <TextView
+                            android:id="@+id/tvsaysomething"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="“It's hard enough to find an error in your code when you're looking for it; it's even harder when you've assumed your code is error-free”"
+                            android:layout_marginBottom="4dp"/>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="1dp">
+
+
+                            <ImageView
+                                android:id="@+id/benasserlinkedin"
+                                android:layout_width="32dp"
+                                android:layout_height="32dp"
+                                android:layout_gravity="left"
+                                android:src="@drawable/linkedin"
+                                android:contentDescription="LinkedIn"
+                                android:clickable="true"
+                                android:onClick="openLinkedIn"
+                                android:tag="https://www.linkedin.com/in/hassan-ayoub-benasser/"/>
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Team Member 3 -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:id="@+id/saadimage"
+                        android:layout_width="100dp"
+                        android:layout_height="125dp"
+                        android:src="@drawable/whoami"
+                        android:scaleType="centerCrop"
+                        android:layout_marginRight="16dp"/>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tvsaad"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Mohamed Saad Ohassan"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            android:layout_marginBottom="4dp"/>
+
+                        <TextView
+                            android:id="@+id/tvsaadDescription"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textStyle="bold"
+                            android:text="full stack Developper"
+                            android:layout_marginBottom="4dp"/>
+
+                        <TextView
+                            android:id="@+id/tvsaadsaidsomething"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="“Every great developer you know got there by solving problems they were unqualified to solve until they actually did it”"
+                            android:layout_marginBottom="4dp"/>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="1dp">
+
+
+                            <ImageView
+                                android:id="@+id/saadlinkedin"
+                                android:layout_width="32dp"
+                                android:layout_height="32dp"
+                                android:layout_gravity="left"
+                                android:src="@drawable/linkedin"
+                                android:contentDescription="LinkedIn"
+                                android:clickable="true"
+                                android:onClick="openLinkedIn"
+                                android:tag="https://www.linkedin.com/in/mohamed-saad-ohassan/"/>
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Team Member 4 -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:id="@+id/alaouiimage"
+                        android:layout_width="100dp"
+                        android:layout_height="125dp"
+                        android:src="@drawable/alaouitof"
+                        android:scaleType="centerCrop"
+                        android:layout_marginRight="16dp"/>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tvalaoui"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Alaoui Hamza"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            android:layout_marginBottom="4dp"/>
+
+                        <TextView
+                            android:id="@+id/tvalaouiDescription"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textStyle="bold"
+                            android:text="full stack Developper"
+                            android:layout_marginBottom="4dp"/>
+
+                        <TextView
+                            android:id="@+id/tvalaouisaidsomething"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="“A group becomes a team when each member is sure enough of himself and his contribution to praise the skills of others”"
+                            android:layout_marginBottom="4dp"/>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="1dp">
+
+
+                            <ImageView
+                                android:id="@+id/alaouilinkedin"
+                                android:layout_width="32dp"
+                                android:layout_height="32dp"
+                                android:layout_gravity="left"
+                                android:src="@drawable/linkedin"
+                                android:contentDescription="LinkedIn"
+                                android:clickable="true"
+                                android:onClick="openLinkedIn"
+                                android:tag="https://www.linkedin.com/in/hamza-alaoui-267476166/"/>
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Team Member 5 -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:id="@+id/barrikimage"
+                        android:layout_width="100dp"
+                        android:layout_height="125dp"
+                        android:src="@drawable/haytem_barrik_tof"
+                        android:scaleType="centerCrop"
+                        android:layout_marginRight="16dp"/>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tvbarrik"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Haytam Barik"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            android:layout_marginBottom="4dp"/>
+
+                        <TextView
+                            android:id="@+id/tvbarrikDescription"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textStyle="bold"
+                            android:text="full stack Developper"
+                            android:layout_marginBottom="4dp"/>
+
+                        <TextView
+                            android:id="@+id/tvbarriksaidsomething"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="“Good teams incorporate teamwork into their culture, creating the building blocks for success”"
+                            android:layout_marginBottom="4dp"/>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="1dp">
+
+
+                            <ImageView
+                                android:id="@+id/barriklinkedin"
+                                android:layout_width="32dp"
+                                android:layout_height="32dp"
+                                android:layout_gravity="left"
+                                android:src="@drawable/linkedin"
+                                android:contentDescription="LinkedIn"
+                                android:clickable="true"
+                                android:onClick="openLinkedIn"
+                                android:tag="https://www.linkedin.com/in/haytam-barik-527b4520a/"/>
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Team Member 6 -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:id="@+id/souhailimage"
+                        android:layout_width="100dp"
+                        android:layout_height="125dp"
+                        android:src="@drawable/souhail_tof"
+                        android:scaleType="centerCrop"
+                        android:layout_marginRight="16dp"/>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tvsouhail"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="El Mrihy Souhail"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            android:layout_marginBottom="4dp"/>
+
+                        <TextView
+                            android:id="@+id/tvsouhailDescription"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textStyle="bold"
+                            android:text="full stack Developper"
+                            android:layout_marginBottom="4dp"/>
+
+                        <TextView
+                            android:id="@+id/tvsouhailsaidsomething"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="“Together, ordinary people can achieve extraordinary results”"
+                            android:layout_marginBottom="4dp"/>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="1dp">
+
+
+                            <ImageView
+                                android:id="@+id/souhaillinkedin"
+                                android:layout_width="32dp"
+                                android:layout_height="32dp"
+                                android:layout_gravity="left"
+                                android:src="@drawable/linkedin"
+                                android:contentDescription="LinkedIn"
+                                android:clickable="true"
+                                android:onClick="openLinkedIn"
+                                android:tag="https://www.linkedin.com/in/souhail-elmrihy-137417148/"/>
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
