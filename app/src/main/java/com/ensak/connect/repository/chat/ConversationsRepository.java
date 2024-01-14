@@ -1,5 +1,6 @@
 package com.ensak.connect.repository.chat;
 
+import com.ensak.connect.repository.chat.model.ConversationRequest;
 import com.ensak.connect.repository.chat.model.ConversationResponse;
 import com.ensak.connect.repository.chat.remote.ChatApi;
 import com.ensak.connect.repository.shared.RepositoryCallBack;
@@ -26,7 +27,7 @@ public class ConversationsRepository {
         api.getConversations().enqueue(new Callback<ArrayList<ConversationResponse>>() {
             @Override
             public void onResponse(Call<ArrayList<ConversationResponse>> call, Response<ArrayList<ConversationResponse>> response) {
-                if(!response.isSuccessful() || response.body() == null){
+                if (!response.isSuccessful() || response.body() == null) {
                     callBack.onFailure(new Exception("Request error"));
                     return;
                 }
@@ -40,11 +41,11 @@ public class ConversationsRepository {
         });
     }
 
-    public void addConversation(RepositoryCallBack<ConversationResponse> callBack) {
-        api.addConversation().enqueue(new Callback<ConversationResponse>() {
+    public void addConversation(ConversationRequest conversation, RepositoryCallBack<ConversationResponse> callBack) {
+        api.addConversation(conversation).enqueue(new Callback<ConversationResponse>() {
             @Override
             public void onResponse(Call<ConversationResponse> call, Response<ConversationResponse> response) {
-                if(!response.isSuccessful() || response.body() == null){
+                if (!response.isSuccessful() || response.body() == null) {
                     callBack.onFailure(new Exception("Request error"));
                     return;
                 }

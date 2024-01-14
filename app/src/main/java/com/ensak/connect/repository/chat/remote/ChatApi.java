@@ -2,6 +2,7 @@ package com.ensak.connect.repository.chat.remote;
 
 import com.ensak.connect.repository.chat.model.ChatMessageRequest;
 import com.ensak.connect.repository.chat.model.ChatMessageResponse;
+import com.ensak.connect.repository.chat.model.ConversationRequest;
 import com.ensak.connect.repository.chat.model.ConversationResponse;
 
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ public interface ChatApi {
     Call<ArrayList<ConversationResponse>> getConversations();
 
     @POST("conversations")
-    Call<ConversationResponse> addConversation();
+    Call<ConversationResponse> addConversation(@Body ConversationRequest conversation);
 
     @GET("chat-messages/{conversationId}")
     Call<ArrayList<ChatMessageResponse>> getChatMessages(@Path("conversationId") int conversationId);
