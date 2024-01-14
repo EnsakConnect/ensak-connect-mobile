@@ -89,6 +89,7 @@ public class ShowQuestionPost extends AppCompatActivity {
 
         viewModel.getAnswers().observe(this, answers -> {
             answerAdapter.setAnswers(answers);
+            binding.tvPostAnswersCount.setText(answers.size() + " Answers");
             if(answers.size() == 0){
                 binding.tvNoAnswers.setVisibility(View.VISIBLE);
                 binding.rvComments.setVisibility(View.GONE);
