@@ -14,7 +14,6 @@ import com.ensak.connect.repository.profile.EducationRepository;
 import com.ensak.connect.repository.profile.SkillRepository;
 import com.ensak.connect.repository.profile.model.EducationRequest;
 import com.ensak.connect.repository.profile.model.EducationResponse;
-import com.ensak.connect.repository.profile.model.ProfileResponse;
 import com.ensak.connect.repository.profile.model.SkillRequest;
 import com.ensak.connect.repository.profile.model.SkillResponse;
 import com.ensak.connect.repository.shared.RepositoryCallBack;
