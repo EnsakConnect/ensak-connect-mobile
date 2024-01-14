@@ -136,6 +136,24 @@ public class ProfileViewModel extends ViewModel {
         });
     }
 
+    public void updateResume(Integer resourceId) {
+        isLoading.setValue(true);
+        profileRepository.updateResume(resourceId, new RepositoryCallBack<UserResponse>() {
+            @Override
+            public void onSuccess(UserResponse data) {
+                isLoading.setValue(false);
+                successMessage.setValue("Resume uploaded successfully");
+                fetchProfileData();
+            }
+
+            @Override
+            public void onFailure(Throwable throwable) {
+                isLoading.setValue(false);
+                errorMessage.setValue("Error: could not update resume");
+            }
+        });
+    }
+
     public LiveData<ProfileDetailedResponse> getProfile() {
         return profile;
     }

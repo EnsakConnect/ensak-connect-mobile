@@ -43,12 +43,24 @@ public class ProfileActivity extends AppCompatActivity {
     private SkillsAdapter skillsAdapter;
     private CertificateAdapter certificateAdapter;
     private ProfileViewModel profileViewModel;
+    private FileUploadService uploadService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ProfileActivityBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        uploadService = new FileUploadService(this, getActivityResultRegistry(), new ActivityResultCallback<ResourceResponse>() {
+            @Override
+            public void onSuccess(ResourceResponse data) {
+                profileViewModel.updateResume(data.getId());
+            }
+            @Override
+            public void onError(Throwable throwable) {
+                Toast.makeText(ProfileActivity.this, "Error: could not upload file, try again", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         setSupportActionBar(binding.toolbar);
         ActionBar actionBar = getSupportActionBar();
@@ -110,11 +122,7 @@ public class ProfileActivity extends AppCompatActivity {
         });
 
         binding.uploadResume.setOnClickListener(v -> {
-         //uploadLogic
-        });
-
-        binding.uploadResume.setOnClickListener(v -> {
-            //uploadLogic
+            uploadService.selectedAndUpload("application/pdf");
         });
 
         binding.downloadResume.setOnClickListener(v -> {
