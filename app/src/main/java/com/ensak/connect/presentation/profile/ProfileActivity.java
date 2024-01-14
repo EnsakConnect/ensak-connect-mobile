@@ -1,6 +1,7 @@
 
 package com.ensak.connect.presentation.profile;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -27,6 +29,7 @@ import com.ensak.connect.service.FileUploadService;
 import com.ensak.connect.service.GlideAuthUrl;
 import com.ensak.connect.service.SessionManagerService;
 
+import java.io.File;
 import java.util.Objects;
 
 import dagger.hilt.android.AndroidEntryPoint;
@@ -126,7 +129,7 @@ public class ProfileActivity extends AppCompatActivity {
         });
 
         binding.downloadResume.setOnClickListener(v -> {
-            //downlaod
+            profileViewModel.downloadResume();
         });
     }
 
@@ -135,6 +138,31 @@ public class ProfileActivity extends AppCompatActivity {
 
         profileViewModel.getIsLoading().observe(this, isLoading -> {
             // TODO: show loading state
+        });
+
+        profileViewModel.getCvName().observe(this, filename -> {
+            if(filename == null || filename.isEmpty()){
+                return;
+            }
+            File file = new File(getFilesDir(), filename);
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            Uri resumeUri = FileProvider.getUriForFile(
+                    this,
+                    getApplicationContext().getPackageName() + ".provider",
+                    file
+            );
+            Log.d("URIDEBUG", "path:" + resumeUri.toString());
+            intent.setDataAndType(resumeUri, "application/pdf");
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+//            intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+            startActivity(intent);
+        });
+
+        profileViewModel.getIsDownloading().observe(this, isDownloading -> {
+            binding.downloadResume.setEnabled(!isDownloading);
+            if(isDownloading){
+                Toast.makeText(this, "Downloading...", Toast.LENGTH_LONG).show();
+            }
         });
 
         profileViewModel.getErrorMessage().observe(this, errorMessage -> {
@@ -180,7 +208,6 @@ public class ProfileActivity extends AppCompatActivity {
                     binding.uploadResume.setText("Update CV");
                 } else {
                     binding.uploadResume.setText("Ajouter un CV");
-                    binding.downloadResume.setVisibility(View.GONE);
                 }
 
                 Glide.with(this)
@@ -209,8 +236,6 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        profileViewModel.fetchProfileData(
-
-        );
+        profileViewModel.fetchProfileData();
     }
 }
