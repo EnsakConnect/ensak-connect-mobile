@@ -29,6 +29,8 @@ import com.ensak.connect.presentation.notifications.NotificationActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import com.google.android.material.navigation.NavigationView;
+import com.onesignal.OSPermissionObserver;
+import com.onesignal.OSPermissionStateChanges;
 import com.onesignal.OneSignal;
 
 import androidx.annotation.NonNull;
@@ -141,7 +143,7 @@ public class HomeActivity extends AppCompatActivity {
         });
 
         homeViewModel.getIsError().observe(this, isError -> {
-            if(isError){
+            if (isError) {
                 Intent loginIntent = new Intent(this, LoginActivity.class);
                 startActivity(loginIntent);
                 finish();
@@ -288,9 +290,23 @@ public class HomeActivity extends AppCompatActivity {
     private void configureOneSignal() {
         OneSignal.initWithContext(this);
         OneSignal.setAppId(ONESIGNAL_APP_ID);
-        OneSignal.setExternalUserId("user1");
+        OneSignal.promptForPushNotifications();
+
+        SessionManagerService sessionManagerService = new SessionManagerService(this);
+        int userId = sessionManagerService.getUserId();
+        OneSignal.setExternalUserId(String.valueOf(userId));
+
+        OneSignal.addPermissionObserver(new OSPermissionObserver() {
+            @Override
+            public void onOSPermissionChanged(OSPermissionStateChanges stateChanges) {
+                OneSignal.setExternalUserId(String.valueOf(userId));
+            }
+        });
+
+
+
     }
-  
+
     private void openUserProfile() {
         Intent intent = new Intent(this, ProfileActivity.class);
         intent.putExtra(ProfileActivity.KEY_USER_ID, sessionManager.getUserId());
