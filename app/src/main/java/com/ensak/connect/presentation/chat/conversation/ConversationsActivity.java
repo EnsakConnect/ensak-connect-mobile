@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -83,7 +84,15 @@ public class ConversationsActivity extends AppCompatActivity {
     }
 
     private void createNewConversation() {
-        // TODO: implement the add conversation with the backend endpoint
-        conversationViewModel.addConversation();
+        startActivityForResult(new Intent(this, AddConversationActivity.class), 1);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            conversationViewModel.fetchConversations();
+            initViewModel();
+        }
     }
 }

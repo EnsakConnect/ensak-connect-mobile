@@ -1,19 +1,15 @@
 package com.ensak.connect.presentation.chat.conversation;
 
-import android.app.Application;
-
-import androidx.annotation.NonNull;
-import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.ensak.connect.repository.chat.model.ConversationRequest;
 import com.ensak.connect.repository.chat.model.ConversationResponse;
 import com.ensak.connect.repository.chat.ConversationsRepository;
 import com.ensak.connect.repository.shared.RepositoryCallBack;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -54,9 +50,9 @@ public class ConversationsViewModel extends ViewModel {
         });
     }
 
-    public void addConversation() {
+    public void addConversation(ConversationRequest conversation) {
         isLoading.setValue(true);
-        repository.addConversation(new RepositoryCallBack<ConversationResponse>() {
+        repository.addConversation(conversation, new RepositoryCallBack<ConversationResponse>() {
             @Override
             public void onSuccess(ConversationResponse data) {
                 fetchConversations();

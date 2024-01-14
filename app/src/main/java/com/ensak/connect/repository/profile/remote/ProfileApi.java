@@ -2,7 +2,6 @@ package com.ensak.connect.repository.profile.remote;
 
 import com.ensak.connect.repository.auth.model.UserResponse;
 import com.ensak.connect.model.Skill;
-import com.ensak.connect.repository.notification.model.NotificationResponse;
 import com.ensak.connect.repository.profile.model.CertificateRequest;
 import com.ensak.connect.repository.profile.model.CertificateResponse;
 import com.ensak.connect.repository.profile.model.EducationRequest;
@@ -11,6 +10,7 @@ import com.ensak.connect.repository.profile.model.ExperienceRequest;
 import com.ensak.connect.repository.profile.model.ExperienceResponse;
 import com.ensak.connect.repository.profile.model.ProfileDetailedResponse;
 import com.ensak.connect.repository.profile.model.ProfileInformationRequest;
+import com.ensak.connect.repository.profile.model.ProfilesResponse;
 import com.ensak.connect.repository.profile.model.SkillRequest;
 import com.ensak.connect.repository.profile.model.SkillResponse;
 
@@ -73,4 +73,6 @@ public interface ProfileApi {
     @DELETE("profile/certifications/{certificationId}")
     Call<Void> deleteCertification(@Path("certificationId") int certificationId);
 
+    @GET("profile/search/{fullname}")
+    Call<ProfilesResponse> searchProfiles(@Path("fullname") String name);
 }
