@@ -140,7 +140,8 @@ public class ChatActivity extends AppCompatActivity {
             messages.clear();
             messages.addAll(responseMessage);
             adapter.notifyDataSetChanged();
-            binding.rvChatMessages.smoothScrollToPosition(messages.size() - 1);
+            if (messages.size() > 0)
+                binding.rvChatMessages.smoothScrollToPosition(messages.size() - 1);
         });
     }
 
@@ -163,6 +164,7 @@ public class ChatActivity extends AppCompatActivity {
     public void addMessage(ChatMessageResponse message) {
         messages.add(message);
         adapter.notifyDataSetChanged();
-        binding.rvChatMessages.smoothScrollToPosition(messages.size() - 1);
+        if (messages.size() > 0)
+            binding.rvChatMessages.smoothScrollToPosition(messages.size() - 1);
     }
 }
