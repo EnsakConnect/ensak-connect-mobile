@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1079113593383",
+    "project_id": "ensak-connect-d9efd",
+    "storage_bucket": "ensak-connect-d9efd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1079113593383:android:8cd08d4fbfd0cf7ecb9402",
+        "android_client_info": {
+          "package_name": "com.ensak.connect"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAwMdCR1iuZYM_EoN3BHeJzVUx3muwJBRk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

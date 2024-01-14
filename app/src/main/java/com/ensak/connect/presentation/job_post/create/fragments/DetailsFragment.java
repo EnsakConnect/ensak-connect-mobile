@@ -27,7 +27,6 @@ public class DetailsFragment extends Fragment {
         View view = binding.getRoot();
         setupCategorySelect();
 
-        //you should bundle here in order to move data from detailsfragment to descriptionfragment
 
 
         binding.btnNext.setOnClickListener(v -> {
@@ -45,7 +44,6 @@ public class DetailsFragment extends Fragment {
         String companyType=binding.companyType.getText().toString();
         String categoryselected= binding.slctCategory.getSelectedItem().toString();
 
-        //let's bundle Now
         Bundle bundle = new Bundle();
         bundle.putString("jobTitle", jobTitle);
         bundle.putString("companyName", companyName);
@@ -62,7 +60,7 @@ public class DetailsFragment extends Fragment {
         if (getActivity() != null) {
             getActivity().getSupportFragmentManager().beginTransaction()
                     .replace(R.id.firstfragment, descriptionFragment)
-                    .addToBackStack(null) // Optional: Adds to back stack for back navigation
+                    .addToBackStack(null)
                     .commit();
         }
     }

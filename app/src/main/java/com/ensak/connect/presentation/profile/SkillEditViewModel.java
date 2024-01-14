@@ -1,17 +1,31 @@
 package com.ensak.connect.presentation.profile;
 
+import android.telecom.Call;
+import android.util.Log;
+import android.view.View;
+
+import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.ensak.connect.model.Skill;
+import com.ensak.connect.repository.profile.EducationRepository;
 import com.ensak.connect.repository.profile.SkillRepository;
+import com.ensak.connect.repository.profile.model.EducationRequest;
+import com.ensak.connect.repository.profile.model.EducationResponse;
 import com.ensak.connect.repository.profile.model.SkillRequest;
 import com.ensak.connect.repository.profile.model.SkillResponse;
 import com.ensak.connect.repository.shared.RepositoryCallBack;
+
 import java.util.List;
+import java.util.Locale;
+
 import javax.inject.Inject;
+
 import dagger.hilt.android.lifecycle.HiltViewModel;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 @HiltViewModel
 public class SkillEditViewModel extends ViewModel {

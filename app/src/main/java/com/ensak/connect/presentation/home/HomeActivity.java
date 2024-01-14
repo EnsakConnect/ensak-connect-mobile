@@ -11,9 +11,13 @@ import com.bumptech.glide.Glide;
 import com.ensak.connect.R;
 import com.ensak.connect.constants.AppConstants;
 import com.ensak.connect.databinding.MainActivityBinding;
+
+import com.ensak.connect.presentation.About.AboutActivity;
+
 import com.ensak.connect.databinding.MainNavHeaderBinding;
 import com.ensak.connect.presentation.auth.login.LoginActivity;
 import com.ensak.connect.service.GlideAuthUrl;
+
 import com.ensak.connect.service.SessionManagerService;
 import com.ensak.connect.presentation.auth.loading_screen.LoadingActivity;
 import com.ensak.connect.presentation.profile.ProfileActivity;
@@ -25,6 +29,7 @@ import com.ensak.connect.presentation.notifications.NotificationActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import com.google.android.material.navigation.NavigationView;
+import com.onesignal.OneSignal;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProvider;
@@ -55,7 +60,7 @@ public class HomeActivity extends AppCompatActivity {
     private Boolean isFABMenuOpen = false;
 
     NavController navController;
-
+    private static final String ONESIGNAL_APP_ID = "33340ee8-8b07-4a12-ad59-36f93ba2402b";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,6 +109,8 @@ public class HomeActivity extends AppCompatActivity {
 
         listenForDrawerItemSelection();
 
+        configureOneSignal();
+
         headerBinding.crdUserData.setOnClickListener(v -> {
             openUserProfile();
         });
@@ -141,6 +148,7 @@ public class HomeActivity extends AppCompatActivity {
                 Toast.makeText(this, "Could not get logged in user", Toast.LENGTH_SHORT).show();
             }
         });
+
     }
 
     private void setupFABActions() {
@@ -263,7 +271,8 @@ public class HomeActivity extends AppCompatActivity {
                 Intent intent = new Intent(this, SettingsActivity.class);
                 startActivity(intent);
             } else if (itemId == R.id.nav_about) {
-                Toast.makeText(this, "nav_about", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this, AboutActivity.class);
+                startActivity(intent);
             } else if (itemId == R.id.nav_logout) {
                 sessionManager.logoutUser();
                 Intent loadingScreenIntent = new Intent(this, LoadingActivity.class);
@@ -275,6 +284,13 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 
+
+    private void configureOneSignal() {
+        OneSignal.initWithContext(this);
+        OneSignal.setAppId(ONESIGNAL_APP_ID);
+        OneSignal.setExternalUserId("user1");
+    }
+  
     private void openUserProfile() {
         Intent intent = new Intent(this, ProfileActivity.class);
         intent.putExtra(ProfileActivity.KEY_USER_ID, sessionManager.getUserId());

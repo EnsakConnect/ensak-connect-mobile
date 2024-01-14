@@ -25,6 +25,11 @@
             android:name=".presentation.profile.ProfileEditActivity"
             android:exported="false"
             android:theme="@style/Theme.ENSAKConnect.NoActionBar" />
+
+        <activity
+            android:name=".presentation.profile.CertificateActivity"
+            android:exported="false"
+            android:theme="@style/Theme.ENSAKConnect.NoActionBar"/>
         <activity
             android:name=".presentation.profile.SkillsEditActivity"
             android:exported="false"

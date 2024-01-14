@@ -78,7 +78,7 @@ public class ProfileDetailedResponse {
 
     @SerializedName("certificationList")
     @Expose
-    private ArrayList<String> certificationList; // Assuming it's a list of strings
+    private ArrayList<CertificateResponse> certificationList; // Assuming it's a list of strings
 
     @SerializedName("experienceList")
     @Expose
@@ -153,7 +153,7 @@ public class ProfileDetailedResponse {
         return educationList;
     }
 
-    public ArrayList<String> getCertificationList() {
+    public ArrayList<CertificateResponse> getCertificationList() {
         return certificationList;
     }
 
