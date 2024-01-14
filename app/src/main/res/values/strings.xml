@@ -52,6 +52,7 @@
     <string name="certificate_name">Google data analytics</string>
     <string name="lien">Lien</string>
     <string name="certificateTitle">Google Cloud Platform Fundamentals: Core Infrastructure</string>
+    <string name="upload_cv">Upload CV</string>
 
 
 </resources>

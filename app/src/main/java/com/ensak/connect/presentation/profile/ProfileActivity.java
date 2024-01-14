@@ -21,6 +21,9 @@ import com.ensak.connect.adapters.Profile.ExperienceAdapter;
 import com.ensak.connect.adapters.Profile.SkillsAdapter;
 import com.ensak.connect.constants.AppConstants;
 import com.ensak.connect.databinding.ProfileActivityBinding;
+import com.ensak.connect.repository.resource.model.ResourceResponse;
+import com.ensak.connect.service.ActivityResultCallback;
+import com.ensak.connect.service.FileUploadService;
 import com.ensak.connect.service.GlideAuthUrl;
 import com.ensak.connect.service.SessionManagerService;
 
@@ -63,6 +66,7 @@ public class ProfileActivity extends AppCompatActivity {
             binding.modifyExperienceButton.setVisibility(View.GONE);
             binding.modifySkillsButton.setVisibility(View.GONE);
             binding.modifyCertificateButton.setVisibility(View.GONE);
+            binding.uploadResume.setVisibility(View.GONE);
         }
 
         initView();
@@ -84,6 +88,7 @@ public class ProfileActivity extends AppCompatActivity {
         binding.skillsRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         binding.certificatsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+
         binding.modifyEducationButton.setOnClickListener(v -> {
             Intent intent = new Intent(ProfileActivity.this, EducationEditActivity.class);
             startActivity(intent);
@@ -102,6 +107,18 @@ public class ProfileActivity extends AppCompatActivity {
         binding.modifyCertificateButton.setOnClickListener(v -> {
             Intent intent = new Intent(ProfileActivity.this, CertificateActivity.class);
             startActivity(intent);
+        });
+
+        binding.uploadResume.setOnClickListener(v -> {
+         //uploadLogic
+        });
+
+        binding.uploadResume.setOnClickListener(v -> {
+            //uploadLogic
+        });
+
+        binding.downloadResume.setOnClickListener(v -> {
+            //downlaod
         });
     }
 
@@ -152,9 +169,10 @@ public class ProfileActivity extends AppCompatActivity {
                 });
 
                 if(profileResponse.getResume() != null){
-                    binding.resumebtn.setText("Voir le CV");
+                    binding.uploadResume.setText("Update CV");
                 } else {
-                    binding.resumebtn.setText("Ajouter un CV");
+                    binding.uploadResume.setText("Ajouter un CV");
+                    binding.downloadResume.setVisibility(View.GONE);
                 }
 
                 Glide.with(this)
@@ -177,6 +195,8 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
     }
+
+
 
     @Override
     protected void onResume() {

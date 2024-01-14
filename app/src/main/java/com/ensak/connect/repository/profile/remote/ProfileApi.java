@@ -52,6 +52,9 @@ public interface ProfileApi {
     @PUT("profile/banner/{resource_id}")
     Call<UserResponse> updateProfileBanner(@Path("resource_id") Integer resource_id);
 
+    @PUT("profile/resume/{resource_id}")
+    Call<Void> updateResume(@Path("resource_id") Integer resource_id);
+
     @POST("profile/skills")
     Call<SkillResponse> addSkill(@Body SkillRequest skillRequest);
 
