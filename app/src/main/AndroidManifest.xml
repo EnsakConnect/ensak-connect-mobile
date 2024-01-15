@@ -18,6 +18,7 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
 
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"
@@ -29,13 +30,19 @@
         </provider>
 
         <activity
+            android:name=".presentation.search.SearchActivity"
+            android:theme="@style/Theme.ENSAKConnect.NoActionBar"
+            android:exported="false" />
+
+        <activity
             android:name=".presentation.chat.conversation.AddConversationActivity"
             android:exported="false"
             android:theme="@style/Theme.ENSAKConnect.NoActionBar" />
+
         <activity
             android:name=".presentation.report.ReportActivity"
-            android:theme="@style/Theme.ENSAKConnect.NoActionBar"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.ENSAKConnect.NoActionBar" />
         <activity
             android:name=".presentation.question_post.show.ShowQuestionPost"
             android:exported="false"
@@ -47,7 +54,7 @@
         <activity
             android:name=".presentation.profile.CertificateActivity"
             android:exported="false"
-            android:theme="@style/Theme.ENSAKConnect.NoActionBar"/>
+            android:theme="@style/Theme.ENSAKConnect.NoActionBar" />
         <activity
             android:name=".presentation.profile.SkillsEditActivity"
             android:exported="false"
