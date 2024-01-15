@@ -167,7 +167,10 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         //TODO: likes for blog
         llLike.setOnClickListener(view -> {
-            postInteractionListener.likeDislikeQuestionPost(post, position);
+            if (post.getPostType().equals("BlogPost"))
+                postInteractionListener.likeDislikeBlogPost(post, position);
+            else if (post.getPostType().equals("Q&A"))
+                postInteractionListener.likeDislikeQuestionPost(post, position);
         });
 
 

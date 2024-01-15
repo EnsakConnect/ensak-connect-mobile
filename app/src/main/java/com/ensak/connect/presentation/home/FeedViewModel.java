@@ -84,6 +84,38 @@ public class FeedViewModel extends ViewModel {
         }
     }
 
+    public void likeDislikeBlogPost(FeedContentResponse post, int index) {
+        if (post.isLiked()) {
+            likeRepository.dislikeBlogPost(post.getId(), new RepositoryCallBack<LikeResponse>() {
+                @Override
+                public void onSuccess(LikeResponse data) {
+                    isLikeSuccess.setValue(false);
+                    isLoading.setValue(false);
+                }
+
+                @Override
+                public void onFailure(Throwable throwable) {
+                    isLoading.setValue(false);
+                    errorMessage.setValue("Error disliking question");
+                }
+            });
+        } else {
+            likeRepository.likeBlogPost(post.getId(), new RepositoryCallBack<LikeResponse>() {
+                @Override
+                public void onSuccess(LikeResponse data) {
+                    isLoading.setValue(false);
+                    isLikeSuccess.setValue(true);
+                }
+
+                @Override
+                public void onFailure(Throwable throwable) {
+                    isLoading.setValue(false);
+                    errorMessage.setValue("Error liking question");
+                }
+            });
+        }
+    }
+
     public LiveData<Boolean> getLikeStatus() {
         return isLikeSuccess;
     }

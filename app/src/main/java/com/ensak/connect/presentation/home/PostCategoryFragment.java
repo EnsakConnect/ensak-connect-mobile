@@ -169,4 +169,14 @@ public class PostCategoryFragment extends Fragment implements OnPostInteractionL
             adapter.notifyDataSetChanged();
         });
     }
+
+    @Override
+    public void likeDislikeBlogPost(FeedContentResponse post, int index) {
+        feedViewModel.likeDislikeBlogPost(post, index);
+        feedViewModel.getLikeStatus().observe(this, isLiked -> {
+            post.setIsLiked(isLiked);
+            post.setLikesCount(isLiked ? post.getLikesCount() + 1 : post.getLikesCount() - 1);
+            adapter.notifyDataSetChanged();
+        });
+    }
 }
