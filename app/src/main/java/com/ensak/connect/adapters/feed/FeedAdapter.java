@@ -36,19 +36,19 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<FeedContentResponse> feed = new ArrayList<>();
 
-    public void addList(List<FeedContentResponse> alist){
+    public void addList(List<FeedContentResponse> alist) {
         feed.addAll(alist);
-        notifyItemRangeChanged(feed.size()-alist.size(), feed.size());
+        notifyItemRangeChanged(feed.size() - alist.size(), feed.size());
     }
 
     private OnPostInteractionListener postInteractionListener;
 
-    public FeedAdapter(OnPostInteractionListener postInteractionListener){
+    public FeedAdapter(OnPostInteractionListener postInteractionListener) {
         this.postInteractionListener = postInteractionListener;
     }
 
-    public void updateItem(int position, FeedContentResponse contentResponse){
-        feed.set(position,contentResponse);
+    public void updateItem(int position, FeedContentResponse contentResponse) {
+        feed.set(position, contentResponse);
         notifyItemChanged(position);
     }
 
@@ -95,6 +95,9 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         TextView tvTags = holder.itemView.findViewById(R.id.tv_tags);
         Chip chipTag = holder.itemView.findViewById(R.id.chip_tag);
         TextView tvTimeAgo = holder.itemView.findViewById(R.id.tv_time_ago);
+        LinearLayout llLike = holder.itemView.findViewById(R.id.ll_like);
+        TextView tvLike = holder.itemView.findViewById(R.id.tv_like);
+        ImageView ivLike = holder.itemView.findViewById(R.id.iv_like);
 
         LinearLayout llBlogInteractions = holder.itemView.findViewById(R.id.ll_blog_interactions);
         LinearLayout llJobInteractions = holder.itemView.findViewById(R.id.ll_job_interactions);
@@ -104,7 +107,7 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         ImageView ivJobApply = holder.itemView.findViewById(R.id.iv_job_apply);
         LinearLayout llComment = holder.itemView.findViewById(R.id.ll_comment);
 
-        tvBody.setText(post.getAuthor().getFirstname());
+        tvUserName.setText(post.getAuthor().getFirstname());
         tvBody.setText(post.getDescription());
         tvTags.setText("#" + String.join(", #", post.getTags()));
         chipTag.setText(post.getPostType());
@@ -114,31 +117,29 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             /**
              * Setup QNA Post
              */
-            setupQNAPost(post, context,holder);
-        }
-        else if (post.getPostType().equals("DOCTORATE")) {
+            setupQNAPost(post, context, holder);
+        } else if (post.getPostType().equals("DOCTORATE")) {
             /**
              * Setup Doctorate post
              */
-            setupDoctoratePost(post,holder);
-        }
-        else if (post.getPostType().equals("BlogPost")) {
+            setupDoctoratePost(post, holder);
+        } else if (post.getPostType().equals("BlogPost")) {
             setupBlogpost(holder);
         } else if (post.getPostType().equals("CDI") || post.getPostType().equals("PFE")) {
-            setupJobPost(post,holder);
+            setupJobPost(post, holder);
         }
 
         //all job posts
-        if(post.getPostType().equals("CDI") || post.getPostType().equals("PFE") || post.getPostType().equals("DOCTORATE")){
+        if (post.getPostType().equals("CDI") || post.getPostType().equals("PFE") || post.getPostType().equals("DOCTORATE")) {
             llBlogInteractions.setVisibility(View.GONE);
         }
-        if(post.getPostType().equals("Q&A")) {
+        if (post.getPostType().equals("Q&A")) {
             llJobInteractions.setVisibility(View.GONE);
         }
-        if(post.getPostType().equals("BlogPost")){
+        if (post.getPostType().equals("BlogPost")) {
             llJobInteractions.setVisibility(View.GONE);
         }
-        Log.i("DEBUG:",post.getPostType());
+        Log.i("DEBUG:", post.getPostType());
 
         llComment.setOnClickListener(view -> {
             Intent intent = new Intent(context, CommentsActivity.class);
@@ -150,26 +151,37 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             postInteractionListener.onJobApply(position);
         });
 
-        if(post.isLiked()){
+
+        tvLike.setText(post.getLikesCount() > 0 ? post.getLikesCount() + " likes" : "Like");
+
+        if (post.isLiked()) {
             tvJobApply.setText("Applied");
             ivJobApply.setColorFilter(ContextCompat.getColor(context, R.color.primary), android.graphics.PorterDuff.Mode.SRC_IN);
             tvJobApply.setTextColor(ContextCompat.getColor(context, R.color.primary));
+
+            // like also qa and blog post
+            ivLike.setImageResource(R.drawable.ic_thumbs_up_filled);
+        } else {
+            ivLike.setImageResource(R.drawable.ic_thumb_up);
         }
 
         //TODO: likes for blog
+        llLike.setOnClickListener(view -> {
+            postInteractionListener.likeDislikeQuestionPost(post, position);
+        });
 
 
         btnReport.setOnClickListener(view -> {
             Intent intent = new Intent(context, ReportActivity.class);
-            intent.putExtra("postId",post.getId());
-            intent.putExtra("postType",post.getPostType());
+            intent.putExtra("postId", post.getId());
+            intent.putExtra("postType", post.getPostType());
             context.startActivity(intent);
         });
 
-        setupAuthor(post, context,holder);
+        setupAuthor(post, context, holder);
     }
 
-    private void setupAuthor(FeedContentResponse post, Context context,RecyclerView.ViewHolder holder) {
+    private void setupAuthor(FeedContentResponse post, Context context, RecyclerView.ViewHolder holder) {
 
 
         LinearLayout crdUserData = holder.itemView.findViewById(R.id.crdUserData);
@@ -181,7 +193,7 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             context.startActivity(intent);
         });
 
-        if(post.getAuthor().getTitle() == null || post.getAuthor().getTitle().isEmpty()){
+        if (post.getAuthor().getTitle() == null || post.getAuthor().getTitle().isEmpty()) {
             tvUserTitle.setVisibility(View.GONE);
         } else {
             tvUserTitle.setVisibility(View.VISIBLE);
@@ -223,7 +235,7 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 .into(binding.ivUserImage);*/
     }
 
-    private void setupJobPost(FeedContentResponse post,RecyclerView.ViewHolder holder) {
+    private void setupJobPost(FeedContentResponse post, RecyclerView.ViewHolder holder) {
 
         LinearLayout llPositionDetails = holder.itemView.findViewById(R.id.ll_position_details);
         LinearLayout llCompanyDetails = holder.itemView.findViewById(R.id.ll_company_details);
@@ -320,7 +332,7 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         binding.tvPositionTitle.setText(post.getTitle());*/
     }
 
-    private void setupQNAPost(FeedContentResponse post, Context context, RecyclerView.ViewHolder holder ) {
+    private void setupQNAPost(FeedContentResponse post, Context context, RecyclerView.ViewHolder holder) {
 
         TextView tvUserName = holder.itemView.findViewById(R.id.tv_user_name);
         TextView tvBody = holder.itemView.findViewById(R.id.tv_body);

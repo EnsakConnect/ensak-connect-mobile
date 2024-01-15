@@ -66,6 +66,10 @@ public class FeedContentResponse {
         return isLiked;
     }
 
+    public void setLikesCount(int likesCount) {
+        this.likesCount = likesCount;
+    }
+
     public void setIsLiked(boolean like) {
         isLiked = like;
     }

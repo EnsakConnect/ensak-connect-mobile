@@ -26,8 +26,6 @@ import com.ensak.connect.presentation.job_post.JobPostViewModel;
 import com.ensak.connect.repository.feed.model.FeedContentResponse;
 import com.ensak.connect.repository.feed.model.FeedResponse;
 
-import java.util.ArrayList;
-
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
@@ -70,14 +68,14 @@ public class FeedFragment extends Fragment implements OnPostInteractionListener 
         jopPostViewModel = new ViewModelProvider(this).get(JobPostViewModel.class);
 
         jopPostViewModel.getIsSuccess().observe(getViewLifecycleOwner(), success -> {
-            if(success){
-                Toast.makeText(getContext(),"Application Sent", Toast.LENGTH_SHORT).show();
+            if (success) {
+                Toast.makeText(getContext(), "Application Sent", Toast.LENGTH_SHORT).show();
             }
         });
 
         jopPostViewModel.getError().observe(getViewLifecycleOwner(), error -> {
-            if(error)
-                Toast.makeText(getContext(),"Error when sending application", Toast.LENGTH_SHORT).show();
+            if (error)
+                Toast.makeText(getContext(), "Error when sending application", Toast.LENGTH_SHORT).show();
         });
     }
 
@@ -92,7 +90,7 @@ public class FeedFragment extends Fragment implements OnPostInteractionListener 
         binding.nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
             @Override
             public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                if (scrollY + ( v.getMeasuredHeight() - v.getChildAt(0).getMeasuredHeight() ) == 0) {
+                if (scrollY + (v.getMeasuredHeight() - v.getChildAt(0).getMeasuredHeight()) == 0) {
                     onLoadMore();
                 }
             }
@@ -123,7 +121,9 @@ public class FeedFragment extends Fragment implements OnPostInteractionListener 
         });
 
         feedViewModel.getErrorMessage().observe(getViewLifecycleOwner(), errorMessage -> {
-            if(errorMessage.isEmpty()){ return; }
+            if (errorMessage.isEmpty()) {
+                return;
+            }
             Toast.makeText(getContext(), "An error occurred, please try again", Toast.LENGTH_SHORT).show();
         });
     }
@@ -141,15 +141,17 @@ public class FeedFragment extends Fragment implements OnPostInteractionListener 
         });
 
         recommendedFeedViewModel.getErrorMessage().observe(getViewLifecycleOwner(), errorMessage -> {
-            if(errorMessage.isEmpty()){ return; }
+            if (errorMessage.isEmpty()) {
+                return;
+            }
             Toast.makeText(getContext(), "An error occurred, please try again", Toast.LENGTH_SHORT).show();
         });
     }
 
     public void onLoadMore() {
-        if(isLoading) return;
+        if (isLoading) return;
 
-        if (feed.getPageNumber()+1 < feed.getTotalPages()) {
+        if (feed.getPageNumber() + 1 < feed.getTotalPages()) {
             isLoading = true;
             feedViewModel.fetchFeed(feed.getPageNumber() + 1, null, "");
         }
@@ -199,18 +201,28 @@ public class FeedFragment extends Fragment implements OnPostInteractionListener 
     }
 
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
         feedAdapter.clearContent();
     }
 
     @Override
     public void onJobApply(int position) {
-        Log.i("DEBUG","position:"+ Integer.toString(position)+", post id :"+feed.content.get(position).getId());
+        Log.i("DEBUG", "position:" + Integer.toString(position) + ", post id :" + feed.content.get(position).getId());
         jopPostViewModel.applyToJob(feed.content.get(position).getId());
         feed.content.get(position).setIsLiked(true);
-        feedAdapter.updateItem(position,feed.content.get(position));
-        Log.i("DEBUG:","position"+Integer.toString(position));
+        feedAdapter.updateItem(position, feed.content.get(position));
+        Log.i("DEBUG:", "position" + Integer.toString(position));
         //feedAdapter.notifyItemChanged(position,feed.content.get(position));
+    }
+
+    @Override
+    public void likeDislikeQuestionPost(FeedContentResponse post, int index) {
+        feedViewModel.likeDislikeQuestionPost(post, index);
+        feedViewModel.getLikeStatus().observe(this, isLiked -> {
+            post.setIsLiked(isLiked);
+            post.setLikesCount(isLiked ? post.getLikesCount() + 1 : post.getLikesCount() - 1);
+            feedAdapter.notifyDataSetChanged();
+        });
     }
 }
