@@ -108,7 +108,7 @@
             android:name=".presentation.auth.password_reset.ChangePasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.job_post.comments.CommentsActivity"
+            android:name=".presentation.blog_post.comments.CommentsActivity"
             android:exported="false"
             android:theme="@style/Theme.ENSAKConnect.NoActionBar" />
         <activity

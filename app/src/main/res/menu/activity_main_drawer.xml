@@ -31,6 +31,10 @@
             android:id="@+id/nav_qa"
             android:icon="@drawable/ic_question"
             android:title="Q&amp;A" />
+        <item
+            android:id="@+id/nav_user_posts"
+            android:icon="@drawable/ic_send"
+            android:title="My Posts" />
     </group>
 
     <group
