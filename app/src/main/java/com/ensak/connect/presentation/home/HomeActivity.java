@@ -12,6 +12,7 @@ import com.ensak.connect.R;
 import com.ensak.connect.constants.AppConstants;
 import com.ensak.connect.databinding.MainActivityBinding;
 
+import com.ensak.connect.presentation.search.SearchActivity;
 import com.ensak.connect.presentation.static_activities.AboutActivity;
 
 import com.ensak.connect.databinding.MainNavHeaderBinding;
@@ -213,7 +214,8 @@ public class HomeActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int itemId = item.getItemId();
         if (itemId == R.id.action_search) {
-            Toast.makeText(this, "action_search", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, SearchActivity.class);
+            startActivity(intent);
             return true;
         } else if (itemId == R.id.action_notifications) {
             Intent intent = new Intent(this, NotificationActivity.class);
