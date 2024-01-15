@@ -40,7 +40,6 @@ public class FeedFragment extends Fragment implements OnPostInteractionListener 
     private RecyclerView recyclerView;
     private boolean isLoading = false;
     private FeedResponse feed;
-    private boolean firstLoad = true;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -151,7 +150,7 @@ public class FeedFragment extends Fragment implements OnPostInteractionListener 
     public void onLoadMore() {
         if (isLoading) return;
 
-        if (feed.getPageNumber() + 1 < feed.getTotalPages()) {
+        if (feed.getPageNumber() < feed.getTotalPages()) {
             isLoading = true;
             feedViewModel.fetchFeed(feed.getPageNumber() + 1, null, "");
         }
@@ -198,12 +197,6 @@ public class FeedFragment extends Fragment implements OnPostInteractionListener 
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        feedAdapter.clearContent();
     }
 
     @Override
