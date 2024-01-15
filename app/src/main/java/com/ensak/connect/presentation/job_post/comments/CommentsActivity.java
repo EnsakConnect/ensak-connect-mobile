@@ -5,23 +5,19 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.ensak.connect.adapters.comments.CommentsAdapter;
 import com.ensak.connect.databinding.JobPostCommentsActivityBinding;
-import com.ensak.connect.repository.job_post.model.JobPostCommentResponse;
+import com.ensak.connect.repository.blog_post.model.BlogPostCommentResponse;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -31,7 +27,7 @@ public class CommentsActivity extends AppCompatActivity {
     private JobPostCommentsActivityBinding binding;
     private CommentViewModel commentViewModel;
 
-    private ArrayList<JobPostCommentResponse> comments;
+    private ArrayList<BlogPostCommentResponse> comments;
     private CommentsAdapter adapter;
     private String postId;
 
@@ -74,11 +70,9 @@ public class CommentsActivity extends AppCompatActivity {
         commentViewModel = new ViewModelProvider(this).get(CommentViewModel.class);
 
         commentViewModel.getComments().observe(this, commentsValue -> {
-                String message = commentsValue.get(0).getUser().getFirstname();
-                Log.d("Main Log", message);
-                comments.clear();
-                comments.addAll(commentsValue);
-                adapter.notifyDataSetChanged();
+                if(commentsValue.isEmpty())
+                    return;
+                adapter.updateComments(commentsValue);
         });
 
         commentViewModel.getIsLoading().observe(this, isLoading -> {
@@ -113,6 +107,7 @@ public class CommentsActivity extends AppCompatActivity {
         imm.hideSoftInputFromWindow(binding.etComment.getWindowToken(), 0);
         commentViewModel.sendComment(postId, comment);
         adapter.notifyItemInserted(0);
+        adapter.notifyDataSetChanged();
 
         // Clear input
         binding.etComment.setText("");

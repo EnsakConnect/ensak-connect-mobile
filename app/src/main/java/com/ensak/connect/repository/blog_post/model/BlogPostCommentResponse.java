@@ -1,12 +1,13 @@
-package com.ensak.connect.repository.job_post.model;
+package com.ensak.connect.repository.blog_post.model;
 
 import com.ensak.connect.repository.auth.model.UserResponse;
+import com.ensak.connect.repository.profile.model.ProfileResponseDTO;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
 
-public class JobPostCommentResponse {
+public class BlogPostCommentResponse {
 
     @SerializedName("id")
     @Expose
@@ -14,7 +15,7 @@ public class JobPostCommentResponse {
 
     @SerializedName("author")
     @Expose
-    private UserResponse user;
+    private ProfileResponseDTO user;
 
     @SerializedName("content")
     @Expose
@@ -24,7 +25,7 @@ public class JobPostCommentResponse {
     @Expose
     private Date date;
 
-    public JobPostCommentResponse(UserResponse user, String comment, Date date) {
+    public BlogPostCommentResponse(ProfileResponseDTO user, String comment, Date date) {
         this.user = user;
         this.comment = comment;
         this.date = date;
@@ -34,7 +35,7 @@ public class JobPostCommentResponse {
         return id;
     }
 
-    public UserResponse getUser() {
+    public ProfileResponseDTO getUser() {
         return user;
     }
 
