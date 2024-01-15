@@ -36,6 +36,11 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<FeedContentResponse> feed = new ArrayList<>();
 
+    public void addList(List<FeedContentResponse> alist){
+        feed.addAll(alist);
+        notifyItemRangeChanged(feed.size()-alist.size(), feed.size());
+    }
+
     private OnPostInteractionListener postInteractionListener;
 
     public FeedAdapter(OnPostInteractionListener postInteractionListener){
@@ -73,7 +78,7 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        //holder.setIsRecyclable(false);
+        holder.setIsRecyclable(false);
         FeedContentResponse post = feed.get(position);
         Context context = holder.itemView.getContext();
 
