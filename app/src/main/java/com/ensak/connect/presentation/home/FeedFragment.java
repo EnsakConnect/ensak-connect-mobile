@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
+import androidx.annotation.IntegerRes;
 import androidx.annotation.NonNull;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
@@ -22,8 +23,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ensak.connect.R;
 import com.ensak.connect.adapters.feed.FeedAdapter;
+import com.ensak.connect.adapters.feed.OnPostInteractionListener;
 import com.ensak.connect.adapters.feed.RecommandedOffersAdapter;
 import com.ensak.connect.databinding.MainHomeFragementBinding;
+import com.ensak.connect.presentation.job_post.JopPostViewModel;
 import com.ensak.connect.repository.feed.model.FeedContentResponse;
 import com.ensak.connect.repository.feed.model.FeedResponse;
 
@@ -32,11 +35,12 @@ import java.util.ArrayList;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class FeedFragment extends Fragment {
+public class FeedFragment extends Fragment implements OnPostInteractionListener {
 
     private MainHomeFragementBinding binding;
     private FeedViewModel feedViewModel;
     private FeedViewModel recommendedFeedViewModel;
+    private JopPostViewModel jopPostViewModel;
     private FeedAdapter feedAdapter;
     private RecommandedOffersAdapter recommandedOffersAdapter;
     private RecyclerView recyclerView;
@@ -50,6 +54,7 @@ public class FeedFragment extends Fragment {
 
         initViewModel();
         initRecommendedViewModel();
+        initJobPostViewModel();
 
         setupRecommendedOffersRecycleView();
         setupFeedRecycleView();
@@ -61,12 +66,28 @@ public class FeedFragment extends Fragment {
         recommendedFeedViewModel.fetchFeed(0, null, "PFE");
 
 
+
         return root;
+    }
+
+    private void initJobPostViewModel() {
+        jopPostViewModel = new ViewModelProvider(this).get(JopPostViewModel.class);
+
+        jopPostViewModel.getIsSuccess().observe(getViewLifecycleOwner(), success -> {
+            if(success){
+                Toast.makeText(getContext(),"Application Sent", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        jopPostViewModel.getError().observe(getViewLifecycleOwner(), error -> {
+            if(error)
+                Toast.makeText(getContext(),"Error when sending application", Toast.LENGTH_SHORT).show();
+        });
     }
 
     private void setupFeedRecycleView() {
         recyclerView = binding.rvAllOffers;
-        feedAdapter = new FeedAdapter();
+        feedAdapter = new FeedAdapter(this);
         recyclerView.setAdapter(feedAdapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
@@ -187,8 +208,6 @@ public class FeedFragment extends Fragment {
 
             popupMenu.show();
         });
-
-
     }
 
     @Override
@@ -197,5 +216,11 @@ public class FeedFragment extends Fragment {
         binding = null;
     }
 
+    @Override
+    public void onJobApply(int position) {
+        Log.i("DEBUG","position:"+ Integer.toString(position)+", post id :"+feed.content.get(position).getId());
 
+        jopPostViewModel.applyToJob(feed.content.get(position).getId());
+
+    }
 }

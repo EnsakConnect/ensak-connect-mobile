@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.ensak.connect.adapters.feed.FeedAdapter;
+import com.ensak.connect.adapters.feed.OnPostInteractionListener;
 import com.ensak.connect.databinding.MainPostCategoryFragmentBinding;
 import com.ensak.connect.repository.feed.model.FeedContentResponse;
 import com.ensak.connect.repository.feed.model.FeedResponse;
@@ -26,7 +27,7 @@ import java.util.ArrayList;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class PostCategoryFragment extends Fragment {
+public class PostCategoryFragment extends Fragment implements OnPostInteractionListener {
 
     private static final String ARG_PARAM1 = "filter";
 
@@ -67,7 +68,7 @@ public class PostCategoryFragment extends Fragment {
         requireActivity().setTitle(filter);
 
 
-        adapter = new FeedAdapter();
+        adapter = new FeedAdapter(this);
         binding.rvAllOffers.setAdapter(adapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         binding.rvAllOffers.setLayoutManager(layoutManager);
@@ -121,5 +122,10 @@ public class PostCategoryFragment extends Fragment {
             adapter.notifyDataSetChanged();
             isLoading = false;
         });
+    }
+
+    @Override
+    public void onJobApply(int position) {
+
     }
 }
