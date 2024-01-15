@@ -1,5 +1,7 @@
 package com.ensak.connect.repository.job_post.remote;
 
+import com.ensak.connect.repository.job_post.model.JobPostApplicationRequest;
+import com.ensak.connect.repository.job_post.model.JobPostApplicationResponse;
 import com.ensak.connect.repository.job_post.model.JobPostCommentResponse;
 import com.ensak.connect.repository.job_post.model.JobPostRequest;
 import com.ensak.connect.repository.job_post.model.JobPostResponse;
@@ -22,4 +24,7 @@ public interface JobPostApi {
 
     @POST("job-posts/{job_post_id}/comments")
     Call<JobPostCommentResponse> sendComment(@Path("job_post_id") String postId, @Body String content);
+
+    @POST("job-posts/{job_post_id}/applications")
+    Call<JobPostApplicationResponse> apply(@Path("job_post_id") int jobId, @Body JobPostApplicationRequest request);
 }

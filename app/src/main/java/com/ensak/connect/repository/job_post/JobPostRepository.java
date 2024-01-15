@@ -1,6 +1,8 @@
 package com.ensak.connect.repository.job_post;
 import android.util.Log;
 
+import com.ensak.connect.repository.job_post.model.JobPostApplicationRequest;
+import com.ensak.connect.repository.job_post.model.JobPostApplicationResponse;
 import com.ensak.connect.repository.shared.RepositoryCallBack;
 import com.ensak.connect.repository.job_post.remote.JobPostApi;
 import com.ensak.connect.repository.job_post.model.JobPostRequest;
@@ -14,7 +16,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 
 public class JobPostRepository {
-    private final String TAG = getClass().getSimpleName();
+    private static final String TAG = JobPostRepository.class.getSimpleName();
     private JobPostApi api;
 
     @Inject
@@ -37,6 +39,28 @@ public class JobPostRepository {
             @Override
             public void onFailure(Call<JobPostResponse> call, Throwable t) {
                 callBack.onFailure(new Exception("Error creating question"));
+            }
+        });
+
+    }
+
+
+    public void apply(int jobId, RepositoryCallBack<JobPostApplicationResponse> callBack) {
+        JobPostApplicationRequest request = new JobPostApplicationRequest();
+        request.setMessage("I'm interested by this position.");
+
+        api.apply(jobId,request).enqueue(new Callback<JobPostApplicationResponse>() {
+            @Override
+            public void onResponse(Call<JobPostApplicationResponse> call, Response<JobPostApplicationResponse> response) {
+                if(response.isSuccessful()){
+                    Log.d(TAG, "Res: " + response.errorBody());
+                    callBack.onSuccess(response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JobPostApplicationResponse> call, Throwable t) {
+                callBack.onFailure(new Exception("Error applying for job"));
             }
         });
     }
