@@ -105,7 +105,7 @@ public class PostCategoryFragment extends Fragment implements OnPostInteractionL
     public void onLoadMore() {
         if(isLoading) return;
 
-        if (feed.getPageNumber() < feed.getTotalPages()) {
+        if (feed.getPageNumber()+1 < feed.getTotalPages()) {
             isLoading = true;
             feedViewModel.fetchFeed(feed.getPageNumber() + 1, null, "");
         }

@@ -40,7 +40,7 @@ public class FeedFragment extends Fragment implements OnPostInteractionListener 
     private FeedAdapter feedAdapter;
     private RecommandedOffersAdapter recommandedOffersAdapter;
     private RecyclerView recyclerView;
-    private boolean isLoading = false;
+    private boolean isLoading = true;
     private FeedResponse feed;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -58,11 +58,16 @@ public class FeedFragment extends Fragment implements OnPostInteractionListener 
 
         feed = new FeedResponse();
 
+        feedAdapter.clearContent();
+        Log.i("DEBUGs:","GETS EXECUTED"+Integer.toString(feedAdapter.getItemCount()));
+        if(feedAdapter.getItemCount() > 0)
+            return root;
         feedViewModel.fetchFeed(0, null, "");
         recommendedFeedViewModel.fetchFeed(0, null, "PFE");
-
+        isLoading=false;
         return root;
     }
+
 
     private void initJobPostViewModel() {
         jopPostViewModel = new ViewModelProvider(this).get(JobPostViewModel.class);
@@ -108,6 +113,7 @@ public class FeedFragment extends Fragment implements OnPostInteractionListener 
                 new ViewModelProvider(this).get(FeedViewModel.class);
 
         feedViewModel.getFeed().observe(getViewLifecycleOwner(), feedResponse -> {
+            Log.i("DEBUGs:","model view is updated");
             ArrayList<FeedContentResponse> list = new ArrayList<>();
             list.addAll(feed.getContent());
             list.addAll(feedResponse.getContent());
@@ -158,13 +164,14 @@ public class FeedFragment extends Fragment implements OnPostInteractionListener 
     public void onLoadMore() {
         if(isLoading) return;
 
-        if (feed.getPageNumber() < feed.getTotalPages()) {
+        if (feed.getPageNumber()+1 < feed.getTotalPages()) {
             isLoading = true;
             feedViewModel.fetchFeed(feed.getPageNumber() + 1, null, "");
         }
     }
 
     private void setupFilterSpinner(Context context) {
+
         binding.ivFilter.setOnClickListener(view -> {
             PopupMenu popupMenu = new PopupMenu(context, view);
             popupMenu.getMenuInflater().inflate(R.menu.home_filter, popupMenu.getMenu());
@@ -188,7 +195,7 @@ public class FeedFragment extends Fragment implements OnPostInteractionListener 
                     }
 
                     if (!filter.isEmpty()) {
-                        feedViewModel.fetchFeed(0, null, filter);
+                        //feedViewModel.fetchFeed(0, null, filter);
 //                        getPosts(getContext(), 0, filter, false);
                     }
 
@@ -204,6 +211,12 @@ public class FeedFragment extends Fragment implements OnPostInteractionListener 
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        feedAdapter.clearContent();
     }
 
     @Override

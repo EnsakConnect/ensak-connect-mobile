@@ -7,6 +7,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -16,21 +19,22 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.ensak.connect.R;
 import com.ensak.connect.constants.AppConstants;
-import com.ensak.connect.databinding.MainPostItemBinding;
 import com.ensak.connect.presentation.profile.ProfileActivity;
 import com.ensak.connect.presentation.question_post.show.ShowQuestionPost;
 import com.ensak.connect.presentation.report.ReportActivity;
 import com.ensak.connect.repository.feed.model.FeedContentResponse;
 import com.ensak.connect.presentation.blog_post.comments.CommentsActivity;
 import com.ensak.connect.service.GlideAuthUrl;
+import com.google.android.material.chip.Chip;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    MainPostItemBinding binding;
+    //MainPostItemBinding binding;
 
-    private ArrayList<FeedContentResponse> feed = new ArrayList<>();
+    private List<FeedContentResponse> feed = new ArrayList<>();
 
     private OnPostInteractionListener postInteractionListener;
 
@@ -44,95 +48,152 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     public void setItems(ArrayList<FeedContentResponse> feed) {
-        this.feed = feed;
+        this.feed.clear();
+        this.feed.addAll(feed);
         notifyDataSetChanged();
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        /*
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
 
         binding = MainPostItemBinding.inflate(inflater, parent, false);
         ViewHolder viewHolder = new ViewHolder(binding.getRoot());
         return viewHolder;
+         */
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.main_post_item, parent, false);
+
+        return new ViewHolder(view);
+
     }
 
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        holder.setIsRecyclable(false);
+        //holder.setIsRecyclable(false);
         FeedContentResponse post = feed.get(position);
         Context context = holder.itemView.getContext();
 
+        /*
         binding.tvUserName.setText(post.getAuthor().getFullName());
         binding.tvBody.setText(post.getDescription());
         binding.tvTags.setText("#" + String.join(", #", post.getTags()));
         binding.chipTag.setText(post.getPostType());
         binding.tvTimeAgo.setText(post.getTimePassed().replace(" minutes ago", "m").replace(" hours ago", "h").replace(" days ago", "d").replace(" months ago", "mon").replace(" years ago", "y"));
-        //offerItemHomeBinding.tvTimeAgo.setText(Utils.calculateTimeAgo(post.getDate()));
+         */
+
+        TextView tvUserName = holder.itemView.findViewById(R.id.tv_user_name);
+        TextView tvBody = holder.itemView.findViewById(R.id.tv_body);
+        TextView tvTags = holder.itemView.findViewById(R.id.tv_tags);
+        Chip chipTag = holder.itemView.findViewById(R.id.chip_tag);
+        TextView tvTimeAgo = holder.itemView.findViewById(R.id.tv_time_ago);
+
+        LinearLayout llBlogInteractions = holder.itemView.findViewById(R.id.ll_blog_interactions);
+        LinearLayout llJobInteractions = holder.itemView.findViewById(R.id.ll_job_interactions);
+        ImageView btnReport = holder.itemView.findViewById(R.id.btnReport);
+        LinearLayout llJobApply = holder.itemView.findViewById(R.id.ll_job_apply);
+        TextView tvJobApply = holder.itemView.findViewById(R.id.tv_job_apply);
+        ImageView ivJobApply = holder.itemView.findViewById(R.id.iv_job_apply);
+        LinearLayout llComment = holder.itemView.findViewById(R.id.ll_comment);
+
+        tvBody.setText(post.getAuthor().getFirstname());
+        tvBody.setText(post.getDescription());
+        tvTags.setText("#" + String.join(", #", post.getTags()));
+        chipTag.setText(post.getPostType());
+        tvTimeAgo.setText(post.getTimePassed().replace(" minutes ago", "m").replace(" hours ago", "h").replace(" days ago", "d").replace(" months ago", "mon").replace(" years ago", "y"));
 
         if (post.getPostType().equals("Q&A")) {
             /**
              * Setup QNA Post
              */
-            setupQNAPost(post, context);
+            setupQNAPost(post, context,holder);
         }
         else if (post.getPostType().equals("DOCTORATE")) {
             /**
              * Setup Doctorate post
              */
-            setupDoctoratePost(post);
+            setupDoctoratePost(post,holder);
         }
         else if (post.getPostType().equals("BlogPost")) {
-            setupBlogpost();
+            setupBlogpost(holder);
         } else if (post.getPostType().equals("CDI") || post.getPostType().equals("PFE")) {
-            setupJobPost(post);
+            setupJobPost(post,holder);
         }
 
         //all job posts
         if(post.getPostType().equals("CDI") || post.getPostType().equals("PFE") || post.getPostType().equals("DOCTORATE")){
-            binding.llBlogInteractions.setVisibility(View.GONE);
+            llBlogInteractions.setVisibility(View.GONE);
         }
         if(post.getPostType().equals("Q&A")) {
-            binding.llJobInteractions.setVisibility(View.GONE);
+            llJobInteractions.setVisibility(View.GONE);
         }
         if(post.getPostType().equals("BlogPost")){
-            binding.llJobInteractions.setVisibility(View.GONE);
+            llJobInteractions.setVisibility(View.GONE);
         }
         Log.i("DEBUG:",post.getPostType());
 
-        binding.llComment.setOnClickListener(view -> {
+        llComment.setOnClickListener(view -> {
             Intent intent = new Intent(context, CommentsActivity.class);
             intent.putExtra("postId", post.getId());
             context.startActivity(intent);
         });
 
-        binding.llJobApply.setOnClickListener(view -> {
+        llJobApply.setOnClickListener(view -> {
             postInteractionListener.onJobApply(position);
         });
 
         if(post.isLiked()){
-            binding.tvJobApply.setText("Applied");
-            binding.ivJobApply.setColorFilter(ContextCompat.getColor(context, R.color.primary), android.graphics.PorterDuff.Mode.SRC_IN);
-            binding.tvJobApply.setTextColor(ContextCompat.getColor(context, R.color.primary));
+            tvJobApply.setText("Applied");
+            ivJobApply.setColorFilter(ContextCompat.getColor(context, R.color.primary), android.graphics.PorterDuff.Mode.SRC_IN);
+            tvJobApply.setTextColor(ContextCompat.getColor(context, R.color.primary));
         }
 
         //TODO: likes for blog
 
 
-        binding.btnReport.setOnClickListener(view -> {
+        btnReport.setOnClickListener(view -> {
             Intent intent = new Intent(context, ReportActivity.class);
             intent.putExtra("postId",post.getId());
             intent.putExtra("postType",post.getPostType());
             context.startActivity(intent);
         });
 
-        setupAuthor(post, context);
+        setupAuthor(post, context,holder);
     }
 
-    private void setupAuthor(FeedContentResponse post, Context context) {
-        binding.crdUserData.setOnClickListener(view -> {
+    private void setupAuthor(FeedContentResponse post, Context context,RecyclerView.ViewHolder holder) {
+
+
+        LinearLayout crdUserData = holder.itemView.findViewById(R.id.crdUserData);
+        TextView tvUserTitle = holder.itemView.findViewById(R.id.tv_user_title);
+        ImageView ivUserImage = holder.itemView.findViewById(R.id.iv_user_image);
+        crdUserData.setOnClickListener(view -> {
+            Intent intent = new Intent(context, ProfileActivity.class);
+            intent.putExtra(ProfileActivity.KEY_USER_ID, post.getAuthor().getId());
+            context.startActivity(intent);
+        });
+
+        if(post.getAuthor().getTitle() == null || post.getAuthor().getTitle().isEmpty()){
+            tvUserTitle.setVisibility(View.GONE);
+        } else {
+            tvUserTitle.setVisibility(View.VISIBLE);
+            tvUserTitle.setText(post.getAuthor().getTitle());
+        }
+        Glide.with(holder.itemView.getContext())
+                .load(
+                        GlideAuthUrl.getUrl(
+                                holder.itemView.getContext(),
+                                AppConstants.BASE_URL + "resources/" + post.getAuthor().getProfilePicture()
+                        )
+                )
+                .placeholder(R.drawable.profile_picture_placeholder)
+                .error(R.drawable.profile_picture_placeholder)
+                .centerCrop()
+                .into(ivUserImage);
+        /*binding.crdUserData.setOnClickListener(view -> {
             Intent intent = new Intent(context, ProfileActivity.class);
             intent.putExtra(ProfileActivity.KEY_USER_ID, post.getAuthor().getId());
             context.startActivity(intent);
@@ -154,11 +215,39 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 .placeholder(R.drawable.profile_picture_placeholder)
                 .error(R.drawable.profile_picture_placeholder)
                 .centerCrop()
-                .into(binding.ivUserImage);
+                .into(binding.ivUserImage);*/
     }
 
-    private void setupJobPost(FeedContentResponse post) {
-        binding.llPositionDetails.setVisibility(View.VISIBLE);
+    private void setupJobPost(FeedContentResponse post,RecyclerView.ViewHolder holder) {
+
+        LinearLayout llPositionDetails = holder.itemView.findViewById(R.id.ll_position_details);
+        LinearLayout llCompanyDetails = holder.itemView.findViewById(R.id.ll_company_details);
+        TextView tvPositionTitle = holder.itemView.findViewById(R.id.tv_position_title);
+        TextView tvCompanyName = holder.itemView.findViewById(R.id.tv_company_name);
+        TextView tvCompanyLocation = holder.itemView.findViewById(R.id.tv_company_location);
+        Chip chipTag = holder.itemView.findViewById(R.id.chip_tag);
+        ImageView ivCompanyLogo = holder.itemView.findViewById(R.id.iv_company_logo);
+
+        llPositionDetails.setVisibility(View.VISIBLE);
+        llCompanyDetails.setVisibility(View.VISIBLE);
+        tvPositionTitle.setText(post.getTitle());
+        tvCompanyName.setText(post.getCompany().getCompanyName());
+        tvCompanyLocation.setText(post.getCompany().getLocation());
+        Glide.with(holder.itemView.getContext())
+                .load(post.getCompany().getLogo())
+                .apply(new RequestOptions()
+                        .placeholder(R.drawable.ic_launcher_background) // Placeholder image
+                        .error(R.drawable.ic_default_company_logo_round) // Error image in case of loading failure
+                )
+                .into(ivCompanyLogo);
+
+        if (post.getPostType().equals("PFE")) {
+            chipTag.setChipBackgroundColorResource(R.color.tag_pfe);
+        } else {
+            chipTag.setChipBackgroundColorResource(R.color.tag_cdi);
+        }
+
+        /*binding.llPositionDetails.setVisibility(View.VISIBLE);
         binding.llCompanyDetails.setVisibility(View.VISIBLE);
         binding.tvPositionTitle.setText(post.getTitle());
         binding.tvCompanyName.setText(post.getCompany().getCompanyName());
@@ -175,11 +264,27 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             binding.chipTag.setChipBackgroundColorResource(R.color.tag_pfe);
         } else {
             binding.chipTag.setChipBackgroundColorResource(R.color.tag_cdi);
-        }
+        }*/
     }
 
-    private void setupBlogpost() {
-        binding.chipTag.setChipBackgroundColorResource(R.color.tag_blog);
+    private void setupBlogpost(RecyclerView.ViewHolder holder) {
+
+        Chip chipTag = holder.itemView.findViewById(R.id.chip_tag);
+        ImageView ivBlogImage = holder.itemView.findViewById(R.id.iv_blog_image);
+
+
+        chipTag.setChipBackgroundColorResource(R.color.tag_blog);
+        ivBlogImage.setVisibility(View.VISIBLE);
+        Glide.with(holder.itemView.getContext())
+                .load("https://www.w3schools.com/w3images/avatar2.png")
+                .apply(new RequestOptions()
+                        .placeholder(R.drawable.ic_launcher_background) // Placeholder image
+                        .error(R.drawable.ic_launcher_background) // Error image in case of loading failure
+                )
+                .into(ivBlogImage);
+
+
+        /*binding.chipTag.setChipBackgroundColorResource(R.color.tag_blog);
         binding.ivBlogImage.setVisibility(View.VISIBLE);
         Glide.with(binding.getRoot().getContext())
                 .load("https://www.w3schools.com/w3images/avatar2.png")
@@ -187,16 +292,41 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                         .placeholder(R.drawable.ic_launcher_background) // Placeholder image
                         .error(R.drawable.ic_launcher_background) // Error image in case of loading failure
                 )
-                .into(binding.ivBlogImage);
+                .into(binding.ivBlogImage);*/
     }
 
-    private void setupDoctoratePost(FeedContentResponse post) {
-        binding.chipTag.setChipBackgroundColorResource(R.color.tag_doctorate);
+    private void setupDoctoratePost(FeedContentResponse post, RecyclerView.ViewHolder holder) {
+
+        Chip chipTag = holder.itemView.findViewById(R.id.chip_tag);
+        LinearLayout llPositionDetails = holder.itemView.findViewById(R.id.ll_position_details);
+        TextView tvPositionTitle = holder.itemView.findViewById(R.id.tv_position_title);
+
+        chipTag.setChipBackgroundColorResource(R.color.tag_doctorate);
+        llPositionDetails.setVisibility(View.VISIBLE);
+        tvPositionTitle.setText(post.getTitle());
+
+        /*binding.chipTag.setChipBackgroundColorResource(R.color.tag_doctorate);
         binding.llPositionDetails.setVisibility(View.VISIBLE);
-        binding.tvPositionTitle.setText(post.getTitle());
+        binding.tvPositionTitle.setText(post.getTitle());*/
     }
 
-    private void setupQNAPost(FeedContentResponse post, Context context) {
+    private void setupQNAPost(FeedContentResponse post, Context context, RecyclerView.ViewHolder holder ) {
+
+        TextView tvUserName = holder.itemView.findViewById(R.id.tv_user_name);
+        TextView tvBody = holder.itemView.findViewById(R.id.tv_body);
+        TextView tvTags = holder.itemView.findViewById(R.id.tv_tags);
+        Chip chipTag = holder.itemView.findViewById(R.id.chip_tag);
+        TextView tvTimeAgo = holder.itemView.findViewById(R.id.tv_time_ago);
+
+        tvBody.setText(post.getTitle());
+        chipTag.setChipBackgroundColorResource(R.color.tag_qa_background);
+        chipTag.setTextColor(context.getColor(R.color.tag_qa_foreground));
+        tvBody.setOnClickListener(v -> {
+            Intent intent = new Intent(context, ShowQuestionPost.class);
+            intent.putExtra(ShowQuestionPost.KEY_QUESTION_POST_ID, post.getId());
+            context.startActivity(intent);
+        });
+        /*
         binding.tvBody.setText(post.getTitle());
         binding.chipTag.setChipBackgroundColorResource(R.color.tag_qa_background);
         binding.chipTag.setTextColor(context.getColor(R.color.tag_qa_foreground));
@@ -205,6 +335,9 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             intent.putExtra(ShowQuestionPost.KEY_QUESTION_POST_ID, post.getId());
             context.startActivity(intent);
         });
+
+         */
+
     }
 
     @Override
@@ -212,6 +345,15 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         return feed.size();
     }
 
+    public void clearContent() {
+        feed.clear();
+        notifyDataSetChanged();
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
