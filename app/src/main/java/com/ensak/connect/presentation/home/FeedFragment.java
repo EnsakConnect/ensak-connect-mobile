@@ -42,6 +42,7 @@ public class FeedFragment extends Fragment implements OnPostInteractionListener 
     private RecyclerView recyclerView;
     private boolean isLoading = false;
     private FeedResponse feed;
+    private boolean firstLoad = true;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -58,9 +59,6 @@ public class FeedFragment extends Fragment implements OnPostInteractionListener 
 
         feed = new FeedResponse();
 
-        feedAdapter.clearContent();
-        if(feedAdapter.getItemCount() > 0)
-            return root;
         feedViewModel.fetchFeed(0, null, "");
         recommendedFeedViewModel.fetchFeed(0, null, "PFE");
 
@@ -112,17 +110,8 @@ public class FeedFragment extends Fragment implements OnPostInteractionListener 
                 new ViewModelProvider(this).get(FeedViewModel.class);
 
         feedViewModel.getFeed().observe(getViewLifecycleOwner(), feedResponse -> {
-            Log.i("DEBUGs:","model view is updated");
-            ArrayList<FeedContentResponse> list = new ArrayList<>();
-
-            /*list.addAll(feed.getContent());
-            list.addAll(feedResponse.getContent());*/
-
             feed = feedResponse;
-
-            //feed.content = list;
-            feedAdapter.setItems(feed.getContent());
-            feedAdapter.notifyItemRangeChanged(feed.getContent().size(), list.size());
+            feedAdapter.addList(feedResponse.content);
             isLoading = false;
         });
 
@@ -167,7 +156,7 @@ public class FeedFragment extends Fragment implements OnPostInteractionListener 
     }
 
     private void setupFilterSpinner(Context context) {
-
+        binding.ivFilter.setVisibility(View.GONE);
         binding.ivFilter.setOnClickListener(view -> {
             PopupMenu popupMenu = new PopupMenu(context, view);
             popupMenu.getMenuInflater().inflate(R.menu.home_filter, popupMenu.getMenu());
