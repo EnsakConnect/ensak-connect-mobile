@@ -102,7 +102,7 @@ public class HomeActivity extends AppCompatActivity {
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home, R.id.nav_work_offers, R.id.nav_inter_offers, R.id.nav_doctorat_offers,
                 R.id.nav_blog, R.id.nav_qa, R.id.nav_profile, R.id.nav_messages, R.id.nav_notifications,
-                R.id.nav_settings, R.id.nav_about, R.id.nav_logout)
+                R.id.nav_settings, R.id.nav_about, R.id.nav_logout, R.id.nav_user_posts)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
@@ -238,6 +238,9 @@ public class HomeActivity extends AppCompatActivity {
         navigationView.setNavigationItemSelectedListener(item -> {
             int itemId = item.getItemId();
             if (itemId == R.id.nav_home) {
+            }
+            else if(itemId == R.id.nav_user_posts){
+                // TODO: start my posts activity
             } else if (itemId == R.id.nav_work_offers) {
                 Bundle bundle = new Bundle();
                 bundle.putString("filter", "CDI");
