@@ -11,10 +11,14 @@ import android.widget.PopupMenu;
 import com.ensak.connect.R;
 import com.ensak.connect.databinding.ActivitySearchBinding;
 import com.ensak.connect.databinding.NotificationActivityBinding;
+import com.ensak.connect.presentation.home.FeedViewModel;
 
 public class SearchActivity extends AppCompatActivity {
 
     private ActivitySearchBinding binding;
+    String filter = "";
+    String searchText = "";
+    FeedViewModel feedViewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +36,16 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
+        binding.etName.addTextChangedListener(new TextWatcher() {
+
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                searchText = s.toString();
+            }
+
+
+        });
         binding.ivFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -42,23 +56,30 @@ public class SearchActivity extends AppCompatActivity {
                     public boolean onMenuItemClick(MenuItem item) {
                         int itemId = item.getItemId();
 
+
                         if (itemId == R.id.search_blog) {
                             binding.searchOption.setText("Blog");
+                            filter = "BlogPost";
                             return true;
                         } else if (itemId == R.id.search_doctorate) {
                             binding.searchOption.setText("Doctorat");
+                            filter = "DOCTORATE";
                             return true;
                         } else if (itemId == R.id.search_intern_offer) {
                             binding.searchOption.setText("Offre de stage");
+                            filter = "PFE";
                             return true;
                         } else if (itemId == R.id.search_job_offer) {
                             binding.searchOption.setText("Offre d'emploi");
+                            filter = "CDI";
                             return true;
                         } else if (itemId == R.id.search_profile) {
                             binding.searchOption.setText("Profil");
+
                             return true;
                         } else if (itemId == R.id.search_QA) {
                            binding.searchOption.setText("Q&A");
+                           filter = "Q&A";
                             return true;
                         }
                         else if(itemId == R.id.search_all){
@@ -70,7 +91,14 @@ public class SearchActivity extends AppCompatActivity {
                 });
                 popupMenu.show();
             }
+
         });
+        binding.cardSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                feedViewModel.fetchFeed(0, searchText, filter);
+            }
+        }
     }
 
 

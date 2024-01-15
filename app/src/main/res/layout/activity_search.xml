@@ -114,7 +114,5 @@
 
             </LinearLayout>
         </LinearLayout>
-
-
     </RelativeLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
