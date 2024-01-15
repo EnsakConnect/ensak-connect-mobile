@@ -1,7 +1,6 @@
 package com.ensak.connect.presentation.home;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,13 +10,10 @@ import android.view.ViewGroup;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
-import androidx.annotation.IntegerRes;
 import androidx.annotation.NonNull;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,7 +22,7 @@ import com.ensak.connect.adapters.feed.FeedAdapter;
 import com.ensak.connect.adapters.feed.OnPostInteractionListener;
 import com.ensak.connect.adapters.feed.RecommandedOffersAdapter;
 import com.ensak.connect.databinding.MainHomeFragementBinding;
-import com.ensak.connect.presentation.job_post.JopPostViewModel;
+import com.ensak.connect.presentation.job_post.JobPostViewModel;
 import com.ensak.connect.repository.feed.model.FeedContentResponse;
 import com.ensak.connect.repository.feed.model.FeedResponse;
 
@@ -40,11 +36,11 @@ public class FeedFragment extends Fragment implements OnPostInteractionListener 
     private MainHomeFragementBinding binding;
     private FeedViewModel feedViewModel;
     private FeedViewModel recommendedFeedViewModel;
-    private JopPostViewModel jopPostViewModel;
+    private JobPostViewModel jopPostViewModel;
     private FeedAdapter feedAdapter;
     private RecommandedOffersAdapter recommandedOffersAdapter;
     private RecyclerView recyclerView;
-    private boolean isLoading = false;
+    private boolean isLoading = true;
     private FeedResponse feed;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -62,14 +58,19 @@ public class FeedFragment extends Fragment implements OnPostInteractionListener 
 
         feed = new FeedResponse();
 
+        feedAdapter.clearContent();
+        Log.i("DEBUGs:","GETS EXECUTED"+Integer.toString(feedAdapter.getItemCount()));
+        if(feedAdapter.getItemCount() > 0)
+            return root;
         feedViewModel.fetchFeed(0, null, "");
         recommendedFeedViewModel.fetchFeed(0, null, "PFE");
-
+        isLoading=false;
         return root;
     }
 
+
     private void initJobPostViewModel() {
-        jopPostViewModel = new ViewModelProvider(this).get(JopPostViewModel.class);
+        jopPostViewModel = new ViewModelProvider(this).get(JobPostViewModel.class);
 
         jopPostViewModel.getIsSuccess().observe(getViewLifecycleOwner(), success -> {
             if(success){
@@ -94,11 +95,7 @@ public class FeedFragment extends Fragment implements OnPostInteractionListener 
         binding.nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
             @Override
             public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-
-                //Log.i("visiblePosition", scrollY + " " + ( v.getMeasuredHeight() - v.getChildAt(0).getMeasuredHeight() ));
-
                 if (scrollY + ( v.getMeasuredHeight() - v.getChildAt(0).getMeasuredHeight() ) == 0) {
-                    //Log.i("visiblePosition", "BOTTOM SCROLL");
                     onLoadMore();
                 }
             }
@@ -116,6 +113,7 @@ public class FeedFragment extends Fragment implements OnPostInteractionListener 
                 new ViewModelProvider(this).get(FeedViewModel.class);
 
         feedViewModel.getFeed().observe(getViewLifecycleOwner(), feedResponse -> {
+            Log.i("DEBUGs:","model view is updated");
             ArrayList<FeedContentResponse> list = new ArrayList<>();
             list.addAll(feed.getContent());
             list.addAll(feedResponse.getContent());
@@ -161,13 +159,14 @@ public class FeedFragment extends Fragment implements OnPostInteractionListener 
     public void onLoadMore() {
         if(isLoading) return;
 
-        if (feed.getPageNumber() < feed.getTotalPages()) {
+        if (feed.getPageNumber()+1 < feed.getTotalPages()) {
             isLoading = true;
             feedViewModel.fetchFeed(feed.getPageNumber() + 1, null, "");
         }
     }
 
     private void setupFilterSpinner(Context context) {
+
         binding.ivFilter.setOnClickListener(view -> {
             PopupMenu popupMenu = new PopupMenu(context, view);
             popupMenu.getMenuInflater().inflate(R.menu.home_filter, popupMenu.getMenu());
@@ -191,7 +190,7 @@ public class FeedFragment extends Fragment implements OnPostInteractionListener 
                     }
 
                     if (!filter.isEmpty()) {
-                        feedViewModel.fetchFeed(0, null, filter);
+                        //feedViewModel.fetchFeed(0, null, filter);
 //                        getPosts(getContext(), 0, filter, false);
                     }
 
@@ -207,6 +206,12 @@ public class FeedFragment extends Fragment implements OnPostInteractionListener 
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        feedAdapter.clearContent();
     }
 
     @Override

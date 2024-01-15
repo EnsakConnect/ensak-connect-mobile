@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.ensak.connect.adapters.feed.FeedAdapter;
 import com.ensak.connect.adapters.feed.OnPostInteractionListener;
 import com.ensak.connect.databinding.MainPostCategoryFragmentBinding;
+import com.ensak.connect.presentation.job_post.JobPostViewModel;
 import com.ensak.connect.repository.feed.model.FeedContentResponse;
 import com.ensak.connect.repository.feed.model.FeedResponse;
 
@@ -56,6 +57,9 @@ public class PostCategoryFragment extends Fragment implements OnPostInteractionL
 
     private MainPostCategoryFragmentBinding binding;
     private FeedViewModel feedViewModel;
+
+    private JobPostViewModel jobPostViewModel;
+
     private FeedResponse feed;
     private FeedAdapter adapter;
     private boolean isLoading = false;
@@ -102,7 +106,7 @@ public class PostCategoryFragment extends Fragment implements OnPostInteractionL
     public void onLoadMore() {
         if(isLoading) return;
 
-        if (feed.getPageNumber() < feed.getTotalPages() - 1) {
+        if (feed.getPageNumber()+1 < feed.getTotalPages()) {
             isLoading = true;
             feedViewModel.fetchFeed(feed.getPageNumber() + 1, null, filter);
         }
@@ -134,10 +138,28 @@ public class PostCategoryFragment extends Fragment implements OnPostInteractionL
             if(errorMessage.isEmpty()){ return; }
             Toast.makeText(getContext(), "An error occurred, please try again", Toast.LENGTH_SHORT).show();
         });
+        initJobPostViewModel();
+    }
+    private void initJobPostViewModel() {
+        jobPostViewModel = new ViewModelProvider(this).get(JobPostViewModel.class);
+
+        jobPostViewModel.getIsSuccess().observe(getViewLifecycleOwner(), success -> {
+            if(success){
+                Toast.makeText(getContext(),"Application Sent", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        jobPostViewModel.getError().observe(getViewLifecycleOwner(), error -> {
+            if(error)
+                Toast.makeText(getContext(),"Error when sending application", Toast.LENGTH_SHORT).show();
+        });
     }
 
     @Override
     public void onJobApply(int position) {
+        jobPostViewModel.applyToJob(feed.content.get(position).getId());
+        feed.content.get(position).setIsLiked(true);
+        adapter.updateItem(position,feed.content.get(position));
 
     }
 }
