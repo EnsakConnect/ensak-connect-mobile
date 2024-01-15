@@ -1,4 +1,4 @@
-package com.ensak.connect.presentation.job_post.comments;
+package com.ensak.connect.presentation.blog_post.comments;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

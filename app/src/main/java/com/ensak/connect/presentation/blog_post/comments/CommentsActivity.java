@@ -1,8 +1,7 @@
-package com.ensak.connect.presentation.job_post.comments;
+package com.ensak.connect.presentation.blog_post.comments;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
@@ -17,7 +16,6 @@ import com.ensak.connect.databinding.JobPostCommentsActivityBinding;
 import com.ensak.connect.repository.blog_post.model.BlogPostCommentResponse;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 import dagger.hilt.android.AndroidEntryPoint;
 

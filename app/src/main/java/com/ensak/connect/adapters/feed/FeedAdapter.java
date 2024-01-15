@@ -21,8 +21,7 @@ import com.ensak.connect.presentation.profile.ProfileActivity;
 import com.ensak.connect.presentation.question_post.show.ShowQuestionPost;
 import com.ensak.connect.presentation.report.ReportActivity;
 import com.ensak.connect.repository.feed.model.FeedContentResponse;
-import com.ensak.connect.repository.feed.model.FeedResponse;
-import com.ensak.connect.presentation.job_post.comments.CommentsActivity;
+import com.ensak.connect.presentation.blog_post.comments.CommentsActivity;
 import com.ensak.connect.service.GlideAuthUrl;
 
 import java.util.ArrayList;
