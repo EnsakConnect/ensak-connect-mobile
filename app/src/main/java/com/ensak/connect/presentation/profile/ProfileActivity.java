@@ -184,6 +184,9 @@ public class ProfileActivity extends AppCompatActivity {
                 if (profileResponse.getDescription() == null){
                     binding.userDescription.setVisibility(View.GONE);
                 }
+                if (profileResponse.getResume() == null) {
+                    binding.downloadResume.setVisibility(View.GONE);
+                }
                 experienceAdapter = new ExperienceAdapter(this, profileResponse.getExperienceList());
                 binding.experienceRecyclerView.setAdapter(experienceAdapter);
 
@@ -210,6 +213,7 @@ public class ProfileActivity extends AppCompatActivity {
 
                 if(profileResponse.getResume() != null){
                     binding.uploadResume.setText("Update CV");
+                    binding.downloadResume.setVisibility(View.VISIBLE);
                 } else {
                     binding.uploadResume.setText("Ajouter un CV");
                 }
