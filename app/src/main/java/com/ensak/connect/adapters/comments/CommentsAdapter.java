@@ -12,8 +12,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.ensak.connect.R;
+import com.ensak.connect.constants.AppConstants;
 import com.ensak.connect.databinding.JobPostCommentItemBinding;
-import com.ensak.connect.repository.job_post.model.JobPostCommentResponse;
+import com.ensak.connect.repository.blog_post.model.BlogPostCommentResponse;
+import com.ensak.connect.service.GlideAuthUrl;
 import com.ensak.connect.utils.DateUtil;
 
 import java.util.ArrayList;
@@ -22,9 +24,9 @@ public class CommentsAdapter extends
         RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     JobPostCommentItemBinding binding;
-    private ArrayList<JobPostCommentResponse> comments;
+    private ArrayList<BlogPostCommentResponse> comments;
 
-    public CommentsAdapter(ArrayList<JobPostCommentResponse> comments) {
+    public CommentsAdapter(ArrayList<BlogPostCommentResponse> comments) {
         this.comments = comments;
     }
 
@@ -40,14 +42,25 @@ public class CommentsAdapter extends
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        JobPostCommentResponse comment = comments.get(position);
+        holder.setIsRecyclable(false);
+        BlogPostCommentResponse comment = comments.get(position);
         Context context = holder.itemView.getContext();
 
-        binding.tvUserName.setText(comment.getUser().getFirstname() + " " + comment.getUser().getLastname());
-        binding.tvUserTitle.setText("Full Stack Developer - SQLI");
+        binding.tvUserName.setText(comment.getUser().getFullName());
+        binding.tvUserTitle.setText(comment.getUser().getTitle());
         binding.tvCommentDate.setText(DateUtil.calculateTimeAgo(comment.getDate()));
         binding.tvComment.setText(comment.getComment());
 
+        // TODO: real profile picture on comments
+
+        Glide.with(context)
+                .load(
+                        GlideAuthUrl.getUrl(context, AppConstants.BASE_URL + "resources/" + comment.getUser().getProfilePicture())
+                ).placeholder(R.drawable.profile_banner_placeholder)
+                .error(R.drawable.profile_picture_placeholder)
+                .centerCrop()
+                .into(binding.ivUserImage);
+        /*
         Glide.with(context)
                 .load("https://www.w3schools.com/w3images/avatar2.png")
                 .apply(new RequestOptions()
@@ -55,6 +68,8 @@ public class CommentsAdapter extends
                         .error(R.drawable.ic_launcher_background) // Error image in case of loading failure
                 )
                 .into(binding.ivUserImage);
+
+         */
     }
 
     @Override
@@ -62,6 +77,10 @@ public class CommentsAdapter extends
         return comments.size();
     }
 
+    public void updateComments(ArrayList<BlogPostCommentResponse> commentsValue) {
+        comments = commentsValue;
+        notifyDataSetChanged();
+    }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 

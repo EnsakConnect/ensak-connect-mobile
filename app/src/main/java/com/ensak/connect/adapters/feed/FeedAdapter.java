@@ -31,7 +31,7 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     MainPostItemBinding binding;
 
-    private ArrayList<FeedContentResponse> feed = new ArrayList<FeedContentResponse>();
+    private ArrayList<FeedContentResponse> feed;
 
     private OnPostInteractionListener postInteractionListener;
 
