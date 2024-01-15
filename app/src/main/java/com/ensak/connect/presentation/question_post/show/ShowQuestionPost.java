@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -58,6 +59,9 @@ public class ShowQuestionPost extends AppCompatActivity {
         binding.btnAddAnswer.setOnClickListener(v -> {
             createAnswer();
         });
+        binding.llLike.setOnClickListener(v -> {
+            likeDislikeQuestionPost();
+        });
     }
 
     private void initViewModel() {
@@ -79,6 +83,17 @@ public class ShowQuestionPost extends AppCompatActivity {
                     .into(binding.ivUserImage);
             binding.tvTimeAgo.setText(DateUtil.calculateTimeAgo(questionPost.getCreatedAt()));
             binding.tvBody.setText(questionPost.getQuestion());
+            if (questionPost.getLiked()){
+                Log.d("like", "already liked");
+                binding.llLikeImage.setImageResource(R.drawable.ic_thumbs_up_filled);
+            }else {
+                Log.d("like", "not liked");
+                binding.llLikeImage.setImageResource(R.drawable.ic_thumb_up);
+            }
+            String likesCount = questionPost.getLikesCount() + " Likes";
+            binding.llLikeCount.setText(likesCount);
+            String answersCount = questionPost.getAnswersCount() + " Answers";
+            binding.tvPostAnswersCount.setText(answersCount);
             binding.tvTags.setText("#" + String.join(", #", questionPost.getTags()));
             binding.crdUserData.setOnClickListener(v -> {
                 Intent intent = new Intent(this, ProfileActivity.class);
@@ -118,5 +133,9 @@ public class ShowQuestionPost extends AppCompatActivity {
     private void createAnswer() {
         String answer = binding.txtNewAnswer.getText().toString();
         viewModel.createAnswer(answer);
+    }
+
+    private void likeDislikeQuestionPost() {
+        viewModel.likeDislikeQuestionPost();
     }
 }
