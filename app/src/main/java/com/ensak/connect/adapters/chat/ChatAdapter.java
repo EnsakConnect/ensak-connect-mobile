@@ -56,6 +56,8 @@ public class ChatAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        holder.setIsRecyclable(false);
+
         ChatMessageResponse message = messages.get(position);
         Context context = holder.itemView.getContext();
         String content = message.getContent();

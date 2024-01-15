@@ -104,9 +104,9 @@ public class PostCategoryFragment extends Fragment implements OnPostInteractionL
     }
 
     public void onLoadMore() {
-        if(isLoading) return;
+        if (isLoading) return;
 
-        if (feed.getPageNumber()+1 < feed.getTotalPages()) {
+        if (feed.getPageNumber() + 1 < feed.getTotalPages()) {
             isLoading = true;
             feedViewModel.fetchFeed(feed.getPageNumber() + 1, null, filter);
         }
@@ -129,23 +129,26 @@ public class PostCategoryFragment extends Fragment implements OnPostInteractionL
         });
 
         feedViewModel.getErrorMessage().observe(getViewLifecycleOwner(), errorMessage -> {
-            if(errorMessage.isEmpty()){ return; }
+            if (errorMessage.isEmpty()) {
+                return;
+            }
             Toast.makeText(getContext(), "An error occurred, please try again", Toast.LENGTH_SHORT).show();
         });
         initJobPostViewModel();
     }
+
     private void initJobPostViewModel() {
         jobPostViewModel = new ViewModelProvider(this).get(JobPostViewModel.class);
 
         jobPostViewModel.getIsSuccess().observe(getViewLifecycleOwner(), success -> {
-            if(success){
-                Toast.makeText(getContext(),"Application Sent", Toast.LENGTH_SHORT).show();
+            if (success) {
+                Toast.makeText(getContext(), "Application Sent", Toast.LENGTH_SHORT).show();
             }
         });
 
         jobPostViewModel.getError().observe(getViewLifecycleOwner(), error -> {
-            if(error)
-                Toast.makeText(getContext(),"Error when sending application", Toast.LENGTH_SHORT).show();
+            if (error)
+                Toast.makeText(getContext(), "Error when sending application", Toast.LENGTH_SHORT).show();
         });
     }
 
@@ -153,7 +156,27 @@ public class PostCategoryFragment extends Fragment implements OnPostInteractionL
     public void onJobApply(int position) {
         jobPostViewModel.applyToJob(feed.content.get(position).getId());
         feed.content.get(position).setIsLiked(true);
-        adapter.updateItem(position,feed.content.get(position));
+        adapter.updateItem(position, feed.content.get(position));
 
+    }
+
+    @Override
+    public void likeDislikeQuestionPost(FeedContentResponse post, int index) {
+        feedViewModel.likeDislikeQuestionPost(post, index);
+        feedViewModel.getLikeStatus().observe(this, isLiked -> {
+            post.setIsLiked(isLiked);
+            post.setLikesCount(isLiked ? post.getLikesCount() + 1 : post.getLikesCount() - 1);
+            adapter.notifyDataSetChanged();
+        });
+    }
+
+    @Override
+    public void likeDislikeBlogPost(FeedContentResponse post, int index) {
+        feedViewModel.likeDislikeBlogPost(post, index);
+        feedViewModel.getLikeStatus().observe(this, isLiked -> {
+            post.setIsLiked(isLiked);
+            post.setLikesCount(isLiked ? post.getLikesCount() + 1 : post.getLikesCount() - 1);
+            adapter.notifyDataSetChanged();
+        });
     }
 }

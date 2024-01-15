@@ -260,7 +260,7 @@ public class HomeActivity extends AppCompatActivity {
                 binding.appBarMain.toolbar.setTitle("Doctorats");
             } else if (itemId == R.id.nav_blog) {
                 Bundle bundle = new Bundle();
-                bundle.putString("filter", "BLOG");
+                bundle.putString("filter", "BlogPost");
                 navController.navigate(R.id.nav_post_category, bundle);
                 binding.appBarMain.toolbar.setTitle("Blogs");
             } else if (itemId == R.id.nav_qa) {

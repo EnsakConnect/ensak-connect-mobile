@@ -236,6 +236,7 @@
                     android:orientation="horizontal">
 
                     <ImageView
+                        android:id="@+id/iv_like"
                         android:layout_width="@dimen/feed_ic_size"
                         android:layout_height="@dimen/feed_ic_size"
                         android:layout_marginEnd="@dimen/feed_ic_margin"
@@ -243,6 +244,7 @@
                         app:tint="@color/grey_700" />
 
                     <TextView
+                        android:id="@+id/tv_like"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/feed_text_interaction_size"
