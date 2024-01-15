@@ -34,6 +34,7 @@ public class PostCategoryFragment extends Fragment implements OnPostInteractionL
 
     // TODO: Rename and change types of parameters
     private String filter;
+
     public PostCategoryFragment() {
         // Required empty public constructor
     }
@@ -107,7 +108,7 @@ public class PostCategoryFragment extends Fragment implements OnPostInteractionL
 
         if (feed.getPageNumber()+1 < feed.getTotalPages()) {
             isLoading = true;
-            feedViewModel.fetchFeed(feed.getPageNumber() + 1, null, "");
+            feedViewModel.fetchFeed(feed.getPageNumber() + 1, null, filter);
         }
     }
 
@@ -122,13 +123,23 @@ public class PostCategoryFragment extends Fragment implements OnPostInteractionL
 
             feed.content = list;
             adapter.setItems(feed.getContent());
-            adapter.notifyItemRangeChanged(feed.getContent().size(), list.size());
+            adapter.notifyDataSetChanged();
             isLoading = false;
         });
 
+        feedViewModel.getIsLoading().observe(getViewLifecycleOwner(), isLoading -> {
+            if (isLoading)
+                binding.loadingProgressBar.setVisibility(View.VISIBLE);
+            else
+                binding.loadingProgressBar.setVisibility(View.GONE);
+        });
+
+        feedViewModel.getErrorMessage().observe(getViewLifecycleOwner(), errorMessage -> {
+            if(errorMessage.isEmpty()){ return; }
+            Toast.makeText(getContext(), "An error occurred, please try again", Toast.LENGTH_SHORT).show();
+        });
         initJobPostViewModel();
     }
-
     private void initJobPostViewModel() {
         jobPostViewModel = new ViewModelProvider(this).get(JobPostViewModel.class);
 

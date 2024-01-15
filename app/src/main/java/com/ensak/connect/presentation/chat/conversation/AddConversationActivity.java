@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.ensak.connect.adapters.conversations.UsersAdapter;
@@ -37,6 +38,7 @@ public class AddConversationActivity extends AppCompatActivity implements OnClic
     private UsersAdapter adapter;
     private AddConversationViewModel addConversationViewModel;
     private ArrayList<ProfileResponseDTO> profilesList;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +58,7 @@ public class AddConversationActivity extends AppCompatActivity implements OnClic
     private void initViews() {
         profilesList = new ArrayList<>();
 
+        progressBar = binding.loadingProgressBar;
         etName = binding.etName;
         cardSearch = binding.cardSearch;
         rvUsers = binding.rvUsers;
@@ -88,14 +91,16 @@ public class AddConversationActivity extends AppCompatActivity implements OnClic
         });
 
         addConversationViewModel.getIsLoading().observe(this, isLoading -> {
-            Toast.makeText(this, "Loading...", Toast.LENGTH_SHORT).show();
+            if (isLoading)
+                progressBar.setVisibility(View.VISIBLE);
+            else
+                progressBar.setVisibility(View.GONE);
         });
 
         addConversationViewModel.getErrorMessage().observe(this, errorMessage -> {
             if (errorMessage.isEmpty()) {
                 return;
             }
-            Toast.makeText(this, "Loading...", Toast.LENGTH_SHORT).show();
         });
     }
 
@@ -112,14 +117,16 @@ public class AddConversationActivity extends AppCompatActivity implements OnClic
         });
 
         conversationViewModel.getIsLoading().observe(this, isLoading -> {
-            Toast.makeText(this, "Loading...", Toast.LENGTH_SHORT).show();
+            if (isLoading)
+                progressBar.setVisibility(View.VISIBLE);
+            else
+                progressBar.setVisibility(View.GONE);
         });
 
         conversationViewModel.getErrorMessage().observe(this, errorMessage -> {
             if (errorMessage.isEmpty()) {
                 return;
             }
-            Toast.makeText(this, "Loading...", Toast.LENGTH_SHORT).show();
         });
     }
 

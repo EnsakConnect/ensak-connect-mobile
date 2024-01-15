@@ -126,14 +126,16 @@ public class ChatActivity extends AppCompatActivity {
         chatViewModel = new ViewModelProvider(this).get(ChatViewModel.class);
 
         chatViewModel.getIsLoading().observe(this, isLoading -> {
-            // TODO: set is loading state
+            if (isLoading)
+                binding.loadingProgressBar.setVisibility(View.VISIBLE);
+            else
+                binding.loadingProgressBar.setVisibility(View.GONE);
         });
 
         chatViewModel.getErrorMessage().observe(this, errorMessage -> {
             if (errorMessage.isEmpty()) {
                 return;
             }
-            Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
         });
 
         chatViewModel.getMessage().observe(this, responseMessage -> {
