@@ -118,7 +118,7 @@ public class PostCategoryFragment extends Fragment implements OnPostInteractionL
             feed = feedResponse;
 
             feed.content = list;
-            adapter.setItems(feed);
+            adapter.setItems(feed.getContent());
             adapter.notifyDataSetChanged();
             isLoading = false;
         });

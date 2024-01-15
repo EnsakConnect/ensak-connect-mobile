@@ -12,6 +12,16 @@ public class FeedContentResponse {
     @Expose
     private int id;
 
+    private boolean applied;
+
+    public Boolean getApplied() {
+        return applied;
+    }
+
+    public void setApplied(Boolean applied) {
+        this.applied = applied;
+    }
+
     @SerializedName("postType")
     @Expose
     private String postType;
@@ -47,6 +57,18 @@ public class FeedContentResponse {
     @SerializedName("likesCount")
     @Expose
     private int likesCount;
+
+    @SerializedName("isLiked")
+    @Expose
+    private boolean isLiked;
+
+    public boolean isLiked() {
+        return isLiked;
+    }
+
+    public void setIsLiked(boolean like) {
+        isLiked = like;
+    }
 
     @SerializedName("tags")
     @Expose

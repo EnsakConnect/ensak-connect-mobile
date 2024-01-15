@@ -65,8 +65,6 @@ public class FeedFragment extends Fragment implements OnPostInteractionListener 
         feedViewModel.fetchFeed(0, null, "");
         recommendedFeedViewModel.fetchFeed(0, null, "PFE");
 
-
-
         return root;
     }
 
@@ -97,10 +95,10 @@ public class FeedFragment extends Fragment implements OnPostInteractionListener 
             @Override
             public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
 
-                Log.i("visiblePosition", scrollY + " " + ( v.getMeasuredHeight() - v.getChildAt(0).getMeasuredHeight() ));
+                //Log.i("visiblePosition", scrollY + " " + ( v.getMeasuredHeight() - v.getChildAt(0).getMeasuredHeight() ));
 
                 if (scrollY + ( v.getMeasuredHeight() - v.getChildAt(0).getMeasuredHeight() ) == 0) {
-                    Log.i("visiblePosition", "BOTTOM SCROLL");
+                    //Log.i("visiblePosition", "BOTTOM SCROLL");
                     onLoadMore();
                 }
             }
@@ -118,14 +116,14 @@ public class FeedFragment extends Fragment implements OnPostInteractionListener 
                 new ViewModelProvider(this).get(FeedViewModel.class);
 
         feedViewModel.getFeed().observe(getViewLifecycleOwner(), feedResponse -> {
-            ArrayList<FeedContentResponse> list = feedResponse.getContent();
+            ArrayList<FeedContentResponse> list = new ArrayList<>();
             list.addAll(feed.getContent());
             list.addAll(feedResponse.getContent());
             feed = feedResponse;
 
             feed.content = list;
-            feedAdapter.setItems(feed);
-            feedAdapter.notifyDataSetChanged();
+            feedAdapter.setItems(feed.getContent());
+            feedAdapter.notifyItemRangeChanged(feed.getContent().size(), list.size());
             isLoading = false;
         });
 
@@ -168,7 +166,7 @@ public class FeedFragment extends Fragment implements OnPostInteractionListener 
     public void onLoadMore() {
         if(isLoading) return;
 
-        if (feed.getPageNumber() < feed.getTotalPages() - 1) {
+        if (feed.getPageNumber() < feed.getTotalPages()) {
             isLoading = true;
             feedViewModel.fetchFeed(feed.getPageNumber() + 1, null, "");
         }
@@ -219,8 +217,10 @@ public class FeedFragment extends Fragment implements OnPostInteractionListener 
     @Override
     public void onJobApply(int position) {
         Log.i("DEBUG","position:"+ Integer.toString(position)+", post id :"+feed.content.get(position).getId());
-
         jopPostViewModel.applyToJob(feed.content.get(position).getId());
-
+        feed.content.get(position).setIsLiked(true);
+        feedAdapter.updateItem(position,feed.content.get(position));
+        Log.i("DEBUG:","position"+Integer.toString(position));
+        //feedAdapter.notifyItemChanged(position,feed.content.get(position));
     }
 }
