@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.ensak.connect.R;
 import com.ensak.connect.adapters.question_post.AnswerAdapter;
+import com.ensak.connect.adapters.question_post.OnAnswerInteraction;
 import com.ensak.connect.constants.AppConstants;
 import com.ensak.connect.databinding.QuestionPostCreateActivityBinding;
 import com.ensak.connect.databinding.QuestionPostShowActivityBinding;
@@ -25,7 +26,7 @@ import com.ensak.connect.utils.DateUtil;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class ShowQuestionPost extends AppCompatActivity {
+public class ShowQuestionPost extends AppCompatActivity implements OnAnswerInteraction {
     private QuestionPostShowActivityBinding binding;
     private ShowQuestionPostViewModel viewModel;
     private AnswerAdapter answerAdapter;
@@ -37,9 +38,9 @@ public class ShowQuestionPost extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = QuestionPostShowActivityBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
-        initView();
         initViewModel();
+        initView();
+
         questionPostId = (Integer) getIntent().getExtras().get(KEY_QUESTION_POST_ID);
         viewModel.setQuestionPostId(questionPostId);
         viewModel.fetchQuestionPost();
@@ -52,7 +53,7 @@ public class ShowQuestionPost extends AppCompatActivity {
         actionBar.setDisplayShowTitleEnabled(false);
         actionBar.setDisplayHomeAsUpEnabled(true);
         binding.toolbar.setNavigationOnClickListener(v -> finish());
-        answerAdapter = new AnswerAdapter();
+        answerAdapter = new AnswerAdapter(this);
         binding.rvComments.setAdapter(answerAdapter);
         binding.rvComments.setVisibility(View.GONE);
 
@@ -137,5 +138,15 @@ public class ShowQuestionPost extends AppCompatActivity {
 
     private void likeDislikeQuestionPost() {
         viewModel.likeDislikeQuestionPost();
+    }
+
+    @Override
+    public void interactUp(Integer id) {
+        viewModel.interactAnswerUp(id);
+    }
+
+    @Override
+    public void interactDown(Integer id) {
+        viewModel.interactAnswerDown(id);
     }
 }

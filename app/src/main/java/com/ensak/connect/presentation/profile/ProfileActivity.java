@@ -183,6 +183,8 @@ public class ProfileActivity extends AppCompatActivity {
                 binding.userDescription.setText(userDescription);
                 if (profileResponse.getDescription() == null){
                     binding.userDescription.setVisibility(View.GONE);
+                }else {
+                    binding.userDescription.setVisibility(View.VISIBLE);
                 }
 
                 experienceAdapter = new ExperienceAdapter(this, profileResponse.getExperienceList());

@@ -78,7 +78,7 @@ public class QuestionRepository {
                     return;
                 }
                 List<QuestionPostAnswerResponse> answers = response.body();
-                Collections.sort(answers, (o1, o2) -> o2.getCreatedAt().compareTo(o1.getCreatedAt()));
+                //Collections.sort(answers, (o1, o2) -> o2.getCreatedAt().compareTo(o1.getCreatedAt()));
                 callback.onSuccess(response.body());
             }
 
