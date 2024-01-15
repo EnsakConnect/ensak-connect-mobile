@@ -86,7 +86,7 @@ public class SearchActivity extends AppCompatActivity {
                             filter = "CDI";
                             return true;
                         } else if (itemId == R.id.search_profile) {
-                            binding.searchOption.setText("Profil");
+                            binding.searchOption.setText("Profile");
 
                             return true;
                         } else if (itemId == R.id.search_QA) {
@@ -109,7 +109,7 @@ public class SearchActivity extends AppCompatActivity {
         binding.cardSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (filter.equals("Profil")){
+                if (filter.equals("Profile")){
                     feedViewModel.fetchProfiles(0, searchText);
                 }else{
                     feedViewModel.fetchFeed(0, searchText, filter);
