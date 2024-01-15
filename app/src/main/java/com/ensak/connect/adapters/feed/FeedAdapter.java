@@ -3,6 +3,7 @@ package com.ensak.connect.adapters.feed;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,11 +25,13 @@ import com.ensak.connect.repository.feed.model.FeedResponse;
 import com.ensak.connect.presentation.job_post.comments.CommentsActivity;
 import com.ensak.connect.service.GlideAuthUrl;
 
+import java.util.ArrayList;
+
 public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     MainPostItemBinding binding;
 
-    private FeedResponse feed = new FeedResponse();
+    private ArrayList<FeedContentResponse> feed = new ArrayList<FeedContentResponse>();
 
     private OnPostInteractionListener postInteractionListener;
 
@@ -36,7 +39,12 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         this.postInteractionListener = postInteractionListener;
     }
 
-    public void setItems(FeedResponse feed) {
+    public void updateItem(int position, FeedContentResponse contentResponse){
+        feed.set(position,contentResponse);
+        notifyItemChanged(position);
+    }
+
+    public void setItems(ArrayList<FeedContentResponse> feed) {
         this.feed = feed;
         notifyDataSetChanged();
     }
@@ -52,10 +60,11 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
 
-
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        FeedContentResponse post = feed.getContent().get(position);
+        holder.setIsRecyclable(false);
+        FeedContentResponse post = feed.get(position);
+        Log.i("DEBUG---------:","size"+Integer.toString(feed.size()));
         Context context = holder.itemView.getContext();
 
         binding.tvUserName.setText(post.getAuthor().getFullName());
@@ -77,7 +86,7 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
              */
             setupDoctoratePost(post);
         }
-        else if (post.getPostType().equals("BLOG")) {
+        else if (post.getPostType().equals("BlogPost")) {
             setupBlogpost();
         } else if (post.getPostType().equals("CDI") || post.getPostType().equals("PFE")) {
             setupJobPost(post);
@@ -90,10 +99,10 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         if(post.getPostType().equals("Q&A")) {
             binding.llJobInteractions.setVisibility(View.GONE);
         }
-        if(post.getPostType().equals("BLOG")){
+        if(post.getPostType().equals("BlogPost")){
             binding.llJobInteractions.setVisibility(View.GONE);
         }
-
+        Log.i("DEBUG:",post.getPostType());
 
         binding.llComment.setOnClickListener(view -> {
             Intent intent = new Intent(context, CommentsActivity.class);
@@ -105,6 +114,11 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             postInteractionListener.onJobApply(position);
         });
 
+        if(post.isLiked()){
+            binding.tvJobApply.setText("Applied");
+            binding.ivJobApply.setColorFilter(ContextCompat.getColor(context, R.color.primary), android.graphics.PorterDuff.Mode.SRC_IN);
+            binding.tvJobApply.setTextColor(ContextCompat.getColor(context, R.color.primary));
+        }
 
         //TODO: likes for blog
 
@@ -197,7 +211,7 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return feed.getContent().size();
+        return feed.size();
     }
 
 
