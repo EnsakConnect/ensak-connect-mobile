@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -23,12 +24,17 @@ import com.ensak.connect.repository.feed.model.FeedResponse;
 import com.ensak.connect.presentation.job_post.comments.CommentsActivity;
 import com.ensak.connect.service.GlideAuthUrl;
 
-public class FeedAdapter extends
-        RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     MainPostItemBinding binding;
 
     private FeedResponse feed = new FeedResponse();
+
+    private OnPostInteractionListener postInteractionListener;
+
+    public FeedAdapter(OnPostInteractionListener postInteractionListener){
+        this.postInteractionListener = postInteractionListener;
+    }
 
     public void setItems(FeedResponse feed) {
         this.feed = feed;
@@ -93,6 +99,10 @@ public class FeedAdapter extends
             Intent intent = new Intent(context, CommentsActivity.class);
             intent.putExtra("postId", post.getId());
             context.startActivity(intent);
+        });
+
+        binding.llJobApply.setOnClickListener(view -> {
+            postInteractionListener.onJobApply(position);
         });
 
 
