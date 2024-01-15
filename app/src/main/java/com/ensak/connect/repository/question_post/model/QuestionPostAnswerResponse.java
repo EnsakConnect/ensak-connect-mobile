@@ -11,6 +11,25 @@ public class QuestionPostAnswerResponse {
     private String content;
     private UserResponse author;
     private List<String> resources;
+    private Boolean isUp;
+    private Integer interactionsCount;
+
+    public Boolean getUp() {
+        return isUp;
+    }
+
+    public void setUp(Boolean up) {
+        isUp = up;
+    }
+
+    public Integer getInteractionsCount() {
+        return interactionsCount;
+    }
+
+    public void setInteractionsCount(Integer interactionsCount) {
+        this.interactionsCount = interactionsCount;
+    }
+
     private Date createdAt;
     private Date updatedAt;
 

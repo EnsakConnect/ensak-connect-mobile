@@ -6,6 +6,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.ensak.connect.repository.interaction.InteractionRepository;
+import com.ensak.connect.repository.interaction.model.InteractionResponse;
 import com.ensak.connect.repository.like.LikeRepository;
 import com.ensak.connect.repository.like.model.LikeResponse;
 import com.ensak.connect.repository.question_post.QuestionRepository;
@@ -25,6 +27,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
 public class ShowQuestionPostViewModel extends ViewModel {
     private QuestionRepository questionRepository;
     private final LikeRepository likeRepository;
+    private final InteractionRepository interactionRepository;
     private Integer questionPostId;
     private MutableLiveData<QuestionPostResponse> question = new MutableLiveData<>();
     private MutableLiveData<List<QuestionPostAnswerResponse>> answers = new MutableLiveData<>(new ArrayList<>());
@@ -33,9 +36,10 @@ public class ShowQuestionPostViewModel extends ViewModel {
     private MutableLiveData<String> successMessage = new MutableLiveData<>("");
 
     @Inject
-    public ShowQuestionPostViewModel(QuestionRepository questionRepository, LikeRepository likeRepository) {
+    public ShowQuestionPostViewModel(QuestionRepository questionRepository, LikeRepository likeRepository, InteractionRepository interactionRepository) {
         this.questionRepository = questionRepository;
         this.likeRepository = likeRepository;
+        this.interactionRepository = interactionRepository;
     }
 
     public void setQuestionPostId(Integer questionPostId) {
@@ -96,6 +100,40 @@ public class ShowQuestionPostViewModel extends ViewModel {
             public void onFailure(Throwable throwable) {
                 isLoading.setValue(false);
                 errorMessage.setValue("Error adding your answer");
+            }
+        });
+    }
+
+    public void interactAnswerUp(Integer answerId) {
+        isLoading.setValue(true);
+        interactionRepository.interactAnswerUp(answerId, new RepositoryCallBack<InteractionResponse>() {
+            @Override
+            public void onSuccess(InteractionResponse data) {
+                fetchAllAnswers();
+                isLoading.setValue(false);
+            }
+
+            @Override
+            public void onFailure(Throwable throwable) {
+                isLoading.setValue(false);
+                errorMessage.setValue("Error up answer");
+            }
+        });
+    }
+
+    public void interactAnswerDown(Integer answerId) {
+        isLoading.setValue(true);
+        interactionRepository.interactAnswerDown(answerId, new RepositoryCallBack<InteractionResponse>() {
+            @Override
+            public void onSuccess(InteractionResponse data) {
+                fetchAllAnswers();
+                isLoading.setValue(false);
+            }
+
+            @Override
+            public void onFailure(Throwable throwable) {
+                isLoading.setValue(false);
+                errorMessage.setValue("Error up answer");
             }
         });
     }
