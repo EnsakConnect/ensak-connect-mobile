@@ -120,6 +120,24 @@ public class FeedViewModel extends ViewModel {
         return isLikeSuccess;
     }
 
+    public void fetchProfiles(Integer page, String fullname) {
+        repository.getProfiles(page, fullname, new RepositoryCallBack<FeedResponse>() {
+            @Override
+            public void onSuccess(FeedResponse data) {
+                feed.setValue(data);
+                errorMessage.setValue("");
+                isLoading.setValue(false);
+            }
+
+            @Override
+            public void onFailure(Throwable throwable) {
+                errorMessage.setValue("Could not load feed");
+                isLoading.setValue(false);
+                Log.d(TAG, "Error: " + throwable.getMessage());
+            }
+        });
+    }
+
     public LiveData<FeedResponse> getFeed() {
         return feed;
     }

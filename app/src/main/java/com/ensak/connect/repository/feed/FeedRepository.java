@@ -44,4 +44,23 @@ public class FeedRepository {
             }
         });
     }
+
+    public void getProfiles(Integer page, String fullname, RepositoryCallBack<FeedResponse> callback) {
+        api.getProfiles(page, 10, fullname).enqueue(new Callback<FeedResponse>() {
+            @Override
+            public void onResponse(Call<FeedResponse> call, Response<FeedResponse> response) {
+                if(! response.isSuccessful() || response.body() == null) {
+                    callback.onFailure(new Exception("Request failed"));
+                    return;
+                }
+                Log.d(TAG, "Response: " + response.body());
+                callback.onSuccess(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<FeedResponse> call, Throwable t) {
+                callback.onFailure(t);
+            }
+        });
+    }
 }

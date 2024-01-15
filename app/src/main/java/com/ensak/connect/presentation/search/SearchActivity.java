@@ -4,6 +4,8 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.PopupMenu;
@@ -16,7 +18,7 @@ import com.ensak.connect.presentation.home.FeedViewModel;
 public class SearchActivity extends AppCompatActivity {
 
     private ActivitySearchBinding binding;
-    String filter = "";
+    String filter = "ALL";
     String searchText = "";
     FeedViewModel feedViewModel;
     @Override
@@ -40,8 +42,18 @@ public class SearchActivity extends AppCompatActivity {
 
 
             @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 searchText = s.toString();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
             }
 
 
@@ -83,7 +95,8 @@ public class SearchActivity extends AppCompatActivity {
                             return true;
                         }
                         else if(itemId == R.id.search_all){
-                            binding.searchOption.setText("Touts");
+                            binding.searchOption.setText("Tout(Posts)");
+                            filter = "ALL";
                         }
 
                         return false;
@@ -96,9 +109,14 @@ public class SearchActivity extends AppCompatActivity {
         binding.cardSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                feedViewModel.fetchFeed(0, searchText, filter);
+                if (filter.equals("Profil")){
+                    feedViewModel.fetchProfiles(0, searchText);
+                }else{
+                    feedViewModel.fetchFeed(0, searchText, filter);
+                }
+
             }
-        }
+        });
     }
 
 
