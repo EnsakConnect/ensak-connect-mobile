@@ -1,7 +1,6 @@
 package com.ensak.connect.presentation.home;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,13 +10,10 @@ import android.view.ViewGroup;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
-import androidx.annotation.IntegerRes;
 import androidx.annotation.NonNull;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,7 +22,7 @@ import com.ensak.connect.adapters.feed.FeedAdapter;
 import com.ensak.connect.adapters.feed.OnPostInteractionListener;
 import com.ensak.connect.adapters.feed.RecommandedOffersAdapter;
 import com.ensak.connect.databinding.MainHomeFragementBinding;
-import com.ensak.connect.presentation.job_post.JopPostViewModel;
+import com.ensak.connect.presentation.job_post.JobPostViewModel;
 import com.ensak.connect.repository.feed.model.FeedContentResponse;
 import com.ensak.connect.repository.feed.model.FeedResponse;
 
@@ -40,7 +36,7 @@ public class FeedFragment extends Fragment implements OnPostInteractionListener 
     private MainHomeFragementBinding binding;
     private FeedViewModel feedViewModel;
     private FeedViewModel recommendedFeedViewModel;
-    private JopPostViewModel jopPostViewModel;
+    private JobPostViewModel jopPostViewModel;
     private FeedAdapter feedAdapter;
     private RecommandedOffersAdapter recommandedOffersAdapter;
     private RecyclerView recyclerView;
@@ -69,7 +65,7 @@ public class FeedFragment extends Fragment implements OnPostInteractionListener 
     }
 
     private void initJobPostViewModel() {
-        jopPostViewModel = new ViewModelProvider(this).get(JopPostViewModel.class);
+        jopPostViewModel = new ViewModelProvider(this).get(JobPostViewModel.class);
 
         jopPostViewModel.getIsSuccess().observe(getViewLifecycleOwner(), success -> {
             if(success){
@@ -94,11 +90,7 @@ public class FeedFragment extends Fragment implements OnPostInteractionListener 
         binding.nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
             @Override
             public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-
-                //Log.i("visiblePosition", scrollY + " " + ( v.getMeasuredHeight() - v.getChildAt(0).getMeasuredHeight() ));
-
                 if (scrollY + ( v.getMeasuredHeight() - v.getChildAt(0).getMeasuredHeight() ) == 0) {
-                    //Log.i("visiblePosition", "BOTTOM SCROLL");
                     onLoadMore();
                 }
             }

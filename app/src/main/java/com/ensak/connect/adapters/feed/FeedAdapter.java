@@ -30,7 +30,7 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     MainPostItemBinding binding;
 
-    private ArrayList<FeedContentResponse> feed;
+    private ArrayList<FeedContentResponse> feed = new ArrayList<>();
 
     private OnPostInteractionListener postInteractionListener;
 
@@ -63,7 +63,6 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         holder.setIsRecyclable(false);
         FeedContentResponse post = feed.get(position);
-        Log.i("DEBUG---------:","size"+Integer.toString(feed.size()));
         Context context = holder.itemView.getContext();
 
         binding.tvUserName.setText(post.getAuthor().getFullName());

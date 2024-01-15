@@ -14,7 +14,7 @@ import javax.inject.Inject;
 import dagger.hilt.android.lifecycle.HiltViewModel;
 
 @HiltViewModel
-public class JopPostViewModel extends ViewModel {
+public class JobPostViewModel extends ViewModel {
     private MutableLiveData<Boolean> isSuccess = new MutableLiveData<>(false);
     private MutableLiveData<Boolean> error = new MutableLiveData<>(false);
 
@@ -23,7 +23,7 @@ public class JopPostViewModel extends ViewModel {
     private JobPostRepository repository;
 
     @Inject
-    public JopPostViewModel(JobPostRepository jobPostRepository) {
+    public JobPostViewModel(JobPostRepository jobPostRepository) {
         repository = jobPostRepository;
     }
 
