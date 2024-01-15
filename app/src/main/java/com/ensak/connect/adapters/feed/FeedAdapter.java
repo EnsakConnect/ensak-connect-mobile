@@ -98,6 +98,7 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         LinearLayout llLike = holder.itemView.findViewById(R.id.ll_like);
         TextView tvLike = holder.itemView.findViewById(R.id.tv_like);
         ImageView ivLike = holder.itemView.findViewById(R.id.iv_like);
+        LinearLayout llShare = holder.itemView.findViewById(R.id.ll_share);
 
         LinearLayout llBlogInteractions = holder.itemView.findViewById(R.id.ll_blog_interactions);
         LinearLayout llJobInteractions = holder.itemView.findViewById(R.id.ll_job_interactions);
@@ -179,6 +180,16 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             intent.putExtra("postId", post.getId());
             intent.putExtra("postType", post.getPostType());
             context.startActivity(intent);
+        });
+
+        llShare.setOnClickListener(view -> {
+            Intent sendIntent = new Intent();
+            sendIntent.setAction(Intent.ACTION_SEND);
+            sendIntent.putExtra(Intent.EXTRA_TEXT, post.getDescription());
+            sendIntent.setType("text/plain");
+
+            Intent shareIntent = Intent.createChooser(sendIntent, null);
+            context.startActivity(shareIntent);
         });
 
         setupAuthor(post, context, holder);
