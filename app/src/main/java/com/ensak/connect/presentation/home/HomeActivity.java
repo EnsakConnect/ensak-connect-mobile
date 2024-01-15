@@ -242,7 +242,8 @@ public class HomeActivity extends AppCompatActivity {
             if (itemId == R.id.nav_home) {
             }
             else if(itemId == R.id.nav_user_posts){
-                // TODO: start my posts activity
+                Intent intent = new Intent(this, UserPostActivity.class);
+                startActivity(intent);
             } else if (itemId == R.id.nav_work_offers) {
                 Bundle bundle = new Bundle();
                 bundle.putString("filter", "CDI");
