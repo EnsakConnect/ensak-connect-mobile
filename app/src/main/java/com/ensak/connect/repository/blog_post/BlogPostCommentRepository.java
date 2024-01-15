@@ -1,4 +1,4 @@
-package com.ensak.connect.repository.job_post;
+package com.ensak.connect.repository.blog_post;
 
 import androidx.annotation.NonNull;
 
