@@ -117,11 +117,11 @@ public class PostCategoryFragment extends Fragment implements OnPostInteractionL
 
         feedViewModel.getFeed().observe(getViewLifecycleOwner(), feedResponse -> {
             ArrayList<FeedContentResponse> list = feedResponse.getContent();
-            list.addAll(feed.getContent());
-            list.addAll(feedResponse.getContent());
+            /*list.addAll(feed.getContent());
+            list.addAll(feedResponse.getContent());*/
             feed = feedResponse;
 
-            feed.content = list;
+            //feed.content = list;
             adapter.setItems(feed.getContent());
             adapter.notifyDataSetChanged();
             isLoading = false;
