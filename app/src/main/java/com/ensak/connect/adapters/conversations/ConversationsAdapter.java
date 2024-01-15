@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.ensak.connect.R;
 import com.ensak.connect.databinding.ChatConversationItemBinding;
+import com.ensak.connect.presentation.chat.conversation.ConversationsActivity;
 import com.ensak.connect.repository.chat.model.ConversationResponse;
 import com.ensak.connect.presentation.chat.chat.ChatActivity;
 import com.ensak.connect.repository.profile.model.ProfileDetailedResponse;
@@ -82,7 +83,7 @@ public class ConversationsAdapter extends RecyclerView.Adapter<RecyclerView.View
                 intent.putExtra("user_id", userId);
                 intent.putExtra("receiver_name", senderName);
                 intent.putExtra("receiver_image", logo);
-                context.startActivity(intent);
+                ((ConversationsActivity) context).startActivityForResult(intent, 1);
             }
         });
 

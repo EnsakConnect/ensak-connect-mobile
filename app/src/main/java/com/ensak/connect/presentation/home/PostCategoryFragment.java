@@ -122,6 +122,18 @@ public class PostCategoryFragment extends Fragment implements OnPostInteractionL
             adapter.notifyDataSetChanged();
             isLoading = false;
         });
+
+        feedViewModel.getIsLoading().observe(getViewLifecycleOwner(), isLoading -> {
+            if (isLoading)
+                binding.loadingProgressBar.setVisibility(View.VISIBLE);
+            else
+                binding.loadingProgressBar.setVisibility(View.GONE);
+        });
+
+        feedViewModel.getErrorMessage().observe(getViewLifecycleOwner(), errorMessage -> {
+            if(errorMessage.isEmpty()){ return; }
+            Toast.makeText(getContext(), "An error occurred, please try again", Toast.LENGTH_SHORT).show();
+        });
     }
 
     @Override
