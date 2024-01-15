@@ -1,9 +1,13 @@
 package com.ensak.connect.presentation.question_post.show;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.ensak.connect.repository.like.LikeRepository;
+import com.ensak.connect.repository.like.model.LikeResponse;
 import com.ensak.connect.repository.question_post.QuestionRepository;
 import com.ensak.connect.repository.question_post.model.QuestionPostAnswerRequest;
 import com.ensak.connect.repository.question_post.model.QuestionPostAnswerResponse;
@@ -20,6 +24,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
 @HiltViewModel
 public class ShowQuestionPostViewModel extends ViewModel {
     private QuestionRepository questionRepository;
+    private final LikeRepository likeRepository;
     private Integer questionPostId;
     private MutableLiveData<QuestionPostResponse> question = new MutableLiveData<>();
     private MutableLiveData<List<QuestionPostAnswerResponse>> answers = new MutableLiveData<>(new ArrayList<>());
@@ -28,8 +33,9 @@ public class ShowQuestionPostViewModel extends ViewModel {
     private MutableLiveData<String> successMessage = new MutableLiveData<>("");
 
     @Inject
-    public ShowQuestionPostViewModel(QuestionRepository questionRepository) {
+    public ShowQuestionPostViewModel(QuestionRepository questionRepository, LikeRepository likeRepository) {
         this.questionRepository = questionRepository;
+        this.likeRepository = likeRepository;
     }
 
     public void setQuestionPostId(Integer questionPostId) {
@@ -92,6 +98,44 @@ public class ShowQuestionPostViewModel extends ViewModel {
                 errorMessage.setValue("Error adding your answer");
             }
         });
+    }
+
+    public void likeDislikeQuestionPost() {
+        isLoading.setValue(true);
+        if (this.question.getValue().getLiked()) {
+            likeRepository.dislikeQuestionPost(questionPostId, new RepositoryCallBack<LikeResponse>() {
+                @Override
+                public void onSuccess(LikeResponse data) {
+                    question.getValue().setLiked(false);
+                    question.getValue().setLikesCount(question.getValue().getLikesCount()-1);
+                    question.setValue(question.getValue());
+                    isLoading.setValue(false);
+                }
+
+                @Override
+                public void onFailure(Throwable throwable) {
+                    isLoading.setValue(false);
+                    errorMessage.setValue("Error disliking question");
+                }
+            });
+        }else {
+            likeRepository.likeQuestionPost(questionPostId, new RepositoryCallBack<LikeResponse>() {
+                @Override
+                public void onSuccess(LikeResponse data) {
+                    question.getValue().setLiked(true);
+                    question.getValue().setLikesCount(question.getValue().getLikesCount()+1);
+                    question.setValue(question.getValue());
+                    isLoading.setValue(false);
+                }
+
+                @Override
+                public void onFailure(Throwable throwable) {
+                    isLoading.setValue(false);
+                    errorMessage.setValue("Error liking question");
+                }
+            });
+        }
+
     }
 
     public LiveData<QuestionPostResponse> getQuestion() {

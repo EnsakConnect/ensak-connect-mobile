@@ -175,10 +175,15 @@ public class ProfileActivity extends AppCompatActivity {
             if (profileResponse != null) {
                 String fullName = profileResponse.getFullName();
                 binding.userName.setText(fullName);
-                String userTitle = profileResponse.getTitle();
-                String userDetailsText = userTitle;
-                Log.d(TAG, "onCreate: " + userDetailsText);
-                binding.userDetails.setText(userDetailsText);
+                String userTitle = profileResponse.getTitle() == null ? "--" : profileResponse.getTitle();
+                String userDescription = profileResponse.getDescription();
+                Log.d(TAG, "onCreate: " + userTitle);
+                Log.d(TAG, "onCreate: " + userDescription);
+                binding.userDetails.setText(userTitle);
+                binding.userDescription.setText(userDescription);
+                if (profileResponse.getDescription() == null){
+                    binding.userDescription.setVisibility(View.GONE);
+                }
 
                 experienceAdapter = new ExperienceAdapter(this, profileResponse.getExperienceList());
                 binding.experienceRecyclerView.setAdapter(experienceAdapter);
@@ -206,7 +211,9 @@ public class ProfileActivity extends AppCompatActivity {
 
                 if(profileResponse.getResume() != null){
                     binding.uploadResume.setText("Update CV");
+                    binding.downloadResume.setVisibility(View.VISIBLE);
                 } else {
+                    binding.downloadResume.setVisibility(View.GONE);
                     binding.uploadResume.setText("Ajouter un CV");
                 }
 
