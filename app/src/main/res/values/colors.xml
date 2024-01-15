@@ -42,4 +42,18 @@
     <color name="tag_qa_foreground">#5B21B6</color>
     <color name="tag_blog">#009688</color>
     <color name="tag_doctorate">#00BCD4</color>
+
+    <color name="chip_blog_fg">#9A3412</color>
+    <color name="chip_blog_bg">#269A3412</color>
+
+    <color name="chip_pfe_fg">#166534</color>
+    <color name="chip_pfe_bg">#26166534</color>
+
+    <color name="chip_doc_fg">#1E40AF</color>
+    <color name="chip_doc_bg">#261E40AF</color>
+
+    <color name="chip_cdi_fg">#e0af12</color>
+    <color name="chip_cdi_bg">#24f0df22</color>
+
+
 </resources>

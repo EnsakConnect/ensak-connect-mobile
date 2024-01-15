@@ -156,7 +156,7 @@ public class FeedFragment extends Fragment implements OnPostInteractionListener 
     }
 
     private void setupFilterSpinner(Context context) {
-
+        binding.ivFilter.setVisibility(View.GONE);
         binding.ivFilter.setOnClickListener(view -> {
             PopupMenu popupMenu = new PopupMenu(context, view);
             popupMenu.getMenuInflater().inflate(R.menu.home_filter, popupMenu.getMenu());

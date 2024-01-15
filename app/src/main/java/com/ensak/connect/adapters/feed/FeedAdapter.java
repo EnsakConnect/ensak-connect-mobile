@@ -247,9 +247,12 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 .into(ivCompanyLogo);
 
         if (post.getPostType().equals("PFE")) {
-            chipTag.setChipBackgroundColorResource(R.color.tag_pfe);
+            chipTag.setChipBackgroundColorResource(R.color.chip_pfe_bg);
+            chipTag.setTextColor(holder.itemView.getContext().getColor(R.color.chip_pfe_fg));
         } else {
-            chipTag.setChipBackgroundColorResource(R.color.tag_cdi);
+            chipTag.setChipBackgroundColorResource(R.color.chip_cdi_bg);
+            chipTag.setTextColor(holder.itemView.getContext().getColor(R.color.chip_cdi_fg));
+
         }
 
         /*binding.llPositionDetails.setVisibility(View.VISIBLE);
@@ -278,7 +281,8 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         ImageView ivBlogImage = holder.itemView.findViewById(R.id.iv_blog_image);
 
 
-        chipTag.setChipBackgroundColorResource(R.color.tag_blog);
+        chipTag.setChipBackgroundColorResource(R.color.chip_blog_bg);
+        chipTag.setTextColor(holder.itemView.getContext().getColor(R.color.chip_blog_fg));
         ivBlogImage.setVisibility(View.VISIBLE);
         Glide.with(holder.itemView.getContext())
                 .load("https://www.w3schools.com/w3images/avatar2.png")
@@ -306,7 +310,8 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         LinearLayout llPositionDetails = holder.itemView.findViewById(R.id.ll_position_details);
         TextView tvPositionTitle = holder.itemView.findViewById(R.id.tv_position_title);
 
-        chipTag.setChipBackgroundColorResource(R.color.tag_doctorate);
+        chipTag.setChipBackgroundColorResource(R.color.chip_doc_bg);
+        chipTag.setTextColor(holder.itemView.getContext().getColor(R.color.chip_doc_fg));
         llPositionDetails.setVisibility(View.VISIBLE);
         tvPositionTitle.setText(post.getTitle());
 
