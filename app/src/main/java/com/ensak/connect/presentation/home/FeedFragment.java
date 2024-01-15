@@ -128,11 +128,10 @@ public class FeedFragment extends Fragment implements OnPostInteractionListener 
         });
 
         feedViewModel.getIsLoading().observe(getViewLifecycleOwner(), isLoading -> {
-            if(isLoading){
-                // TODO: Show loading indicator
-            } else {
-                // TODO: Hide loading indicator
-            }
+            if (isLoading)
+                binding.loadingProgressBar.setVisibility(View.VISIBLE);
+            else
+                binding.loadingProgressBar.setVisibility(View.GONE);
         });
 
         feedViewModel.getErrorMessage().observe(getViewLifecycleOwner(), errorMessage -> {
@@ -150,11 +149,7 @@ public class FeedFragment extends Fragment implements OnPostInteractionListener 
         });
 
         recommendedFeedViewModel.getIsLoading().observe(getViewLifecycleOwner(), isLoading -> {
-            if(isLoading){
-                // TODO: Show loading indicator
-            } else {
-                // TODO: Hide loading indicator
-            }
+
         });
 
         recommendedFeedViewModel.getErrorMessage().observe(getViewLifecycleOwner(), errorMessage -> {

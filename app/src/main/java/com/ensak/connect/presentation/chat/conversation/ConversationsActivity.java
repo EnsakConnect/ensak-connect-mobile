@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.ensak.connect.adapters.conversations.ConversationsAdapter;
@@ -28,6 +29,7 @@ public class ConversationsActivity extends AppCompatActivity {
     private ArrayList<ConversationResponse> conversations;
     private ConversationsAdapter adapter;
     private RecyclerView rvConversations;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +49,7 @@ public class ConversationsActivity extends AppCompatActivity {
     }
 
     private void initViews() {
+        progressBar = binding.loadingProgressBar;
         conversations = new ArrayList<>();
 
         rvConversations = binding.rvConversations;
@@ -71,15 +74,16 @@ public class ConversationsActivity extends AppCompatActivity {
         });
 
         conversationViewModel.getIsLoading().observe(this, isLoading -> {
-            // TODO: show loading state
-            Toast.makeText(this, "Loading...", Toast.LENGTH_SHORT).show();
+            if (isLoading)
+                progressBar.setVisibility(View.VISIBLE);
+            else
+                progressBar.setVisibility(View.GONE);
         });
 
         conversationViewModel.getErrorMessage().observe(this, errorMessage -> {
             if (errorMessage.isEmpty()) {
                 return;
             }
-            Toast.makeText(this, "Loading...", Toast.LENGTH_SHORT).show();
         });
     }
 
