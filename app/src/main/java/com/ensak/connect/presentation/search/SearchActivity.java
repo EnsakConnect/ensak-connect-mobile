@@ -2,25 +2,44 @@ package com.ensak.connect.presentation.search;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.widget.NestedScrollView;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.PopupMenu;
+import android.widget.Toast;
 
 import com.ensak.connect.R;
+import com.ensak.connect.adapters.feed.FeedAdapter;
+import com.ensak.connect.adapters.feed.OnPostInteractionListener;
 import com.ensak.connect.databinding.ActivitySearchBinding;
 import com.ensak.connect.databinding.NotificationActivityBinding;
 import com.ensak.connect.presentation.home.FeedViewModel;
+import com.ensak.connect.presentation.job_post.JobPostViewModel;
+import com.ensak.connect.repository.feed.model.FeedContentResponse;
+import com.ensak.connect.repository.feed.model.FeedResponse;
 
-public class SearchActivity extends AppCompatActivity {
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
+public class SearchActivity extends AppCompatActivity implements OnPostInteractionListener {
 
     private ActivitySearchBinding binding;
     String filter = "ALL";
     String searchText = "";
     FeedViewModel feedViewModel;
+    private FeedAdapter feedAdapter;
+    private FeedResponse feed;
+    private RecyclerView recyclerView;
+    private JobPostViewModel jopPostViewModel;
+    private boolean isLoading = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +56,8 @@ public class SearchActivity extends AppCompatActivity {
                 finish();
             }
         });
+        initViewModel();
+        setupFeedRecycleView();
 
         binding.etName.addTextChangedListener(new TextWatcher() {
 
@@ -87,7 +108,7 @@ public class SearchActivity extends AppCompatActivity {
                             return true;
                         } else if (itemId == R.id.search_profile) {
                             binding.searchOption.setText("Profile");
-
+                            filter = "Profile";
                             return true;
                         } else if (itemId == R.id.search_QA) {
                            binding.searchOption.setText("Q&A");
@@ -109,15 +130,97 @@ public class SearchActivity extends AppCompatActivity {
         binding.cardSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (filter.equals("Profile")){
-                    feedViewModel.fetchProfiles(0, searchText);
-                }else{
+//                if (filter.equals("Profile")){
+//                    feedViewModel.fetchProfiles(0, searchText);
+
+//                }else{
                     feedViewModel.fetchFeed(0, searchText, filter);
-                }
+//                }
 
             }
         });
     }
+
+    private void setupFeedRecycleView() {
+        recyclerView = binding.rvAllOffers;
+        feedAdapter = new FeedAdapter(this);
+        recyclerView.setAdapter(feedAdapter);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+
+        // Set up the scroll listener for pagination
+        binding.nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                if (scrollY + (v.getMeasuredHeight() - v.getChildAt(0).getMeasuredHeight()) == 0) {
+                    onLoadMore();
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onJobApply(int position) {
+        Log.i("DEBUG", "position:" + Integer.toString(position) + ", post id :" + feed.content.get(position).getId());
+        jopPostViewModel.applyToJob(feed.content.get(position).getId());
+        feed.content.get(position).setIsLiked(true);
+        feedAdapter.updateItem(position, feed.content.get(position));
+        Log.i("DEBUG:", "position" + Integer.toString(position));
+        //feedAdapter.notifyItemChanged(position,feed.content.get(position));
+    }
+    @Override
+    public void likeDislikeQuestionPost(FeedContentResponse post, int index) {
+        feedViewModel.likeDislikeQuestionPost(post, index);
+        feedViewModel.getLikeStatus().observe(this, isLiked -> {
+            post.setIsLiked(isLiked);
+            post.setLikesCount(isLiked ? post.getLikesCount() + 1 : post.getLikesCount() - 1);
+            feedAdapter.notifyDataSetChanged();
+        });
+    }
+
+    @Override
+    public void likeDislikeBlogPost(FeedContentResponse post, int index) {
+        feedViewModel.likeDislikeBlogPost(post, index);
+        feedViewModel.getLikeStatus().observe(this, isLiked -> {
+            post.setIsLiked(isLiked);
+            post.setLikesCount(isLiked ? post.getLikesCount() + 1 : post.getLikesCount() - 1);
+            feedAdapter.notifyDataSetChanged();
+        });
+    }
+
+    public void onLoadMore() {
+        if (isLoading) return;
+
+        if (feed.getPageNumber() < feed.getTotalPages()) {
+            isLoading = true;
+            feedViewModel.fetchFeed(feed.getPageNumber() + 1, searchText, filter);
+        }
+    }
+    private void initViewModel() {
+        feedViewModel =
+                new ViewModelProvider(this).get(FeedViewModel.class);
+
+        feedViewModel.getFeed().observe(this, feedResponse -> {
+            feed = feedResponse;
+            feedAdapter.setItems(feedResponse.content);
+            isLoading = false;
+        });
+
+        feedViewModel.getIsLoading().observe(this, isLoading -> {
+            if (isLoading)
+                binding.loadingProgressBar.setVisibility(View.VISIBLE);
+            else
+                binding.loadingProgressBar.setVisibility(View.GONE);
+        });
+
+        feedViewModel.getErrorMessage().observe(this, errorMessage -> {
+            if (errorMessage.isEmpty()) {
+                return;
+            }
+            Toast.makeText(this, "An error occurred, please try again", Toast.LENGTH_SHORT).show();
+        });
+    }
+
 
 
 

@@ -46,7 +46,7 @@ public class FeedRepository {
     }
 
     public void getProfiles(Integer page, String fullname, RepositoryCallBack<FeedResponse> callback) {
-        api.getProfiles(page, 10, fullname).enqueue(new Callback<FeedResponse>() {
+        api.getProfiles(fullname, page, 10).enqueue(new Callback<FeedResponse>() {
             @Override
             public void onResponse(Call<FeedResponse> call, Response<FeedResponse> response) {
                 if(! response.isSuccessful() || response.body() == null) {

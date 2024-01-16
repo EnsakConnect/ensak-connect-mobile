@@ -59,13 +59,13 @@ public class AddSkillsAdapter extends RecyclerView.Adapter<AddSkillsAdapter.Skil
 
     static class SkillViewHolder extends RecyclerView.ViewHolder {
         TextView txtTitle;
-        ImageView editIcon;
+
         ImageView deleteIcon;
 
         SkillViewHolder(View itemView, OnSkillDeleteListener deleteListener) {
             super(itemView);
             txtTitle = itemView.findViewById(R.id.txtTitle);
-            editIcon = itemView.findViewById(R.id.iconEdit);
+
             deleteIcon = itemView.findViewById(R.id.iconDelete);
 
             deleteIcon.setOnClickListener(v -> {
