@@ -283,7 +283,7 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         chipTag.setTextColor(holder.itemView.getContext().getColor(R.color.chip_blog_fg));
         ivBlogImage.setVisibility(View.VISIBLE);
         Glide.with(holder.itemView.getContext())
-                .load("https://www.w3schools.com/w3images/avatar2.png")
+                .load(R.drawable.profile_banner_placeholder)
                 .apply(new RequestOptions()
                         .placeholder(R.drawable.ic_launcher_background) // Placeholder image
                         .error(R.drawable.ic_launcher_background) // Error image in case of loading failure
