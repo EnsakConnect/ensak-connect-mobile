@@ -1,6 +1,7 @@
 package com.ensak.connect.presentation.home;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -52,7 +53,7 @@ public class FeedViewModel extends ViewModel {
         });
     }
 
-    public void likeDislikeQuestionPost(FeedContentResponse post, int index) {
+    public void likeDislikeQuestionPost(FeedContentResponse post) {
         if (post.isLiked()) {
             likeRepository.dislikeQuestionPost(post.getId(), new RepositoryCallBack<LikeResponse>() {
                 @Override
@@ -84,7 +85,7 @@ public class FeedViewModel extends ViewModel {
         }
     }
 
-    public void likeDislikeBlogPost(FeedContentResponse post, int index) {
+    public void likeDislikeBlogPost(FeedContentResponse post) {
         if (post.isLiked()) {
             likeRepository.dislikeBlogPost(post.getId(), new RepositoryCallBack<LikeResponse>() {
                 @Override
