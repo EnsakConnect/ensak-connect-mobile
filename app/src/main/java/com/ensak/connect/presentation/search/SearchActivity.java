@@ -106,11 +106,13 @@ public class SearchActivity extends AppCompatActivity implements OnPostInteracti
                             binding.searchOption.setText("Offre d'emploi");
                             filter = "CDI";
                             return true;
-                        } else if (itemId == R.id.search_profile) {
-                            binding.searchOption.setText("Profile");
-                            filter = "Profile";
-                            return true;
-                        } else if (itemId == R.id.search_QA) {
+                        }
+//                        else if (itemId == R.id.search_profile) {
+//                            binding.searchOption.setText("Profile");
+//                            filter = "Profile";
+//                            return true;
+//                        }
+                        else if (itemId == R.id.search_QA) {
                            binding.searchOption.setText("Q&A");
                            filter = "Q&A";
                             return true;

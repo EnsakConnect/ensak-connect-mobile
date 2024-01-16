@@ -58,8 +58,7 @@ public class ConversationsAdapter extends RecyclerView.Adapter<RecyclerView.View
         String lastMessageDate = conversation.getLastMessage() != null ?
                 DateUtil.covertDateToTimeAgo(conversation.getLastMessageDate()) :
                 "";
-        String logo = senderProfile.getProfilePicture() != null ?
-                senderProfile.getProfilePicture() :
+        String logo =
                 "https://www.w3schools.com/w3images/avatar2.png";
         int conversationId = conversation.getId();
 

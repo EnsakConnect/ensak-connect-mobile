@@ -52,9 +52,9 @@ public class ProfileDetailedResponse {
     @Expose
     private Date updatedAt;
 
-    @SerializedName("profilePicture")
-    @Expose
-    private String profilePicture;
+//    @SerializedName("profilePicture")
+//    @Expose
+//    private String profilePicture;
 
     @SerializedName("banner")
     @Expose
@@ -130,7 +130,7 @@ public class ProfileDetailedResponse {
     }
 
     public String getProfilePicture() {
-        return profilePicture;
+        return "https://www.w3schools.com/w3images/avatar2.png";
     }
 
     public String getBanner() {
