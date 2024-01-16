@@ -51,25 +51,20 @@ public class CommentsAdapter extends
         binding.tvCommentDate.setText(DateUtil.calculateTimeAgo(comment.getDate()));
         binding.tvComment.setText(comment.getComment());
 
-        // TODO: real profile picture on comments
-
-        Glide.with(context)
-                .load(
-                        GlideAuthUrl.getUrl(context, AppConstants.BASE_URL + "resources/" + comment.getUser().getProfilePicture())
-                ).placeholder(R.drawable.profile_banner_placeholder)
-                .error(R.drawable.profile_picture_placeholder)
-                .centerCrop()
-                .into(binding.ivUserImage);
-        /*
-        Glide.with(context)
-                .load("https://www.w3schools.com/w3images/avatar2.png")
-                .apply(new RequestOptions()
-                        .placeholder(R.drawable.ic_launcher_background) // Placeholder image
-                        .error(R.drawable.ic_launcher_background) // Error image in case of loading failure
-                )
-                .into(binding.ivUserImage);
-
-         */
+        if(comment.getUser().getProfilePicture() == null || comment.getUser().getProfilePicture().isEmpty()){
+            Glide.with(context)
+                    .load(R.drawable.profile_picture_placeholder)
+                    .centerCrop()
+                    .into(binding.ivUserImage);
+        } else {
+            Glide.with(context)
+                    .load(
+                            GlideAuthUrl.getUrl(context, AppConstants.BASE_URL + "resources/" + comment.getUser().getProfilePicture())
+                    ).placeholder(R.drawable.profile_banner_placeholder)
+                    .error(R.drawable.profile_picture_placeholder)
+                    .centerCrop()
+                    .into(binding.ivUserImage);
+        }
     }
 
     @Override

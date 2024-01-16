@@ -90,12 +90,19 @@ public class AnswerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         }
 
         tvTimeAgo.setText(DateUtil.calculateTimeAgo(answer.getCreatedAt()));
-        Glide.with(context)
-                .load(GlideAuthUrl.getResource(context, answer.getAuthor().getProfilePicture()))
-                .placeholder(R.drawable.profile_picture_placeholder)
-                .error(R.drawable.profile_picture_placeholder)
-                .centerCrop()
-                .into(imgProfilePicture);
+        if(answer.getAuthor().getProfilePicture() == null || answer.getAuthor().getProfilePicture().isEmpty()){
+            Glide.with(context)
+                    .load(R.drawable.profile_picture_placeholder)
+                    .centerCrop()
+                    .into(imgProfilePicture);
+        } else {
+            Glide.with(context)
+                    .load(GlideAuthUrl.getResource(context, answer.getAuthor().getProfilePicture()))
+                    .placeholder(R.drawable.profile_picture_placeholder)
+                    .error(R.drawable.profile_picture_placeholder)
+                    .centerCrop()
+                    .into(imgProfilePicture);
+        }
 
         holder.itemView.findViewById(R.id.ll_up_image).setOnClickListener(v ->
                 onAnswerInteraction.interactUp(answer.getId()));

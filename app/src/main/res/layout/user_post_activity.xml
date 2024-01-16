@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingHorizontal="@dimen/activity_horizontal_margin"
+    android:background="@color/background"
     tools:context=".presentation.home.UserPostActivity">
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
@@ -33,11 +33,19 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingTop="60dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingVertical="@dimen/activity_vertical_margin"
+            android:paddingHorizontal="@dimen/activity_horizontal_margin">
 
             <androidx.core.widget.NestedScrollView
                 android:id="@+id/nested_scroll_view"
@@ -59,6 +67,6 @@
                 </LinearLayout>
 
             </androidx.core.widget.NestedScrollView>
-
         </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

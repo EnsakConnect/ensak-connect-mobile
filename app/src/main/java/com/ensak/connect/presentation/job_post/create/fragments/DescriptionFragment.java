@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.ensak.connect.databinding.JobPostDescriptionFragmentBinding;
-import com.ensak.connect.presentation.job_post.create.JobPostCreateActivity;
 import com.ensak.connect.presentation.job_post.create.JobPostCreateViewModel;
 
 import dagger.hilt.android.AndroidEntryPoint;
@@ -48,8 +47,6 @@ public class DescriptionFragment extends Fragment {
         jobPostCreateViewModel.getIsSuccess().observe(getViewLifecycleOwner(), success -> {
             if(success) {
                 getActivity().finish();
-
-
             }
         });
 

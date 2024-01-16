@@ -44,9 +44,5 @@ public class JobPostCreateActivity extends AppCompatActivity {
 
         fragmentAdapter.addFragment(new DetailsFragment());
         viewPager.setAdapter(fragmentAdapter);
-
-
-
-
     }
 }

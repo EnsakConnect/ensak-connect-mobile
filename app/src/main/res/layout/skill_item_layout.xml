@@ -15,6 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:paddingHorizontal="16dp"
+        android:text="Skill placeholder"
         android:textSize="18sp"
         android:textColor="#000" />
 

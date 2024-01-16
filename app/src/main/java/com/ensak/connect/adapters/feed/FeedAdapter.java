@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -89,6 +90,7 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         TextView tvLike = holder.itemView.findViewById(R.id.tv_like);
         ImageView ivLike = holder.itemView.findViewById(R.id.iv_like);
         LinearLayout llShare = holder.itemView.findViewById(R.id.ll_share);
+        LinearLayout llLikeDisabled = holder.itemView.findViewById(R.id.ll_like_disabled);
 
         LinearLayout llBlogInteractions = holder.itemView.findViewById(R.id.ll_blog_interactions);
         LinearLayout llJobInteractions = holder.itemView.findViewById(R.id.ll_job_interactions);
@@ -116,6 +118,12 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             setupDoctoratePost(post, holder);
         } else if (post.getPostType().equals("BlogPost")) {
             setupBlogpost(holder);
+
+            llComment.setOnClickListener(view -> {
+                Intent intent = new Intent(context, CommentsActivity.class);
+                intent.putExtra("postId", post.getId());
+                context.startActivity(intent);
+            });
         } else if (post.getPostType().equals("CDI") || post.getPostType().equals("PFE")) {
             setupJobPost(post, holder);
         }
@@ -132,11 +140,6 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
         Log.i("DEBUG:", post.getPostType());
 
-        llComment.setOnClickListener(view -> {
-            Intent intent = new Intent(context, CommentsActivity.class);
-            intent.putExtra("postId", post.getId());
-            context.startActivity(intent);
-        });
 
         llJobApply.setOnClickListener(view -> {
             postInteractionListener.onJobApply(position);
@@ -181,6 +184,10 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             context.startActivity(shareIntent);
         });
 
+        llLikeDisabled.setOnClickListener(v -> {
+            Toast.makeText(context, "Likes are currently disabled for job posts", Toast.LENGTH_SHORT).show();
+        });
+
         setupAuthor(post, context, holder);
     }
 
@@ -202,17 +209,24 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             tvUserTitle.setVisibility(View.VISIBLE);
             tvUserTitle.setText(post.getAuthor().getTitle());
         }
-        Glide.with(holder.itemView.getContext())
-                .load(
-                        GlideAuthUrl.getUrl(
-                                holder.itemView.getContext(),
-                                AppConstants.BASE_URL + "resources/" + post.getAuthor().getProfilePicture()
-                        )
-                )
-                .placeholder(R.drawable.profile_picture_placeholder)
-                .error(R.drawable.profile_picture_placeholder)
-                .centerCrop()
-                .into(ivUserImage);
+        if(post.getAuthor().getProfilePicture() == null || post.getAuthor().getProfilePicture().isEmpty()){
+            Glide.with(context)
+                    .load(R.drawable.profile_picture_placeholder)
+                    .centerCrop()
+                    .into(ivUserImage);
+        } else {
+            Glide.with(holder.itemView.getContext())
+                    .load(
+                            GlideAuthUrl.getUrl(
+                                    holder.itemView.getContext(),
+                                    AppConstants.BASE_URL + "resources/" + post.getAuthor().getProfilePicture()
+                            )
+                    )
+                    .placeholder(R.drawable.profile_picture_placeholder)
+                    .error(R.drawable.profile_picture_placeholder)
+                    .centerCrop()
+                    .into(ivUserImage);
+        }
     }
 
     private void setupJobPost(FeedContentResponse post, RecyclerView.ViewHolder holder) {
@@ -269,12 +283,13 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         chipTag.setTextColor(holder.itemView.getContext().getColor(R.color.chip_blog_fg));
         ivBlogImage.setVisibility(View.VISIBLE);
         Glide.with(holder.itemView.getContext())
-                .load("https://www.w3schools.com/w3images/avatar2.png")
+                .load(R.drawable.profile_banner_placeholder)
                 .apply(new RequestOptions()
                         .placeholder(R.drawable.ic_launcher_background) // Placeholder image
                         .error(R.drawable.ic_launcher_background) // Error image in case of loading failure
                 )
                 .into(ivBlogImage);
+
     }
 
     private void setupDoctoratePost(FeedContentResponse post, RecyclerView.ViewHolder holder) {
@@ -304,6 +319,8 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         TextView tvTags = holder.itemView.findViewById(R.id.tv_tags);
         Chip chipTag = holder.itemView.findViewById(R.id.chip_tag);
         TextView tvTimeAgo = holder.itemView.findViewById(R.id.tv_time_ago);
+        TextView tvCommentLbl = holder.itemView.findViewById(R.id.tv_comment_lbl);
+        LinearLayout llComment = holder.itemView.findViewById(R.id.ll_comment);
 
         tvBody.setText(post.getTitle());
         chipTag.setChipBackgroundColorResource(R.color.tag_qa_background);
@@ -312,6 +329,13 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             Intent intent = new Intent(context, ShowQuestionPost.class);
             intent.putExtra(ShowQuestionPost.KEY_QUESTION_POST_ID, post.getId());
             context.startActivity(intent);
+        });
+
+        tvCommentLbl.setText("Answers");
+        llComment.setOnClickListener(v -> {
+            Intent showQuestionIntent = new Intent(context, ShowQuestionPost.class);
+            showQuestionIntent.putExtra(ShowQuestionPost.KEY_QUESTION_POST_ID, post.getId());
+            context.startActivity(showQuestionIntent);
         });
     }
 

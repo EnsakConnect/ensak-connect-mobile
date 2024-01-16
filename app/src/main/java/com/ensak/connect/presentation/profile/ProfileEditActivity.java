@@ -84,22 +84,36 @@ public class ProfileEditActivity extends AppCompatActivity {
 
         profileEditViewModel.getProfilePicture().observe(this, profilePicture -> {
             String url = AppConstants.BASE_URL + "resources/"+profilePicture;
-            Glide.with(this)
-                    .load(GlideAuthUrl.getUrl(this, url))
-                    .placeholder(R.drawable.profile_picture_placeholder)
-                    .error(R.drawable.profile_picture_placeholder)
-                    .centerCrop()
-                    .into(binding.imgProfilePicture);
+            if(profilePicture == null || profilePicture.isEmpty()){
+                Glide.with(this)
+                        .load(R.drawable.profile_picture_placeholder)
+                        .centerCrop()
+                        .into(binding.imgProfilePicture);
+            } else {
+                Glide.with(this)
+                        .load(GlideAuthUrl.getUrl(this, url))
+                        .placeholder(R.drawable.profile_picture_placeholder)
+                        .error(R.drawable.profile_picture_placeholder)
+                        .centerCrop()
+                        .into(binding.imgProfilePicture);
+            }
         });
 
         profileEditViewModel.getProfileBanner().observe(this, profileBanner -> {
             String url = AppConstants.BASE_URL + "resources/"+profileBanner;
-            Glide.with(this)
-                    .load(GlideAuthUrl.getUrl(this, url))
-                    .placeholder(R.drawable.profile_banner_placeholder)
-                    .error(R.drawable.profile_banner_placeholder)
-                    .centerCrop()
-                    .into(binding.imgProfileBanner);
+            if(profileBanner == null || profileBanner.isEmpty()){
+                Glide.with(this)
+                        .load(R.drawable.profile_banner_placeholder)
+                        .centerCrop()
+                        .into(binding.imgProfileBanner);
+            } else {
+                Glide.with(this)
+                        .load(GlideAuthUrl.getUrl(this, url))
+                        .placeholder(R.drawable.profile_banner_placeholder)
+                        .error(R.drawable.profile_banner_placeholder)
+                        .centerCrop()
+                        .into(binding.imgProfileBanner);
+            }
         });
 
         profileEditViewModel.getIsLoading().observe(this, isLoading -> {

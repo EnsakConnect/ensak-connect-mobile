@@ -272,6 +272,7 @@
                         app:tint="@color/grey_700"/>
 
                     <TextView
+                        android:id="@+id/tv_comment_lbl"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/comments"
@@ -313,6 +314,31 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:orientation="horizontal">
+
+
+                <LinearLayout
+                    android:id="@+id/ll_like_disabled"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/iv_like_disabled"
+                        android:layout_width="@dimen/feed_ic_size"
+                        android:layout_height="@dimen/feed_ic_size"
+                        android:layout_marginEnd="@dimen/feed_ic_margin"
+                        android:src="@drawable/ic_thumb_up"
+                        app:tint="@color/grey_400" />
+
+                    <TextView
+                        android:id="@+id/tv_like_disabled"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/feed_text_interaction_size"
+                        android:textColor="@color/grey_400"
+                        android:text="@string/like" />
+                </LinearLayout>
                 <Space
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -368,11 +394,6 @@
                         android:text="@string/share"
                         android:textColor="@color/grey_700"/>
                 </LinearLayout>
-
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
             </LinearLayout>
         </LinearLayout>
 

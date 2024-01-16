@@ -129,14 +129,21 @@ public class HomeActivity extends AppCompatActivity {
             headerBinding.txtHeaderFullName.setText(user.getFullName());
             headerBinding.txtHeaderTitle.setText(user.getTitle());
 
-            Glide.with(this)
-                    .load(
-                            GlideAuthUrl.getUrl(this, AppConstants.BASE_URL + "resources/" + user.getProfilePicture())
-                    )
-                    .placeholder(R.drawable.profile_picture_placeholder)
-                    .error(R.drawable.profile_picture_placeholder)
-                    .centerCrop()
-                    .into(headerBinding.imgHeaderPicture);
+            if(user.getProfilePicture() == null || user.getProfilePicture().isEmpty()){
+                Glide.with(this)
+                        .load(R.drawable.profile_picture_placeholder)
+                        .centerCrop()
+                        .into(headerBinding.imgHeaderPicture);
+            } else {
+                Glide.with(this)
+                        .load(
+                                GlideAuthUrl.getUrl(this, AppConstants.BASE_URL + "resources/" + user.getProfilePicture())
+                        )
+                        .placeholder(R.drawable.profile_picture_placeholder)
+                        .error(R.drawable.profile_picture_placeholder)
+                        .centerCrop()
+                        .into(headerBinding.imgHeaderPicture);
+            }
         });
 
         homeViewModel.getIsLoading().observe(this, isLoading -> {

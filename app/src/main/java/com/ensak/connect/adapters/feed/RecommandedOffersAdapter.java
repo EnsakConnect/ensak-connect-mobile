@@ -5,58 +5,68 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.ensak.connect.R;
+import com.ensak.connect.adapters.conversations.UsersAdapter;
 import com.ensak.connect.databinding.MainRecommendedOfferItemBinding;
+import com.ensak.connect.databinding.UserProfileItemBinding;
 import com.ensak.connect.repository.feed.model.FeedContentResponse;
 import com.ensak.connect.repository.feed.model.FeedResponse;
+import com.google.android.material.chip.Chip;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class RecommandedOffersAdapter extends
-        RecyclerView.Adapter<RecyclerView.ViewHolder> {
+        RecyclerView.Adapter<RecommandedOffersAdapter.ViewHolder> {
 
-    MainRecommendedOfferItemBinding binding;
-    private FeedResponse feed = new FeedResponse();
+    private List<FeedContentResponse> feed = new ArrayList<>();
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        Context context = parent.getContext();
-        LayoutInflater inflater = LayoutInflater.from(context);
-
-        binding = MainRecommendedOfferItemBinding.inflate(inflater, parent, false);
-        ViewHolder viewHolder = new ViewHolder(binding.getRoot());
-        return viewHolder;
+    public RecommandedOffersAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        return new ViewHolder(MainRecommendedOfferItemBinding.inflate(inflater, parent, false));
     }
 
-    public void setItems(FeedResponse feed) {
-        this.feed = feed;
+    public void setItems(List<FeedContentResponse> feed) {
+        this.feed.clear();
+        this.feed.addAll(feed);
         notifyDataSetChanged();
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        FeedContentResponse post = feed.getContent().get(position);
-
-        binding.tvCompanyName.setText("Alten");
-        binding.tvTitle.setText("Software Engineer");
-        binding.chipTag.setText(post.getPostType());
-        binding.tvTags.setText("#" + String.join(", #", post.getTags()));
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        FeedContentResponse post = feed.get(position);
+        if(post.getCompany() != null) {
+            holder.getBinding().tvCompanyName.setText(post.getCompany().getCompanyName() + " - " + post.getCompany().getLocation());
+        } else {
+            holder.binding.tvCompanyName.setVisibility(View.INVISIBLE);
+        }
+        holder.getBinding().tvTitle.setText(post.getTitle());
+        holder.getBinding().chipTag.setText(post.getPostType());
+        holder.getBinding().tvTags.setText("#" + String.join(", #", post.getTags()));
     }
 
     @Override
     public int getItemCount() {
-        return feed.getContent().size();
+        return Math.min(feed.size(), 5);
     }
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+        private MainRecommendedOfferItemBinding binding;
 
-        public ViewHolder(View itemView) {
+        public ViewHolder(MainRecommendedOfferItemBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
+        }
 
-            super(itemView);
-
-
+        public MainRecommendedOfferItemBinding getBinding() {
+            return binding;
         }
     }
 }
