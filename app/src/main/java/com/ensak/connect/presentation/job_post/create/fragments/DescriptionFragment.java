@@ -47,6 +47,9 @@ public class DescriptionFragment extends Fragment {
         jobPostCreateViewModel.getIsSuccess().observe(getViewLifecycleOwner(), success -> {
             if(success) {
                 getActivity().getSupportFragmentManager().popBackStack();
+                if(getActivity() != null) {
+                    getActivity().finish();
+                }
             }
         });
 
