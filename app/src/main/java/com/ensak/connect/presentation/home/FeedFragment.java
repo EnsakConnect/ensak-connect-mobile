@@ -106,20 +106,20 @@ public class FeedFragment extends Fragment implements OnPostInteractionListener 
         feedViewModel =
                 new ViewModelProvider(this).get(FeedViewModel.class);
 
-        feedViewModel.getFeed().observe(getViewLifecycleOwner(), feedResponse -> {
+        feedViewModel.getFeed().observe(this, feedResponse -> {
             feed = feedResponse;
             feedAdapter.addList(feedResponse.content);
             isLoading = false;
         });
 
-        feedViewModel.getIsLoading().observe(getViewLifecycleOwner(), isLoading -> {
+        feedViewModel.getIsLoading().observe(this, isLoading -> {
             if (isLoading)
                 binding.loadingProgressBar.setVisibility(View.VISIBLE);
             else
                 binding.loadingProgressBar.setVisibility(View.GONE);
         });
 
-        feedViewModel.getErrorMessage().observe(getViewLifecycleOwner(), errorMessage -> {
+        feedViewModel.getErrorMessage().observe(this, errorMessage -> {
             if (errorMessage.isEmpty()) {
                 return;
             }

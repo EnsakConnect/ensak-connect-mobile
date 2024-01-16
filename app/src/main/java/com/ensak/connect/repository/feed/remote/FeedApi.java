@@ -4,6 +4,7 @@ import com.ensak.connect.repository.feed.model.FeedResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface FeedApi {
@@ -14,10 +15,11 @@ public interface FeedApi {
             @Query("search") String search,
             @Query("filter") String filter);
 
-    @GET("feeds")
+    @GET("profile/search/{fullname}")
     Call<FeedResponse> getProfiles(
+            @Path("fullname") String fullname,
             @Query("page") int page,
-            @Query("size") int size,
-            @Query("fullname") String fullname);
+            @Query("size") int size
+            );
 
 }
