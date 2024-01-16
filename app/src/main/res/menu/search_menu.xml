@@ -10,8 +10,7 @@
         android:title="Blog" />
     <item android:id="@+id/search_QA"
         android:title="Q&amp;A" />
-    <item android:id="@+id/search_profile"
-        android:title="Profile" />
+
     <item android:id="@+id/search_all"
         android:title="Tout" />
 </menu>
