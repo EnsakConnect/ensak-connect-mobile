@@ -9,6 +9,8 @@ import com.ensak.connect.repository.job_post.JobPostRepository;
 import com.ensak.connect.repository.job_post.model.JobPostApplicationResponse;
 import com.ensak.connect.repository.shared.RepositoryCallBack;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import dagger.hilt.android.lifecycle.HiltViewModel;
@@ -19,6 +21,8 @@ public class JobPostViewModel extends ViewModel {
     private MutableLiveData<Boolean> error = new MutableLiveData<>(false);
 
     private MutableLiveData<String> errorMessage = new MutableLiveData<>("");
+
+    private MutableLiveData<List<JobPostApplicationResponse>> applications= new MutableLiveData<>();
 
     private JobPostRepository repository;
 
@@ -37,6 +41,20 @@ public class JobPostViewModel extends ViewModel {
             public void onFailure(Throwable throwable) {
                 error.setValue(true);
                 errorMessage.setValue("Error Applying for Job");
+            }
+        });
+    }
+
+    public  void getJobApplications(int jobId){
+        repository.getApplications(jobId, new  RepositoryCallBack<List<JobPostApplicationResponse>>(){
+            @Override
+            public void onSuccess(List<JobPostApplicationResponse> data) {
+                applications.setValue(data);
+            }
+            @Override
+            public void onFailure(Throwable throwable) {
+                error.setValue(true);
+                errorMessage.setValue("Error getting job applications");
             }
         });
     }
@@ -63,5 +81,9 @@ public class JobPostViewModel extends ViewModel {
 
     public void setErrorMessage(MutableLiveData<String> errorMessage) {
         this.errorMessage = errorMessage;
+    }
+
+    public LiveData<List<JobPostApplicationResponse>> getApplications() {
+        return applications;
     }
 }

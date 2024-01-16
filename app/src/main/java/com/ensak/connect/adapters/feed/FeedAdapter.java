@@ -19,12 +19,14 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.ensak.connect.R;
 import com.ensak.connect.constants.AppConstants;
+import com.ensak.connect.presentation.job_post.JobApplicationsActivity;
 import com.ensak.connect.presentation.profile.ProfileActivity;
 import com.ensak.connect.presentation.question_post.show.ShowQuestionPost;
 import com.ensak.connect.presentation.report.ReportActivity;
 import com.ensak.connect.repository.feed.model.FeedContentResponse;
 import com.ensak.connect.presentation.blog_post.comments.CommentsActivity;
 import com.ensak.connect.service.GlideAuthUrl;
+import com.ensak.connect.service.SessionManagerService;
 import com.google.android.material.chip.Chip;
 
 import java.util.ArrayList;
@@ -33,6 +35,8 @@ import java.util.List;
 public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     //MainPostItemBinding binding;
+
+    private SessionManagerService managerService;
 
     private List<FeedContentResponse> feed = new ArrayList<>();
 
@@ -62,6 +66,7 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.main_post_item, parent, false);
+        managerService = new SessionManagerService(parent.getContext());
         return new ViewHolder(view);
     }
 
@@ -219,6 +224,17 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         TextView tvCompanyLocation = holder.itemView.findViewById(R.id.tv_company_location);
         Chip chipTag = holder.itemView.findViewById(R.id.chip_tag);
         ImageView ivCompanyLogo = holder.itemView.findViewById(R.id.iv_company_logo);
+        TextView tvBody = holder.itemView.findViewById(R.id.tv_body);
+
+        tvBody.setOnClickListener(v -> {
+            if(managerService.getUserId() != post.getAuthor().getUserId())
+                return;
+            Intent intent = new Intent(holder.itemView.getContext(), JobApplicationsActivity.class);
+            intent.putExtra("post", post);
+            holder.itemView.getContext().startActivity(intent);
+            Log.i("DEBUG1:","we clicked");
+        });
+
 
         llPositionDetails.setVisibility(View.VISIBLE);
         llCompanyDetails.setVisibility(View.VISIBLE);
@@ -266,7 +282,15 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         Chip chipTag = holder.itemView.findViewById(R.id.chip_tag);
         LinearLayout llPositionDetails = holder.itemView.findViewById(R.id.ll_position_details);
         TextView tvPositionTitle = holder.itemView.findViewById(R.id.tv_position_title);
-
+        TextView tvBody = holder.itemView.findViewById(R.id.tv_body);
+        tvBody.setOnClickListener(v -> {
+            if(managerService.getUserId() != post.getAuthor().getUserId())
+                return;
+            Intent intent = new Intent(holder.itemView.getContext(), JobApplicationsActivity.class);
+            intent.putExtra("post", post);
+            holder.itemView.getContext().startActivity(intent);
+            Log.i("DEBUG1:","we clicked");
+        });
         chipTag.setChipBackgroundColorResource(R.color.chip_doc_bg);
         chipTag.setTextColor(holder.itemView.getContext().getColor(R.color.chip_doc_fg));
         llPositionDetails.setVisibility(View.VISIBLE);

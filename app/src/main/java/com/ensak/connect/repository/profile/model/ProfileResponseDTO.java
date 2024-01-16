@@ -3,7 +3,9 @@ package com.ensak.connect.repository.profile.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class ProfileResponseDTO {
+import java.io.Serializable;
+
+public class ProfileResponseDTO implements Serializable {
     @SerializedName("userId")
     @Expose
     private int userId;
