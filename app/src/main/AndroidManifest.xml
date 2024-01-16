@@ -3,8 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
+        android:name=".EnsakConnectApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -13,9 +15,128 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ENSAKConnect"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".presentation.job_post.JobApplicationsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.ENSAKConnect.NoActionBar" />
+        <activity
+            android:name=".presentation.home.UserPostActivity"
+            android:exported="false"
+            android:theme="@style/Theme.ENSAKConnect.NoActionBar" />
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+
+        <activity
+            android:name=".presentation.search.SearchActivity"
+            android:exported="false"
+            android:theme="@style/Theme.ENSAKConnect.NoActionBar" />
+        <activity
+            android:name=".presentation.chat.conversation.AddConversationActivity"
+            android:exported="false"
+            android:theme="@style/Theme.ENSAKConnect.NoActionBar" />
+        <activity
+            android:name=".presentation.report.ReportActivity"
+            android:exported="false"
+            android:theme="@style/Theme.ENSAKConnect.NoActionBar" />
+        <activity
+            android:name=".presentation.question_post.show.ShowQuestionPost"
+            android:exported="false"
+            android:theme="@style/Theme.ENSAKConnect.NoActionBar" />
+        <activity
+            android:name=".presentation.profile.ProfileEditActivity"
+            android:exported="false"
+            android:theme="@style/Theme.ENSAKConnect.NoActionBar" />
+        <activity
+            android:name=".presentation.profile.CertificateActivity"
+            android:exported="false"
+            android:theme="@style/Theme.ENSAKConnect.NoActionBar" />
+        <activity
+            android:name=".presentation.profile.SkillsEditActivity"
+            android:exported="false"
+            android:theme="@style/Theme.ENSAKConnect.NoActionBar" />
+        <activity
+            android:name=".presentation.testing.TestingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.job_post.create.JobPostCreateActivity"
+            android:exported="false"
+            android:theme="@style/Theme.ENSAKConnect.NoActionBar"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".presentation.profile.ExperienceEditActivity"
+            android:exported="false"
+            android:theme="@style/Theme.ENSAKConnect.NoActionBar"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".presentation.profile.EducationEditActivity"
+            android:exported="false"
+            android:theme="@style/Theme.ENSAKConnect.NoActionBar"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".presentation.settigns.SettingsActivity"
+            android:exported="false"
+            android:label="@string/title_activity_settings"
+            android:theme="@style/Theme.ENSAKConnect.NoActionBar" />
+        <activity
+            android:name=".presentation.notifications.NotificationActivity"
+            android:exported="false"
+            android:theme="@style/Theme.ENSAKConnect.NoActionBar" />
+        <activity
+            android:name=".presentation.chat.chat.ChatActivity"
+            android:exported="false"
+            android:theme="@style/Theme.ENSAKConnect.NoActionBar" />
+        <activity
+            android:name=".presentation.profile.ProfileActivity"
+            android:exported="false"
+            android:theme="@style/Theme.ENSAKConnect.NoActionBar" />
+        <activity
+            android:name=".presentation.chat.conversation.ConversationsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.ENSAKConnect.NoActionBar" />
+        <activity
+            android:name=".presentation.auth.password_reset.CodeValidationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.auth.password_reset.PasswordResetActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.auth.password_reset.ChangePasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.blog_post.comments.CommentsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.ENSAKConnect.NoActionBar" />
+        <activity
+            android:name=".presentation.static_activities.AboutActivity"
+            android:exported="false"
+            android:theme="@style/Theme.ENSAKConnect.NoActionBar" />
+        <activity
+            android:name=".presentation.auth.registration.RegistrationScreen"
+            android:exported="false"
+            android:theme="@style/Theme.ENSAKConnect.NoActionBar" />
+        <activity
+            android:name=".presentation.auth.login.LoginActivity"
+            android:exported="false"
+            android:theme="@style/Theme.ENSAKConnect.NoActionBar" />
+        <activity
+            android:name=".presentation.question_post.create.CreateQuestionActivity"
+            android:exported="false"
+            android:theme="@style/Theme.ENSAKConnect.NoActionBar" />
+        <activity
+            android:name=".presentation.home.HomeActivity"
+            android:exported="true"
+            android:theme="@style/Theme.ENSAKConnect.NoActionBar" />
+        <activity
+            android:name=".presentation.auth.loading_screen.LoadingActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.ENSAKConnect.NoActionBar">

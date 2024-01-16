@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/filter_job_offer"
+        android:title="Offres d'emploi" />
+    <item android:id="@+id/filter_intern_offer"
+        android:title="Offres de stage" />
+    <item android:id="@+id/filter_doctor_offer"
+        android:title="Offres de doctorats" />
+    <item android:id="@+id/filter_blog"
+        android:title="Blog" />
+    <item android:id="@+id/filter_qa"
+        android:title="Q&amp;A" />
+</menu>

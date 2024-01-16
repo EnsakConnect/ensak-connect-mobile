@@ -10,4 +10,49 @@
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
+
+    <string name="back_button">Back</string>
+    <string name="banner_content_description">Banner Image</string>
+    <string name="user_profile_image">User Profile Image</string>
+    <string name="nom_utilisateur">Nom Utilisateur</string>
+    <string name="user_details">Développeur Fullstack - Entreprise\nMorocco, Kenitra</string>
+    <string name="modify_my_profile">Modifier mon profil</string>
+    <string name="share">Share</string>
+    <string name="voir_le_cv">Voir le CV</string>
+    <string name="static_description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed odio tortor, tincidunt in magna at, ultrices semper est. Mauris sem nulla, placerat nec pellentesque vitae, malesuada eget dolor. Donec pellentesque nulla ut quam maximus porttitor. Vestibulum pellentesque convallis facilisis.</string>
+    <string name="se_connecter">se connecter\n</string>
+    <string name="exp_rience_professionnelles">Expérience professionnelles</string>
+    <string name="parcours_educatif">Parcours éducatif</string>
+    <string name="experience_title">Développeur Fullstack</string>
+    <string name="experience_date">Sept 2022 - Present</string>
+    <string name="button_text">Ajouter</string>
+    <string name="company_location">"Entreprise - Morocco, Kenitra "</string>
+    <string name="skills">Compétences\n</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="like">Like</string>
+    <string name="comments">Comments</string>
+    <string name="expriences">Expèriences</string>
+    <string name="certificate_name">Google data analytics</string>
+    <string name="lien">Lien</string>
+    <string name="certificateTitle">Google Cloud Platform Fundamentals: Core Infrastructure</string>
+    <string name="upload_cv">Upload CV</string>
+
+
 </resources>

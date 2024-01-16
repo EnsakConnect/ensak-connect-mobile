@@ -1,10 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="background">#FFf2f2f2</color>
     <color name="purple_200">#FFBB86FC</color>
+    <color name="light_putple">#FFd3d2f4</color>
     <color name="purple_500">#FF6200EE</color>
+
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="grey">#FFe2e8f0</color>
+
+    <color name="grey_900">#1A202C</color>
+    <color name="grey_800">#2D3748</color>
+    <color name="grey_700">#4A5568</color>
+    <color name="grey_600">#718096</color>
+    <color name="grey_500">#A0AEC0</color>
+    <color name="grey_400">#CBD5E0</color>
+    <color name="grey_300">#E2E8F0</color>
+    <color name="grey_200">#EDF2F7</color>
+    <color name="grey_100">#F7FAFC</color>
+
+    <color name="primary">#FF5552FE</color>
+    <color name="primary_35">#235552FE</color>
+    <color name="background_light">#F2F2F2</color>
+    <color name="lbl_gray">#718096</color>
+
+    <color name="gray_900">#1A202C</color>
+    <color name="gray_600">#718096</color>
+
+    <!--  Feedback colors  -->
+    <color name="error">#ff3333</color>
+    <color name="error_30">#23ff3333</color>
+
+    <!-- Tags color   -->
+    <color name="tag_pfe">#F44336</color>
+    <color name="tag_cdi">#9C27B0</color>
+    <color name="tag_qa">#8BC34A</color>
+    <color name="tag_qa_background">#265B21B6</color>
+    <color name="tag_qa_foreground">#5B21B6</color>
+    <color name="tag_blog">#009688</color>
+    <color name="tag_doctorate">#00BCD4</color>
+
+    <color name="chip_blog_fg">#9A3412</color>
+    <color name="chip_blog_bg">#269A3412</color>
+
+    <color name="chip_pfe_fg">#166534</color>
+    <color name="chip_pfe_bg">#26166534</color>
+
+    <color name="chip_doc_fg">#1E40AF</color>
+    <color name="chip_doc_bg">#261E40AF</color>
+
+    <color name="chip_cdi_fg">#e0af12</color>
+    <color name="chip_cdi_bg">#24f0df22</color>
+
+
 </resources>
