@@ -108,7 +108,7 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         ImageView ivJobApply = holder.itemView.findViewById(R.id.iv_job_apply);
         LinearLayout llComment = holder.itemView.findViewById(R.id.ll_comment);
 
-        tvUserName.setText(post.getAuthor().getFirstname());
+        tvUserName.setText(post.getAuthor().getFullName());
         tvBody.setText(post.getDescription());
         tvTags.setText("#" + String.join(", #", post.getTags()));
         chipTag.setText(post.getPostType());
@@ -203,7 +203,7 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         ImageView ivUserImage = holder.itemView.findViewById(R.id.iv_user_image);
         crdUserData.setOnClickListener(view -> {
             Intent intent = new Intent(context, ProfileActivity.class);
-            intent.putExtra(ProfileActivity.KEY_USER_ID, post.getAuthor().getId());
+            intent.putExtra(ProfileActivity.KEY_USER_ID, post.getAuthor().getUserId());
             context.startActivity(intent);
         });
 

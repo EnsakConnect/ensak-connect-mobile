@@ -1,6 +1,7 @@
 package com.ensak.connect.repository.feed.model;
 
 import com.ensak.connect.repository.auth.model.UserResponse;
+import com.ensak.connect.repository.profile.model.ProfileResponseDTO;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -40,7 +41,7 @@ public class FeedContentResponse {
 
     @SerializedName("author")
     @Expose
-    private UserResponse author;
+    private ProfileResponseDTO author;
 
     @SerializedName("company")
     @Expose
@@ -106,7 +107,7 @@ public class FeedContentResponse {
         return resources;
     }
 
-    public UserResponse getAuthor() {
+    public ProfileResponseDTO getAuthor() {
         return author;
     }
 
