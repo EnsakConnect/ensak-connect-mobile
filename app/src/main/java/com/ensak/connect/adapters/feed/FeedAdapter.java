@@ -276,7 +276,13 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         Chip chipTag = holder.itemView.findViewById(R.id.chip_tag);
         LinearLayout llPositionDetails = holder.itemView.findViewById(R.id.ll_position_details);
         TextView tvPositionTitle = holder.itemView.findViewById(R.id.tv_position_title);
-
+        TextView tvBody = holder.itemView.findViewById(R.id.tv_body);
+        tvBody.setOnClickListener(v -> {
+            Intent intent = new Intent(holder.itemView.getContext(), JobApplicationsActivity.class);
+            intent.putExtra("post", post);
+            holder.itemView.getContext().startActivity(intent);
+            Log.i("DEBUG1:","we clicked");
+        });
         chipTag.setChipBackgroundColorResource(R.color.chip_doc_bg);
         chipTag.setTextColor(holder.itemView.getContext().getColor(R.color.chip_doc_fg));
         llPositionDetails.setVisibility(View.VISIBLE);
