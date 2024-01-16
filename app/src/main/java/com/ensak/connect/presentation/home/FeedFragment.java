@@ -63,17 +63,7 @@ public class FeedFragment extends Fragment implements OnPostInteractionListener 
         setupFilterSpinner(getContext());
 
         binding.tvSeeAllOffers.setVisibility(View.GONE);
-//        binding.tvSeeAllOffers.setOnClickListener(v -> {
-//            PostCategoryFragment frg = new PostCategoryFragment();
-//            Bundle bundle  = new Bundle();
-//            bundle.putString("filter", "PFE");
-//            frg.setArguments(bundle);
-//            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-//            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//            fragmentTransaction.replace(R.id.nav_host_fragment_content_main, frg);
-//            fragmentTransaction.addToBackStack(null);
-//            fragmentTransaction.commit();
-//        });
+
 
         feed = new FeedResponse();
 
@@ -83,6 +73,11 @@ public class FeedFragment extends Fragment implements OnPostInteractionListener 
         return root;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        refreshData();
+    }
 
     private void initJobPostViewModel() {
         jopPostViewModel = new ViewModelProvider(this).get(JobPostViewModel.class);
@@ -243,4 +238,14 @@ public class FeedFragment extends Fragment implements OnPostInteractionListener 
         feedAdapter.getFeed().get(position).setIsLiked( !feedAdapter.getFeed().get(position).isLiked() );
         feedAdapter.updateItem(position,feedAdapter.getFeed().get(position));
     }
+
+    private void refreshData() {
+        feedAdapter.clearContent();
+        recommandedOffersAdapter.clearData();
+
+        // Fetch new data
+        feedViewModel.fetchFeed(0, null, "");
+        recommendedFeedViewModel.fetchFeed(0, null, "PFE");
+    }
+
 }
