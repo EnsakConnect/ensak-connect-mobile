@@ -1,6 +1,7 @@
 package com.ensak.connect.presentation.home;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,7 +14,12 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,8 +27,10 @@ import com.ensak.connect.R;
 import com.ensak.connect.adapters.feed.FeedAdapter;
 import com.ensak.connect.adapters.feed.OnPostInteractionListener;
 import com.ensak.connect.adapters.feed.RecommandedOffersAdapter;
+import com.ensak.connect.adapters.fragmentAdapter.FragmentAdapter;
 import com.ensak.connect.databinding.MainHomeFragementBinding;
 import com.ensak.connect.presentation.job_post.JobPostViewModel;
+import com.ensak.connect.presentation.job_post.create.fragments.DetailsFragment;
 import com.ensak.connect.repository.feed.model.FeedContentResponse;
 import com.ensak.connect.repository.feed.model.FeedResponse;
 
@@ -53,6 +61,19 @@ public class FeedFragment extends Fragment implements OnPostInteractionListener 
         setupRecommendedOffersRecycleView();
         setupFeedRecycleView();
         setupFilterSpinner(getContext());
+
+        binding.tvSeeAllOffers.setVisibility(View.GONE);
+//        binding.tvSeeAllOffers.setOnClickListener(v -> {
+//            PostCategoryFragment frg = new PostCategoryFragment();
+//            Bundle bundle  = new Bundle();
+//            bundle.putString("filter", "PFE");
+//            frg.setArguments(bundle);
+//            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+//            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//            fragmentTransaction.replace(R.id.nav_host_fragment_content_main, frg);
+//            fragmentTransaction.addToBackStack(null);
+//            fragmentTransaction.commit();
+//        });
 
         feed = new FeedResponse();
 
