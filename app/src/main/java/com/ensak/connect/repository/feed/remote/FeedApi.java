@@ -13,4 +13,7 @@ public interface FeedApi {
                                @Query("search") String search,
                                @Query("filter") String filter);
 
+
+    @GET("/myposts")
+    Call<FeedResponse> getUserPosts();
 }

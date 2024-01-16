@@ -32,5 +32,16 @@ public class UserPostActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        initView();
+        iniVewModel();
+
+    }
+
+    private void iniVewModel() {
+
+    }
+
+    private void initView() {
     }
 }
