@@ -66,7 +66,7 @@ public class JobPostRepository {
             }
         });
     }
-    
+
     public void getApplications(int jobId, RepositoryCallBack<List<JobPostApplicationResponse>> callBack) {
         api.getApplications(jobId).enqueue(new Callback<List<JobPostApplicationResponse>>() {
             @Override
