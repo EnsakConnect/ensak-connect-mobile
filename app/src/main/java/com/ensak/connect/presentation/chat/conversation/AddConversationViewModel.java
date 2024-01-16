@@ -20,6 +20,7 @@ public class AddConversationViewModel extends ViewModel {
     private MutableLiveData<ArrayList<ProfileResponseDTO>> profiles = new MutableLiveData<>(new ArrayList<>());
     private MutableLiveData<String> errorMessage = new MutableLiveData<>("");
     private MutableLiveData<Boolean> isLoading = new MutableLiveData<>(true);
+    private MutableLiveData<String> successMessage = new MutableLiveData<>("");
     private SearchProfileRepository repository;
 
     @Inject
@@ -33,6 +34,7 @@ public class AddConversationViewModel extends ViewModel {
             @Override
             public void onSuccess(ArrayList<ProfileResponseDTO> data) {
                 profiles.setValue(data);
+                successMessage.setValue("Profiles feched successfully");
                 isLoading.setValue(false);
             }
 
@@ -54,6 +56,9 @@ public class AddConversationViewModel extends ViewModel {
 
     public LiveData<String> getErrorMessage() {
         return errorMessage;
+    }
+    public LiveData<String> getIsSuccess() {
+        return successMessage;
     }
 
 }

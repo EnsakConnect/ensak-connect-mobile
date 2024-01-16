@@ -96,7 +96,7 @@ public class ConversationsActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1) {
             conversationViewModel.fetchConversations();
-            initViewModel();
+//            initViewModel();
         }
     }
 }

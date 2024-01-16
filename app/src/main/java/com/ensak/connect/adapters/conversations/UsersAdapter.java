@@ -17,9 +17,7 @@ import com.ensak.connect.repository.profile.model.ProfileResponseDTO;
 
 import java.util.ArrayList;
 
-public class UsersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-
-    UserProfileItemBinding binding;
+public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> {
     private ArrayList<ProfileResponseDTO> users;
 
     public UsersAdapter(ArrayList<ProfileResponseDTO> users) {
@@ -27,17 +25,18 @@ public class UsersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public UsersAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
 
-        binding = UserProfileItemBinding.inflate(inflater, parent, false);
-        UsersAdapter.ViewHolder viewHolder = new UsersAdapter.ViewHolder(binding.getRoot());
+
+        UserProfileItemBinding binding = UserProfileItemBinding.inflate(inflater, parent, false);
+        UsersAdapter.ViewHolder viewHolder = new UsersAdapter.ViewHolder(binding);
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull UsersAdapter.ViewHolder holder, int position) {
         ProfileResponseDTO user = users.get(position);
         Context context = holder.itemView.getContext();
 
@@ -45,7 +44,7 @@ public class UsersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 user.getProfilePicture() :
                 "https://www.w3schools.com/w3images/avatar2.png";
 
-        binding.tvUserName.setText(user.getFullName());
+        holder.getBinding().tvUserName.setText(user.getFullName());
 
         Glide.with(context)
                 .load(logo)
@@ -53,9 +52,9 @@ public class UsersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                         .placeholder(R.drawable.ic_launcher_background) // Placeholder image
                         .error(R.drawable.ic_launcher_background) // Error image in case of loading failure
                 )
-                .into(binding.ivUserImage);
+                .into(holder.getBinding().ivUserImage);
 
-        binding.cardAdd.setOnClickListener(new View.OnClickListener() {
+        holder.getBinding().cardAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ((AddConversationActivity) context).onClick(user);
@@ -72,8 +71,14 @@ public class UsersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public ViewHolder(View itemView) {
-            super(itemView);
+        private UserProfileItemBinding binding;
+        public ViewHolder(UserProfileItemBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
+        }
+
+        public UserProfileItemBinding getBinding() {
+            return binding;
         }
     }
 }
