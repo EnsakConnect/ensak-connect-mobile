@@ -19,6 +19,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.ensak.connect.R;
 import com.ensak.connect.constants.AppConstants;
+import com.ensak.connect.presentation.job_post.JobApplicationsActivity;
 import com.ensak.connect.presentation.profile.ProfileActivity;
 import com.ensak.connect.presentation.question_post.show.ShowQuestionPost;
 import com.ensak.connect.presentation.report.ReportActivity;
@@ -219,6 +220,15 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         TextView tvCompanyLocation = holder.itemView.findViewById(R.id.tv_company_location);
         Chip chipTag = holder.itemView.findViewById(R.id.chip_tag);
         ImageView ivCompanyLogo = holder.itemView.findViewById(R.id.iv_company_logo);
+        TextView tvBody = holder.itemView.findViewById(R.id.tv_body);
+
+        tvBody.setOnClickListener(v -> {
+            Intent intent = new Intent(holder.itemView.getContext(), JobApplicationsActivity.class);
+            intent.putExtra("post", post);
+            holder.itemView.getContext().startActivity(intent);
+            Log.i("DEBUG1:","we clicked");
+        });
+
 
         llPositionDetails.setVisibility(View.VISIBLE);
         llCompanyDetails.setVisibility(View.VISIBLE);
