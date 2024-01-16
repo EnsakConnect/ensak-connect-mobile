@@ -5,10 +5,11 @@ import com.ensak.connect.repository.profile.model.ProfileResponseDTO;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class FeedContentResponse {
+public class FeedContentResponse implements Serializable {
     @SerializedName("id")
     @Expose
     private int id;
