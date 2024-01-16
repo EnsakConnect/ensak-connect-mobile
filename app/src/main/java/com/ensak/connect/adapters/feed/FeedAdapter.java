@@ -60,35 +60,20 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        /*
-        Context context = parent.getContext();
-        LayoutInflater inflater = LayoutInflater.from(context);
-
-        binding = MainPostItemBinding.inflate(inflater, parent, false);
-        ViewHolder viewHolder = new ViewHolder(binding.getRoot());
-        return viewHolder;
-         */
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.main_post_item, parent, false);
-
         return new ViewHolder(view);
-
     }
 
+    public List<FeedContentResponse> getFeed() {
+        return feed;
+    }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        holder.setIsRecyclable(false);
+        //holder.setIsRecyclable(false);
         FeedContentResponse post = feed.get(position);
         Context context = holder.itemView.getContext();
-
-        /*
-        binding.tvUserName.setText(post.getAuthor().getFullName());
-        binding.tvBody.setText(post.getDescription());
-        binding.tvTags.setText("#" + String.join(", #", post.getTags()));
-        binding.chipTag.setText(post.getPostType());
-        binding.tvTimeAgo.setText(post.getTimePassed().replace(" minutes ago", "m").replace(" hours ago", "h").replace(" days ago", "d").replace(" months ago", "mon").replace(" years ago", "y"));
-         */
 
         TextView tvUserName = holder.itemView.findViewById(R.id.tv_user_name);
         TextView tvBody = holder.itemView.findViewById(R.id.tv_body);
@@ -159,7 +144,6 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             tvJobApply.setText("Applied");
             ivJobApply.setColorFilter(ContextCompat.getColor(context, R.color.primary), android.graphics.PorterDuff.Mode.SRC_IN);
             tvJobApply.setTextColor(ContextCompat.getColor(context, R.color.primary));
-
             // like also qa and blog post
             ivLike.setImageResource(R.drawable.ic_thumbs_up_filled);
         } else {
@@ -224,29 +208,6 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 .error(R.drawable.profile_picture_placeholder)
                 .centerCrop()
                 .into(ivUserImage);
-        /*binding.crdUserData.setOnClickListener(view -> {
-            Intent intent = new Intent(context, ProfileActivity.class);
-            intent.putExtra(ProfileActivity.KEY_USER_ID, post.getAuthor().getId());
-            context.startActivity(intent);
-        });
-
-        if(post.getAuthor().getTitle() == null || post.getAuthor().getTitle().isEmpty()){
-            binding.tvUserTitle.setVisibility(View.GONE);
-        } else {
-            binding.tvUserTitle.setVisibility(View.VISIBLE);
-            binding.tvUserTitle.setText(post.getAuthor().getTitle());
-        }
-        Glide.with(binding.getRoot().getContext())
-                .load(
-                        GlideAuthUrl.getUrl(
-                                binding.getRoot().getContext(),
-                                AppConstants.BASE_URL + "resources/" + post.getAuthor().getProfilePicture()
-                        )
-                )
-                .placeholder(R.drawable.profile_picture_placeholder)
-                .error(R.drawable.profile_picture_placeholder)
-                .centerCrop()
-                .into(binding.ivUserImage);*/
     }
 
     private void setupJobPost(FeedContentResponse post, RecyclerView.ViewHolder holder) {
@@ -280,25 +241,6 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             chipTag.setTextColor(holder.itemView.getContext().getColor(R.color.chip_cdi_fg));
 
         }
-
-        /*binding.llPositionDetails.setVisibility(View.VISIBLE);
-        binding.llCompanyDetails.setVisibility(View.VISIBLE);
-        binding.tvPositionTitle.setText(post.getTitle());
-        binding.tvCompanyName.setText(post.getCompany().getCompanyName());
-        binding.tvCompanyLocation.setText(post.getCompany().getLocation());
-        Glide.with(binding.getRoot().getContext())
-                .load(post.getCompany().getLogo())
-                .apply(new RequestOptions()
-                        .placeholder(R.drawable.ic_launcher_background) // Placeholder image
-                        .error(R.drawable.ic_default_company_logo_round) // Error image in case of loading failure
-                )
-                .into(binding.ivCompanyLogo);
-
-        if (post.getPostType().equals("PFE")) {
-            binding.chipTag.setChipBackgroundColorResource(R.color.tag_pfe);
-        } else {
-            binding.chipTag.setChipBackgroundColorResource(R.color.tag_cdi);
-        }*/
     }
 
     private void setupBlogpost(RecyclerView.ViewHolder holder) {
@@ -317,17 +259,6 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                         .error(R.drawable.ic_launcher_background) // Error image in case of loading failure
                 )
                 .into(ivBlogImage);
-
-
-        /*binding.chipTag.setChipBackgroundColorResource(R.color.tag_blog);
-        binding.ivBlogImage.setVisibility(View.VISIBLE);
-        Glide.with(binding.getRoot().getContext())
-                .load("https://www.w3schools.com/w3images/avatar2.png")
-                .apply(new RequestOptions()
-                        .placeholder(R.drawable.ic_launcher_background) // Placeholder image
-                        .error(R.drawable.ic_launcher_background) // Error image in case of loading failure
-                )
-                .into(binding.ivBlogImage);*/
     }
 
     private void setupDoctoratePost(FeedContentResponse post, RecyclerView.ViewHolder holder) {
@@ -340,10 +271,6 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         chipTag.setTextColor(holder.itemView.getContext().getColor(R.color.chip_doc_fg));
         llPositionDetails.setVisibility(View.VISIBLE);
         tvPositionTitle.setText(post.getTitle());
-
-        /*binding.chipTag.setChipBackgroundColorResource(R.color.tag_doctorate);
-        binding.llPositionDetails.setVisibility(View.VISIBLE);
-        binding.tvPositionTitle.setText(post.getTitle());*/
     }
 
     private void setupQNAPost(FeedContentResponse post, Context context, RecyclerView.ViewHolder holder) {
@@ -362,18 +289,6 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             intent.putExtra(ShowQuestionPost.KEY_QUESTION_POST_ID, post.getId());
             context.startActivity(intent);
         });
-        /*
-        binding.tvBody.setText(post.getTitle());
-        binding.chipTag.setChipBackgroundColorResource(R.color.tag_qa_background);
-        binding.chipTag.setTextColor(context.getColor(R.color.tag_qa_foreground));
-        binding.tvBody.setOnClickListener(v -> {
-            Intent intent = new Intent(context, ShowQuestionPost.class);
-            intent.putExtra(ShowQuestionPost.KEY_QUESTION_POST_ID, post.getId());
-            context.startActivity(intent);
-        });
-
-         */
-
     }
 
     @Override

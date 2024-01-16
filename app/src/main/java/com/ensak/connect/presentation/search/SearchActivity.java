@@ -35,10 +35,10 @@ public class SearchActivity extends AppCompatActivity implements OnPostInteracti
     String filter = "ALL";
     String searchText = "";
     FeedViewModel feedViewModel;
-    private FeedAdapter feedAdapter;
+    private FeedAdapter adapter;
     private FeedResponse feed;
     private RecyclerView recyclerView;
-    private JobPostViewModel jopPostViewModel;
+    private JobPostViewModel jobPostViewModel;
     private boolean isLoading = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -143,8 +143,8 @@ public class SearchActivity extends AppCompatActivity implements OnPostInteracti
 
     private void setupFeedRecycleView() {
         recyclerView = binding.rvAllOffers;
-        feedAdapter = new FeedAdapter(this);
-        recyclerView.setAdapter(feedAdapter);
+        adapter = new FeedAdapter(this);
+        recyclerView.setAdapter(adapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
@@ -159,33 +159,28 @@ public class SearchActivity extends AppCompatActivity implements OnPostInteracti
         });
     }
 
+
     @Override
     public void onJobApply(int position) {
-        Log.i("DEBUG", "position:" + Integer.toString(position) + ", post id :" + feed.content.get(position).getId());
-        jopPostViewModel.applyToJob(feed.content.get(position).getId());
-        feed.content.get(position).setIsLiked(true);
-        feedAdapter.updateItem(position, feed.content.get(position));
+        Log.i("DEBUG", "position:" + Integer.toString(position) + ", post id :" + adapter.getFeed().get(position).getId());
+        jobPostViewModel.applyToJob(adapter.getFeed().get(position).getId());
+        adapter.getFeed().get(position).setIsLiked(true);
+        adapter.updateItem(position,adapter.getFeed().get(position));
         Log.i("DEBUG:", "position" + Integer.toString(position));
-        //feedAdapter.notifyItemChanged(position,feed.content.get(position));
-    }
-    @Override
-    public void likeDislikeQuestionPost(FeedContentResponse post, int index) {
-        feedViewModel.likeDislikeQuestionPost(post, index);
-        feedViewModel.getLikeStatus().observe(this, isLiked -> {
-            post.setIsLiked(isLiked);
-            post.setLikesCount(isLiked ? post.getLikesCount() + 1 : post.getLikesCount() - 1);
-            feedAdapter.notifyDataSetChanged();
-        });
     }
 
     @Override
-    public void likeDislikeBlogPost(FeedContentResponse post, int index) {
-        feedViewModel.likeDislikeBlogPost(post, index);
-        feedViewModel.getLikeStatus().observe(this, isLiked -> {
-            post.setIsLiked(isLiked);
-            post.setLikesCount(isLiked ? post.getLikesCount() + 1 : post.getLikesCount() - 1);
-            feedAdapter.notifyDataSetChanged();
-        });
+    public void likeDislikeQuestionPost(FeedContentResponse post, int position) {
+        feedViewModel.likeDislikeQuestionPost(post);
+        adapter.getFeed().get(position).setIsLiked( !adapter.getFeed().get(position).isLiked() );
+        adapter.updateItem(position,adapter.getFeed().get(position));
+    }
+
+    @Override
+    public void likeDislikeBlogPost(FeedContentResponse post, int position) {
+        feedViewModel.likeDislikeBlogPost(post);
+        adapter.getFeed().get(position).setIsLiked( !adapter.getFeed().get(position).isLiked() );
+        adapter.updateItem(position,adapter.getFeed().get(position));
     }
 
     public void onLoadMore() {
@@ -202,7 +197,7 @@ public class SearchActivity extends AppCompatActivity implements OnPostInteracti
 
         feedViewModel.getFeed().observe(this, feedResponse -> {
             feed = feedResponse;
-            feedAdapter.setItems(feedResponse.content);
+            adapter.setItems(feedResponse.content);
             isLoading = false;
         });
 

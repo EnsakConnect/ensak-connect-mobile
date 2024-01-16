@@ -106,20 +106,20 @@ public class FeedFragment extends Fragment implements OnPostInteractionListener 
         feedViewModel =
                 new ViewModelProvider(this).get(FeedViewModel.class);
 
-        feedViewModel.getFeed().observe(this, feedResponse -> {
+        feedViewModel.getFeed().observe(getViewLifecycleOwner(), feedResponse -> {
             feed = feedResponse;
             feedAdapter.addList(feedResponse.content);
             isLoading = false;
         });
 
-        feedViewModel.getIsLoading().observe(this, isLoading -> {
+        feedViewModel.getIsLoading().observe(getViewLifecycleOwner(), isLoading -> {
             if (isLoading)
                 binding.loadingProgressBar.setVisibility(View.VISIBLE);
             else
                 binding.loadingProgressBar.setVisibility(View.GONE);
         });
 
-        feedViewModel.getErrorMessage().observe(this, errorMessage -> {
+        feedViewModel.getErrorMessage().observe(getViewLifecycleOwner(), errorMessage -> {
             if (errorMessage.isEmpty()) {
                 return;
             }
@@ -201,31 +201,24 @@ public class FeedFragment extends Fragment implements OnPostInteractionListener 
 
     @Override
     public void onJobApply(int position) {
-        Log.i("DEBUG", "position:" + Integer.toString(position) + ", post id :" + feed.content.get(position).getId());
-        jopPostViewModel.applyToJob(feed.content.get(position).getId());
-        feed.content.get(position).setIsLiked(true);
-        feedAdapter.updateItem(position, feed.content.get(position));
+        Log.i("DEBUG", "position:" + Integer.toString(position) + ", post id :" + feedAdapter.getFeed().get(position).getId());
+        jopPostViewModel.applyToJob(feedAdapter.getFeed().get(position).getId());
+        feedAdapter.getFeed().get(position).setIsLiked(true);
+        feedAdapter.updateItem(position,feedAdapter.getFeed().get(position));
         Log.i("DEBUG:", "position" + Integer.toString(position));
-        //feedAdapter.notifyItemChanged(position,feed.content.get(position));
     }
 
     @Override
-    public void likeDislikeQuestionPost(FeedContentResponse post, int index) {
-        feedViewModel.likeDislikeQuestionPost(post, index);
-        feedViewModel.getLikeStatus().observe(this, isLiked -> {
-            post.setIsLiked(isLiked);
-            post.setLikesCount(isLiked ? post.getLikesCount() + 1 : post.getLikesCount() - 1);
-            feedAdapter.notifyDataSetChanged();
-        });
+    public void likeDislikeQuestionPost(FeedContentResponse post, int position) {
+        feedViewModel.likeDislikeQuestionPost(post);
+        feedAdapter.getFeed().get(position).setIsLiked( !feedAdapter.getFeed().get(position).isLiked() );
+        feedAdapter.updateItem(position,feedAdapter.getFeed().get(position));
     }
 
     @Override
-    public void likeDislikeBlogPost(FeedContentResponse post, int index) {
-        feedViewModel.likeDislikeBlogPost(post, index);
-        feedViewModel.getLikeStatus().observe(this, isLiked -> {
-            post.setIsLiked(isLiked);
-            post.setLikesCount(isLiked ? post.getLikesCount() + 1 : post.getLikesCount() - 1);
-            feedAdapter.notifyDataSetChanged();
-        });
+    public void likeDislikeBlogPost(FeedContentResponse post, int position) {
+        feedViewModel.likeDislikeBlogPost(post);
+        feedAdapter.getFeed().get(position).setIsLiked( !feedAdapter.getFeed().get(position).isLiked() );
+        feedAdapter.updateItem(position,feedAdapter.getFeed().get(position));
     }
 }
