@@ -23,6 +23,6 @@ public interface FeedApi {
             );
 
 
-    @GET("/myposts")
+    @GET("myposts")
     Call<FeedResponse> getUserPosts();
 }
