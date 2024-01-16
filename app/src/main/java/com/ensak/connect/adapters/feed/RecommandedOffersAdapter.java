@@ -69,4 +69,9 @@ public class RecommandedOffersAdapter extends
             return binding;
         }
     }
+
+    public void clearData() {
+        feed.clear();
+        notifyDataSetChanged();
+    }
 }
