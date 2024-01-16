@@ -219,21 +219,36 @@ public class ProfileActivity extends AppCompatActivity {
                     binding.uploadResume.setText("Ajouter un CV");
                 }
 
-                Glide.with(this)
-                        .load(
-                                GlideAuthUrl.getUrl(this, AppConstants.BASE_URL + "resources/" + profileResponse.getProfilePicture())
-                        ).placeholder(R.drawable.profile_banner_placeholder)
-                        .error(R.drawable.profile_picture_placeholder)
-                        .centerCrop()
-                        .into(binding.userProfileImage);
 
-                Glide.with(this)
-                        .load(
-                                GlideAuthUrl.getUrl(this, AppConstants.BASE_URL + "resources/" + profileResponse.getBanner())
-                        ).placeholder(R.drawable.profile_banner_placeholder)
-                        .error(R.drawable.profile_banner_placeholder)
-                        .centerCrop()
-                        .into(binding.bannerImage);
+                if(profileResponse.getProfilePicture() == null || profileResponse.getProfilePicture().isEmpty()){
+                    Glide.with(this)
+                            .load(R.drawable.profile_picture_placeholder)
+                            .centerCrop()
+                            .into(binding.userProfileImage);
+                } else {
+                    Glide.with(this)
+                            .load(
+                                    GlideAuthUrl.getUrl(this, AppConstants.BASE_URL + "resources/" + profileResponse.getProfilePicture())
+                            ).placeholder(R.drawable.profile_picture_placeholder)
+                            .error(R.drawable.profile_picture_placeholder)
+                            .centerCrop()
+                            .into(binding.userProfileImage);
+                }
+
+                if(profileResponse.getBanner() == null || profileResponse.getBanner().isEmpty()){
+                    Glide.with(this)
+                            .load(R.drawable.profile_banner_placeholder)
+                            .centerCrop()
+                            .into(binding.bannerImage);
+                } else {
+                    Glide.with(this)
+                            .load(
+                                    GlideAuthUrl.getUrl(this, AppConstants.BASE_URL + "resources/" + profileResponse.getBanner())
+                            ).placeholder(R.drawable.profile_banner_placeholder)
+                            .error(R.drawable.profile_banner_placeholder)
+                            .centerCrop()
+                            .into(binding.bannerImage);
+                }
             } else {
                 Log.d(TAG, "onCreate: Profile response is null");
             }

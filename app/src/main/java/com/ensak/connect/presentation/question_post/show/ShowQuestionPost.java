@@ -76,12 +76,20 @@ public class ShowQuestionPost extends AppCompatActivity implements OnAnswerInter
                 binding.tvUserTitle.setVisibility(View.VISIBLE);
                 binding.tvUserTitle.setText(questionPost.getAuthor().getTitle());
             }
-            Glide.with(this)
-                    .load(GlideAuthUrl.getResource(this, questionPost.getAuthor().getProfilePicture()))
-                    .error(R.drawable.profile_picture_placeholder)
-                    .placeholder(R.drawable.profile_picture_placeholder)
-                    .centerCrop()
-                    .into(binding.ivUserImage);
+            if(questionPost.getAuthor().getProfilePicture() == null || questionPost.getAuthor().getProfilePicture().isEmpty()){
+                Glide.with(this)
+                        .load(R.drawable.profile_picture_placeholder)
+                        .centerCrop()
+                        .into(binding.ivUserImage);
+            } else {
+                Glide.with(this)
+                        .load(GlideAuthUrl.getResource(this, questionPost.getAuthor().getProfilePicture()))
+                        .error(R.drawable.profile_picture_placeholder)
+                        .placeholder(R.drawable.profile_picture_placeholder)
+                        .centerCrop()
+                        .into(binding.ivUserImage);
+            }
+
             binding.tvTimeAgo.setText(DateUtil.calculateTimeAgo(questionPost.getCreatedAt()));
             binding.tvBody.setText(questionPost.getQuestion());
             if (questionPost.getLiked()){

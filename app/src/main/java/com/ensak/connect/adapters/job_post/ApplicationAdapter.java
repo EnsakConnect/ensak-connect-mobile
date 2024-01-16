@@ -66,17 +66,24 @@ public class ApplicationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             tvUserTitle.setVisibility(View.VISIBLE);
             tvUserTitle.setText(post.getApplicant().getTitle());
         }
-        Glide.with(holder.itemView.getContext())
-                .load(
-                        GlideAuthUrl.getUrl(
-                                holder.itemView.getContext(),
-                                AppConstants.BASE_URL + "resources/" + post.getApplicant().getProfilePicture()
-                        )
-                )
-                .placeholder(R.drawable.profile_picture_placeholder)
-                .error(R.drawable.profile_picture_placeholder)
-                .centerCrop()
-                .into(ivUserImage);
+        if(post.getApplicant().getProfilePicture() == null || post.getApplicant().getProfilePicture().isEmpty()){
+            Glide.with(context)
+                    .load(R.drawable.profile_picture_placeholder)
+                    .centerCrop()
+                    .into(ivUserImage);
+        } else {
+            Glide.with(holder.itemView.getContext())
+                    .load(
+                            GlideAuthUrl.getUrl(
+                                    holder.itemView.getContext(),
+                                    AppConstants.BASE_URL + "resources/" + post.getApplicant().getProfilePicture()
+                            )
+                    )
+                    .placeholder(R.drawable.profile_picture_placeholder)
+                    .error(R.drawable.profile_picture_placeholder)
+                    .centerCrop()
+                    .into(ivUserImage);
+        }
     }
 
     @Override

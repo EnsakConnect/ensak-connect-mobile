@@ -202,17 +202,24 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             tvUserTitle.setVisibility(View.VISIBLE);
             tvUserTitle.setText(post.getAuthor().getTitle());
         }
-        Glide.with(holder.itemView.getContext())
-                .load(
-                        GlideAuthUrl.getUrl(
-                                holder.itemView.getContext(),
-                                AppConstants.BASE_URL + "resources/" + post.getAuthor().getProfilePicture()
-                        )
-                )
-                .placeholder(R.drawable.profile_picture_placeholder)
-                .error(R.drawable.profile_picture_placeholder)
-                .centerCrop()
-                .into(ivUserImage);
+        if(post.getAuthor().getProfilePicture() == null || post.getAuthor().getProfilePicture().isEmpty()){
+            Glide.with(context)
+                    .load(R.drawable.profile_picture_placeholder)
+                    .centerCrop()
+                    .into(ivUserImage);
+        } else {
+            Glide.with(holder.itemView.getContext())
+                    .load(
+                            GlideAuthUrl.getUrl(
+                                    holder.itemView.getContext(),
+                                    AppConstants.BASE_URL + "resources/" + post.getAuthor().getProfilePicture()
+                            )
+                    )
+                    .placeholder(R.drawable.profile_picture_placeholder)
+                    .error(R.drawable.profile_picture_placeholder)
+                    .centerCrop()
+                    .into(ivUserImage);
+        }
     }
 
     private void setupJobPost(FeedContentResponse post, RecyclerView.ViewHolder holder) {
