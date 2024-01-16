@@ -45,7 +45,7 @@ public class JobPostViewModel extends ViewModel {
         });
     }
 
-    public  void getApplications(int jobId){
+    public  void getJobApplications(int jobId){
         repository.getApplications(jobId, new  RepositoryCallBack<List<JobPostApplicationResponse>>(){
             @Override
             public void onSuccess(List<JobPostApplicationResponse> data) {

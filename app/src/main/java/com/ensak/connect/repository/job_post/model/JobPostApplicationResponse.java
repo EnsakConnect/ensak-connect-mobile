@@ -21,6 +21,18 @@ public class JobPostApplicationResponse {
     @Expose
     private ProfileResponseDTO applicant;
 
+    public Integer getId() {
+        return id;
+    }
+
+    public Integer getJobPostId() {
+        return jobPostId;
+    }
+
+    public ProfileResponseDTO getApplicant() {
+        return applicant;
+    }
+
     @SerializedName("message")
     @Expose
     private String message;

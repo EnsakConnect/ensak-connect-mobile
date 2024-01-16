@@ -2,6 +2,7 @@ package com.ensak.connect.presentation.job_post;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -11,9 +12,13 @@ import android.view.View;
 
 import com.ensak.connect.R;
 import com.ensak.connect.adapters.feed.FeedAdapter;
+import com.ensak.connect.adapters.job_post.ApplicationAdapter;
 import com.ensak.connect.databinding.JobApplicationsActivityBinding;
 import com.ensak.connect.repository.feed.model.FeedContentResponse;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class JobApplicationsActivity extends AppCompatActivity {
 
     final private String POST = "post";
@@ -23,6 +28,8 @@ public class JobApplicationsActivity extends AppCompatActivity {
     private JobPostViewModel jobPostViewModel;
 
     private RecyclerView recyclerView;
+
+    private ApplicationAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +59,14 @@ public class JobApplicationsActivity extends AppCompatActivity {
     }
 
     private void initViewModel() {
+        jobPostViewModel = new ViewModelProvider(this).get(JobPostViewModel.class);
+
+        jobPostViewModel.getApplications().observe(this, applications -> {
+            adapter.setApplications(applications);
+        });
+
+        jobPostViewModel.getJobApplications(post.getId());
+
     }
 
     private void initView() {
@@ -66,7 +81,8 @@ public class JobApplicationsActivity extends AppCompatActivity {
         }
 
         recyclerView = binding.rvApplications;
-        //setup adapter
+        adapter = new ApplicationAdapter();
+        recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 }
