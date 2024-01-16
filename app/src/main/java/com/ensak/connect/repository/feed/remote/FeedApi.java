@@ -8,9 +8,16 @@ import retrofit2.http.Query;
 
 public interface FeedApi {
     @GET("feeds")
-    Call<FeedResponse> getFeed(@Query("page") int page,
-                               @Query("size") int size,
-                               @Query("search") String search,
-                               @Query("filter") String filter);
+    Call<FeedResponse> getFeed(
+            @Query("page") int page,
+            @Query("size") int size,
+            @Query("search") String search,
+            @Query("filter") String filter);
+
+    @GET("feeds")
+    Call<FeedResponse> getProfiles(
+            @Query("page") int page,
+            @Query("size") int size,
+            @Query("fullname") String fullname);
 
 }
