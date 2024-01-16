@@ -22,4 +22,7 @@ public interface FeedApi {
             @Query("size") int size
             );
 
+
+    @GET("myposts")
+    Call<FeedResponse> getUserPosts();
 }
