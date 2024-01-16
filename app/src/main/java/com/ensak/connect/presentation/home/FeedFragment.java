@@ -33,7 +33,7 @@ public class FeedFragment extends Fragment implements OnPostInteractionListener 
 
     private MainHomeFragementBinding binding;
     private FeedViewModel feedViewModel;
-    private FeedViewModel recommendedFeedViewModel;
+    private RecommendedOffersViewModel recommendedFeedViewModel;
     private JobPostViewModel jopPostViewModel;
     private FeedAdapter feedAdapter;
     private RecommandedOffersAdapter recommandedOffersAdapter;
@@ -129,10 +129,11 @@ public class FeedFragment extends Fragment implements OnPostInteractionListener 
 
     private void initRecommendedViewModel() {
         recommendedFeedViewModel =
-                new ViewModelProvider(this).get(FeedViewModel.class);
+                new ViewModelProvider(this).get(RecommendedOffersViewModel.class);
 
         recommendedFeedViewModel.getFeed().observe(getViewLifecycleOwner(), feedResponse -> {
-            recommandedOffersAdapter.setItems(feedResponse);
+            Log.d("TGGGG", "Size:" + feedResponse.content.size());
+            recommandedOffersAdapter.setItems(feedResponse.content);
         });
 
         recommendedFeedViewModel.getIsLoading().observe(getViewLifecycleOwner(), isLoading -> {
