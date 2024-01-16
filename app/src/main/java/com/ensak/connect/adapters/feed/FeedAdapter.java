@@ -26,6 +26,7 @@ import com.ensak.connect.presentation.report.ReportActivity;
 import com.ensak.connect.repository.feed.model.FeedContentResponse;
 import com.ensak.connect.presentation.blog_post.comments.CommentsActivity;
 import com.ensak.connect.service.GlideAuthUrl;
+import com.ensak.connect.service.SessionManagerService;
 import com.google.android.material.chip.Chip;
 
 import java.util.ArrayList;
@@ -34,6 +35,8 @@ import java.util.List;
 public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     //MainPostItemBinding binding;
+
+    private SessionManagerService managerService;
 
     private List<FeedContentResponse> feed = new ArrayList<>();
 
@@ -63,6 +66,7 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.main_post_item, parent, false);
+        managerService = new SessionManagerService(parent.getContext());
         return new ViewHolder(view);
     }
 
@@ -223,6 +227,8 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         TextView tvBody = holder.itemView.findViewById(R.id.tv_body);
 
         tvBody.setOnClickListener(v -> {
+            if(managerService.getUserId() != post.getAuthor().getUserId())
+                return;
             Intent intent = new Intent(holder.itemView.getContext(), JobApplicationsActivity.class);
             intent.putExtra("post", post);
             holder.itemView.getContext().startActivity(intent);
@@ -278,6 +284,8 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         TextView tvPositionTitle = holder.itemView.findViewById(R.id.tv_position_title);
         TextView tvBody = holder.itemView.findViewById(R.id.tv_body);
         tvBody.setOnClickListener(v -> {
+            if(managerService.getUserId() != post.getAuthor().getUserId())
+                return;
             Intent intent = new Intent(holder.itemView.getContext(), JobApplicationsActivity.class);
             intent.putExtra("post", post);
             holder.itemView.getContext().startActivity(intent);
