@@ -14,6 +14,6 @@ public interface FeedApi {
                                @Query("filter") String filter);
 
 
-    @GET("/myposts")
+    @GET("myposts")
     Call<FeedResponse> getUserPosts();
 }
