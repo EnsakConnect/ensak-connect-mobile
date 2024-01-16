@@ -8,6 +8,8 @@ import com.ensak.connect.repository.job_post.remote.JobPostApi;
 import com.ensak.connect.repository.job_post.model.JobPostRequest;
 import com.ensak.connect.repository.job_post.model.JobPostResponse;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import retrofit2.Call;
@@ -61,6 +63,22 @@ public class JobPostRepository {
             @Override
             public void onFailure(Call<JobPostApplicationResponse> call, Throwable t) {
                 callBack.onFailure(new Exception("Error applying for job"));
+            }
+        });
+    }
+    
+    public void getApplications(int jobId, RepositoryCallBack<List<JobPostApplicationResponse>> callBack) {
+        api.getApplications(jobId).enqueue(new Callback<List<JobPostApplicationResponse>>() {
+            @Override
+            public void onResponse(Call<List<JobPostApplicationResponse>> call, Response<List<JobPostApplicationResponse>> response) {
+                if(response.isSuccessful()){
+                    Log.d(TAG, "Res: " + response.errorBody());
+                    callBack.onSuccess(response.body());
+                }
+            }
+            @Override
+            public void onFailure(Call<List<JobPostApplicationResponse>> call, Throwable t) {
+                callBack.onFailure(new Exception("Error getting applications list"));
             }
         });
     }

@@ -1,6 +1,7 @@
 package com.ensak.connect.repository.job_post.model;
 
 import com.ensak.connect.repository.auth.model.UserResponse;
+import com.ensak.connect.repository.profile.model.ProfileResponseDTO;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -18,7 +19,7 @@ public class JobPostApplicationResponse {
 
     @SerializedName("applicant")
     @Expose
-    private UserResponse applicant;
+    private ProfileResponseDTO applicant;
 
     @SerializedName("message")
     @Expose
