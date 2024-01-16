@@ -132,6 +132,7 @@ public class SearchActivity extends AppCompatActivity implements OnPostInteracti
             public void onClick(View v) {
 //                if (filter.equals("Profile")){
 //                    feedViewModel.fetchProfiles(0, searchText);
+
 //                }else{
                     feedViewModel.fetchFeed(0, searchText, filter);
 //                }
@@ -201,7 +202,7 @@ public class SearchActivity extends AppCompatActivity implements OnPostInteracti
 
         feedViewModel.getFeed().observe(this, feedResponse -> {
             feed = feedResponse;
-            feedAdapter.addList(feedResponse.content);
+            feedAdapter.setItems(feedResponse.content);
             isLoading = false;
         });
 
