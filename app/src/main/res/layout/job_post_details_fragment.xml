@@ -163,13 +163,6 @@
                 android:gravity="end"
                 app:layout_constraintBottom_toBottomOf="parent">
 
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btnCancel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/ButtonDangerSecondary"
-                    android:layout_marginEnd="16dp"
-                    android:text="Cancel" />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btnNext"
